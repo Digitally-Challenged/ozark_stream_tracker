@@ -1,48 +1,70 @@
-import React from 'react';
-import { Box, Typography, Table, TableBody, TableRow, TableCell } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
+import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
+import { 
+  getSizeDefinition, 
+  getCorrelationDefinition, 
+  getLevelDefinition,
+  getRatingDefinition,
+  sizeDefinitions,
+  correlationDefinitions 
+} from '../../types/streamDefinitions';
+import { LevelTrend } from '../../types/stream';
 
 interface InfoTooltipProps {
-  type: 'size' | 'correlation' | 'level';
+  type: 'size' | 'correlation' | 'level' | 'rating';
   value: string;
+  trend?: LevelTrend;
 }
 
-const getLevelInfo = (level: string) => {
-  const levelMap = {
-    'X': {
-      name: 'Too Low',
-      color: '#d32f2f',
-      description: 'Creek is too low for fun paddling.'
-    },
-    'L': {
-      name: 'Low',
-      color: '#ed6c02',
-      description: 'Creek is low but paddlable. May have to drag/portage in places.'
-    },
-    'O': {
-      name: 'Optimal',
-      color: '#2e7d32',
-      description: 'Creek is perfect for paddling. The ratings listed are for this range.'
-    },
-    'H': {
-      name: 'High/Flood',
-      color: '#0288d1',
-      description: 'Creek is high and potentially very dangerous. Many more hazards are present in this range and ratings typically are tougher than what is listed.'
+export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
+  const theme = useTheme();
+
+  const renderTrendIcon = () => {
+    if (!trend) return null;
+
+    const iconProps = { 
+      size: 16,
+      strokeWidth: 2.5
+    };
+
+    switch (trend) {
+      case LevelTrend.Rising:
+        return <ArrowUp {...iconProps} color={theme.palette.success.main} />;
+      case LevelTrend.Falling:
+        return <ArrowDown {...iconProps} color={theme.palette.error.main} />;
+      case LevelTrend.Holding:
+        return <Minus {...iconProps} color={theme.palette.text.secondary} />;
+      default:
+        return null;
     }
   };
-  return levelMap[level as keyof typeof levelMap] || null;
-};
 
-// ... rest of the existing InfoTooltip component code ...
-
-export default function InfoTooltip({ type, value }: InfoTooltipProps) {
   const renderLevelContent = () => {
-    const info = getLevelInfo(value);
-    if (!info) return null;
+    const levelKey = value === 'X' ? 'tooLow' : 
+                    value === 'L' ? 'low' : 
+                    value === 'O' ? 'optimal' : 
+                    value === 'H' ? 'high' : null;
+                    
+    if (!levelKey) return null;
+    const info = getLevelDefinition(levelKey);
 
     return (
-      <Box>
-        <Box display="flex" alignItems="center" gap={1} mb={1}>
-          <Typography variant="subtitle1" fontWeight="bold">
+      <Box sx={{ p: 1 }}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 1, 
+            mb: 1 
+          }}
+        >
+          <Typography 
+            variant="subtitle1" 
+            sx={{ 
+              fontWeight: 600,
+              color: theme.palette.text.primary 
+            }}
+          >
             {info.name}
           </Typography>
           <Box
@@ -50,16 +72,164 @@ export default function InfoTooltip({ type, value }: InfoTooltipProps) {
               width: 12,
               height: 12,
               borderRadius: '50%',
-              backgroundColor: info.color
+              bgcolor: info.color
             }}
           />
+          {renderTrendIcon()}
         </Box>
-        <Typography variant="body2">
+        <Typography 
+          variant="body2"
+          sx={{ color: theme.palette.text.secondary }}
+        >
+          {info.description}
+        </Typography>
+        {trend && trend !== LevelTrend.None && (
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              mt: 1,
+              color: trend === LevelTrend.Rising ? theme.palette.success.main :
+                     trend === LevelTrend.Falling ? theme.palette.error.main :
+                     theme.palette.text.secondary
+            }}
+          >
+            Level is {trend.toLowerCase()}
+          </Typography>
+        )}
+      </Box>
+    );
+  };
+
+  const renderSizeContent = () => {
+    const info = getSizeDefinition(value as keyof typeof sizeDefinitions);
+    return (
+      <Box sx={{ p: 1 }}>
+        <Typography 
+          variant="subtitle1" 
+          sx={{ 
+            fontWeight: 600,
+            color: theme.palette.text.primary,
+            mb: 1 
+          }}
+        >
+          {info.name}
+        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+          <Typography 
+            variant="body2"
+            sx={{ color: theme.palette.text.secondary }}
+          >
+            Width: {info.width}
+          </Typography>
+          <Typography 
+            variant="body2"
+            sx={{ color: theme.palette.text.secondary }}
+          >
+            Watershed: {info.watershed}
+          </Typography>
+          <Typography 
+            variant="body2"
+            sx={{ color: theme.palette.text.secondary }}
+          >
+            Rain Rate: {info.rainRate}
+          </Typography>
+          <Typography 
+            variant="body2"
+            sx={{ color: theme.palette.text.secondary }}
+          >
+            Window: {info.window}
+          </Typography>
+          <Typography 
+            variant="body2" 
+            sx={{ 
+              mt: 1,
+              color: theme.palette.text.primary 
+            }}
+          >
+            {info.description}
+          </Typography>
+        </Box>
+      </Box>
+    );
+  };
+
+  const renderCorrelationContent = () => {
+    const info = getCorrelationDefinition(value as keyof typeof correlationDefinitions);
+    return (
+      <Box sx={{ p: 1 }}>
+        <Typography 
+          variant="subtitle1" 
+          sx={{ 
+            fontWeight: 600,
+            color: theme.palette.text.primary,
+            mb: 1 
+          }}
+        >
+          {info.name}
+        </Typography>
+        <Typography 
+          variant="body2"
+          sx={{ color: theme.palette.text.secondary }}
+        >
           {info.description}
         </Typography>
       </Box>
     );
   };
 
-  // ... rest of the existing component code ...
+  const renderRatingContent = () => {
+    const info = getRatingDefinition(value);
+    return (
+      <Box sx={{ p: 1, maxWidth: 300 }}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 1, 
+            mb: 1 
+          }}
+        >
+          <Typography 
+            variant="subtitle1" 
+            sx={{ 
+              fontWeight: 600,
+              color: theme.palette.text.primary 
+            }}
+          >
+            {info.name}
+          </Typography>
+          <Box
+            sx={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              bgcolor: info.color
+            }}
+          />
+        </Box>
+        <Typography 
+          variant="body2"
+          sx={{ 
+            color: theme.palette.text.secondary,
+            lineHeight: 1.5 
+          }}
+        >
+          {info.description}
+        </Typography>
+      </Box>
+    );
+  };
+
+  switch (type) {
+    case 'level':
+      return renderLevelContent();
+    case 'size':
+      return renderSizeContent();
+    case 'correlation':
+      return renderCorrelationContent();
+    case 'rating':
+      return renderRatingContent();
+    default:
+      return null;
+  }
 }

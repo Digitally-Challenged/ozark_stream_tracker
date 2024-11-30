@@ -16,7 +16,8 @@ export function StreamTableHeader({ sortField, sortDirection, onSort }: StreamTa
     { field: 'gauge', label: 'Reference Gauge' },
     { field: 'reading', label: 'Gauge Reading' },
     { field: 'quality', label: 'Quality' },
-    { field: 'level', label: 'Current Level' }
+    { field: 'level', label: 'Current Level' },
+    { field: 'trend', label: 'Trend' }
   ];
 
   return (

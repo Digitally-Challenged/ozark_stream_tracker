@@ -112,27 +112,61 @@ export const correlationDefinitions = {
 export const levelDefinitions = {
   tooLow: {
     name: 'Too Low',
-    code: 'X',
+    code: 'Too Low',
     color: '#FF0000',
     description: 'Creek is too low for fun paddling'
   },
   low: {
     name: 'Low',
-    code: 'L',
+    code: 'Low',
     color: '#FFFF00',
     description: 'Creek is low but paddlable. May have to drag/portage in places'
   },
   optimal: {
     name: 'Optimal',
-    code: 'O',
+    code: 'Optimal',
     color: '#00FF00',
     description: 'Creek is perfect for paddling. The ratings listed are for this range'
   },
   high: {
     name: 'High/Flood',
-    code: 'H',
+    code: 'High/Flood',
     color: '#0000FF',
     description: 'Creek is high and potentially very dangerous. Many more hazards are present in this range'
+  }
+} as const;
+
+/** Detailed whitewater class rating definitions */
+export const ratingDefinitions = {
+  'I': {
+    name: 'Class I - Easy',
+    description: 'Fast moving water with riffles and small waves. Few obstacles, all obvious and easily missed with little training.',
+    color: '#4caf50', // success.main
+  },
+  'II': {
+    name: 'Class II - Novice',
+    description: 'Straightforward rapids with wide, clear channels. Occasional maneuvering may be required.',
+    color: '#81c784', // success.light
+  },
+  'III': {
+    name: 'Class III - Intermediate',
+    description: 'Rapids with moderate, irregular waves. Complex maneuvers in fast current and good boat control required.',
+    color: '#ff9800', // warning.main
+  },
+  'IV': {
+    name: 'Class IV - Advanced',
+    description: 'Intense, powerful but predictable rapids requiring precise boat handling in turbulent water.',
+    color: '#ef5350', // error.light
+  },
+  'V': {
+    name: 'Class V - Expert',
+    description: 'Extremely long, obstructed, or very violent rapids. Serious risks involved with rescue conditions difficult.',
+    color: '#d32f2f', // error.main
+  },
+  'V+': {
+    name: 'Class V+ - Extreme',
+    description: 'These runs have almost never been attempted and often exemplify the extremes of difficulty, unpredictability and danger.',
+    color: '#c62828', // error.dark
   }
 } as const;
 
@@ -147,4 +181,33 @@ export function getCorrelationDefinition(quality: keyof typeof correlationDefini
 
 export function getLevelDefinition(level: keyof typeof levelDefinitions) {
   return levelDefinitions[level];
+}
+
+/** Type-safe helper to get rating definition */
+export function getRatingDefinition(rating: string) {
+  // Handle combined ratings (e.g., "III-IV")
+  if (rating.includes('-')) {
+    const [lower, upper] = rating.split('-');
+    return {
+      name: `Class ${rating} - Mixed`,
+      description: `Difficulty varies between ${ratingDefinitions[lower as keyof typeof ratingDefinitions]?.name} and ${ratingDefinitions[upper as keyof typeof ratingDefinitions]?.name} characteristics.`,
+      color: ratingDefinitions[upper as keyof typeof ratingDefinitions]?.color || '#ff9800',
+    };
+  }
+
+  // Handle plus ratings (e.g., "III+")
+  if (rating.includes('+') && !rating.startsWith('V+')) {
+    const baseRating = rating.replace('+', '') as keyof typeof ratingDefinitions;
+    return {
+      name: `Class ${rating} - Advanced ${ratingDefinitions[baseRating]?.name.split('-')[1]}`,
+      description: `More demanding than ${baseRating} with some characteristics of the next higher class.`,
+      color: ratingDefinitions[baseRating]?.color || '#ff9800',
+    };
+  }
+
+  return ratingDefinitions[rating as keyof typeof ratingDefinitions] || {
+    name: `Class ${rating}`,
+    description: 'Rating information not available.',
+    color: '#9e9e9e', // grey[500]
+  };
 }

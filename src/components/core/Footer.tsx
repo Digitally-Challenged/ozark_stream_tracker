@@ -1,27 +1,18 @@
-import React from 'react';
-import { Box, Container, Typography, Link } from '@mui/material';
-
 export function Footer() {
   return (
-    <Box
-      component="footer"
-      sx={{
-        py: 3,
-        px: 2,
-        mt: 'auto',
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
-      }}
-    >
-      <Container maxWidth="sm">
-        <Typography variant="body2" color="text.secondary" align="center">
-          {'© '}
-          <Link color="inherit" href="#">
+    <footer className="py-6 px-4 mt-auto bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+      <div className="max-w-2xl mx-auto">
+        <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+          © {' '}
+          <a
+            href="#"
+            className="text-inherit hover:text-primary-main hover:underline transition-colors"
+          >
             Mountain Stream Tracker
-          </Link>{' '}
+          </a>{' '}
           {new Date().getFullYear()}
-        </Typography>
-      </Container>
-    </Box>
+        </p>
+      </div>
+    </footer>
   );
 }

@@ -1,22 +1,74 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, useTheme as useMuiTheme } from '@mui/material';
-import { Moon, Sun, Droplets } from 'lucide-react';
-import { useTheme } from '../../context/ThemeContext';
+import { AppBar, Toolbar, Typography, IconButton, useTheme, Box } from '@mui/material';
+import { Moon, Sun } from 'lucide-react';
+import { Kayaking } from '@mui/icons-material';
+import { useTheme as useColorMode } from '../../context/ThemeContext';
 
 export function Header() {
-  const { mode, toggleColorMode } = useTheme();
-  const theme = useMuiTheme();
+  const { mode, toggleColorMode } = useColorMode();
+  const theme = useTheme();
 
   return (
-    <AppBar position="static" elevation={0}>
-      <Toolbar>
-        <Droplets className="mr-2" />
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Mountain Stream Tracker
-        </Typography>
-        <IconButton onClick={toggleColorMode} color="inherit">
-          {mode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-        </IconButton>
+    <AppBar 
+      position="static" 
+      elevation={0}
+      sx={{
+        backgroundColor: 'rgb(17, 24, 39)',
+        borderBottom: `1px solid ${theme.palette.divider}`,
+      }}
+    >
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center',
+          gap: 2
+        }}>
+          <Box sx={{ 
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center'
+          }}>
+            <Kayaking sx={{ fontSize: 32 }} />
+          </Box>
+          <Typography 
+            variant="h6" 
+            sx={{ 
+              color: 'white',
+              letterSpacing: '0.2em',
+              fontWeight: 300
+            }}
+          >
+            OZARK CREEK FLOW ZONE
+          </Typography>
+        </Box>
+
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          <Typography 
+            sx={{ 
+              color: 'rgba(255, 255, 255, 0.9)',
+              letterSpacing: '0.1em',
+              fontSize: { xs: '0.875rem', md: '1rem' },
+              display: { xs: 'none', md: 'block' }
+            }}
+          >
+            KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
+          </Typography>
+          
+          <IconButton 
+            onClick={toggleColorMode}
+            sx={{
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+            }}
+          >
+            {mode === 'dark' ? (
+              <Sun size={20} />
+            ) : (
+              <Moon size={20} />
+            )}
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );

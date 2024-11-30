@@ -610,6 +610,22 @@ export const streams: StreamData[] = [
     }
   },
   {
+    name: "Kings River (lower)",
+    rating: "A",
+    size: "L",
+    gauge: {
+      name: "Kings River near Berryville",
+      id: "07050500",  // Note: Fixed the ID to match URL
+      url: "https://waterdata.usgs.gov/monitoring-location/07050500"
+    },
+    quality: "B",
+    targetLevels: {
+      tooLow: 2.85,
+      optimal: 3.50,
+      high: 5.00
+    }
+  },
+  {
     name: "Illinois Bayou",
     rating: "II",
     size: "M",
@@ -751,6 +767,22 @@ export const streams: StreamData[] = [
       tooLow: 6.0,
       optimal: 7.0,
       high: 10.0
+    }
+  },
+  {
+    name: "Little Sugar Creek - Bella Vista",
+    rating: "A",
+    size: "M",
+    gauge: {
+      name: "Little Sugar Creek at Pineville",
+      id: "07188838",
+      url: "https://waterdata.usgs.gov/monitoring-location/07188838/"
+    },
+    quality: "A",
+    targetLevels: {
+      tooLow: 2.85,
+      optimal: 4.50,
+      high: 5.00
     }
   },
   {

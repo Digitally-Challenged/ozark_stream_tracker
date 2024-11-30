@@ -1,6 +1,6 @@
-import React from 'react';
 import { TableRow, TableCell, Tooltip, useTheme } from '@mui/material';
-import { StreamData } from '../../types/stream';
+import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
+import { StreamData, LevelTrend } from '../../types/stream';
 import { useStreamGauge } from '../../hooks/useStreamGauge';
 import InfoTooltip from './StreamInfoTooltip';
 
@@ -13,27 +13,45 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
   const { currentLevel, reading, loading, error } = useStreamGauge(stream);
   const theme = useTheme();
 
-  const getLevelColor = (level: string) => {
+  const getLevelColor = (status: string | undefined) => {
+    if (!status) return undefined;
+    
     const alpha = theme.palette.mode === 'dark' ? '0.3' : '0.2';
-    switch (level) {
-      case 'X':
-        return theme.palette.mode === 'dark'
-          ? `rgba(211, 47, 47, ${alpha})`  // Dark mode red - Too Low
-          : `rgba(211, 47, 47, ${alpha})`; // Light mode red
-      case 'L':
-        return theme.palette.mode === 'dark'
-          ? `rgba(237, 108, 2, ${alpha})`  // Dark mode orange - Low
-          : `rgba(237, 108, 2, ${alpha})`; // Light mode orange
-      case 'O':
-        return theme.palette.mode === 'dark' 
-          ? `rgba(46, 125, 50, ${alpha})`  // Dark mode green - Optimal
-          : `rgba(46, 125, 50, ${alpha})`; // Light mode green
-      case 'H':
-        return theme.palette.mode === 'dark'
-          ? `rgba(2, 136, 209, ${alpha})`  // Dark mode blue - High/Flood
-          : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
+    switch (status) {
+      case 'X': return theme.palette.mode === 'dark'
+        ? `rgba(211, 47, 47, ${alpha})`  // Dark mode red - Too Low
+        : `rgba(211, 47, 47, ${alpha})`; // Light mode red
+      case 'L': return theme.palette.mode === 'dark'
+        ? `rgba(237, 108, 2, ${alpha})`  // Dark mode orange - Low
+        : `rgba(237, 108, 2, ${alpha})`; // Light mode orange
+      case 'O': return theme.palette.mode === 'dark'
+        ? `rgba(46, 125, 50, ${alpha})`  // Dark mode green - Optimal
+        : `rgba(46, 125, 50, ${alpha})`; // Light mode green
+      case 'H': return theme.palette.mode === 'dark'
+        ? `rgba(2, 136, 209, ${alpha})`  // Dark mode blue - High/Flood
+        : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
+      default: return undefined;
+    }
+  };
+
+  const renderTrendIcon = () => {
+    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) return null;
+
+    const iconProps = { 
+      size: 16,
+      strokeWidth: 2.5,
+      className: 'ml-2'
+    };
+
+    switch (currentLevel.trend) {
+      case LevelTrend.Rising:
+        return <ArrowUp {...iconProps} color={theme.palette.success.main} />;
+      case LevelTrend.Falling:
+        return <ArrowDown {...iconProps} color={theme.palette.error.main} />;
+      case LevelTrend.Holding:
+        return <Minus {...iconProps} color={theme.palette.text.secondary} />;
       default:
-        return undefined;
+        return null;
     }
   };
 
@@ -51,7 +69,15 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
       }}
     >
       <TableCell>{stream.name}</TableCell>
-      <TableCell>{stream.rating}</TableCell>
+      <TableCell>
+        <Tooltip
+          title={<InfoTooltip type="rating" value={stream.rating} />}
+          placement="right"
+          arrow
+        >
+          <span style={{ cursor: 'help' }}>{stream.rating}</span>
+        </Tooltip>
+      </TableCell>
       <TableCell>
         <Tooltip
           title={<InfoTooltip type="size" value={stream.size} />}
@@ -68,13 +94,7 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            style={{ 
-              color: theme.palette.primary.main,
-              textDecoration: 'none',
-              '&:hover': {
-                textDecoration: 'underline',
-              },
-            }}
+            className="text-blue-500 hover:underline"
           >
             {stream.gauge.name}
           </a>
@@ -106,17 +126,26 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
       </TableCell>
       <TableCell 
         sx={{ 
-          bgcolor: getLevelColor(currentLevel),
+          bgcolor: getLevelColor(currentLevel?.status),
           transition: 'background-color 0.2s ease',
         }}
       >
         <Tooltip
-          title={<InfoTooltip type="level" value={currentLevel} />}
+          title={<InfoTooltip 
+            type="level" 
+            value={currentLevel?.status || 'N/A'} 
+            trend={currentLevel?.trend}
+          />}
           placement="left"
           arrow
         >
-          <span style={{ cursor: 'help' }}>
-            {loading ? 'Loading...' : error ? 'Error' : currentLevel}
+          <span className="flex items-center">
+            {loading ? 'Loading...' : error ? 'Error' : (
+              <>
+                {currentLevel?.status || 'N/A'}
+                {renderTrendIcon()}
+              </>
+            )}
           </span>
         </Tooltip>
       </TableCell>

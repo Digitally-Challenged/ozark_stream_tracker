@@ -2,13 +2,13 @@ import { Stream } from '../types/stream';
 
 export const determineLevel = (currentReading: number, targetLevels: Stream['targetLevels']) => {
   if (currentReading < targetLevels.tooLow) {
-    return 'X'; // Too Low
+    return 'Too Low'; // Too Low
   } else if (currentReading < targetLevels.optimal) {
-    return 'L'; // Low
+    return 'Low'; // Low
   } else if (currentReading < targetLevels.high) {
-    return 'O'; // Optimal
+    return 'Optimal'; // Optimal
   } else {
-    return 'H'; // High
+    return 'High/Flood'; // High
   }
 };
 

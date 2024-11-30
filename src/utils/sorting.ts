@@ -1,5 +1,15 @@
-import { StreamData } from '../types/stream';
+import { StreamData, LevelTrend } from '../types/stream';
 import { SortDirection, SortField } from '../types/table';
+
+// Helper function to get trend priority (Rising > Holding > Falling > None)
+const getTrendPriority = (trend: LevelTrend | undefined): number => {
+  switch (trend) {
+    case LevelTrend.Rising: return 3;
+    case LevelTrend.Holding: return 2;
+    case LevelTrend.Falling: return 1;
+    default: return 0;
+  }
+};
 
 export function sortStreams(
   streams: StreamData[], 
@@ -8,6 +18,7 @@ export function sortStreams(
 ): StreamData[] {
   return [...streams].sort((a, b) => {
     let comparison = 0;
+    let trendA: number, trendB: number;
 
     switch (sortField) {
       case 'name':
@@ -25,8 +36,21 @@ export function sortStreams(
       case 'quality':
         comparison = a.quality.localeCompare(b.quality);
         break;
-      // Note: level and reading sorting will be handled by the actual values
-      // from useStreamGauge in a future update
+      case 'trend':
+        trendA = getTrendPriority(a.currentLevel?.trend);
+        trendB = getTrendPriority(b.currentLevel?.trend);
+        comparison = trendB - trendA; // Higher priority first
+        break;
+      case 'level':
+        if (a.currentLevel?.status && b.currentLevel?.status) {
+          comparison = a.currentLevel.status.localeCompare(b.currentLevel.status);
+        }
+        break;
+      case 'reading':
+        const readingA = a.currentFlow ?? -Infinity;
+        const readingB = b.currentFlow ?? -Infinity;
+        comparison = readingA - readingB;
+        break;
       default:
         comparison = 0;
     }

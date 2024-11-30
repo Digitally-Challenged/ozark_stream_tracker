@@ -6,9 +6,8 @@ import {
   Paper,
   Box,
   TextField,
-  InputAdornment,
 } from '@mui/material';
-import { Search } from 'lucide-react';
+import { Search } from '@mui/icons-material';
 import { StreamData } from '../../types/stream';
 import { StreamTableHeader } from './StreamTableHeader';
 import { StreamTableRow } from './StreamTableRow';
@@ -32,50 +31,57 @@ export function StreamTable({ streams, onStreamClick }: StreamTableProps) {
   };
 
   const filteredStreams = streams.filter((stream) => {
-    const matchesSearch = stream.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      stream.gauge.name.toLowerCase().includes(searchTerm.toLowerCase());
-    return matchesSearch;
+    const searchLower = searchTerm.toLowerCase();
+    return stream.name.toLowerCase().includes(searchLower) ||
+           stream.gauge.name.toLowerCase().includes(searchLower);
   });
 
   const sortedStreams = sortStreams(filteredStreams, sortField, sortDirection);
 
   return (
-    <Box>
-      <Box sx={{ mb: 3 }}>
+    <Box sx={{ width: '100%' }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center',
+        mb: 2,
+        maxWidth: 400,
+        position: 'relative'
+      }}>
+        <Search sx={{ 
+          position: 'absolute',
+          left: 8,
+          color: 'text.secondary'
+        }} />
         <TextField
-          fullWidth
-          variant="outlined"
           placeholder="Search streams..."
+          variant="outlined"
+          size="small"
+          fullWidth
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search size={20} />
-              </InputAdornment>
-            ),
+          sx={{
+            '& .MuiOutlinedInput-root': {
+              pl: 4.5,
+              '& fieldset': {
+                borderColor: 'divider',
+              },
+            },
           }}
         />
       </Box>
       <TableContainer 
         component={Paper} 
+        elevation={0}
         sx={{ 
-          maxHeight: 'calc(100vh - 400px)',
-          overflow: 'auto',
-          '&::-webkit-scrollbar': {
-            width: 8,
-            height: 8,
-          },
-          '&::-webkit-scrollbar-track': {
-            backgroundColor: 'rgba(0, 0, 0, 0.05)',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0, 0, 0, 0.2)',
-            borderRadius: 4,
-          },
+          bgcolor: 'background.paper',
+          '& .MuiTableCell-root': {
+            py: 1.5,
+            px: 2,
+            fontSize: '0.875rem',
+          }
         }}
       >
-        <Table stickyHeader>
+        <Table size="small">
           <StreamTableHeader
             sortField={sortField}
             sortDirection={sortDirection}

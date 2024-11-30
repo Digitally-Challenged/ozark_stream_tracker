@@ -3,6 +3,13 @@ export interface GaugeReading {
   timestamp: string;
 }
 
+export enum LevelTrend {
+  Rising = 'rise',
+  Falling = 'fall',
+  Holding = 'hold',
+  None = 'none'
+}
+
 export interface Stream {
   id?: string;
   name: string;
@@ -18,6 +25,10 @@ export interface Stream {
     tooLow: number;
     optimal: number;
     high: number;
+  };
+  currentLevel?: {
+    status: string;  // 'X', 'L', 'O', 'H'
+    trend: LevelTrend;
   };
 }
 
