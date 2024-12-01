@@ -1266,6 +1266,22 @@ export const streams: StreamData[] = [
     }
   },
   {
+    name: "Spring River (Hardy)",
+    rating: "II",
+    size: "L",
+    gauge: {
+      name: "Spring River near Hardy, AR",
+      id: "07069305",
+      url: "https://waterdata.usgs.gov/monitoring-location/07069305/"
+    },
+    quality: "A",
+    targetLevels: {
+      tooLow: 2.99,
+      optimal: 3.5,
+      high: 4.0
+    }
+  },
+  {
     name: "Stepp Cr.",
     rating: "III-IV+",
     size: "VS",

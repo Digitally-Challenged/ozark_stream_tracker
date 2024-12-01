@@ -1,9 +1,14 @@
 import { AppBar, Toolbar, Typography, IconButton, useTheme, Box } from '@mui/material';
 import { Moon, Sun } from 'lucide-react';
-import { Kayaking } from '@mui/icons-material';
+import { Kayaking, FilterList } from '@mui/icons-material';
 import { useTheme as useColorMode } from '../../context/ThemeContext';
 
-export function Header() {
+interface HeaderProps {
+  onFilterClick: () => void;
+  filterOpen: boolean;
+}
+
+export function Header({ onFilterClick, filterOpen }: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
 
@@ -52,6 +57,20 @@ export function Header() {
           >
             KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
           </Typography>
+          
+          <IconButton 
+            onClick={onFilterClick}
+            sx={{
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+              transform: filterOpen ? 'rotate(180deg)' : 'none',
+              transition: 'transform 0.3s ease'
+            }}
+          >
+            <FilterList />
+          </IconButton>
           
           <IconButton 
             onClick={toggleColorMode}

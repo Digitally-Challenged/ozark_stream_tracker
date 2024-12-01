@@ -1,8 +1,8 @@
 import { TableRow, TableCell, Tooltip, useTheme } from '@mui/material';
-import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
-import { StreamData, LevelTrend } from '../../types/stream';
+import { StreamData } from '../../types/stream';
 import { useStreamGauge } from '../../hooks/useStreamGauge';
 import InfoTooltip from './StreamInfoTooltip';
+import StreamTrend from './StreamTrend';
 
 interface StreamTableRowProps {
   stream: StreamData;
@@ -31,27 +31,6 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
         ? `rgba(2, 136, 209, ${alpha})`  // Dark mode blue - High/Flood
         : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
       default: return undefined;
-    }
-  };
-
-  const renderTrendIcon = () => {
-    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) return null;
-
-    const iconProps = { 
-      size: 16,
-      strokeWidth: 2.5,
-      className: 'ml-2'
-    };
-
-    switch (currentLevel.trend) {
-      case LevelTrend.Rising:
-        return <ArrowUp {...iconProps} color={theme.palette.success.main} />;
-      case LevelTrend.Falling:
-        return <ArrowDown {...iconProps} color={theme.palette.error.main} />;
-      case LevelTrend.Holding:
-        return <Minus {...iconProps} color={theme.palette.text.secondary} />;
-      default:
-        return null;
     }
   };
 
@@ -143,11 +122,13 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
             {loading ? 'Loading...' : error ? 'Error' : (
               <>
                 {currentLevel?.status || 'N/A'}
-                {renderTrendIcon()}
               </>
             )}
           </span>
         </Tooltip>
+      </TableCell>
+      <TableCell>
+        <StreamTrend stream={stream} size={16} />
       </TableCell>
     </TableRow>
   );

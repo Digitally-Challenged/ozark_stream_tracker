@@ -5,6 +5,7 @@ import { Footer } from './components/core/Footer';
 import { StreamTable } from './components/streams/StreamTable';
 import { StreamDetail } from './components/streams/StreamDetail';
 import { DashboardHeader } from './components/dashboard/DashboardHeader';
+import { DashboardSidebar } from './components/dashboard/DashboardSidebar';
 import { ThemeProvider } from './context/ThemeContext';
 import { streams } from './data/streamData';
 import { StreamData } from './types/stream';
@@ -24,7 +25,7 @@ function DashboardContent() {
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
 
   return (
-    <>
+    <Box sx={{ flexGrow: 1 }}>
       <Container 
         component="main" 
         sx={{ 
@@ -45,11 +46,13 @@ function DashboardContent() {
         open={selectedStream !== null}
         onClose={() => setSelectedStream(null)}
       />
-    </>
+    </Box>
   );
 }
 
 function App() {
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
     <ThemeProvider>
       <CssBaseline />
@@ -63,11 +66,20 @@ function App() {
           }}
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Header />
-            <Routes>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<DashboardContent />} />
-            </Routes>
+            <Header 
+              onFilterClick={() => setFilterOpen(!filterOpen)} 
+              filterOpen={filterOpen}
+            />
+            <Box sx={{ display: 'flex', flex: 1 }}>
+              <Routes>
+                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/dashboard" element={<DashboardContent />} />
+              </Routes>
+            </Box>
+            <DashboardSidebar
+              open={filterOpen}
+              onClose={() => setFilterOpen(false)}
+            />
             <Footer />
           </ErrorBoundary>
         </Box>
