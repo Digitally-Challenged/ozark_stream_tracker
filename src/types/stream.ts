@@ -1,8 +1,4 @@
-export interface GaugeReading {
-  value: number;
-  timestamp: string;
-}
-
+// src/types/stream.ts
 export enum LevelTrend {
   Rising = 'rise',
   Falling = 'fall',
@@ -10,36 +6,40 @@ export enum LevelTrend {
   None = 'none'
 }
 
-export interface Stream {
-  id?: string;
-  name: string;
-  rating: string;
-  size: string;
-  gauge: {
-    name: string;
-    id: string;
-    url: string;
-  };
-  quality: string;
-  targetLevels: {
-    tooLow: number;
-    optimal: number;
-    high: number;
-  };
-  currentLevel?: {
-    status: string;  // 'X', 'L', 'O', 'H'
-    trend: LevelTrend;
-  };
+export enum LevelStatus {
+  TooLow = 'X',
+  Low = 'L',
+  Optimal = 'O',
+  High = 'H'
 }
 
-export interface StreamData extends Stream {
-  currentFlow?: number;
-  temperature?: number;
-  status?: string;
-  lastUpdated?: string;
-  waterQuality?: {
-    ph: number;
-    turbidity: number;
-    dissolvedOxygen: number;
+export interface GaugeReading {
+  value: number;
+  timestamp: string;
+}
+
+export interface StreamGauge {
+  name: string;
+  id: string;
+  url: string;
+}
+
+export interface TargetLevels {
+  tooLow: number;
+  optimal: number;
+  high: number;
+}
+
+export interface StreamData {
+  name: string;
+  rating: string;
+  size: 'XS' | 'VS' | 'S' | 'M' | 'L' | 'H' | 'DC' | 'A';
+  gauge: StreamGauge;
+  quality: 'A' | 'A+' | 'B' | 'B+' | 'C' | 'C+' | 'D' | 'D+' | 'F';
+  targetLevels: TargetLevels;
+  currentLevel?: {
+    status: LevelStatus;
+    trend: LevelTrend;
+    reading?: GaugeReading;
   };
 }

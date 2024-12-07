@@ -1,8 +1,9 @@
 import { TableRow, TableCell, Tooltip, useTheme } from '@mui/material';
-import { StreamData } from '../../types/stream';
+import { StreamData, LevelTrend } from '../../types/stream';
 import { useStreamGauge } from '../../hooks/useStreamGauge';
+import { getReadingFreshnessClass } from '../../utils/streamLevels';
 import InfoTooltip from './StreamInfoTooltip';
-import StreamTrend from './StreamTrend';
+import { format, formatDistanceToNow } from 'date-fns';
 
 interface StreamTableRowProps {
   stream: StreamData;
@@ -18,21 +19,17 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
     
     const alpha = theme.palette.mode === 'dark' ? '0.3' : '0.2';
     switch (status) {
-      case 'X': return theme.palette.mode === 'dark'
-        ? `rgba(211, 47, 47, ${alpha})`  // Dark mode red - Too Low
-        : `rgba(211, 47, 47, ${alpha})`; // Light mode red
-      case 'L': return theme.palette.mode === 'dark'
-        ? `rgba(237, 108, 2, ${alpha})`  // Dark mode orange - Low
-        : `rgba(237, 108, 2, ${alpha})`; // Light mode orange
-      case 'O': return theme.palette.mode === 'dark'
-        ? `rgba(46, 125, 50, ${alpha})`  // Dark mode green - Optimal
-        : `rgba(46, 125, 50, ${alpha})`; // Light mode green
-      case 'H': return theme.palette.mode === 'dark'
-        ? `rgba(2, 136, 209, ${alpha})`  // Dark mode blue - High/Flood
-        : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
+      case 'X': return `rgba(211, 47, 47, ${alpha})`; // Too Low
+      case 'L': return `rgba(237, 108, 2, ${alpha})`; // Low
+      case 'O': return `rgba(46, 125, 50, ${alpha})`; // Optimal
+      case 'H': return `rgba(2, 136, 209, ${alpha})`; // High
       default: return undefined;
     }
   };
+
+  const timeFreshnessClass = reading?.timestamp 
+    ? getReadingFreshnessClass(reading.timestamp)
+    : '';
 
   return (
     <TableRow 
@@ -47,7 +44,10 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
         },
       }}
     >
+      {/* Stream Name */}
       <TableCell>{stream.name}</TableCell>
+
+      {/* Rating */}
       <TableCell>
         <Tooltip
           title={<InfoTooltip type="rating" value={stream.rating} />}
@@ -57,6 +57,8 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <span style={{ cursor: 'help' }}>{stream.rating}</span>
         </Tooltip>
       </TableCell>
+
+      {/* Size */}
       <TableCell>
         <Tooltip
           title={<InfoTooltip type="size" value={stream.size} />}
@@ -66,6 +68,8 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <span style={{ cursor: 'help' }}>{stream.size}</span>
         </Tooltip>
       </TableCell>
+
+      {/* Reference Gauge */}
       <TableCell>
         <Tooltip title="View USGS Gauge Page">
           <a
@@ -78,12 +82,17 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
             {stream.gauge.name}
           </a>
         </Tooltip>
+        {!loading && !error && (
+          <div className="text-sm">
+            [{stream.targetLevels.tooLow}, {stream.targetLevels.optimal}, {stream.targetLevels.high}]
+          </div>
+        )}
       </TableCell>
+
+      {/* Current Reading */}
       <TableCell>
         {reading && !loading && !error ? (
-          <Tooltip title={`Last updated: ${new Date(reading.timestamp).toLocaleString()}`}>
-            <span>{reading.value.toFixed(2)} ft</span>
-          </Tooltip>
+          <span>{reading.value.toFixed(2)} ft</span>
         ) : loading ? (
           'Loading...'
         ) : error ? (
@@ -94,6 +103,21 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           'N/A'
         )}
       </TableCell>
+
+      {/* Time with freshness coloring */}
+      <TableCell className={timeFreshnessClass}>
+        {reading?.timestamp && (
+          <>
+            {format(new Date(reading.timestamp), 'MM/dd HH:mm')}
+            <br />
+            <span className="text-sm">
+              ({formatDistanceToNow(new Date(reading.timestamp))})
+            </span>
+          </>
+        )}
+      </TableCell>
+
+      {/* Quality */}
       <TableCell>
         <Tooltip
           title={<InfoTooltip type="correlation" value={stream.quality} />}
@@ -103,32 +127,30 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <span style={{ cursor: 'help' }}>{stream.quality}</span>
         </Tooltip>
       </TableCell>
+
+      {/* Current Level with trend */}
       <TableCell 
         sx={{ 
           bgcolor: getLevelColor(currentLevel?.status),
           transition: 'background-color 0.2s ease',
         }}
       >
-        <Tooltip
-          title={<InfoTooltip 
-            type="level" 
-            value={currentLevel?.status || 'N/A'} 
-            trend={currentLevel?.trend}
-          />}
-          placement="left"
-          arrow
-        >
-          <span className="flex items-center">
-            {loading ? 'Loading...' : error ? 'Error' : (
-              <>
-                {currentLevel?.status || 'N/A'}
-              </>
-            )}
-          </span>
-        </Tooltip>
-      </TableCell>
-      <TableCell>
-        <StreamTrend stream={stream} size={16} />
+        {loading ? (
+          'Loading...'
+        ) : error ? (
+          <Tooltip title={error.message}>
+            <span>Error</span>
+          </Tooltip>
+        ) : (
+          <div className="flex items-center">
+            <span>{currentLevel?.status || 'N/A'}</span>
+            <span className="ml-2">
+              {currentLevel?.trend === LevelTrend.Rising ? '↑' : 
+               currentLevel?.trend === LevelTrend.Falling ? '↓' : 
+               currentLevel?.trend === LevelTrend.Holding ? '—' : ''}
+            </span>
+          </div>
+        )}
       </TableCell>
     </TableRow>
   );
