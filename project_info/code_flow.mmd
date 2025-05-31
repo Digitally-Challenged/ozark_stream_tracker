@@ -1,0 +1,47 @@
+graph TD
+    A[User Enters App] --> B(src/main.tsx);
+    B --> C{React.StrictMode};
+    C --> D(src/App.tsx);
+    D --> E[ThemeProvider];
+    E --> F[CssBaseline];
+    F --> G[BrowserRouter];
+    G --> H{Routes: /dashboard};
+    H --> I(DashboardContent in App.tsx);
+    I --> J[Header];
+    I --> K[DashboardHeader];
+    I --> L[StreamTable];
+    I --> M[Footer];
+    I --> N(DashboardSidebar - Toggled by Header);
+
+    L -- User Clicks Stream --> O{Selects Stream};
+    O --> P(StreamDetail Dialog);
+
+    subgraph "Data Fetching"
+        Q(useStreamGauge Hook) --> R{USGS API};
+        L --> Q;
+        P --> Q;
+    end
+
+    subgraph "Styling & Context"
+        S(ThemeContext) --> J;
+        S --> K;
+        S --> L;
+        S --> P;
+        S --> M;
+        T(Material UI Components) --> J;
+        T --> K;
+        T --> L;
+        T --> P;
+        T --> M;
+        U(Tailwind CSS) --> M; // Example, used elsewhere too
+    end
+
+    classDef default fill:#f9f9f9,stroke:#333,stroke-width:2px;
+    classDef api fill:#ccf,stroke:#333,stroke-width:2px;
+    classDef hook fill:#cfc,stroke:#333,stroke-width:2px;
+    classDef context fill:#fcc,stroke:#333,stroke-width:2px;
+
+    class R api;
+    class Q hook;
+    class S context;
+```
