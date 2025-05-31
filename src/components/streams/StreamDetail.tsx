@@ -9,7 +9,7 @@ import {
   Box,
   useTheme,
 } from '@mui/material';
-import { Droplet, Thermometer, Clock, Activity } from 'lucide-react';
+import { WaterDropOutlined, ThermostatOutlined, AccessTimeOutlined, ShowChartOutlined } from '@mui/icons-material';
 import { StreamData } from '../../types/stream';
 import { format, isValid } from 'date-fns';
 
@@ -54,7 +54,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
-              <Droplet size={20} color={theme.palette.primary.main} />
+              <WaterDropOutlined sx={{ fontSize: 20, color: theme.palette.primary.main }} />
               <Typography color="text.primary">
                 Flow Rate: {stream.currentFlow ? `${stream.currentFlow} cfs` : 'Not available'}
               </Typography>
@@ -63,7 +63,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
           
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
-              <Thermometer size={20} color={theme.palette.primary.main} />
+              <ThermostatOutlined sx={{ fontSize: 20, color: theme.palette.primary.main }} />
               <Typography color="text.primary">
                 Temperature: {stream.temperature ? `${stream.temperature}°F` : 'Not available'}
               </Typography>
@@ -72,7 +72,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
           
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
-              <Activity size={20} color={theme.palette.primary.main} />
+              <ShowChartOutlined sx={{ fontSize: 20, color: theme.palette.primary.main }} />
               <Typography color="text.primary">
                 Status: {stream.status || 'Not available'}
               </Typography>
@@ -81,7 +81,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
           
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
-              <Clock size={20} color={theme.palette.primary.main} />
+              <AccessTimeOutlined sx={{ fontSize: 20, color: theme.palette.primary.main }} />
               <Typography color="text.primary">
                 Last Updated: {formatDate(stream.lastUpdated)}
               </Typography>

@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from '@mui/material';
-import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
+import { ArrowDownwardOutlined, ArrowUpwardOutlined, RemoveOutlined } from '@mui/icons-material';
 import { 
   getSizeDefinition, 
   getCorrelationDefinition, 
@@ -22,18 +22,18 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
   const renderTrendIcon = () => {
     if (!trend) return null;
 
-    const iconProps = { 
+    const iconProps = {
       size: 16,
-      strokeWidth: 2.5
+      // strokeWidth: 2.5 // strokeWidth is not directly applicable to MUI outlined icons this way
     };
 
     switch (trend) {
       case LevelTrend.Rising:
-        return <ArrowUp {...iconProps} color={theme.palette.success.main} />;
+        return <ArrowUpwardOutlined sx={{ fontSize: iconProps.size, color: theme.palette.success.main }} />;
       case LevelTrend.Falling:
-        return <ArrowDown {...iconProps} color={theme.palette.error.main} />;
+        return <ArrowDownwardOutlined sx={{ fontSize: iconProps.size, color: theme.palette.error.main }} />;
       case LevelTrend.Holding:
-        return <Minus {...iconProps} color={theme.palette.text.secondary} />;
+        return <RemoveOutlined sx={{ fontSize: iconProps.size, color: theme.palette.text.secondary }} />;
       default:
         return null;
     }

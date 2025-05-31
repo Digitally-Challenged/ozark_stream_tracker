@@ -1,6 +1,5 @@
 import { AppBar, Toolbar, Typography, IconButton, useTheme, Box } from '@mui/material';
-import { Moon, Sun } from 'lucide-react';
-import { Kayaking, FilterList } from '@mui/icons-material';
+import { Kayaking, FilterList, DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
 import { useTheme as useColorMode } from '../../context/ThemeContext';
 
 interface HeaderProps {
@@ -17,7 +16,7 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
       position="static" 
       elevation={0}
       sx={{
-        backgroundColor: 'rgb(17, 24, 39)',
+        backgroundColor: theme.palette.background.default,
         borderBottom: `1px solid ${theme.palette.divider}`,
       }}
     >
@@ -82,9 +81,9 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
             }}
           >
             {mode === 'dark' ? (
-              <Sun size={20} />
+              <LightModeOutlined sx={{ fontSize: 20 }} />
             ) : (
-              <Moon size={20} />
+              <DarkModeOutlined sx={{ fontSize: 20 }} />
             )}
           </IconButton>
         </Box>

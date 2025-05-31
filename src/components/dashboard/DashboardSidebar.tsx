@@ -1,12 +1,20 @@
-import { 
-  Box, 
-  Drawer, 
+import {
+  Box,
+  Drawer,
   IconButton,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemButton,
-  Divider
+  List, // Keep List for structure if desired, or remove if directly using FormControls
+  ListItem, // May remove if not using for filter structure
+  ListItemText, // May remove
+  Divider,
+  useTheme,
+  Typography, // Added
+  FormControl, // Added
+  InputLabel, // Added
+  Select, // Added
+  MenuItem, // Added
+  FormGroup, // Added
+  FormControlLabel, // Added
+  Checkbox // Added
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
@@ -19,76 +27,83 @@ interface DashboardSidebarProps {
 export function DashboardSidebar({ 
   open = false, 
   onClose, 
-  width = 320 
+  width = 320
 }: DashboardSidebarProps) {
-  const menuItems = [
-    { label: 'Learn More', href: '/learn' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Trail Finder', href: '/trails' },
-    { label: '❤️ the app?', href: '/feedback' },
-    { label: 'Buy us a coffee!', href: '/support' },
-    { label: 'Venmo', href: '/venmo' },
-    { label: 'PayPal', href: '/paypal' }
-  ];
+  const theme = useTheme();
+
+  // Placeholder data for filters - actual values would come from data or be dynamic
+  const ratings = ['I', 'II', 'III', 'IV', 'V', 'II-III', 'III-IV'];
+  const sizes = ['XS', 'VS', 'S', 'M', 'L'];
 
   const content = (
     <Box
       sx={{
         height: '100%',
-        backgroundColor: 'rgb(17, 24, 39)',
-        color: 'white',
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary, // Changed to use theme color
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        p: 2, // Added padding for content
       }}
     >
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'flex-end',
-        p: 2
+      <Box sx={{
+        display: 'flex',
+        justifyContent: 'space-between', // To space title and close button
+        alignItems: 'center',
+        mb: 2, // Added margin bottom
       }}>
-        <IconButton 
-          onClick={onClose} 
-          sx={{ color: 'white' }}
+        <Typography variant="h6" component="div">
+          Filters
+        </Typography>
+        <IconButton
+          onClick={onClose}
+          sx={{ color: theme.palette.text.primary }} // Changed to use theme color
         >
           <Close />
         </IconButton>
       </Box>
 
-      <List sx={{ flex: 1, pt: 0 }}>
-        {menuItems.map((item, index) => (
-          <Box key={item.label}>
-            <ListItem disablePadding>
-              <ListItemButton
-                sx={{
-                  py: 2,
-                  '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  }
-                }}
-              >
-                <ListItemText
-                  primary={item.label}
-                  primaryTypographyProps={{
-                    sx: {
-                      color: 'white',
-                      fontSize: '1rem',
-                      fontWeight: 400
-                    }
-                  }}
-                />
-              </ListItemButton>
-            </ListItem>
-            {index < menuItems.length - 1 && (
-              <Divider 
-                sx={{ 
-                  borderColor: 'rgba(255, 255, 255, 0.1)',
-                  mx: 2
-                }} 
-              />
-            )}
-          </Box>
+      <Divider sx={{ mb: 2, borderColor: theme.palette.divider }} />
+
+      {/* Filter by Rating */}
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel id="rating-select-label">Rating</InputLabel>
+        <Select
+          labelId="rating-select-label"
+          id="rating-select"
+          multiple
+          value={[]} // Placeholder - actual value would be state
+          onChange={() => { /* Placeholder - actual handler */ }}
+          label="Rating"
+          renderValue={(selected) => (selected as string[]).join(', ')}
+        >
+          {ratings.map((rating) => (
+            <MenuItem key={rating} value={rating}>
+              <Checkbox checked={false /* Placeholder */} />
+              <ListItemText primary={rating} />
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+      <Divider sx={{ mb: 2, borderColor: theme.palette.divider }} />
+
+      {/* Filter by Size */}
+      <Typography variant="subtitle1" gutterBottom component="div">
+        Size
+      </Typography>
+      <FormGroup sx={{ mb: 2 }}>
+        {sizes.map((size) => (
+          <FormControlLabel
+            key={size}
+            control={<Checkbox checked={false /* Placeholder */} onChange={() => { /* Placeholder */}} name={size} />}
+            label={size}
+          />
         ))}
-      </List>
+      </FormGroup>
+
+      {/* Add more filters as needed, e.g., for Quality, Level, Trend */}
+
     </Box>
   );
 
@@ -103,7 +118,7 @@ export function DashboardSidebar({
         '& .MuiDrawer-paper': { 
           width,
           boxSizing: 'border-box',
-          backgroundColor: 'rgb(17, 24, 39)',
+          backgroundColor: theme.palette.background.default,
           border: 'none'
         }
       }}
