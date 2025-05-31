@@ -4,7 +4,6 @@
 {
   "template": "bolt-vite-react-ts"
 }
-
 ```
 
 # .bolt/prompt
@@ -82,7 +81,6 @@ export default tseslint.config(
     },
   }
 );
-
 ```
 
 # index.html
@@ -95,14 +93,16 @@ export default tseslint.config(
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
 ```
 
 # package.json
@@ -150,7 +150,6 @@ export default tseslint.config(
     "vite": "^5.4.2"
   }
 }
-
 ```
 
 # postcss.config.js
@@ -162,7 +161,6 @@ export default {
     autoprefixer: {},
   },
 };
-
 ```
 
 # README.md
@@ -204,13 +202,13 @@ function DashboardContent() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Container 
-        component="main" 
-        sx={{ 
-          mt: 4, 
-          mb: 4, 
+      <Container
+        component="main"
+        sx={{
+          mt: 4,
+          mb: 4,
           flex: 1,
-          maxWidth: { xl: '1400px' } 
+          maxWidth: { xl: '1400px' },
         }}
       >
         <DashboardHeader />
@@ -240,17 +238,21 @@ function App() {
             display: 'flex',
             flexDirection: 'column',
             minHeight: '100vh',
-            bgcolor: (theme) => theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
+            bgcolor: (theme) =>
+              theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
           }}
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Header 
-              onFilterClick={() => setFilterOpen(!filterOpen)} 
+            <Header
+              onFilterClick={() => setFilterOpen(!filterOpen)}
               filterOpen={filterOpen}
             />
             <Box sx={{ display: 'flex', flex: 1 }}>
               <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                <Route
+                  path="/"
+                  element={<Navigate to="/dashboard" replace />}
+                />
                 <Route path="/dashboard" element={<DashboardContent />} />
               </Routes>
             </Box>
@@ -267,7 +269,6 @@ function App() {
 }
 
 export default App;
-
 ```
 
 # src/components/core/Footer.tsx
@@ -278,7 +279,7 @@ export function Footer() {
     <footer className="py-6 px-4 mt-auto bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
       <div className="max-w-2xl mx-auto">
         <p className="text-sm text-center text-gray-600 dark:text-gray-400">
-          © {' '}
+          ©{' '}
           <a
             href="#"
             className="text-inherit hover:text-primary-main hover:underline transition-colors"
@@ -296,7 +297,14 @@ export function Footer() {
 # src/components/core/Header.tsx
 
 ```tsx
-import { AppBar, Toolbar, Typography, IconButton, useTheme, Box } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  useTheme,
+  Box,
+} from '@mui/material';
 import { Moon, Sun } from 'lucide-react';
 import { Kayaking, FilterList } from '@mui/icons-material';
 import { useTheme as useColorMode } from '../../context/ThemeContext';
@@ -311,8 +319,8 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
   const theme = useTheme();
 
   return (
-    <AppBar 
-      position="static" 
+    <AppBar
+      position="static"
       elevation={0}
       sx={{
         backgroundColor: 'rgb(17, 24, 39)',
@@ -320,24 +328,28 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center',
-          gap: 2
-        }}>
-          <Box sx={{ 
-            color: 'white',
+        <Box
+          sx={{
             display: 'flex',
-            alignItems: 'center'
-          }}>
+            alignItems: 'center',
+            gap: 2,
+          }}
+        >
+          <Box
+            sx={{
+              color: 'white',
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
             <Kayaking sx={{ fontSize: 32 }} />
           </Box>
-          <Typography 
-            variant="h6" 
-            sx={{ 
+          <Typography
+            variant="h6"
+            sx={{
               color: 'white',
               letterSpacing: '0.2em',
-              fontWeight: 300
+              fontWeight: 300,
             }}
           >
             OZARK CREEK FLOW ZONE
@@ -345,18 +357,18 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Typography 
-            sx={{ 
+          <Typography
+            sx={{
               color: 'rgba(255, 255, 255, 0.9)',
               letterSpacing: '0.1em',
               fontSize: { xs: '0.875rem', md: '1rem' },
-              display: { xs: 'none', md: 'block' }
+              display: { xs: 'none', md: 'block' },
             }}
           >
             KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
           </Typography>
-          
-          <IconButton 
+
+          <IconButton
             onClick={onFilterClick}
             sx={{
               color: 'white',
@@ -364,13 +376,13 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },
               transform: filterOpen ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.3s ease'
+              transition: 'transform 0.3s ease',
             }}
           >
             <FilterList />
           </IconButton>
-          
-          <IconButton 
+
+          <IconButton
             onClick={toggleColorMode}
             sx={{
               color: 'white',
@@ -379,11 +391,7 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
               },
             }}
           >
-            {mode === 'dark' ? (
-              <Sun size={20} />
-            ) : (
-              <Moon size={20} />
-            )}
+            {mode === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </IconButton>
         </Box>
       </Toolbar>
@@ -431,29 +439,29 @@ export function DashboardHeader() {
       value: '93',
       icon: WaterDrop,
       color: theme.palette.primary.main,
-      tooltip: 'Total number of whitewater runs'
+      tooltip: 'Total number of whitewater runs',
     },
     {
       label: 'Beginner Runs',
       value: '87',
       icon: Waves,
       color: theme.palette.success.main,
-      tooltip: 'Class I-II runs'
+      tooltip: 'Class I-II runs',
     },
     {
       label: 'Advanced Runs',
       value: '40',
       icon: Terrain,
       color: theme.palette.warning.main,
-      tooltip: 'Class IV-V runs'
+      tooltip: 'Class IV-V runs',
     },
     {
       label: 'Last Updated',
       value: '3:25:16 PM',
       icon: AccessTime,
       color: theme.palette.info.main,
-      tooltip: 'Most recent gauge reading update'
-    }
+      tooltip: 'Most recent gauge reading update',
+    },
   ];
 
   return (
@@ -468,17 +476,19 @@ export function DashboardHeader() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 2,
-                  bgcolor: theme.palette.mode === 'dark' 
-                    ? 'rgba(255, 255, 255, 0.05)' 
-                    : 'rgba(0, 0, 0, 0.02)',
+                  bgcolor:
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : 'rgba(0, 0, 0, 0.02)',
                   backdropFilter: 'blur(10px)',
                   transition: 'all 0.3s ease-in-out',
                   animation: `${fadeInUp} 0.5s ease-out ${index * 0.1}s`,
                   '&:hover': {
                     transform: 'translateY(-4px)',
-                    bgcolor: theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.08)'
-                      : 'rgba(0, 0, 0, 0.04)',
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.08)'
+                        : 'rgba(0, 0, 0, 0.04)',
                     boxShadow: theme.shadows[8],
                   },
                 }}
@@ -488,36 +498,37 @@ export function DashboardHeader() {
                   sx={{
                     p: 1.5,
                     borderRadius: 2,
-                    bgcolor: theme.palette.mode === 'dark'
-                      ? `${stat.color}15`
-                      : `${stat.color}15`,
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? `${stat.color}15`
+                        : `${stat.color}15`,
                     color: stat.color,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     '&:hover': {
-                      animation: `${pulseIcon} 1s ease-in-out infinite`
-                    }
+                      animation: `${pulseIcon} 1s ease-in-out infinite`,
+                    },
                   }}
                 >
                   <stat.icon sx={{ fontSize: 24 }} />
                 </Box>
                 <Box>
-                  <Typography 
+                  <Typography
                     variant="body2"
-                    sx={{ 
+                    sx={{
                       color: theme.palette.text.secondary,
-                      fontWeight: 500
+                      fontWeight: 500,
                     }}
                   >
                     {stat.label}
                   </Typography>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
+                  <Typography
+                    variant="h5"
+                    sx={{
                       mt: 0.5,
                       color: theme.palette.text.primary,
-                      fontWeight: 600
+                      fontWeight: 600,
                     }}
                   >
                     {stat.value}
@@ -557,28 +568,31 @@ export function DashboardLayout() {
         mobileOpen={mobileOpen}
         onMobileClose={() => setMobileOpen(false)}
       />
-      
-      <Box 
-        component="main" 
-        sx={{ 
+
+      <Box
+        component="main"
+        sx={{
           flexGrow: 1,
           minHeight: '100vh',
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? 'rgb(17, 24, 39)' 
-            : 'rgb(249, 250, 251)',
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? 'rgb(17, 24, 39)'
+              : 'rgb(249, 250, 251)',
         }}
       >
         {/* Mobile filter button */}
-        <Box sx={{ 
-          display: { xs: 'block', md: 'none' }, 
-          position: 'fixed',
-          bottom: 16,
-          right: 16,
-          zIndex: 1000
-        }}>
-          <IconButton 
+        <Box
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            position: 'fixed',
+            bottom: 16,
+            right: 16,
+            zIndex: 1000,
+          }}
+        >
+          <IconButton
             onClick={handleDrawerToggle}
-            sx={{ 
+            sx={{
               bgcolor: theme.palette.primary.main,
               color: 'white',
               '&:hover': {
@@ -601,21 +615,20 @@ export function DashboardLayout() {
     </Box>
   );
 }
-
 ```
 
 # src/components/dashboard/DashboardSidebar.tsx
 
 ```tsx
-import { 
-  Box, 
-  Drawer, 
+import {
+  Box,
+  Drawer,
   IconButton,
   List,
   ListItem,
   ListItemText,
   ListItemButton,
-  Divider
+  Divider,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
@@ -625,10 +638,10 @@ interface DashboardSidebarProps {
   width?: number;
 }
 
-export function DashboardSidebar({ 
-  open = false, 
-  onClose, 
-  width = 320 
+export function DashboardSidebar({
+  open = false,
+  onClose,
+  width = 320,
 }: DashboardSidebarProps) {
   const menuItems = [
     { label: 'Learn More', href: '/learn' },
@@ -637,7 +650,7 @@ export function DashboardSidebar({
     { label: '❤️ the app?', href: '/feedback' },
     { label: 'Buy us a coffee!', href: '/support' },
     { label: 'Venmo', href: '/venmo' },
-    { label: 'PayPal', href: '/paypal' }
+    { label: 'PayPal', href: '/paypal' },
   ];
 
   const content = (
@@ -647,18 +660,17 @@ export function DashboardSidebar({
         backgroundColor: 'rgb(17, 24, 39)',
         color: 'white',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
       }}
     >
-      <Box sx={{ 
-        display: 'flex', 
-        justifyContent: 'flex-end',
-        p: 2
-      }}>
-        <IconButton 
-          onClick={onClose} 
-          sx={{ color: 'white' }}
-        >
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          p: 2,
+        }}
+      >
+        <IconButton onClick={onClose} sx={{ color: 'white' }}>
           <Close />
         </IconButton>
       </Box>
@@ -672,7 +684,7 @@ export function DashboardSidebar({
                   py: 2,
                   '&:hover': {
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  }
+                  },
                 }}
               >
                 <ListItemText
@@ -681,18 +693,18 @@ export function DashboardSidebar({
                     sx: {
                       color: 'white',
                       fontSize: '1rem',
-                      fontWeight: 400
-                    }
+                      fontWeight: 400,
+                    },
                   }}
                 />
               </ListItemButton>
             </ListItem>
             {index < menuItems.length - 1 && (
-              <Divider 
-                sx={{ 
+              <Divider
+                sx={{
                   borderColor: 'rgba(255, 255, 255, 0.1)',
-                  mx: 2
-                }} 
+                  mx: 2,
+                }}
               />
             )}
           </Box>
@@ -709,19 +721,18 @@ export function DashboardSidebar({
       variant="temporary"
       elevation={4}
       sx={{
-        '& .MuiDrawer-paper': { 
+        '& .MuiDrawer-paper': {
           width,
           boxSizing: 'border-box',
           backgroundColor: 'rgb(17, 24, 39)',
-          border: 'none'
-        }
+          border: 'none',
+        },
       }}
     >
       {content}
     </Drawer>
   );
 }
-
 ```
 
 # src/components/streams/StreamDetail.tsx
@@ -750,7 +761,7 @@ interface StreamDetailProps {
 
 export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
   const theme = useTheme();
-  
+
   if (!stream) return null;
 
   const formatDate = (dateString?: string) => {
@@ -760,45 +771,53 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
   };
 
   return (
-    <Dialog 
-      open={open} 
-      onClose={onClose} 
-      maxWidth="md" 
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
       fullWidth
       PaperProps={{
         sx: {
           bgcolor: theme.palette.background.paper,
           backgroundImage: 'none',
-        }
+        },
       }}
     >
-      <DialogTitle sx={{ 
-        borderBottom: `1px solid ${theme.palette.divider}`,
-        color: theme.palette.text.primary,
-      }}>
+      <DialogTitle
+        sx={{
+          borderBottom: `1px solid ${theme.palette.divider}`,
+          color: theme.palette.text.primary,
+        }}
+      >
         {stream.name}
       </DialogTitle>
-      
+
       <DialogContent sx={{ py: 3 }}>
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
               <Droplet size={20} color={theme.palette.primary.main} />
               <Typography color="text.primary">
-                Flow Rate: {stream.currentFlow ? `${stream.currentFlow} cfs` : 'Not available'}
+                Flow Rate:{' '}
+                {stream.currentFlow
+                  ? `${stream.currentFlow} cfs`
+                  : 'Not available'}
               </Typography>
             </Box>
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
               <Thermometer size={20} color={theme.palette.primary.main} />
               <Typography color="text.primary">
-                Temperature: {stream.temperature ? `${stream.temperature}°F` : 'Not available'}
+                Temperature:{' '}
+                {stream.temperature
+                  ? `${stream.temperature}°F`
+                  : 'Not available'}
               </Typography>
             </Box>
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
               <Activity size={20} color={theme.palette.primary.main} />
@@ -807,7 +826,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
               </Typography>
             </Box>
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <Box display="flex" alignItems="center" gap={1}>
               <Clock size={20} color={theme.palette.primary.main} />
@@ -819,13 +838,13 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
 
           {stream.waterQuality && (
             <Grid item xs={12}>
-              <Typography 
-                variant="h6" 
-                gutterBottom 
-                sx={{ 
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{
                   color: theme.palette.text.primary,
                   fontWeight: 500,
-                  mt: 2 
+                  mt: 2,
                 }}
               >
                 Water Quality
@@ -835,10 +854,16 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
                   pH: {stream.waterQuality.ph || 'Not available'}
                 </Typography>
                 <Typography color="text.primary" paragraph>
-                  Turbidity: {stream.waterQuality.turbidity ? `${stream.waterQuality.turbidity} NTU` : 'Not available'}
+                  Turbidity:{' '}
+                  {stream.waterQuality.turbidity
+                    ? `${stream.waterQuality.turbidity} NTU`
+                    : 'Not available'}
                 </Typography>
                 <Typography color="text.primary">
-                  Dissolved Oxygen: {stream.waterQuality.dissolvedOxygen ? `${stream.waterQuality.dissolvedOxygen} mg/L` : 'Not available'}
+                  Dissolved Oxygen:{' '}
+                  {stream.waterQuality.dissolvedOxygen
+                    ? `${stream.waterQuality.dissolvedOxygen} mg/L`
+                    : 'Not available'}
                 </Typography>
               </Box>
             </Grid>
@@ -846,12 +871,14 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
         </Grid>
       </DialogContent>
 
-      <DialogActions sx={{ 
-        borderTop: `1px solid ${theme.palette.divider}`,
-        px: 3,
-        py: 2,
-      }}>
-        <Button 
+      <DialogActions
+        sx={{
+          borderTop: `1px solid ${theme.palette.divider}`,
+          px: 3,
+          py: 2,
+        }}
+      >
+        <Button
           onClick={onClose}
           variant="contained"
           sx={{
@@ -874,13 +901,13 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
 ```tsx
 import { Box, Typography, useTheme } from '@mui/material';
 import { ArrowDown, ArrowUp, Minus } from 'lucide-react';
-import { 
-  getSizeDefinition, 
-  getCorrelationDefinition, 
+import {
+  getSizeDefinition,
+  getCorrelationDefinition,
   getLevelDefinition,
   getRatingDefinition,
   sizeDefinitions,
-  correlationDefinitions 
+  correlationDefinitions,
 } from '../../types/streamDefinitions';
 import { LevelTrend } from '../../types/stream';
 
@@ -896,9 +923,9 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
   const renderTrendIcon = () => {
     if (!trend) return null;
 
-    const iconProps = { 
+    const iconProps = {
       size: 16,
-      strokeWidth: 2.5
+      strokeWidth: 2.5,
     };
 
     switch (trend) {
@@ -914,29 +941,35 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
   };
 
   const renderLevelContent = () => {
-    const levelKey = value === 'X' ? 'tooLow' : 
-                    value === 'L' ? 'low' : 
-                    value === 'O' ? 'optimal' : 
-                    value === 'H' ? 'high' : null;
-                    
+    const levelKey =
+      value === 'X'
+        ? 'tooLow'
+        : value === 'L'
+          ? 'low'
+          : value === 'O'
+            ? 'optimal'
+            : value === 'H'
+              ? 'high'
+              : null;
+
     if (!levelKey) return null;
     const info = getLevelDefinition(levelKey);
 
     return (
       <Box sx={{ p: 1 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 1, 
-            mb: 1 
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            mb: 1,
           }}
         >
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
+          <Typography
+            variant="subtitle1"
+            sx={{
               fontWeight: 600,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.name}
@@ -946,25 +979,28 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
               width: 12,
               height: 12,
               borderRadius: '50%',
-              bgcolor: info.color
+              bgcolor: info.color,
             }}
           />
           {renderTrendIcon()}
         </Box>
-        <Typography 
+        <Typography
           variant="body2"
           sx={{ color: theme.palette.text.secondary }}
         >
           {info.description}
         </Typography>
         {trend && trend !== LevelTrend.None && (
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               mt: 1,
-              color: trend === LevelTrend.Rising ? theme.palette.success.main :
-                     trend === LevelTrend.Falling ? theme.palette.error.main :
-                     theme.palette.text.secondary
+              color:
+                trend === LevelTrend.Rising
+                  ? theme.palette.success.main
+                  : trend === LevelTrend.Falling
+                    ? theme.palette.error.main
+                    : theme.palette.text.secondary,
             }}
           >
             Level is {trend.toLowerCase()}
@@ -978,46 +1014,46 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
     const info = getSizeDefinition(value as keyof typeof sizeDefinitions);
     return (
       <Box sx={{ p: 1 }}>
-        <Typography 
-          variant="subtitle1" 
-          sx={{ 
+        <Typography
+          variant="subtitle1"
+          sx={{
             fontWeight: 600,
             color: theme.palette.text.primary,
-            mb: 1 
+            mb: 1,
           }}
         >
           {info.name}
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Width: {info.width}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Watershed: {info.watershed}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Rain Rate: {info.rainRate}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Window: {info.window}
           </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               mt: 1,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.description}
@@ -1028,20 +1064,22 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
   };
 
   const renderCorrelationContent = () => {
-    const info = getCorrelationDefinition(value as keyof typeof correlationDefinitions);
+    const info = getCorrelationDefinition(
+      value as keyof typeof correlationDefinitions
+    );
     return (
       <Box sx={{ p: 1 }}>
-        <Typography 
-          variant="subtitle1" 
-          sx={{ 
+        <Typography
+          variant="subtitle1"
+          sx={{
             fontWeight: 600,
             color: theme.palette.text.primary,
-            mb: 1 
+            mb: 1,
           }}
         >
           {info.name}
         </Typography>
-        <Typography 
+        <Typography
           variant="body2"
           sx={{ color: theme.palette.text.secondary }}
         >
@@ -1055,19 +1093,19 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
     const info = getRatingDefinition(value);
     return (
       <Box sx={{ p: 1, maxWidth: 300 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 1, 
-            mb: 1 
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            mb: 1,
           }}
         >
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
+          <Typography
+            variant="subtitle1"
+            sx={{
               fontWeight: 600,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.name}
@@ -1077,15 +1115,15 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
               width: 12,
               height: 12,
               borderRadius: '50%',
-              bgcolor: info.color
+              bgcolor: info.color,
             }}
           />
         </Box>
-        <Typography 
+        <Typography
           variant="body2"
-          sx={{ 
+          sx={{
             color: theme.palette.text.secondary,
-            lineHeight: 1.5 
+            lineHeight: 1.5,
           }}
         >
           {info.description}
@@ -1146,26 +1184,32 @@ export function StreamTable({ streams, onStreamClick }: StreamTableProps) {
 
   const filteredStreams = streams.filter((stream) => {
     const searchLower = searchTerm.toLowerCase();
-    return stream.name.toLowerCase().includes(searchLower) ||
-           stream.gauge.name.toLowerCase().includes(searchLower);
+    return (
+      stream.name.toLowerCase().includes(searchLower) ||
+      stream.gauge.name.toLowerCase().includes(searchLower)
+    );
   });
 
   const sortedStreams = sortStreams(filteredStreams, sortField, sortDirection);
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box sx={{ 
-        display: 'flex', 
-        alignItems: 'center',
-        mb: 2,
-        maxWidth: 400,
-        position: 'relative'
-      }}>
-        <Search sx={{ 
-          position: 'absolute',
-          left: 8,
-          color: 'text.secondary'
-        }} />
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          mb: 2,
+          maxWidth: 400,
+          position: 'relative',
+        }}
+      >
+        <Search
+          sx={{
+            position: 'absolute',
+            left: 8,
+            color: 'text.secondary',
+          }}
+        />
         <TextField
           placeholder="Search streams..."
           variant="outlined"
@@ -1183,16 +1227,16 @@ export function StreamTable({ streams, onStreamClick }: StreamTableProps) {
           }}
         />
       </Box>
-      <TableContainer 
-        component={Paper} 
+      <TableContainer
+        component={Paper}
         elevation={0}
-        sx={{ 
+        sx={{
           bgcolor: 'background.paper',
           '& .MuiTableCell-root': {
             py: 1.5,
             px: 2,
             fontSize: '0.875rem',
-          }
+          },
         }}
       >
         <Table size="small">
@@ -1230,7 +1274,11 @@ interface StreamTableHeaderProps {
   onSort: (field: SortField) => void;
 }
 
-export function StreamTableHeader({ sortField, sortDirection, onSort }: StreamTableHeaderProps) {
+export function StreamTableHeader({
+  sortField,
+  sortDirection,
+  onSort,
+}: StreamTableHeaderProps) {
   const headers: { field: SortField; label: string }[] = [
     { field: 'name', label: 'Stream Name' },
     { field: 'rating', label: 'Rating' },
@@ -1239,7 +1287,7 @@ export function StreamTableHeader({ sortField, sortDirection, onSort }: StreamTa
     { field: 'reading', label: 'Gauge Reading' },
     { field: 'quality', label: 'Quality' },
     { field: 'level', label: 'Current Level' },
-    { field: 'trend', label: 'Trend' }
+    { field: 'trend', label: 'Trend' },
   ];
 
   return (
@@ -1282,32 +1330,38 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
 
   const getLevelColor = (status: string | undefined) => {
     if (!status) return undefined;
-    
+
     const alpha = theme.palette.mode === 'dark' ? '0.3' : '0.2';
     switch (status) {
-      case 'X': return theme.palette.mode === 'dark'
-        ? `rgba(211, 47, 47, ${alpha})`  // Dark mode red - Too Low
-        : `rgba(211, 47, 47, ${alpha})`; // Light mode red
-      case 'L': return theme.palette.mode === 'dark'
-        ? `rgba(237, 108, 2, ${alpha})`  // Dark mode orange - Low
-        : `rgba(237, 108, 2, ${alpha})`; // Light mode orange
-      case 'O': return theme.palette.mode === 'dark'
-        ? `rgba(46, 125, 50, ${alpha})`  // Dark mode green - Optimal
-        : `rgba(46, 125, 50, ${alpha})`; // Light mode green
-      case 'H': return theme.palette.mode === 'dark'
-        ? `rgba(2, 136, 209, ${alpha})`  // Dark mode blue - High/Flood
-        : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
-      default: return undefined;
+      case 'X':
+        return theme.palette.mode === 'dark'
+          ? `rgba(211, 47, 47, ${alpha})` // Dark mode red - Too Low
+          : `rgba(211, 47, 47, ${alpha})`; // Light mode red
+      case 'L':
+        return theme.palette.mode === 'dark'
+          ? `rgba(237, 108, 2, ${alpha})` // Dark mode orange - Low
+          : `rgba(237, 108, 2, ${alpha})`; // Light mode orange
+      case 'O':
+        return theme.palette.mode === 'dark'
+          ? `rgba(46, 125, 50, ${alpha})` // Dark mode green - Optimal
+          : `rgba(46, 125, 50, ${alpha})`; // Light mode green
+      case 'H':
+        return theme.palette.mode === 'dark'
+          ? `rgba(2, 136, 209, ${alpha})` // Dark mode blue - High/Flood
+          : `rgba(2, 136, 209, ${alpha})`; // Light mode blue
+      default:
+        return undefined;
     }
   };
 
   const renderTrendIcon = () => {
-    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) return null;
+    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None)
+      return null;
 
-    const iconProps = { 
+    const iconProps = {
       size: 16,
       strokeWidth: 2.5,
-      className: 'ml-2'
+      className: 'ml-2',
     };
 
     switch (currentLevel.trend) {
@@ -1323,15 +1377,16 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
   };
 
   return (
-    <TableRow 
+    <TableRow
       hover
       onClick={() => onClick(stream)}
-      sx={{ 
+      sx={{
         cursor: 'pointer',
         '&:hover': {
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? 'rgba(255, 255, 255, 0.08)' 
-            : 'rgba(0, 0, 0, 0.04)',
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.08)'
+              : 'rgba(0, 0, 0, 0.04)',
         },
       }}
     >
@@ -1369,7 +1424,9 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
       </TableCell>
       <TableCell>
         {reading && !loading && !error ? (
-          <Tooltip title={`Last updated: ${new Date(reading.timestamp).toLocaleString()}`}>
+          <Tooltip
+            title={`Last updated: ${new Date(reading.timestamp).toLocaleString()}`}
+          >
             <span>{reading.value.toFixed(2)} ft</span>
           </Tooltip>
         ) : loading ? (
@@ -1391,23 +1448,29 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <span style={{ cursor: 'help' }}>{stream.quality}</span>
         </Tooltip>
       </TableCell>
-      <TableCell 
-        sx={{ 
+      <TableCell
+        sx={{
           bgcolor: getLevelColor(currentLevel?.status),
           transition: 'background-color 0.2s ease',
         }}
       >
         <Tooltip
-          title={<InfoTooltip 
-            type="level" 
-            value={currentLevel?.status || 'N/A'} 
-            trend={currentLevel?.trend}
-          />}
+          title={
+            <InfoTooltip
+              type="level"
+              value={currentLevel?.status || 'N/A'}
+              trend={currentLevel?.trend}
+            />
+          }
           placement="left"
           arrow
         >
           <span className="flex items-center">
-            {loading ? 'Loading...' : error ? 'Error' : (
+            {loading ? (
+              'Loading...'
+            ) : error ? (
+              'Error'
+            ) : (
               <>
                 {currentLevel?.status || 'N/A'}
                 {renderTrendIcon()}
@@ -1425,7 +1488,10 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
 
 ```tsx
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+} from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
 interface ThemeContextType {
@@ -1477,7 +1543,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           MuiTableCell: {
             styleOverrides: {
               root: {
-                borderColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+                borderColor:
+                  mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.12)'
+                    : 'rgba(0, 0, 0, 0.12)',
               },
               head: {
                 fontWeight: 600,
@@ -1489,7 +1558,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             styleOverrides: {
               root: {
                 '&:hover': {
-                  backgroundColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+                  backgroundColor:
+                    mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.08)'
+                      : 'rgba(0, 0, 0, 0.04)',
                 },
               },
             },
@@ -1507,9 +1579,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
                 backgroundColor: mode === 'dark' ? '#424242' : '#ffffff',
                 color: mode === 'dark' ? '#ffffff' : '#000000',
                 border: `1px solid ${mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'}`,
-                boxShadow: mode === 'dark' 
-                  ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 6px rgba(0, 0, 0, 0.1)',
+                boxShadow:
+                  mode === 'dark'
+                    ? '0 4px 6px rgba(0, 0, 0, 0.3)'
+                    : '0 4px 6px rgba(0, 0, 0, 0.1)',
               },
             },
           },
@@ -1532,1512 +1605,1511 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 import { StreamData } from '../types/stream';
 
 export const streams: StreamData[] = [
-   {
-    name: "Adkins Cr.",
-    rating: "III-V",
-    size: "VS",
+  {
+    name: 'Adkins Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Archey Cr.",
-    rating: "II+",
-    size: "M",
+    name: 'Archey Cr.',
+    rating: 'II+',
+    size: 'M',
     gauge: {
-      name: "Big Piney Cr at Hwy 164 nr Dover",
-      id: "07257006",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257006"
+      name: 'Big Piney Cr at Hwy 164 nr Dover',
+      id: '07257006',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257006',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 4.0,
       optimal: 5.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Baker Cr.",
-    rating: "II-IV",
-    size: "S",
+    name: 'Baker Cr.',
+    rating: 'II-IV',
+    size: 'S',
     gauge: {
-      name: "Cossatot R. at Vandervoort",
-      id: "07340300",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07340300"
+      name: 'Cossatot R. at Vandervoort',
+      id: '07340300',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07340300',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Bear Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Bear Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Beech Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Beech Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.5,
       optimal: 8.5,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Ben Doodle Cr.",
-    rating: "IV-V",
-    size: "XS",
+    name: 'Ben Doodle Cr.',
+    rating: 'IV-V',
+    size: 'XS',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 14.0,
       optimal: 18.0,
-      high: 24.0
-    }
+      high: 24.0,
+    },
   },
   {
-    name: "Big Devils Fork Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Big Devils Fork Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Big Piney Cr (abv Longpool)",
-    rating: "II+",
-    size: "L",
+    name: 'Big Piney Cr (abv Longpool)',
+    rating: 'II+',
+    size: 'L',
     gauge: {
-      name: "Big Piney Cr at Hwy 164 nr Dover",
-      id: "07257006",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257006"
+      name: 'Big Piney Cr at Hwy 164 nr Dover',
+      id: '07257006',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257006',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.0,
       optimal: 3.0,
-      high: 5.0
-    }
+      high: 5.0,
+    },
   },
   {
-    name: "Big Piney Cr (blw Longpool)",
-    rating: "I-II",
-    size: "L",
+    name: 'Big Piney Cr (blw Longpool)',
+    rating: 'I-II',
+    size: 'L',
     gauge: {
-      name: "Big Piney Cr at Hwy 164 nr Dover",
-      id: "07257006",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257006"
+      name: 'Big Piney Cr at Hwy 164 nr Dover',
+      id: '07257006',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257006',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 1.2,
       optimal: 2.0,
-      high: 5.0
-    }
+      high: 5.0,
+    },
   },
   {
-    name: "Blackburn Cr.",
-    rating: "II-III",
-    size: "S",
+    name: 'Blackburn Cr.',
+    rating: 'II-III',
+    size: 'S',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 6.5,
       optimal: 7.8,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Bobtail Cr.",
-    rating: "III-IV+",
-    size: "VS",
+    name: 'Bobtail Cr.',
+    rating: 'III-IV+',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 4.5,
       optimal: 6.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Boss Hollow",
-    rating: "IV-V",
-    size: "VS",
+    name: 'Boss Hollow',
+    rating: 'IV-V',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Boulder Cr.",
-    rating: "IV-V+ (P)",
-    size: "VS",
+    name: 'Boulder Cr.',
+    rating: 'IV-V+ (P)',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.5,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Buffalo R. (below Ponca)",
-    rating: "I-II",
-    size: "L",
+    name: 'Buffalo R. (below Ponca)',
+    rating: 'I-II',
+    size: 'L',
     gauge: {
-      name: "Buffalo R. at Ponca",
-      id: "07055660",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055660"
+      name: 'Buffalo R. at Ponca',
+      id: '07055660',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055660',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.0,
       optimal: 3.7,
-      high: 6.3
-    }
+      high: 6.3,
+    },
   },
   {
-    name: "Buffalo R. (Boxley Valley)",
-    rating: "II",
-    size: "L",
+    name: 'Buffalo R. (Boxley Valley)',
+    rating: 'II',
+    size: 'L',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.7,
       optimal: 4.2,
-      high: 5.8
-    }
+      high: 5.8,
+    },
   },
   {
-    name: "Caddo R.",
-    rating: "I-II",
-    size: "L",
+    name: 'Caddo R.',
+    rating: 'I-II',
+    size: 'L',
     gauge: {
-      name: "Caddo R. nr Caddo Gap",
-      id: "07359610",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07359610"
+      name: 'Caddo R. nr Caddo Gap',
+      id: '07359610',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07359610',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 5.3,
       optimal: 5.75,
-      high: 7.25
-    }
+      high: 7.25,
+    },
   },
   {
-    name: "Cadron Cr.",
-    rating: "I-II+",
-    size: "L",
+    name: 'Cadron Cr.',
+    rating: 'I-II+',
+    size: 'L',
     gauge: {
-      name: "Cadron Cr. nr Guy",
-      id: "07261000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07261000"
+      name: 'Cadron Cr. nr Guy',
+      id: '07261000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07261000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 1.5,
       optimal: 2.0,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Camp Cr.",
-    rating: "IV+",
-    size: "S",
+    name: 'Camp Cr.',
+    rating: 'IV+',
+    size: 'S',
     gauge: {
-      name: "Little Missouri R. nr Langley",
-      id: "07360200",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07360200"
+      name: 'Little Missouri R. nr Langley',
+      id: '07360200',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07360200',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.5,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Cedar Cr.",
-    rating: "II+",
-    size: "S",
+    name: 'Cedar Cr.',
+    rating: 'II+',
+    size: 'S',
     gauge: {
-      name: "Frog Bayou at Rudy",
-      id: "07251500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07251500"
+      name: 'Frog Bayou at Rudy',
+      id: '07251500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07251500',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.0,
-      high: 7.5
-    }
+      high: 7.5,
+    },
   },
   {
-    name: "Clear Cr.",
-    rating: "II-III",
-    size: "S",
+    name: 'Clear Cr.',
+    rating: 'II-III',
+    size: 'S',
     gauge: {
-      name: "Frog Bayou at Rudy",
-      id: "07251500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07251500"
+      name: 'Frog Bayou at Rudy',
+      id: '07251500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07251500',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 4.5,
       optimal: 5.5,
-      high: 7.5
-    }
+      high: 7.5,
+    },
   },
   {
-    name: "Cossatot R.",
-    rating: "II-IV",
-    size: "L",
+    name: 'Cossatot R.',
+    rating: 'II-IV',
+    size: 'L',
     gauge: {
-      name: "Cossatot R. at Vandervoort",
-      id: "07340300",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07340300"
+      name: 'Cossatot R. at Vandervoort',
+      id: '07340300',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07340300',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.0,
       optimal: 3.4,
-      high: 5.5
-    }
+      high: 5.5,
+    },
   },
   {
-    name: "Crooked Cr.",
-    rating: "III-IV (V)",
-    size: "VS",
+    name: 'Crooked Cr.',
+    rating: 'III-IV (V)',
+    size: 'VS',
     gauge: {
-      name: "Little Missouri R. nr Langley",
-      id: "07360200",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07360200"
+      name: 'Little Missouri R. nr Langley',
+      id: '07360200',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07360200',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 7.5,
       optimal: 9.5,
-      high: 11.0
-    }
-  },
- {
-    name: "Dragover (Ouachita R.)",
-    rating: "I-II",
-    size: "L",
-    gauge: {
-      name: "USGS: Ouachita River nr Mount Ida",
-      id: "07356000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07356000"
+      high: 11.0,
     },
-    quality: "A",
+  },
+  {
+    name: 'Dragover (Ouachita R.)',
+    rating: 'I-II',
+    size: 'L',
+    gauge: {
+      name: 'USGS: Ouachita River nr Mount Ida',
+      id: '07356000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07356000',
+    },
+    quality: 'A',
     targetLevels: {
       tooLow: 2.75,
       optimal: 3.5,
-      high: 6.5
-    }
+      high: 6.5,
+    },
   },
   {
-    name: "E. Fk. White R.",
-    rating: "II",
-    size: "S",
+    name: 'E. Fk. White R.',
+    rating: 'II',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "D",
+    quality: 'D',
     targetLevels: {
       tooLow: 4.0,
       optimal: 5.0,
-      high: 7.0
-    }
+      high: 7.0,
+    },
   },
   {
-    name: "EFLB",
-    rating: "III-IV (V)",
-    size: "S",
+    name: 'EFLB',
+    rating: 'III-IV (V)',
+    size: 'S',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 5.8,
       optimal: 6.5,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Ellis Cr.",
-    rating: "III-IV",
-    size: "XS",
+    name: 'Ellis Cr.',
+    rating: 'III-IV',
+    size: 'XS',
     gauge: {
-      name: "Baron Fork at Dutch Mills",
-      id: "07196900",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07196900"
+      name: 'Baron Fork at Dutch Mills',
+      id: '07196900',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07196900',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 5.5,
       optimal: 6.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Fall Cr.",
-    rating: "II-IV",
-    size: "S",
+    name: 'Fall Cr.',
+    rating: 'II-IV',
+    size: 'S',
     gauge: {
-      name: "Baron Fork at Dutch Mills",
-      id: "07196900",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07196900"
+      name: 'Baron Fork at Dutch Mills',
+      id: '07196900',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07196900',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 3.75,
       optimal: 5.0,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Falling Water Cr.",
-    rating: "III",
-    size: "S",
+    name: 'Falling Water Cr.',
+    rating: 'III',
+    size: 'S',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 4.0,
       optimal: 5.0,
-      high: 6.5
-    }
+      high: 6.5,
+    },
   },
   {
-    name: "Falls Br.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Falls Br.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Fern Gulley",
-    rating: "IV-V",
-    size: "XS",
+    name: 'Fern Gulley',
+    rating: 'IV-V',
+    size: 'XS',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 11.0,
       optimal: 12.0,
-      high: 15.0
-    }
+      high: 15.0,
+    },
   },
   {
     name: "Fisher's Ford",
-    rating: "PLAY",
-    size: "A",
+    rating: 'PLAY',
+    size: 'A',
     gauge: {
-      name: "Illinois R. nr Siloam Springs",
-      id: "07195430",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07195430"
+      name: 'Illinois R. nr Siloam Springs',
+      id: '07195430',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07195430',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.1,
       optimal: 3.7,
-      high: 5.0
-    }
+      high: 5.0,
+    },
   },
   {
-    name: "Frog Bayou",
-    rating: "II",
-    size: "L",
+    name: 'Frog Bayou',
+    rating: 'II',
+    size: 'L',
     gauge: {
-      name: "Frog Bayou at Rudy",
-      id: "07251500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07251500"
+      name: 'Frog Bayou at Rudy',
+      id: '07251500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07251500',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.0,
       optimal: 2.7,
-      high: 4.3
-    }
+      high: 4.3,
+    },
   },
   {
-    name: "Gutter Rock Cr.",
-    rating: "III+",
-    size: "VS",
+    name: 'Gutter Rock Cr.',
+    rating: 'III+',
+    size: 'VS',
     gauge: {
-      name: "Dutch Cr. at Waltreak",
-      id: "07260000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07260000"
+      name: 'Dutch Cr. at Waltreak',
+      id: '07260000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07260000',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 7.2,
       optimal: 8.5,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Hailstone Cr.",
-    rating: "II-III+",
-    size: "S",
+    name: 'Hailstone Cr.',
+    rating: 'II-III+',
+    size: 'S',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.8,
       optimal: 5.3,
-      high: 6.5
-    }
+      high: 6.5,
+    },
   },
   {
-    name: "Hart Cr.",
-    rating: "III-IV (V)",
-    size: "VS",
+    name: 'Hart Cr.',
+    rating: 'III-IV (V)',
+    size: 'VS',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 11.0,
       optimal: 14.0,
-      high: 22.0
-    }
+      high: 22.0,
+    },
   },
   {
-    name: "Haw Cr.",
-    rating: "II+-III",
-    size: "VS",
+    name: 'Haw Cr.',
+    rating: 'II+-III',
+    size: 'VS',
     gauge: {
-      name: "Big Piney Cr at Hwy 164 nr Dover",
-      id: "07257006",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257006"
+      name: 'Big Piney Cr at Hwy 164 nr Dover',
+      id: '07257006',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257006',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 5.5,
       optimal: 7.0,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Hurricane Cr. (Franklin)",
-    rating: "II+",
-    size: "S",
+    name: 'Hurricane Cr. (Franklin)',
+    rating: 'II+',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Hurricane Cr. (Newton)",
-    rating: "II+-III",
-    size: "S",
+    name: 'Hurricane Cr. (Newton)',
+    rating: 'II+-III',
+    size: 'S',
     gauge: {
-      name: "Big Piney Cr at Hwy 164 nr Dover",
-      id: "07257006",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257006"
+      name: 'Big Piney Cr at Hwy 164 nr Dover',
+      id: '07257006',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257006',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Kings River (lower)",
-    rating: "A",
-    size: "L",
+    name: 'Kings River (lower)',
+    rating: 'A',
+    size: 'L',
     gauge: {
-      name: "Kings River near Berryville",
-      id: "07050500",  // Note: Fixed the ID to match URL
-      url: "https://waterdata.usgs.gov/monitoring-location/07050500"
+      name: 'Kings River near Berryville',
+      id: '07050500', // Note: Fixed the ID to match URL
+      url: 'https://waterdata.usgs.gov/monitoring-location/07050500',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 2.85,
-      optimal: 3.50,
-      high: 5.00
-    }
+      optimal: 3.5,
+      high: 5.0,
+    },
   },
   {
-    name: "Illinois Bayou",
-    rating: "II",
-    size: "M",
+    name: 'Illinois Bayou',
+    rating: 'II',
+    size: 'M',
     gauge: {
-      name: "Illinois Bayou nr Scottsville",
-      id: "07257500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07257500"
+      name: 'Illinois Bayou nr Scottsville',
+      id: '07257500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07257500',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Illinois R. (Hogeye Run)",
-    rating: "II+",
-    size: "S",
+    name: 'Illinois R. (Hogeye Run)',
+    rating: 'II+',
+    size: 'S',
     gauge: {
-      name: "Baron Fork at Dutch Mills",
-      id: "07196900",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07196900"
+      name: 'Baron Fork at Dutch Mills',
+      id: '07196900',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07196900',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 3.5,
       optimal: 5.0,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Jack Cr.",
-    rating: "II-III",
-    size: "S",
+    name: 'Jack Cr.',
+    rating: 'II-III',
+    size: 'S',
     gauge: {
-      name: "Dutch Cr. at Waltreak",
-      id: "07260000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07260000"
+      name: 'Dutch Cr. at Waltreak',
+      id: '07260000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07260000',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.5,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Jordan Cr.",
-    rating: "III+",
-    size: "VS",
+    name: 'Jordan Cr.',
+    rating: 'III+',
+    size: 'VS',
     gauge: {
-      name: "Baron Fork at Dutch Mills",
-      id: "07196900",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07196900"
+      name: 'Baron Fork at Dutch Mills',
+      id: '07196900',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07196900',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Lee Cr.",
-    rating: "II+",
-    size: "M",
+    name: 'Lee Cr.',
+    rating: 'II+',
+    size: 'M',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.5,
       optimal: 5.5,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Left Hand Prong",
-    rating: "II-IV",
-    size: "VS",
+    name: 'Left Hand Prong',
+    rating: 'II-IV',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Little Mill Cr.",
-    rating: "III-IV",
-    size: "S",
+    name: 'Little Mill Cr.',
+    rating: 'III-IV',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 7.5,
       optimal: 9.0,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Little Missouri R.",
-    rating: "II-III",
-    size: "S",
+    name: 'Little Missouri R.',
+    rating: 'II-III',
+    size: 'S',
     gauge: {
-      name: "Little Missouri R. nr Langley",
-      id: "07360200",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07360200"
+      name: 'Little Missouri R. nr Langley',
+      id: '07360200',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07360200',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.75,
       optimal: 6.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Little Mulberry Cr.",
-    rating: "III-IV",
-    size: "S",
+    name: 'Little Mulberry Cr.',
+    rating: 'III-IV',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Little Sugar Creek - Bella Vista",
-    rating: "A",
-    size: "M",
+    name: 'Little Sugar Creek - Bella Vista',
+    rating: 'A',
+    size: 'M',
     gauge: {
-      name: "Little Sugar Creek at Pineville",
-      id: "07188838",
-      url: "https://waterdata.usgs.gov/monitoring-location/07188838/"
+      name: 'Little Sugar Creek at Pineville',
+      id: '07188838',
+      url: 'https://waterdata.usgs.gov/monitoring-location/07188838/',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.85,
-      optimal: 4.50,
-      high: 5.00
-    }
+      optimal: 4.5,
+      high: 5.0,
+    },
   },
   {
-    name: "Long Branch (EFLB)",
-    rating: "III-V",
-    size: "XS",
+    name: 'Long Branch (EFLB)',
+    rating: 'III-V',
+    size: 'XS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Long Devils Fork Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Long Devils Fork Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Lower Saline R. (Play Waves)",
-    rating: "PLAY",
-    size: "DC",
+    name: 'Lower Saline R. (Play Waves)',
+    rating: 'PLAY',
+    size: 'DC',
     gauge: {
-      name: "Saline River nr Dierks",
-      id: "07341000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07341000"
+      name: 'Saline River nr Dierks',
+      id: '07341000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07341000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 6.0,
       optimal: 6.4,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "M. Fork Little Mill Cr.",
-    rating: "III-IV",
-    size: "XS",
+    name: 'M. Fork Little Mill Cr.',
+    rating: 'III-IV',
+    size: 'XS',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 10.0,
       optimal: 11.0,
-      high: 13.0
-    }
+      high: 13.0,
+    },
   },
   {
-    name: "M. Fork Little Red R.",
-    rating: "II+",
-    size: "M",
+    name: 'M. Fork Little Red R.',
+    rating: 'II+',
+    size: 'M',
     gauge: {
-      name: "Middle Fork nr Shirley",
-      id: "07075000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07075000"
+      name: 'Middle Fork nr Shirley',
+      id: '07075000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07075000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 8.5,
       optimal: 9.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Meadow Cr.",
-    rating: "III+",
-    size: "VS",
+    name: 'Meadow Cr.',
+    rating: 'III+',
+    size: 'VS',
     gauge: {
-      name: "Middle Fork nr Shirley",
-      id: "07075000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07075000"
+      name: 'Middle Fork nr Shirley',
+      id: '07075000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07075000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 12.0,
       optimal: 13.0,
-      high: 15.0
-    }
+      high: 15.0,
+    },
   },
   {
-    name: "Micro Cr.",
-    rating: "III",
-    size: "XS",
+    name: 'Micro Cr.',
+    rating: 'III',
+    size: 'XS',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 12.0,
       optimal: 16.0,
-      high: 25.0
-    }
+      high: 25.0,
+    },
   },
   {
-    name: "Mill Cr.",
-    rating: "II-III+",
-    size: "S",
+    name: 'Mill Cr.',
+    rating: 'II-III+',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 8.0,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Mormon Cr.",
-    rating: "IV (IV+)",
-    size: "XS",
+    name: 'Mormon Cr.',
+    rating: 'IV (IV+)',
+    size: 'XS',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 8.5,
       optimal: 10.5,
-      high: 12.0
-    }
+      high: 12.0,
+    },
   },
   {
-    name: "Mulberry R. (above Hwy 23)",
-    rating: "II",
-    size: "L",
+    name: 'Mulberry R. (above Hwy 23)',
+    rating: 'II',
+    size: 'L',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 1.9,
       optimal: 2.8,
-      high: 5.0
-    }
+      high: 5.0,
+    },
   },
   {
-    name: "Mulberry R. (below Hwy 23)",
-    rating: "I-II",
-    size: "L",
+    name: 'Mulberry R. (below Hwy 23)',
+    rating: 'I-II',
+    size: 'L',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 1.7,
       optimal: 2.3,
-      high: 5.0
-    }
+      high: 5.0,
+    },
   },
   {
-    name: "Mystery Cr.",
-    rating: "IV+ (V)",
-    size: "VS",
+    name: 'Mystery Cr.',
+    rating: 'IV+ (V)',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 7.5,
       optimal: 9.0,
-      high: 11.5
-    }
+      high: 11.5,
+    },
   },
   {
-    name: "Osage Cr.",
-    rating: "III-IV",
-    size: "S",
+    name: 'Osage Cr.',
+    rating: 'III-IV',
+    size: 'S',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "D",
+    quality: 'D',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 9.5
-    }
+      high: 9.5,
+    },
   },
   {
-    name: "Pine Cr. OK",
-    rating: "III+",
-    size: "M",
+    name: 'Pine Cr. OK',
+    rating: 'III+',
+    size: 'M',
     gauge: {
-      name: "Pine Creek at Eubanks, OK",
-      id: "07335840",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07335840"
+      name: 'Pine Creek at Eubanks, OK',
+      id: '07335840',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07335840',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 7.5,
       optimal: 8.0,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Possum Walk Cr.",
-    rating: "IV-V (P)",
-    size: "S",
+    name: 'Possum Walk Cr.',
+    rating: 'IV-V (P)',
+    size: 'S',
     gauge: {
-      name: "Cadron Cr. nr Guy",
-      id: "07261000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07261000"
+      name: 'Cadron Cr. nr Guy',
+      id: '07261000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07261000',
     },
-    quality: "F",
+    quality: 'F',
     targetLevels: {
       tooLow: 8.0,
       optimal: 10.0,
-      high: 14.0
-    }
+      high: 14.0,
+    },
   },
   {
-    name: "Rattlesnake Cr.",
-    rating: "IV (V)",
-    size: "XS",
+    name: 'Rattlesnake Cr.',
+    rating: 'IV (V)',
+    size: 'XS',
     gauge: {
-      name: "Jack Cr. at Winfrey",
-      id: "07250974",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07250974"
+      name: 'Jack Cr. at Winfrey',
+      id: '07250974',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07250974',
     },
-    quality: "F",
+    quality: 'F',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.0,
-      high: 7.5
-    }
+      high: 7.5,
+    },
   },
   {
-    name: "Richland Cr.",
-    rating: "III-IV",
-    size: "M",
+    name: 'Richland Cr.',
+    rating: 'III-IV',
+    size: 'M',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.0,
       optimal: 4.0,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Rock Cr.",
-    rating: "II-III",
-    size: "VS",
+    name: 'Rock Cr.',
+    rating: 'II-III',
+    size: 'VS',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 7.5,
       optimal: 9.0,
-      high: 11.5
-    }
+      high: 11.5,
+    },
   },
   {
-    name: "Rockport",
-    rating: "PLAY",
-    size: "DC",
+    name: 'Rockport',
+    rating: 'PLAY',
+    size: 'DC',
     gauge: {
-      name: "Ouachita R. bl Remmel Dam",
-      id: "07359002",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07359002"
+      name: 'Ouachita R. bl Remmel Dam',
+      id: '07359002',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07359002',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.5,
       optimal: 6.0,
-      high: 7.0
-    }
+      high: 7.0,
+    },
   },
   {
     name: "Roger's Private Idaho",
-    rating: "II",
-    size: "L",
+    rating: 'II',
+    size: 'L',
     gauge: {
-      name: "Strawberry R. nr Poughkeepsie",
-      id: "07074000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07074000"
+      name: 'Strawberry R. nr Poughkeepsie',
+      id: '07074000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07074000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.5,
       optimal: 3.7,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Saint Francis R. (MO)",
-    rating: "II-IV",
-    size: "L",
+    name: 'Saint Francis R. (MO)',
+    rating: 'II-IV',
+    size: 'L',
     gauge: {
-      name: "St. Francis River near Roselle",
-      id: "07034000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07034000"
+      name: 'St. Francis River near Roselle',
+      id: '07034000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07034000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.0,
       optimal: 4.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Saline R.",
-    rating: "II-III",
-    size: "VS",
+    name: 'Saline R.',
+    rating: 'II-III',
+    size: 'VS',
     gauge: {
-      name: "Little Missouri R. nr Langley",
-      id: "07360200",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07360200"
+      name: 'Little Missouri R. nr Langley',
+      id: '07360200',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07360200',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.0,
-      high: 9.0
-    }
+      high: 9.0,
+    },
   },
   {
-    name: "Salt Fork",
-    rating: "II-III",
-    size: "S",
+    name: 'Salt Fork',
+    rating: 'II-III',
+    size: 'S',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Shoal Cr.",
-    rating: "III",
-    size: "VS",
+    name: 'Shoal Cr.',
+    rating: 'III',
+    size: 'VS',
     gauge: {
-      name: "Dutch Cr. at Waltreak",
-      id: "07260000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07260000"
+      name: 'Dutch Cr. at Waltreak',
+      id: '07260000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07260000',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.0,
-      high: 9.5
-    }
+      high: 9.5,
+    },
   },
   {
-    name: "Shop Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Shop Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 7.5,
       optimal: 8.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Smith Cr.",
-    rating: "III-V",
-    size: "VS",
+    name: 'Smith Cr.',
+    rating: 'III-V',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "South Fork Little Red R.",
-    rating: "I-III",
-    size: "M",
+    name: 'South Fork Little Red R.',
+    rating: 'I-III',
+    size: 'M',
     gauge: {
-      name: "S Fk Little Red R. at Clinton",
-      id: "07075300",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07075300"
+      name: 'S Fk Little Red R. at Clinton',
+      id: '07075300',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07075300',
     },
-    quality: "B",
+    quality: 'B',
     targetLevels: {
       tooLow: 5.5,
       optimal: 6.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "South Fourche Lafave R.",
-    rating: "II+",
-    size: "L",
+    name: 'South Fourche Lafave R.',
+    rating: 'II+',
+    size: 'L',
     gauge: {
-      name: "South Fourche LaFave nr Hollis",
-      id: "07263000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07263000"
+      name: 'South Fourche LaFave nr Hollis',
+      id: '07263000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07263000',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 3.5,
       optimal: 4.0,
-      high: 6.0
-    }
+      high: 6.0,
+    },
   },
   {
-    name: "Spadra Cr.",
-    rating: "III+",
-    size: "M",
+    name: 'Spadra Cr.',
+    rating: 'III+',
+    size: 'M',
     gauge: {
-      name: "Spadra Cr. at Clarksville",
-      id: "07256500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07256500"
+      name: 'Spadra Cr. at Clarksville',
+      id: '07256500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07256500',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.0,
       optimal: 5.5,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Spirits Cr.",
-    rating: "III",
-    size: "VS",
+    name: 'Spirits Cr.',
+    rating: 'III',
+    size: 'VS',
     gauge: {
-      name: "Mulberry R. nr Mulberry",
-      id: "07252000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07252000"
+      name: 'Mulberry R. nr Mulberry',
+      id: '07252000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07252000',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 8.0,
       optimal: 9.0,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Spring River (Hardy)",
-    rating: "II",
-    size: "L",
+    name: 'Spring River (Hardy)',
+    rating: 'II',
+    size: 'L',
     gauge: {
-      name: "Spring River near Hardy, AR",
-      id: "07069305",
-      url: "https://waterdata.usgs.gov/monitoring-location/07069305/"
+      name: 'Spring River near Hardy, AR',
+      id: '07069305',
+      url: 'https://waterdata.usgs.gov/monitoring-location/07069305/',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 2.99,
       optimal: 3.5,
-      high: 4.0
-    }
+      high: 4.0,
+    },
   },
   {
-    name: "Stepp Cr.",
-    rating: "III-IV+",
-    size: "VS",
+    name: 'Stepp Cr.',
+    rating: 'III-IV+',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 6.5,
       optimal: 7.5,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Sugar Cr.",
-    rating: "II-III",
-    size: "M",
+    name: 'Sugar Cr.',
+    rating: 'II-III',
+    size: 'M',
     gauge: {
-      name: "Dutch Cr. at Waltreak",
-      id: "07260000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07260000"
+      name: 'Dutch Cr. at Waltreak',
+      id: '07260000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07260000',
     },
-    quality: "C",
+    quality: 'C',
     targetLevels: {
       tooLow: 5.0,
       optimal: 6.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "Sulphur Cr.",
-    rating: "IV-V+",
-    size: "XS",
+    name: 'Sulphur Cr.',
+    rating: 'IV-V+',
+    size: 'XS',
     gauge: {
-      name: "Richland Cr. at Witts Springs",
-      id: "07055875",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055875"
+      name: 'Richland Cr. at Witts Springs',
+      id: '07055875',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055875',
     },
-    quality: "B+",
+    quality: 'B+',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 8.5
-    }
+      high: 8.5,
+    },
   },
   {
-    name: "Tanyard Cr.",
-    rating: "III-IV (V)",
-    size: "VS",
+    name: 'Tanyard Cr.',
+    rating: 'III-IV (V)',
+    size: 'VS',
     gauge: {
-      name: "Spavinaw Creek near Cherokee",
-      id: "07191179",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07191179"
+      name: 'Spavinaw Creek near Cherokee',
+      id: '07191179',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07191179',
     },
-    quality: "F",
+    quality: 'F',
     targetLevels: {
       tooLow: 8.0,
       optimal: 9.0,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Thomas Cr.",
-    rating: "III-IV",
-    size: "VS",
+    name: 'Thomas Cr.',
+    rating: 'III-IV',
+    size: 'VS',
     gauge: {
-      name: "Buffalo at Boxley",
-      id: "07055646",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07055646"
+      name: 'Buffalo at Boxley',
+      id: '07055646',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07055646',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 7.0,
       optimal: 8.5,
-      high: 11.0
-    }
+      high: 11.0,
+    },
   },
   {
-    name: "Trigger Gap",
-    rating: "PLAY",
-    size: "L",
+    name: 'Trigger Gap',
+    rating: 'PLAY',
+    size: 'L',
     gauge: {
-      name: "Kings R. nr Berryville",
-      id: "07050500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07050500"
+      name: 'Kings R. nr Berryville',
+      id: '07050500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07050500',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 6.0,
       optimal: 7.0,
-      high: 10.0
-    }
+      high: 10.0,
+    },
   },
   {
-    name: "Tulsa Wave",
-    rating: "III",
-    size: "DC",
+    name: 'Tulsa Wave',
+    rating: 'III',
+    size: 'DC',
     gauge: {
-      name: "Arkansas River at Tulsa, OK",
-      id: "07164500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07164500"
+      name: 'Arkansas River at Tulsa, OK',
+      id: '07164500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07164500',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 10000,
       optimal: 10500,
-      high: 15800
-    }
+      high: 15800,
+    },
   },
   {
-    name: "Upper Upper Shoal Cr.",
-    rating: "III+",
-    size: "XS",
+    name: 'Upper Upper Shoal Cr.',
+    rating: 'III+',
+    size: 'XS',
     gauge: {
-      name: "Dutch Cr. at Waltreak",
-      id: "07260000",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07260000"
+      name: 'Dutch Cr. at Waltreak',
+      id: '07260000',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07260000',
     },
-    quality: "D+",
+    quality: 'D+',
     targetLevels: {
       tooLow: 9.0,
       optimal: 10.0,
-      high: 11.5
-    }
+      high: 11.5,
+    },
   },
   {
-    name: "West Fork White River",
-    rating: "I-II",
-    size: "M",
+    name: 'West Fork White River',
+    rating: 'I-II',
+    size: 'M',
     gauge: {
-      name: "West Fork White River nr Fay",
-      id: "07048550",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07048550"
+      name: 'West Fork White River nr Fay',
+      id: '07048550',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07048550',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 4.5,
       optimal: 6.0,
-      high: 8.0
-    }
+      high: 8.0,
+    },
   },
   {
-    name: "West Horsehead Cr.",
-    rating: "III-IV+",
-    size: "XS",
+    name: 'West Horsehead Cr.',
+    rating: 'III-IV+',
+    size: 'XS',
     gauge: {
-      name: "Spadra Cr. at Clarksville",
-      id: "07256500",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07256500"
+      name: 'Spadra Cr. at Clarksville',
+      id: '07256500',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07256500',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 9.0,
       optimal: 10.5,
-      high: 14.0
-    }
+      high: 14.0,
+    },
   },
   {
-    name: "White R., Middle Fork",
-    rating: "II",
-    size: "S",
+    name: 'White R., Middle Fork',
+    rating: 'II',
+    size: 'S',
     gauge: {
-      name: "White R. near Fayetteville",
-      id: "07048600",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07048600"
+      name: 'White R. near Fayetteville',
+      id: '07048600',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07048600',
     },
-    quality: "F",
+    quality: 'F',
     targetLevels: {
       tooLow: 9.0,
       optimal: 10.0,
-      high: 13.0
-    }
+      high: 13.0,
+    },
   },
   {
-    name: "White Rock Cr.",
-    rating: "III-IV",
-    size: "VS",
+    name: 'White Rock Cr.',
+    rating: 'III-IV',
+    size: 'VS',
     gauge: {
-      name: "Frog Bayou at Winfrey",
-      id: "07250965",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07250965"
+      name: 'Frog Bayou at Winfrey',
+      id: '07250965',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07250965',
     },
-    quality: "F",
+    quality: 'F',
     targetLevels: {
       tooLow: 13.0,
       optimal: 14.0,
-      high: 16.0
-    }
+      high: 16.0,
+    },
   },
   {
-    name: "Whistlepost Cr.",
-    rating: "IV-V (P)",
-    size: "XS",
+    name: 'Whistlepost Cr.',
+    rating: 'IV-V (P)',
+    size: 'XS',
     gauge: {
-      name: "Lee Cr. at Short, OK",
-      id: "07249800",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249800"
+      name: 'Lee Cr. at Short, OK',
+      id: '07249800',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249800',
     },
-    quality: "C+",
+    quality: 'C+',
     targetLevels: {
       tooLow: 14.0,
       optimal: 18.0,
-      high: 22.0
-    }
+      high: 22.0,
+    },
   },
   {
-    name: "Wister Wave",
-    rating: "III",
-    size: "L",
+    name: 'Wister Wave',
+    rating: 'III',
+    size: 'L',
     gauge: {
-      name: "Poteau River near Panama, OK",
-      id: "07249413",
-      url: "http://waterdata.usgs.gov/nwis/uv/?site_no=07249413"
+      name: 'Poteau River near Panama, OK',
+      id: '07249413',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07249413',
     },
-    quality: "A",
+    quality: 'A',
     targetLevels: {
       tooLow: 11.5,
       optimal: 12.5,
-      high: 13.5
-    }
-  }
+      high: 13.5,
+    },
+  },
 ];
-
 ```
 
 # src/data/streamMetadata.ts
@@ -3049,84 +3121,87 @@ export const STREAM_METADATA = {
       width: '< 20ft',
       watershed: '< 1 sq mi',
       rainRate: '1.5 in/hr',
-      window: '3-6 hrs'
+      window: '3-6 hrs',
     },
     VS: {
       width: '20-30ft',
       watershed: '1-4 sq mi',
       rainRate: '1.0 in/hr',
-      window: '6-12 hrs'
+      window: '6-12 hrs',
     },
     S: {
       width: '30-40ft',
       watershed: '4-10 sq mi',
       rainRate: '0.75 in/hr',
-      window: '1 day'
+      window: '1 day',
     },
     M: {
       width: '40-75ft',
       watershed: '10-25 sq mi',
       rainRate: '0.5 in/hr',
-      window: '1-2 days'
+      window: '1-2 days',
     },
     L: {
       width: '> 75ft',
       watershed: '> 25 sq mi',
       rainRate: '0.2 in/hr',
-      window: '2-5 days'
+      window: '2-5 days',
     },
     H: {
       width: '> 150ft',
       watershed: '> 75 sq mi',
       rainRate: '0.1 in/hr',
-      window: '5+ days'
+      window: '5+ days',
     },
     DC: {
       width: 'N/A',
       watershed: 'N/A',
       rainRate: 'N/A',
-      window: 'Dam Controlled - Check Schedule!'
+      window: 'Dam Controlled - Check Schedule!',
     },
     A: {
       width: 'N/A',
       watershed: 'N/A',
       rainRate: 'N/A',
-      window: 'Always Runs'
-    }
+      window: 'Always Runs',
+    },
   },
   correlationQualityDefinitions: {
-    'A': 'Excellent correlation. Gauge is on the creek near the run',
+    A: 'Excellent correlation. Gauge is on the creek near the run',
     'A+': 'Gauge is on a small creek and should be rising for a good run',
-    'B': 'Good correlation. Creek is an upstream tributary to the gauged creek',
+    B: 'Good correlation. Creek is an upstream tributary to the gauged creek',
     'B+': 'Creek is a small upstream tributary to the gauged creek. Gauge should be rising',
-    'C': 'Fair correlation. Creek is in a nearby watershed or downstream tributary',
+    C: 'Fair correlation. Creek is in a nearby watershed or downstream tributary',
     'C+': 'Same as C, but creek is small and gauge should be rising',
-    'D': 'Poor correlation. Creek is weakly correlated to the gauge',
+    D: 'Poor correlation. Creek is weakly correlated to the gauge',
     'D+': 'Same as D, but creek is small and gauge should be rising',
-    'F': 'No/Unknown correlation. Wild guess at best'
+    F: 'No/Unknown correlation. Wild guess at best',
   },
   levelDefinitions: {
     tooLow: {
       code: 'X',
       color: '#FF0000',
-      description: 'Creek is too low for fun paddling'
+      description: 'Creek is too low for fun paddling',
     },
     low: {
       code: 'L',
-      color: '#FFFF00', 
-      description: 'Creek is low but paddlable. May have to drag/portage in places'
+      color: '#FFFF00',
+      description:
+        'Creek is low but paddlable. May have to drag/portage in places',
     },
     optimal: {
       code: 'O',
       color: '#00FF00',
-      description: 'Creek is perfect for paddling. The ratings listed are for this range'
+      description:
+        'Creek is perfect for paddling. The ratings listed are for this range',
     },
     high: {
       code: 'H',
       color: '#0000FF',
-      description: 'Creek is high and potentially very dangerous. Many more hazards are present'
-    }
-  }
+      description:
+        'Creek is high and potentially very dangerous. Many more hazards are present',
+    },
+  },
 };
 ```
 
@@ -3138,7 +3213,9 @@ import { Stream, GaugeReading, LevelTrend } from '../types/stream';
 
 export function useStreamGauge(stream: Stream) {
   const [reading, setReading] = useState<GaugeReading | null>(null);
-  const [previousReading, setPreviousReading] = useState<GaugeReading | null>(null);
+  const [previousReading, setPreviousReading] = useState<GaugeReading | null>(
+    null
+  );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
@@ -3156,8 +3233,8 @@ export function useStreamGauge(stream: Stream) {
           `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${stream.gauge.id}&parameterCd=00065`,
           {
             headers: {
-              'Accept': 'application/json'
-            }
+              Accept: 'application/json',
+            },
           }
         );
 
@@ -3167,17 +3244,19 @@ export function useStreamGauge(stream: Stream) {
 
         const data = await response.json();
         const latestReading = data.value.timeSeries[0].values[0].value[0];
-        
-        setReading(prevReading => {
+
+        setReading((prevReading) => {
           setPreviousReading(prevReading);
           return {
             value: parseFloat(latestReading.value),
-            timestamp: latestReading.dateTime
+            timestamp: latestReading.dateTime,
           };
         });
         setError(null);
       } catch (err) {
-        setError(err instanceof Error ? err : new Error('Failed to fetch gauge data'));
+        setError(
+          err instanceof Error ? err : new Error('Failed to fetch gauge data')
+        );
       } finally {
         setLoading(false);
       }
@@ -3191,26 +3270,33 @@ export function useStreamGauge(stream: Stream) {
 
   const determineTrend = (): LevelTrend => {
     if (!reading || !previousReading) return LevelTrend.None;
-    
+
     const difference = reading.value - previousReading.value;
     const THRESHOLD = 0.1; // Minimum change to consider rising/falling
-    
+
     if (Math.abs(difference) < THRESHOLD) return LevelTrend.Holding;
     return difference > 0 ? LevelTrend.Rising : LevelTrend.Falling;
   };
 
-  const currentLevel = reading ? {
-    status: reading.value < stream.targetLevels.tooLow ? 'X' :
-            reading.value < stream.targetLevels.optimal ? 'L' :
-            reading.value < stream.targetLevels.high ? 'O' : 'H',
-    trend: determineTrend()
-  } : undefined;
+  const currentLevel = reading
+    ? {
+        status:
+          reading.value < stream.targetLevels.tooLow
+            ? 'X'
+            : reading.value < stream.targetLevels.optimal
+              ? 'L'
+              : reading.value < stream.targetLevels.high
+                ? 'O'
+                : 'H',
+        trend: determineTrend(),
+      }
+    : undefined;
 
   return {
     currentLevel,
     reading,
     loading,
-    error
+    error,
   };
 }
 ```
@@ -3221,7 +3307,6 @@ export function useStreamGauge(stream: Stream) {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 ```
 
 # src/main.tsx
@@ -3237,7 +3322,6 @@ createRoot(document.getElementById('root')!).render(
     <App />
   </StrictMode>
 );
-
 ```
 
 # src/types/stream.ts
@@ -3252,7 +3336,7 @@ export enum LevelTrend {
   Rising = 'rise',
   Falling = 'fall',
   Holding = 'hold',
-  None = 'none'
+  None = 'none',
 }
 
 export interface Stream {
@@ -3272,7 +3356,7 @@ export interface Stream {
     high: number;
   };
   currentLevel?: {
-    status: string;  // 'X', 'L', 'O', 'H'
+    status: string; // 'X', 'L', 'O', 'H'
     trend: LevelTrend;
   };
 }
@@ -3303,7 +3387,7 @@ export const sizeDefinitions = {
     watershed: '< 1 sq mi',
     rainRate: '1.5 in/hr',
     window: '3-6 hrs',
-    description: 'Extra small creeks with very quick response to rain'
+    description: 'Extra small creeks with very quick response to rain',
   },
   VS: {
     name: 'Very Small',
@@ -3311,7 +3395,7 @@ export const sizeDefinitions = {
     watershed: '1-4 sq mi',
     rainRate: '1.0 in/hr',
     window: '6-12 hrs',
-    description: 'Very small creeks with quick response to rain'
+    description: 'Very small creeks with quick response to rain',
   },
   S: {
     name: 'Small',
@@ -3319,7 +3403,7 @@ export const sizeDefinitions = {
     watershed: '4-10 sq mi',
     rainRate: '0.75 in/hr',
     window: '1 day',
-    description: 'Small creeks with moderate response time'
+    description: 'Small creeks with moderate response time',
   },
   M: {
     name: 'Medium',
@@ -3327,7 +3411,7 @@ export const sizeDefinitions = {
     watershed: '10-25 sq mi',
     rainRate: '0.5 in/hr',
     window: '1-2 days',
-    description: 'Medium sized streams with longer response time'
+    description: 'Medium sized streams with longer response time',
   },
   L: {
     name: 'Large',
@@ -3335,7 +3419,7 @@ export const sizeDefinitions = {
     watershed: '> 25 sq mi',
     rainRate: '0.2 in/hr',
     window: '2-5 days',
-    description: 'Large rivers with extended response time'
+    description: 'Large rivers with extended response time',
   },
   H: {
     name: 'Huge',
@@ -3343,7 +3427,7 @@ export const sizeDefinitions = {
     watershed: '> 75 sq mi',
     rainRate: '0.1 in/hr',
     window: '5+ days',
-    description: 'Major rivers with very long response time'
+    description: 'Major rivers with very long response time',
   },
   DC: {
     name: 'Dam Controlled',
@@ -3351,7 +3435,7 @@ export const sizeDefinitions = {
     watershed: 'N/A',
     rainRate: 'N/A',
     window: 'Scheduled',
-    description: 'Flow controlled by dam releases - check schedule'
+    description: 'Flow controlled by dam releases - check schedule',
   },
   A: {
     name: 'Always Runs',
@@ -3359,48 +3443,52 @@ export const sizeDefinitions = {
     watershed: 'N/A',
     rainRate: 'N/A',
     window: 'N/A',
-    description: 'Consistent flow year-round'
-  }
+    description: 'Consistent flow year-round',
+  },
 } as const;
 
 /** Detailed correlation quality definitions */
 export const correlationDefinitions = {
-  'A': {
+  A: {
     name: 'Excellent',
-    description: 'Excellent correlation. Gauge is on the creek near the run'
+    description: 'Excellent correlation. Gauge is on the creek near the run',
   },
   'A+': {
     name: 'Excellent Plus',
-    description: 'Gauge is on a small creek and should be rising for a good run'
+    description:
+      'Gauge is on a small creek and should be rising for a good run',
   },
-  'B': {
+  B: {
     name: 'Good',
-    description: 'Good correlation. Creek is an upstream tributary to the gauged creek'
+    description:
+      'Good correlation. Creek is an upstream tributary to the gauged creek',
   },
   'B+': {
     name: 'Good Plus',
-    description: 'Creek is a small upstream tributary to the gauged creek. Gauge should be rising'
+    description:
+      'Creek is a small upstream tributary to the gauged creek. Gauge should be rising',
   },
-  'C': {
+  C: {
     name: 'Fair',
-    description: 'Fair correlation. Creek is in a nearby watershed or downstream tributary'
+    description:
+      'Fair correlation. Creek is in a nearby watershed or downstream tributary',
   },
   'C+': {
     name: 'Fair Plus',
-    description: 'Same as Fair, but creek is small and gauge should be rising'
+    description: 'Same as Fair, but creek is small and gauge should be rising',
   },
-  'D': {
+  D: {
     name: 'Poor',
-    description: 'Poor correlation. Creek is weakly correlated to the gauge'
+    description: 'Poor correlation. Creek is weakly correlated to the gauge',
   },
   'D+': {
     name: 'Poor Plus',
-    description: 'Same as Poor, but creek is small and gauge should be rising'
+    description: 'Same as Poor, but creek is small and gauge should be rising',
   },
-  'F': {
+  F: {
     name: 'Unknown',
-    description: 'No/Unknown correlation. Wild guess at best'
-  }
+    description: 'No/Unknown correlation. Wild guess at best',
+  },
 } as const;
 
 /** Water level condition definitions */
@@ -3409,60 +3497,69 @@ export const levelDefinitions = {
     name: 'Too Low',
     code: 'Too Low',
     color: '#FF0000',
-    description: 'Creek is too low for fun paddling'
+    description: 'Creek is too low for fun paddling',
   },
   low: {
     name: 'Low',
     code: 'Low',
     color: '#FFFF00',
-    description: 'Creek is low but paddlable. May have to drag/portage in places'
+    description:
+      'Creek is low but paddlable. May have to drag/portage in places',
   },
   optimal: {
     name: 'Optimal',
     code: 'Optimal',
     color: '#00FF00',
-    description: 'Creek is perfect for paddling. The ratings listed are for this range'
+    description:
+      'Creek is perfect for paddling. The ratings listed are for this range',
   },
   high: {
     name: 'High/Flood',
     code: 'High/Flood',
     color: '#0000FF',
-    description: 'Creek is high and potentially very dangerous. Many more hazards are present in this range'
-  }
+    description:
+      'Creek is high and potentially very dangerous. Many more hazards are present in this range',
+  },
 } as const;
 
 /** Detailed whitewater class rating definitions */
 export const ratingDefinitions = {
-  'I': {
+  I: {
     name: 'Class I - Easy',
-    description: 'Fast moving water with riffles and small waves. Few obstacles, all obvious and easily missed with little training.',
+    description:
+      'Fast moving water with riffles and small waves. Few obstacles, all obvious and easily missed with little training.',
     color: '#4caf50', // success.main
   },
-  'II': {
+  II: {
     name: 'Class II - Novice',
-    description: 'Straightforward rapids with wide, clear channels. Occasional maneuvering may be required.',
+    description:
+      'Straightforward rapids with wide, clear channels. Occasional maneuvering may be required.',
     color: '#81c784', // success.light
   },
-  'III': {
+  III: {
     name: 'Class III - Intermediate',
-    description: 'Rapids with moderate, irregular waves. Complex maneuvers in fast current and good boat control required.',
+    description:
+      'Rapids with moderate, irregular waves. Complex maneuvers in fast current and good boat control required.',
     color: '#ff9800', // warning.main
   },
-  'IV': {
+  IV: {
     name: 'Class IV - Advanced',
-    description: 'Intense, powerful but predictable rapids requiring precise boat handling in turbulent water.',
+    description:
+      'Intense, powerful but predictable rapids requiring precise boat handling in turbulent water.',
     color: '#ef5350', // error.light
   },
-  'V': {
+  V: {
     name: 'Class V - Expert',
-    description: 'Extremely long, obstructed, or very violent rapids. Serious risks involved with rescue conditions difficult.',
+    description:
+      'Extremely long, obstructed, or very violent rapids. Serious risks involved with rescue conditions difficult.',
     color: '#d32f2f', // error.main
   },
   'V+': {
     name: 'Class V+ - Extreme',
-    description: 'These runs have almost never been attempted and often exemplify the extremes of difficulty, unpredictability and danger.',
+    description:
+      'These runs have almost never been attempted and often exemplify the extremes of difficulty, unpredictability and danger.',
     color: '#c62828', // error.dark
-  }
+  },
 } as const;
 
 /** Type-safe helpers to get definitions */
@@ -3470,7 +3567,9 @@ export function getSizeDefinition(size: keyof typeof sizeDefinitions) {
   return sizeDefinitions[size];
 }
 
-export function getCorrelationDefinition(quality: keyof typeof correlationDefinitions) {
+export function getCorrelationDefinition(
+  quality: keyof typeof correlationDefinitions
+) {
   return correlationDefinitions[quality];
 }
 
@@ -3486,13 +3585,18 @@ export function getRatingDefinition(rating: string) {
     return {
       name: `Class ${rating} - Mixed`,
       description: `Difficulty varies between ${ratingDefinitions[lower as keyof typeof ratingDefinitions]?.name} and ${ratingDefinitions[upper as keyof typeof ratingDefinitions]?.name} characteristics.`,
-      color: ratingDefinitions[upper as keyof typeof ratingDefinitions]?.color || '#ff9800',
+      color:
+        ratingDefinitions[upper as keyof typeof ratingDefinitions]?.color ||
+        '#ff9800',
     };
   }
 
   // Handle plus ratings (e.g., "III+")
   if (rating.includes('+') && !rating.startsWith('V+')) {
-    const baseRating = rating.replace('+', '') as keyof typeof ratingDefinitions;
+    const baseRating = rating.replace(
+      '+',
+      ''
+    ) as keyof typeof ratingDefinitions;
     return {
       name: `Class ${rating} - Advanced ${ratingDefinitions[baseRating]?.name.split('-')[1]}`,
       description: `More demanding than ${baseRating} with some characteristics of the next higher class.`,
@@ -3500,11 +3604,13 @@ export function getRatingDefinition(rating: string) {
     };
   }
 
-  return ratingDefinitions[rating as keyof typeof ratingDefinitions] || {
-    name: `Class ${rating}`,
-    description: 'Rating information not available.',
-    color: '#9e9e9e', // grey[500]
-  };
+  return (
+    ratingDefinitions[rating as keyof typeof ratingDefinitions] || {
+      name: `Class ${rating}`,
+      description: 'Rating information not available.',
+      color: '#9e9e9e', // grey[500]
+    }
+  );
 }
 ```
 
@@ -3513,7 +3619,15 @@ export function getRatingDefinition(rating: string) {
 ```ts
 // types/table.ts
 export type SortDirection = 'asc' | 'desc';
-export type SortField = 'name' | 'rating' | 'size' | 'gauge' | 'reading' | 'quality' | 'level' | 'trend';
+export type SortField =
+  | 'name'
+  | 'rating'
+  | 'size'
+  | 'gauge'
+  | 'reading'
+  | 'quality'
+  | 'level'
+  | 'trend';
 ```
 
 # src/utils/sorting.ts
@@ -3525,16 +3639,20 @@ import { SortDirection, SortField } from '../types/table';
 // Helper function to get trend priority (Rising > Holding > Falling > None)
 const getTrendPriority = (trend: LevelTrend | undefined): number => {
   switch (trend) {
-    case LevelTrend.Rising: return 3;
-    case LevelTrend.Holding: return 2;
-    case LevelTrend.Falling: return 1;
-    default: return 0;
+    case LevelTrend.Rising:
+      return 3;
+    case LevelTrend.Holding:
+      return 2;
+    case LevelTrend.Falling:
+      return 1;
+    default:
+      return 0;
   }
 };
 
 export function sortStreams(
-  streams: StreamData[], 
-  sortField: SortField, 
+  streams: StreamData[],
+  sortField: SortField,
   sortDirection: SortDirection
 ): StreamData[] {
   return [...streams].sort((a, b) => {
@@ -3564,7 +3682,9 @@ export function sortStreams(
         break;
       case 'level':
         if (a.currentLevel?.status && b.currentLevel?.status) {
-          comparison = a.currentLevel.status.localeCompare(b.currentLevel.status);
+          comparison = a.currentLevel.status.localeCompare(
+            b.currentLevel.status
+          );
         }
         break;
       case 'reading':
@@ -3586,7 +3706,10 @@ export function sortStreams(
 ```ts
 import { Stream } from '../types/stream';
 
-export const determineLevel = (currentReading: number, targetLevels: Stream['targetLevels']) => {
+export const determineLevel = (
+  currentReading: number,
+  targetLevels: Stream['targetLevels']
+) => {
   if (currentReading < targetLevels.tooLow) {
     return 'Too Low'; // Too Low
   } else if (currentReading < targetLevels.optimal) {
@@ -3605,7 +3728,6 @@ export const determineLevel = (currentReading: number, targetLevels: Stream['tar
 
 ```ts
 /// <reference types="vite/client" />
-
 ```
 
 # tailwind.config.js
@@ -3680,12 +3802,12 @@ export default {
       },
       borderRadius: {
         // Material UI's default border radius values
-        'none': '0',
-        'sm': '4px',
+        none: '0',
+        sm: '4px',
         DEFAULT: '4px',
-        'md': '6px',
-        'lg': '8px',
-        'xl': '12px',
+        md: '6px',
+        lg: '8px',
+        xl: '12px',
         '2xl': '16px',
       },
       fontFamily: {
@@ -3714,12 +3836,8 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };
-
 ```
 
 # tsconfig.app.json
@@ -3750,7 +3868,6 @@ export default {
   },
   "include": ["src", "useStreamAlerts.ts"]
 }
-
 ```
 
 # tsconfig.json
@@ -3763,7 +3880,6 @@ export default {
     { "path": "./tsconfig.node.json" }
   ]
 }
-
 ```
 
 # tsconfig.node.json
@@ -3791,7 +3907,6 @@ export default {
   },
   "include": ["vite.config.ts"]
 }
-
 ```
 
 # vite.config.ts
@@ -3807,6 +3922,4 @@ export default defineConfig({
     exclude: ['lucide-react'],
   },
 });
-
 ```
-

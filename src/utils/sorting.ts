@@ -4,16 +4,20 @@ import { SortDirection, SortField } from '../types/table';
 // Helper function to get trend priority (Rising > Holding > Falling > None)
 const getTrendPriority = (trend: LevelTrend | undefined): number => {
   switch (trend) {
-    case LevelTrend.Rising: return 3;
-    case LevelTrend.Holding: return 2;
-    case LevelTrend.Falling: return 1;
-    default: return 0;
+    case LevelTrend.Rising:
+      return 3;
+    case LevelTrend.Holding:
+      return 2;
+    case LevelTrend.Falling:
+      return 1;
+    default:
+      return 0;
   }
 };
 
 export function sortStreams(
-  streams: StreamData[], 
-  sortField: SortField, 
+  streams: StreamData[],
+  sortField: SortField,
   sortDirection: SortDirection
 ): StreamData[] {
   return [...streams].sort((a, b) => {
@@ -43,7 +47,9 @@ export function sortStreams(
         break;
       case 'level':
         if (a.currentLevel?.status && b.currentLevel?.status) {
-          comparison = a.currentLevel.status.localeCompare(b.currentLevel.status);
+          comparison = a.currentLevel.status.localeCompare(
+            b.currentLevel.status
+          );
         }
         break;
       case 'reading':

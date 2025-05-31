@@ -19,6 +19,8 @@ function ErrorFallback({ error }: { error: Error }) {
 
 function App() {
   const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]); // Added
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]); // Added
 
   return (
     <ThemeProvider>
@@ -29,23 +31,39 @@ function App() {
             display: 'flex',
             flexDirection: 'column',
             minHeight: '100vh',
-            bgcolor: (theme) => theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
+            bgcolor: (theme) =>
+              theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
           }}
         >
           <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Header 
-              onFilterClick={() => setFilterOpen(!filterOpen)} 
+            <Header
+              onFilterClick={() => setFilterOpen(!filterOpen)}
               filterOpen={filterOpen}
             />
             <Box sx={{ display: 'flex', flex: 1 }}>
               <Routes>
-                <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                <Route path="/dashboard" element={<DashboardPage />} /> {/* Changed */}
+                <Route
+                  path="/"
+                  element={<Navigate to="/dashboard" replace />}
+                />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <DashboardPage
+                      selectedRatings={selectedRatings} // Added
+                      selectedSizes={selectedSizes} // Added
+                    />
+                  }
+                />
               </Routes>
             </Box>
             <DashboardSidebar
               open={filterOpen}
               onClose={() => setFilterOpen(false)}
+              selectedRatings={selectedRatings} // Added
+              setSelectedRatings={setSelectedRatings} // Added
+              selectedSizes={selectedSizes} // Added
+              setSelectedSizes={setSelectedSizes} // Added
             />
             <Footer />
           </ErrorBoundary>

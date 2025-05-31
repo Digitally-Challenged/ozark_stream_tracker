@@ -1,12 +1,16 @@
 import { Box, Typography, useTheme } from '@mui/material';
-import { ArrowDownwardOutlined, ArrowUpwardOutlined, RemoveOutlined } from '@mui/icons-material';
-import { 
-  getSizeDefinition, 
-  getCorrelationDefinition, 
+import {
+  ArrowDownwardOutlined,
+  ArrowUpwardOutlined,
+  RemoveOutlined,
+} from '@mui/icons-material';
+import {
+  getSizeDefinition,
+  getCorrelationDefinition,
   getLevelDefinition,
   getRatingDefinition,
   sizeDefinitions,
-  correlationDefinitions 
+  correlationDefinitions,
 } from '../../types/streamDefinitions';
 import { LevelTrend } from '../../types/stream';
 
@@ -29,40 +33,61 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
 
     switch (trend) {
       case LevelTrend.Rising:
-        return <ArrowUpwardOutlined sx={{ fontSize: iconProps.size, color: theme.palette.success.main }} />;
+        return (
+          <ArrowUpwardOutlined
+            sx={{ fontSize: iconProps.size, color: theme.palette.success.main }}
+          />
+        );
       case LevelTrend.Falling:
-        return <ArrowDownwardOutlined sx={{ fontSize: iconProps.size, color: theme.palette.error.main }} />;
+        return (
+          <ArrowDownwardOutlined
+            sx={{ fontSize: iconProps.size, color: theme.palette.error.main }}
+          />
+        );
       case LevelTrend.Holding:
-        return <RemoveOutlined sx={{ fontSize: iconProps.size, color: theme.palette.text.secondary }} />;
+        return (
+          <RemoveOutlined
+            sx={{
+              fontSize: iconProps.size,
+              color: theme.palette.text.secondary,
+            }}
+          />
+        );
       default:
         return null;
     }
   };
 
   const renderLevelContent = () => {
-    const levelKey = value === 'X' ? 'tooLow' : 
-                    value === 'L' ? 'low' : 
-                    value === 'O' ? 'optimal' : 
-                    value === 'H' ? 'high' : null;
-                    
+    const levelKey =
+      value === 'X'
+        ? 'tooLow'
+        : value === 'L'
+          ? 'low'
+          : value === 'O'
+            ? 'optimal'
+            : value === 'H'
+              ? 'high'
+              : null;
+
     if (!levelKey) return null;
     const info = getLevelDefinition(levelKey);
 
     return (
       <Box sx={{ p: 1 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 1, 
-            mb: 1 
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            mb: 1,
           }}
         >
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
+          <Typography
+            variant="subtitle1"
+            sx={{
               fontWeight: 600,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.name}
@@ -72,25 +97,28 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
               width: 12,
               height: 12,
               borderRadius: '50%',
-              bgcolor: info.color
+              bgcolor: info.color,
             }}
           />
           {renderTrendIcon()}
         </Box>
-        <Typography 
+        <Typography
           variant="body2"
           sx={{ color: theme.palette.text.secondary }}
         >
           {info.description}
         </Typography>
         {trend && trend !== LevelTrend.None && (
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               mt: 1,
-              color: trend === LevelTrend.Rising ? theme.palette.success.main :
-                     trend === LevelTrend.Falling ? theme.palette.error.main :
-                     theme.palette.text.secondary
+              color:
+                trend === LevelTrend.Rising
+                  ? theme.palette.success.main
+                  : trend === LevelTrend.Falling
+                    ? theme.palette.error.main
+                    : theme.palette.text.secondary,
             }}
           >
             Level is {trend.toLowerCase()}
@@ -104,46 +132,46 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
     const info = getSizeDefinition(value as keyof typeof sizeDefinitions);
     return (
       <Box sx={{ p: 1 }}>
-        <Typography 
-          variant="subtitle1" 
-          sx={{ 
+        <Typography
+          variant="subtitle1"
+          sx={{
             fontWeight: 600,
             color: theme.palette.text.primary,
-            mb: 1 
+            mb: 1,
           }}
         >
           {info.name}
         </Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Width: {info.width}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Watershed: {info.watershed}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Rain Rate: {info.rainRate}
           </Typography>
-          <Typography 
+          <Typography
             variant="body2"
             sx={{ color: theme.palette.text.secondary }}
           >
             Window: {info.window}
           </Typography>
-          <Typography 
-            variant="body2" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
               mt: 1,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.description}
@@ -154,20 +182,22 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
   };
 
   const renderCorrelationContent = () => {
-    const info = getCorrelationDefinition(value as keyof typeof correlationDefinitions);
+    const info = getCorrelationDefinition(
+      value as keyof typeof correlationDefinitions
+    );
     return (
       <Box sx={{ p: 1 }}>
-        <Typography 
-          variant="subtitle1" 
-          sx={{ 
+        <Typography
+          variant="subtitle1"
+          sx={{
             fontWeight: 600,
             color: theme.palette.text.primary,
-            mb: 1 
+            mb: 1,
           }}
         >
           {info.name}
         </Typography>
-        <Typography 
+        <Typography
           variant="body2"
           sx={{ color: theme.palette.text.secondary }}
         >
@@ -181,19 +211,19 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
     const info = getRatingDefinition(value);
     return (
       <Box sx={{ p: 1, maxWidth: 300 }}>
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: 1, 
-            mb: 1 
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 1,
+            mb: 1,
           }}
         >
-          <Typography 
-            variant="subtitle1" 
-            sx={{ 
+          <Typography
+            variant="subtitle1"
+            sx={{
               fontWeight: 600,
-              color: theme.palette.text.primary 
+              color: theme.palette.text.primary,
             }}
           >
             {info.name}
@@ -203,15 +233,15 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
               width: 12,
               height: 12,
               borderRadius: '50%',
-              bgcolor: info.color
+              bgcolor: info.color,
             }}
           />
         </Box>
-        <Typography 
+        <Typography
           variant="body2"
-          sx={{ 
+          sx={{
             color: theme.palette.text.secondary,
-            lineHeight: 1.5 
+            lineHeight: 1.5,
           }}
         >
           {info.description}

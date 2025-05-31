@@ -67,12 +67,12 @@ export default {
       },
       borderRadius: {
         // Material UI's default border radius values
-        'none': '0',
-        'sm': '4px',
+        none: '0',
+        sm: '4px',
         DEFAULT: '4px',
-        'md': '6px',
-        'lg': '8px',
-        'xl': '12px',
+        md: '6px',
+        lg: '8px',
+        xl: '12px',
         '2xl': '16px',
       },
       fontFamily: {
@@ -101,8 +101,5 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 };

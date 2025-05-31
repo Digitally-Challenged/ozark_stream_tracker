@@ -16,31 +16,37 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
 
   const getLevelColor = (status: string | undefined) => {
     if (!status) return undefined;
-    
+
     const alpha = theme.palette.mode === 'dark' ? '0.3' : '0.2';
     switch (status) {
-      case 'X': return `rgba(211, 47, 47, ${alpha})`; // Too Low
-      case 'L': return `rgba(237, 108, 2, ${alpha})`; // Low
-      case 'O': return `rgba(46, 125, 50, ${alpha})`; // Optimal
-      case 'H': return `rgba(2, 136, 209, ${alpha})`; // High
-      default: return undefined;
+      case 'X':
+        return `rgba(211, 47, 47, ${alpha})`; // Too Low
+      case 'L':
+        return `rgba(237, 108, 2, ${alpha})`; // Low
+      case 'O':
+        return `rgba(46, 125, 50, ${alpha})`; // Optimal
+      case 'H':
+        return `rgba(2, 136, 209, ${alpha})`; // High
+      default:
+        return undefined;
     }
   };
 
-  const timeFreshnessClass = reading?.timestamp 
+  const timeFreshnessClass = reading?.timestamp
     ? getReadingFreshnessClass(reading.timestamp)
     : '';
 
   return (
-    <TableRow 
+    <TableRow
       hover
       onClick={() => onClick(stream)}
-      sx={{ 
+      sx={{
         cursor: 'pointer',
         '&:hover': {
-          backgroundColor: theme.palette.mode === 'dark' 
-            ? 'rgba(255, 255, 255, 0.08)' 
-            : 'rgba(0, 0, 0, 0.04)',
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.08)'
+              : 'rgba(0, 0, 0, 0.04)',
         },
       }}
     >
@@ -84,7 +90,8 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
         </Tooltip>
         {!loading && !error && (
           <div className="text-sm">
-            [{stream.targetLevels.tooLow}, {stream.targetLevels.optimal}, {stream.targetLevels.high}]
+            [{stream.targetLevels.tooLow}, {stream.targetLevels.optimal},{' '}
+            {stream.targetLevels.high}]
           </div>
         )}
       </TableCell>
@@ -129,8 +136,8 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
       </TableCell>
 
       {/* Current Level with trend */}
-      <TableCell 
-        sx={{ 
+      <TableCell
+        sx={{
           bgcolor: getLevelColor(currentLevel?.status),
           transition: 'background-color 0.2s ease',
         }}
@@ -145,9 +152,13 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <div className="flex items-center">
             <span>{currentLevel?.status || 'N/A'}</span>
             <span className="ml-2">
-              {currentLevel?.trend === LevelTrend.Rising ? '↑' : 
-               currentLevel?.trend === LevelTrend.Falling ? '↓' : 
-               currentLevel?.trend === LevelTrend.Holding ? '—' : ''}
+              {currentLevel?.trend === LevelTrend.Rising
+                ? '↑'
+                : currentLevel?.trend === LevelTrend.Falling
+                  ? '↓'
+                  : currentLevel?.trend === LevelTrend.Holding
+                    ? '—'
+                    : ''}
             </span>
           </div>
         )}

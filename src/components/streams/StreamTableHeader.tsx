@@ -7,7 +7,11 @@ interface StreamTableHeaderProps {
   onSort: (field: SortField) => void;
 }
 
-export function StreamTableHeader({ sortField, sortDirection, onSort }: StreamTableHeaderProps) {
+export function StreamTableHeader({
+  sortField,
+  sortDirection,
+  onSort,
+}: StreamTableHeaderProps) {
   const headers: { field: SortField; label: string }[] = [
     { field: 'name', label: 'Stream Name' },
     { field: 'rating', label: 'Rating' },
@@ -16,7 +20,7 @@ export function StreamTableHeader({ sortField, sortDirection, onSort }: StreamTa
     { field: 'reading', label: 'Gauge Reading' },
     { field: 'time', label: 'Time' },
     { field: 'quality', label: 'Quality' },
-    { field: 'level', label: 'Current Level' }
+    { field: 'level', label: 'Current Level' },
   ];
 
   return (

@@ -1,0 +1,16 @@
+# Ignore artifacts:
+build
+dist
+coverage
+
+# Ignore dependencies:
+node_modules
+
+# Ignore generated files from .bolt (if any specific ones are problematic)
+# .bolt/
+# codebase.md (it's a very large generated file)
+
+# Ignore package lock files
+package-lock.json
+pnpm-lock.yaml
+yarn.lock

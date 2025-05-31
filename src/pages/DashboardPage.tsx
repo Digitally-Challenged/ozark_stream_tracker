@@ -7,8 +7,24 @@ import { StreamDetail } from '../components/streams/StreamDetail';
 import { streams } from '../data/streamData';
 import { StreamData } from '../types/stream';
 
-export function DashboardPage() {
+interface DashboardPageProps {
+  // Added
+  selectedRatings: string[]; // Added
+  selectedSizes: string[]; // Added
+}
+
+export function DashboardPage({
+  selectedRatings,
+  selectedSizes,
+}: DashboardPageProps) {
+  // Modified
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
+
+  // TODO in a later step: Pass selectedRatings and selectedSizes to StreamTable
+  console.log('Filters received in DashboardPage:', {
+    selectedRatings,
+    selectedSizes,
+  });
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -18,13 +34,15 @@ export function DashboardPage() {
           mt: 4,
           mb: 4,
           flex: 1,
-          maxWidth: { xl: '1400px' }
+          maxWidth: { xl: '1400px' },
         }}
       >
         <DashboardHeader />
         <StreamTable
           streams={streams}
           onStreamClick={(stream) => setSelectedStream(stream)}
+          selectedRatings={selectedRatings} // Added
+          selectedSizes={selectedSizes} // Added
         />
       </Container>
       <StreamDetail

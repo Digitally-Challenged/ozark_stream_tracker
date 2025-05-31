@@ -1,6 +1,11 @@
 // src/hooks/useStreamGauge.ts
 import { useState, useEffect } from 'react';
-import { StreamData, GaugeReading, LevelStatus, LevelTrend } from '../types/stream';
+import {
+  StreamData,
+  GaugeReading,
+  LevelStatus,
+  LevelTrend,
+} from '../types/stream';
 import { determineLevel, determineTrend } from '../utils/streamLevels';
 
 interface GaugeState {
@@ -17,9 +22,11 @@ export function useStreamGauge(stream: StreamData) {
   const [state, setState] = useState<GaugeState>({
     reading: null,
     loading: true,
-    error: null
+    error: null,
   });
-  const [previousReading, setPreviousReading] = useState<GaugeReading | null>(null);
+  const [previousReading, setPreviousReading] = useState<GaugeReading | null>(
+    null
+  );
 
   useEffect(() => {
     let mounted = true;
@@ -27,22 +34,22 @@ export function useStreamGauge(stream: StreamData) {
 
     const fetchGaugeData = async () => {
       if (!stream.gauge.id) {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           error: new Error('No gauge ID provided'),
-          loading: false
+          loading: false,
         }));
         return;
       }
 
       try {
-        setState(prev => ({ ...prev, loading: true }));
-        
+        setState((prev) => ({ ...prev, loading: true }));
+
         const response = await fetch(
           `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${stream.gauge.id}&parameterCd=00065`,
-          { 
+          {
             signal: controller.signal,
-            headers: { 'Accept': 'application/json' }
+            headers: { Accept: 'application/json' },
           }
         );
 
@@ -52,17 +59,17 @@ export function useStreamGauge(stream: StreamData) {
 
         const data = await response.json();
         const latestValue = data.value.timeSeries[0].values[0].value[0];
-        
+
         const newReading: GaugeReading = {
           value: parseFloat(latestValue.value),
-          timestamp: latestValue.dateTime
+          timestamp: latestValue.dateTime,
         };
 
         if (!mounted) return;
 
         // Update previous reading before setting new one
         setPreviousReading(state.reading);
-        
+
         // Calculate new state
         const status = determineLevel(newReading.value, stream.targetLevels);
         const trend = determineTrend(newReading, previousReading);
@@ -71,15 +78,17 @@ export function useStreamGauge(stream: StreamData) {
           currentLevel: { status, trend },
           reading: newReading,
           loading: false,
-          error: null
+          error: null,
         });
-
       } catch (err) {
         if (!mounted) return;
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
-          error: err instanceof Error ? err : new Error('Failed to fetch gauge data'),
-          loading: false
+          error:
+            err instanceof Error
+              ? err
+              : new Error('Failed to fetch gauge data'),
+          loading: false,
         }));
       }
     };

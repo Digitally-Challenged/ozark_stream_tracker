@@ -1,5 +1,8 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
-import { ThemeProvider as MuiThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  ThemeProvider as MuiThemeProvider,
+  createTheme,
+} from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 
 interface ThemeContextType {
@@ -51,7 +54,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
           MuiTableCell: {
             styleOverrides: {
               root: {
-                borderColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)',
+                borderColor:
+                  mode === 'dark'
+                    ? 'rgba(255, 255, 255, 0.12)'
+                    : 'rgba(0, 0, 0, 0.12)',
               },
               head: {
                 fontWeight: 600,
@@ -63,7 +69,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             styleOverrides: {
               root: {
                 '&:hover': {
-                  backgroundColor: mode === 'dark' ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.04)',
+                  backgroundColor:
+                    mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.08)'
+                      : 'rgba(0, 0, 0, 0.04)',
                 },
               },
             },
@@ -81,9 +90,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
                 backgroundColor: mode === 'dark' ? '#424242' : '#ffffff',
                 color: mode === 'dark' ? '#ffffff' : '#000000',
                 border: `1px solid ${mode === 'dark' ? 'rgba(255, 255, 255, 0.12)' : 'rgba(0, 0, 0, 0.12)'}`,
-                boxShadow: mode === 'dark' 
-                  ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 6px rgba(0, 0, 0, 0.1)',
+                boxShadow:
+                  mode === 'dark'
+                    ? '0 4px 6px rgba(0, 0, 0, 0.3)'
+                    : '0 4px 6px rgba(0, 0, 0, 0.1)',
               },
             },
           },

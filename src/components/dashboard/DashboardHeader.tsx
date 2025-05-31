@@ -34,29 +34,29 @@ export function DashboardHeader() {
       value: '93',
       icon: WaterDrop,
       color: theme.palette.primary.main,
-      tooltip: 'Total number of whitewater runs'
+      tooltip: 'Total number of whitewater runs',
     },
     {
       label: 'Beginner Runs',
       value: '87',
       icon: Waves,
       color: theme.palette.success.main,
-      tooltip: 'Class I-II runs'
+      tooltip: 'Class I-II runs',
     },
     {
       label: 'Advanced Runs',
       value: '40',
       icon: Terrain,
       color: theme.palette.warning.main,
-      tooltip: 'Class IV-V runs'
+      tooltip: 'Class IV-V runs',
     },
     {
       label: 'Last Updated',
       value: '3:25:16 PM',
       icon: AccessTime,
       color: theme.palette.info.main,
-      tooltip: 'Most recent gauge reading update'
-    }
+      tooltip: 'Most recent gauge reading update',
+    },
   ];
 
   return (
@@ -71,17 +71,19 @@ export function DashboardHeader() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 2,
-                  bgcolor: theme.palette.mode === 'dark' 
-                    ? 'rgba(255, 255, 255, 0.05)' 
-                    : 'rgba(0, 0, 0, 0.02)',
+                  bgcolor:
+                    theme.palette.mode === 'dark'
+                      ? 'rgba(255, 255, 255, 0.05)'
+                      : 'rgba(0, 0, 0, 0.02)',
                   backdropFilter: 'blur(10px)',
                   transition: 'all 0.3s ease-in-out',
                   animation: `${fadeInUp} 0.5s ease-out ${index * 0.1}s`,
                   '&:hover': {
                     transform: 'translateY(-4px)',
-                    bgcolor: theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.08)'
-                      : 'rgba(0, 0, 0, 0.04)',
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? 'rgba(255, 255, 255, 0.08)'
+                        : 'rgba(0, 0, 0, 0.04)',
                     boxShadow: theme.shadows[8],
                   },
                 }}
@@ -91,36 +93,37 @@ export function DashboardHeader() {
                   sx={{
                     p: 1.5,
                     borderRadius: 2,
-                    bgcolor: theme.palette.mode === 'dark'
-                      ? `${stat.color}15`
-                      : `${stat.color}15`,
+                    bgcolor:
+                      theme.palette.mode === 'dark'
+                        ? `${stat.color}15`
+                        : `${stat.color}15`,
                     color: stat.color,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     '&:hover': {
-                      animation: `${pulseIcon} 1s ease-in-out infinite`
-                    }
+                      animation: `${pulseIcon} 1s ease-in-out infinite`,
+                    },
                   }}
                 >
                   <stat.icon sx={{ fontSize: 24 }} />
                 </Box>
                 <Box>
-                  <Typography 
+                  <Typography
                     variant="body2"
-                    sx={{ 
+                    sx={{
                       color: theme.palette.text.secondary,
-                      fontWeight: 500
+                      fontWeight: 500,
                     }}
                   >
                     {stat.label}
                   </Typography>
-                  <Typography 
-                    variant="h5" 
-                    sx={{ 
+                  <Typography
+                    variant="h5"
+                    sx={{
                       mt: 0.5,
                       color: theme.palette.text.primary,
-                      fontWeight: 600
+                      fontWeight: 600,
                     }}
                   >
                     {stat.value}

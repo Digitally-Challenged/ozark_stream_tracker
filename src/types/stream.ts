@@ -3,14 +3,14 @@ export enum LevelTrend {
   Rising = 'rise',
   Falling = 'fall',
   Holding = 'hold',
-  None = 'none'
+  None = 'none',
 }
 
 export enum LevelStatus {
   TooLow = 'X',
   Low = 'L',
   Optimal = 'O',
-  High = 'H'
+  High = 'H',
 }
 
 export interface GaugeReading {
