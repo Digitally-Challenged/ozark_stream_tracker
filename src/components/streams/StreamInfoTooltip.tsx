@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import {
   ArrowDownwardOutlined,
@@ -20,7 +21,7 @@ interface InfoTooltipProps {
   trend?: LevelTrend;
 }
 
-export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
+const InfoTooltipComponent = ({ type, value, trend }: InfoTooltipProps) => {
   const theme = useTheme();
 
   const renderTrendIcon = () => {
@@ -262,4 +263,10 @@ export default function InfoTooltip({ type, value, trend }: InfoTooltipProps) {
     default:
       return null;
   }
-}
+};
+
+// Memoize the component to prevent unnecessary re-renders
+// Only re-render if type, value, or trend changes
+const InfoTooltip = React.memo(InfoTooltipComponent);
+
+export default InfoTooltip;

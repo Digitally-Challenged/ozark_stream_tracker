@@ -1,9 +1,11 @@
-import React, { createContext, useContext, useState, useMemo } from 'react';
+import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
 } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
+import { THEME_CONFIG } from '../constants';
+import { waterGradients, glassmorphism, shadows } from '../theme/waterTheme';
 
 interface ThemeContextType {
   mode: PaletteMode;
@@ -18,13 +20,20 @@ const ThemeContext = createContext<ThemeContextType>({
 export const useTheme = () => useContext(ThemeContext);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [mode, setMode] = useState<PaletteMode>('light');
+  const [mode, setMode] = useState<PaletteMode>(() => {
+    const savedMode = localStorage.getItem(THEME_CONFIG.STORAGE_KEY);
+    return (savedMode as PaletteMode) || THEME_CONFIG.DEFAULT_MODE;
+  });
 
   const colorMode = useMemo(
     () => ({
       mode,
       toggleColorMode: () => {
-        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode) => {
+          const newMode = prevMode === 'light' ? 'dark' : 'light';
+          localStorage.setItem(THEME_CONFIG.STORAGE_KEY, newMode);
+          return newMode;
+        });
       },
     }),
     [mode]

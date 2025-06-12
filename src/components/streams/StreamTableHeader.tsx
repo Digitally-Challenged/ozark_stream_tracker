@@ -1,3 +1,4 @@
+import React from 'react';
 import { TableHead, TableRow, TableCell, TableSortLabel } from '@mui/material';
 import { SortDirection, SortField } from '../../types/table';
 
@@ -7,11 +8,11 @@ interface StreamTableHeaderProps {
   onSort: (field: SortField) => void;
 }
 
-export function StreamTableHeader({
+const StreamTableHeaderComponent = ({
   sortField,
   sortDirection,
   onSort,
-}: StreamTableHeaderProps) {
+}: StreamTableHeaderProps) => {
   const headers: { field: SortField; label: string }[] = [
     { field: 'name', label: 'Stream Name' },
     { field: 'rating', label: 'Rating' },
@@ -40,4 +41,8 @@ export function StreamTableHeader({
       </TableRow>
     </TableHead>
   );
-}
+};
+
+// Memoize the component to prevent unnecessary re-renders
+// Only re-render if sortField, sortDirection, or onSort changes
+export const StreamTableHeader = React.memo(StreamTableHeaderComponent);

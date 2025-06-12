@@ -1,18 +1,45 @@
+import { Box, Container, Typography, Link } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+
 export function Footer() {
+  const theme = useTheme();
+
   return (
-    <footer className="py-6 px-4 mt-auto bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
-      <div className="max-w-2xl mx-auto">
-        <p className="text-sm text-center text-gray-600 dark:text-gray-400">
+    <Box
+      component="footer"
+      sx={{
+        py: 3,
+        px: 2,
+        mt: 'auto',
+        backgroundColor: theme.palette.background.paper,
+        borderTop: 1,
+        borderColor: theme.palette.divider,
+      }}
+    >
+      <Container maxWidth="sm">
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          align="center"
+        >
           ©{' '}
-          <a
+          <Link
             href="#"
-            className="text-inherit hover:text-primary-main hover:underline transition-colors"
+            sx={{
+              color: 'inherit',
+              textDecoration: 'none',
+              transition: 'all 0.2s',
+              '&:hover': {
+                color: 'primary.main',
+                textDecoration: 'underline',
+              },
+            }}
           >
             Mountain Stream Tracker
-          </a>{' '}
+          </Link>{' '}
           {new Date().getFullYear()}
-        </p>
-      </div>
-    </footer>
+        </Typography>
+      </Container>
+    </Box>
   );
 }

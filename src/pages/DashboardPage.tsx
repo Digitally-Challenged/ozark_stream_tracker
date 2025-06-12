@@ -1,4 +1,3 @@
-// src/pages/DashboardPage.tsx
 import React, { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
@@ -8,23 +7,15 @@ import { streams } from '../data/streamData';
 import { StreamData } from '../types/stream';
 
 interface DashboardPageProps {
-  // Added
-  selectedRatings: string[]; // Added
-  selectedSizes: string[]; // Added
+  selectedRatings: string[];
+  selectedSizes: string[];
 }
 
 export function DashboardPage({
   selectedRatings,
   selectedSizes,
 }: DashboardPageProps) {
-  // Modified
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
-
-  // TODO in a later step: Pass selectedRatings and selectedSizes to StreamTable
-  console.log('Filters received in DashboardPage:', {
-    selectedRatings,
-    selectedSizes,
-  });
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -41,8 +32,8 @@ export function DashboardPage({
         <StreamTable
           streams={streams}
           onStreamClick={(stream) => setSelectedStream(stream)}
-          selectedRatings={selectedRatings} // Added
-          selectedSizes={selectedSizes} // Added
+          selectedRatings={selectedRatings}
+          selectedSizes={selectedSizes}
         />
       </Container>
       <StreamDetail

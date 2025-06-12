@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header } from './components/core/Header';
 import { Footer } from './components/core/Footer';
@@ -6,7 +6,8 @@ import { DashboardSidebar } from './components/dashboard/DashboardSidebar';
 import { ThemeProvider } from './context/ThemeContext';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { DashboardPage } from './pages/DashboardPage'; // New import
+import { DashboardPage } from './pages/DashboardPage';
+import { ScraperScheduler } from './services/scraperScheduler';
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -19,8 +20,18 @@ function ErrorFallback({ error }: { error: Error }) {
 
 function App() {
   const [filterOpen, setFilterOpen] = useState(false);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]); // Added
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]); // Added
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Start the Turner Bend scraper scheduler
+    ScraperScheduler.start();
+
+    // Cleanup on unmount
+    return () => {
+      ScraperScheduler.stop();
+    };
+  }, []);
 
   return (
     <ThemeProvider>
@@ -50,8 +61,8 @@ function App() {
                   path="/dashboard"
                   element={
                     <DashboardPage
-                      selectedRatings={selectedRatings} // Added
-                      selectedSizes={selectedSizes} // Added
+                      selectedRatings={selectedRatings}
+                      selectedSizes={selectedSizes}
                     />
                   }
                 />
@@ -60,10 +71,10 @@ function App() {
             <DashboardSidebar
               open={filterOpen}
               onClose={() => setFilterOpen(false)}
-              selectedRatings={selectedRatings} // Added
-              setSelectedRatings={setSelectedRatings} // Added
-              selectedSizes={selectedSizes} // Added
-              setSelectedSizes={setSelectedSizes} // Added
+              selectedRatings={selectedRatings}
+              setSelectedRatings={setSelectedRatings}
+              selectedSizes={selectedSizes}
+              setSelectedSizes={setSelectedSizes}
             />
             <Footer />
           </ErrorBoundary>

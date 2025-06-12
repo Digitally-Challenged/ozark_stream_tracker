@@ -65,49 +65,44 @@ export function DashboardHeader() {
         {statsData.map((stat, index) => (
           <Grid item xs={12} sm={6} md={3} key={stat.label}>
             <Tooltip title={stat.tooltip} arrow>
-              <Paper
-                sx={{
-                  p: 3,
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 2,
-                  bgcolor:
-                    theme.palette.mode === 'dark'
-                      ? 'rgba(255, 255, 255, 0.05)'
-                      : 'rgba(0, 0, 0, 0.02)',
-                  backdropFilter: 'blur(10px)',
-                  transition: 'all 0.3s ease-in-out',
-                  animation: `${fadeInUp} 0.5s ease-out ${index * 0.1}s`,
-                  '&:hover': {
-                    transform: 'translateY(-4px)',
-                    bgcolor:
-                      theme.palette.mode === 'dark'
-                        ? 'rgba(255, 255, 255, 0.08)'
-                        : 'rgba(0, 0, 0, 0.04)',
-                    boxShadow: theme.shadows[8],
-                  },
-                }}
-                elevation={0}
-              >
-                <Box
+              <Box>
+                <Paper
+                  elevation={0}
                   sx={{
-                    p: 1.5,
-                    borderRadius: 2,
-                    bgcolor:
-                      theme.palette.mode === 'dark'
-                        ? `${stat.color}15`
-                        : `${stat.color}15`,
-                    color: stat.color,
+                    p: 3,
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
+                    gap: 2,
+                    height: '100%',
+                    animation: `${fadeInUp} 0.5s ease-out ${index * 0.1}s both`,
+                    backgroundColor: theme.palette.background.paper,
+                    borderLeft: `3px solid ${stat.color}`,
+                    transition: 'all 0.3s ease',
                     '&:hover': {
-                      animation: `${pulseIcon} 1s ease-in-out infinite`,
+                      transform: 'translateY(-4px)',
+                      boxShadow: theme.shadows[4],
+                      '& .stat-icon': {
+                        transform: 'rotate(360deg) scale(1.2)',
+                      },
                     },
                   }}
                 >
-                  <stat.icon sx={{ fontSize: 24 }} />
-                </Box>
+                  <Box
+                    className="stat-icon"
+                    sx={{
+                      p: 1.5,
+                      borderRadius: 2,
+                      background: `linear-gradient(135deg, ${stat.color}20 0%, ${stat.color}10 100%)`,
+                      color: stat.color,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.3s ease',
+                      border: `1px solid ${stat.color}30`,
+                    }}
+                  >
+                    <stat.icon sx={{ fontSize: 24 }} />
+                  </Box>
                 <Box>
                   <Typography
                     variant="body2"
@@ -129,7 +124,8 @@ export function DashboardHeader() {
                     {stat.value}
                   </Typography>
                 </Box>
-              </Paper>
+                </Paper>
+              </Box>
             </Tooltip>
           </Grid>
         ))}

@@ -5,31 +5,74 @@ import {
   IconButton,
   useTheme,
   Box,
+  keyframes,
+  alpha,
 } from '@mui/material';
 import {
   Kayaking,
   FilterList,
   DarkModeOutlined,
   LightModeOutlined,
+  Waves,
 } from '@mui/icons-material';
 import { useTheme as useColorMode } from '../../context/ThemeContext';
+import { glassmorphism, waterGradients } from '../../theme/waterTheme';
 
 interface HeaderProps {
   onFilterClick: () => void;
   filterOpen: boolean;
 }
 
+const float = keyframes`
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  75% { transform: translateY(-3px) rotate(2deg); }
+`;
+
+const wave = keyframes`
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+`;
+
 export function Header({ onFilterClick, filterOpen }: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   return (
     <AppBar
-      position="static"
-      elevation={0}
+      position="sticky"
+      elevation={1}
       sx={{
-        backgroundColor: theme.palette.background.default,
-        borderBottom: `1px solid ${theme.palette.divider}`,
+        top: 0,
+        zIndex: theme.zIndex.appBar,
+        background: waterGradients.night,
+        borderBottom: `1px solid ${alpha(theme.palette.common.white, 0.1)}`,
+        overflow: 'hidden',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,10 Q25,0 50,10 T100,10 L100,20 L0,20 Z' fill='%23ffffff' opacity='0.05'/%3E%3C/svg%3E")`,
+          backgroundSize: '100px 20px',
+          animation: `${wave} 10s linear infinite`,
+          pointerEvents: 'none',
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: `url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,15 Q25,5 50,15 T100,15 L100,20 L0,20 Z' fill='%23ffffff' opacity='0.03'/%3E%3C/svg%3E")`,
+          backgroundSize: '100px 20px',
+          animation: `${wave} 15s linear infinite reverse`,
+          pointerEvents: 'none',
+        },
       }}
     >
       <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -45,9 +88,26 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
               color: 'white',
               display: 'flex',
               alignItems: 'center',
+              position: 'relative',
+              animation: `${float} 4s ease-in-out infinite`,
+              '&:hover': {
+                animation: 'none',
+                transform: 'scale(1.1)',
+                transition: 'transform 0.3s ease',
+              },
             }}
           >
             <Kayaking sx={{ fontSize: 32 }} />
+            <Waves 
+              sx={{ 
+                fontSize: 24, 
+                position: 'absolute',
+                bottom: -5,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                opacity: 0.5,
+              }} 
+            />
           </Box>
           <Typography
             variant="h6"

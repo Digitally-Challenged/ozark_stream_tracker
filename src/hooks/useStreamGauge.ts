@@ -7,6 +7,8 @@ import {
   LevelTrend,
 } from '../types/stream';
 import { determineLevel, determineTrend } from '../utils/streamLevels';
+import { API_CONFIG } from '../constants';
+import { TurnerBendScraper } from '../services/turnerBendScraper';
 
 interface GaugeState {
   currentLevel?: {
@@ -45,25 +47,37 @@ export function useStreamGauge(stream: StreamData) {
       try {
         setState((prev) => ({ ...prev, loading: true }));
 
-        const response = await fetch(
-          `https://waterservices.usgs.gov/nwis/iv/?format=json&sites=${stream.gauge.id}&parameterCd=00065`,
-          {
-            signal: controller.signal,
-            headers: { Accept: 'application/json' },
+        let newReading: GaugeReading | null = null;
+
+        // Check if this is the Turner Bend gauge
+        if (stream.gauge.id === 'TURNER_BEND') {
+          newReading = await TurnerBendScraper.fetchGaugeData();
+          if (!newReading) {
+            throw new Error('Failed to fetch Turner Bend data');
           }
-        );
+        } else {
+          // Regular USGS gauge
+          const response = await fetch(
+            `${API_CONFIG.USGS_BASE_URL}?format=json&sites=${stream.gauge.id}&parameterCd=${API_CONFIG.GAUGE_HEIGHT_PARAMETER}`,
+            {
+              signal: controller.signal,
+              headers: { Accept: 'application/json' },
+            }
+          );
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const latestValue = data.value.timeSeries[0].values[0].value[0];
+
+          newReading = {
+            value: parseFloat(latestValue.value),
+            timestamp: latestValue.dateTime,
+            dateTime: latestValue.dateTime,
+          };
         }
-
-        const data = await response.json();
-        const latestValue = data.value.timeSeries[0].values[0].value[0];
-
-        const newReading: GaugeReading = {
-          value: parseFloat(latestValue.value),
-          timestamp: latestValue.dateTime,
-        };
 
         if (!mounted) return;
 
@@ -72,7 +86,7 @@ export function useStreamGauge(stream: StreamData) {
 
         // Calculate new state
         const status = determineLevel(newReading.value, stream.targetLevels);
-        const trend = determineTrend(newReading, previousReading);
+        const trend = previousReading ? determineTrend(newReading, previousReading) : LevelTrend.None;
 
         setState({
           currentLevel: { status, trend },
@@ -94,7 +108,7 @@ export function useStreamGauge(stream: StreamData) {
     };
 
     fetchGaugeData();
-    const interval = setInterval(fetchGaugeData, 15 * 60 * 1000); // 15 minutes
+    const interval = setInterval(fetchGaugeData, API_CONFIG.REFRESH_INTERVAL_MS);
 
     return () => {
       mounted = false;

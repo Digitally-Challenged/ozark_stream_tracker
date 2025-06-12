@@ -781,7 +781,7 @@ export const streams: StreamData[] = [
     quality: 'A',
     targetLevels: {
       tooLow: 2.85,
-      optimal: 4.5,
+      optimal: 3.2,
       high: 5.0,
     },
   },
@@ -959,6 +959,22 @@ export const streams: StreamData[] = [
       tooLow: 1.7,
       optimal: 2.3,
       high: 5.0,
+    },
+  },
+  {
+    name: 'Mulberry R. (Turner Bend)',
+    rating: 'II-III',
+    size: 'L',
+    gauge: {
+      name: 'Turner Bend Landing',
+      id: 'TURNER_BEND',
+      url: 'https://www.turnerbend.com/WaterLevel.html',
+    },
+    quality: 'A',
+    targetLevels: {
+      tooLow: 1.5,
+      optimal: 2.5,
+      high: 4.0,
     },
   },
   {

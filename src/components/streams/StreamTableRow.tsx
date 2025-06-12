@@ -1,16 +1,21 @@
-import { TableRow, TableCell, Tooltip, useTheme } from '@mui/material';
+import React from 'react';
+import { TableRow, TableCell, Tooltip, useTheme, Link, Box, Typography } from '@mui/material';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { useStreamGauge } from '../../hooks/useStreamGauge';
-import { getReadingFreshnessClass } from '../../utils/streamLevels';
+import { getReadingFreshnessColor } from '../../utils/streamLevels';
 import InfoTooltip from './StreamInfoTooltip';
 import { format, formatDistanceToNow } from 'date-fns';
+import { RatingBadge } from '../badges/RatingBadge';
+import { SizeBadge } from '../badges/SizeBadge';
+import { StreamConditionIcon } from '../icons/StreamConditionIcon';
+import { GlassCard } from '../effects/GlassCard';
 
 interface StreamTableRowProps {
   stream: StreamData;
   onClick: (stream: StreamData) => void;
 }
 
-export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
+const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
   const { currentLevel, reading, loading, error } = useStreamGauge(stream);
   const theme = useTheme();
 
@@ -32,9 +37,9 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
     }
   };
 
-  const timeFreshnessClass = reading?.timestamp
-    ? getReadingFreshnessClass(reading.timestamp)
-    : '';
+  const timeFreshnessColor = reading?.timestamp
+    ? getReadingFreshnessColor(reading.timestamp, theme)
+    : undefined;
 
   return (
     <TableRow
@@ -55,44 +60,38 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
 
       {/* Rating */}
       <TableCell>
-        <Tooltip
-          title={<InfoTooltip type="rating" value={stream.rating} />}
-          placement="right"
-          arrow
-        >
-          <span style={{ cursor: 'help' }}>{stream.rating}</span>
-        </Tooltip>
+        <RatingBadge rating={stream.rating} size="small" animated />
       </TableCell>
 
       {/* Size */}
       <TableCell>
-        <Tooltip
-          title={<InfoTooltip type="size" value={stream.size} />}
-          placement="right"
-          arrow
-        >
-          <span style={{ cursor: 'help' }}>{stream.size}</span>
-        </Tooltip>
+        <SizeBadge size={stream.size} animated />
       </TableCell>
 
       {/* Reference Gauge */}
       <TableCell>
         <Tooltip title="View USGS Gauge Page">
-          <a
+          <Link
             href={stream.gauge.url}
             target="_blank"
             rel="noopener noreferrer"
             onClick={(e) => e.stopPropagation()}
-            className="text-blue-500 hover:underline"
+            sx={{
+              color: theme.palette.primary.main,
+              textDecoration: 'none',
+              '&:hover': {
+                textDecoration: 'underline',
+              },
+            }}
           >
             {stream.gauge.name}
-          </a>
+          </Link>
         </Tooltip>
         {!loading && !error && (
-          <div className="text-sm">
+          <Typography variant="body2" sx={{ fontSize: '0.875rem' }}>
             [{stream.targetLevels.tooLow}, {stream.targetLevels.optimal},{' '}
             {stream.targetLevels.high}]
-          </div>
+          </Typography>
         )}
       </TableCell>
 
@@ -112,14 +111,14 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
       </TableCell>
 
       {/* Time with freshness coloring */}
-      <TableCell className={timeFreshnessClass}>
+      <TableCell sx={{ color: timeFreshnessColor }}>
         {reading?.timestamp && (
           <>
             {format(new Date(reading.timestamp), 'MM/dd HH:mm')}
             <br />
-            <span className="text-sm">
+            <Typography variant="body2" component="span" sx={{ fontSize: '0.875rem' }}>
               ({formatDistanceToNow(new Date(reading.timestamp))})
-            </span>
+            </Typography>
           </>
         )}
       </TableCell>
@@ -148,21 +147,34 @@ export function StreamTableRow({ stream, onClick }: StreamTableRowProps) {
           <Tooltip title={error.message}>
             <span>Error</span>
           </Tooltip>
+        ) : currentLevel?.status ? (
+          <StreamConditionIcon 
+            status={currentLevel.status} 
+            trend={currentLevel.trend} 
+            size="small" 
+          />
         ) : (
-          <div className="flex items-center">
-            <span>{currentLevel?.status || 'N/A'}</span>
-            <span className="ml-2">
-              {currentLevel?.trend === LevelTrend.Rising
-                ? '↑'
-                : currentLevel?.trend === LevelTrend.Falling
-                  ? '↓'
-                  : currentLevel?.trend === LevelTrend.Holding
-                    ? '—'
-                    : ''}
-            </span>
-          </div>
+          'N/A'
         )}
       </TableCell>
     </TableRow>
   );
-}
+};
+
+// Memoize the component to prevent unnecessary re-renders
+// Only re-render if stream data or onClick handler changes
+export const StreamTableRow = React.memo(StreamTableRowComponent, (prevProps, nextProps) => {
+  // Custom comparison function for deep equality check
+  return (
+    prevProps.stream.id === nextProps.stream.id &&
+    prevProps.stream.name === nextProps.stream.name &&
+    prevProps.stream.rating === nextProps.stream.rating &&
+    prevProps.stream.size === nextProps.stream.size &&
+    prevProps.stream.quality === nextProps.stream.quality &&
+    prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
+    prevProps.stream.targetLevels.tooLow === nextProps.stream.targetLevels.tooLow &&
+    prevProps.stream.targetLevels.optimal === nextProps.stream.targetLevels.optimal &&
+    prevProps.stream.targetLevels.high === nextProps.stream.targetLevels.high &&
+    prevProps.onClick === nextProps.onClick
+  );
+});

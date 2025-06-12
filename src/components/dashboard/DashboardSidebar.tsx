@@ -1,11 +1,8 @@
-// src/components/dashboard/DashboardSidebar.tsx
 import {
   Box,
   Drawer,
   IconButton,
-  // List, // Not strictly needed if using FormControl/FormGroup directly for sections
-  // ListItem,
-  ListItemText, // Still useful within Select MenuItem
+  ListItemText,
   Divider,
   useTheme,
   Typography,
@@ -16,10 +13,12 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  OutlinedInput, // Added for Select if needed for label
+  OutlinedInput,
+  Button,
 } from '@mui/material';
-import { SelectChangeEvent } from '@mui/material/Select'; // For typing Select onChange
-import { Close } from '@mui/icons-material';
+import { SelectChangeEvent } from '@mui/material/Select';
+import { Close, FilterAltOff } from '@mui/icons-material';
+import { UI_CONFIG } from '../../constants';
 
 interface DashboardSidebarProps {
   open: boolean;
@@ -28,11 +27,11 @@ interface DashboardSidebarProps {
   selectedRatings: string[];
   setSelectedRatings: (
     ratings: string[] | ((prevRatings: string[]) => string[])
-  ) => void; // Allow functional updates
+  ) => void;
   selectedSizes: string[];
   setSelectedSizes: (
     sizes: string[] | ((prevSizes: string[]) => string[])
-  ) => void; // Allow functional updates
+  ) => void;
 }
 
 export function DashboardSidebar({
@@ -47,24 +46,39 @@ export function DashboardSidebar({
   const theme = useTheme();
 
   const ratings = [
-    'I',
-    'II',
-    'III',
-    'IV',
-    'V',
-    'II-III',
-    'III-IV',
     'A',
+    'I-II',
+    'I-II+',
+    'I-III',
+    'II',
+    'II+',
+    'II+-III',
+    'II-III',
+    'II-III+',
+    'II-IV',
+    'III',
+    'III+',
+    'III-IV',
+    'III-IV+',
+    'III-IV (V)',
+    'III-V',
+    'IV (IV+)',
+    'IV (V)',
+    'IV+',
+    'IV+ (V)',
+    'IV-V',
+    'IV-V+',
+    'IV-V (P)',
+    'IV-V+ (P)',
     'PLAY',
-  ]; // Added A and PLAY as they are in data
-  const sizes = ['XS', 'VS', 'S', 'M', 'L', 'H', 'DC', 'A']; // Added H, DC, A as they are in data
+  ];
+  const sizes = ['XS', 'VS', 'S', 'M', 'L', 'H', 'DC', 'A'];
 
   const handleRatingChange = (event: SelectChangeEvent<string[]>) => {
     const {
       target: { value },
     } = event;
     setSelectedRatings(
-      // On autofill we get a stringified value.
       typeof value === 'string' ? value.split(',') : value
     );
   };
@@ -74,6 +88,11 @@ export function DashboardSidebar({
     setSelectedSizes((prevSizes) =>
       checked ? [...prevSizes, name] : prevSizes.filter((s) => s !== name)
     );
+  };
+
+  const handleClearFilters = () => {
+    setSelectedRatings([]);
+    setSelectedSizes([]);
   };
 
   const content = (
@@ -108,30 +127,38 @@ export function DashboardSidebar({
 
       <Divider sx={{ mb: 2, borderColor: theme.palette.divider }} />
 
-      {/* Filter by Rating */}
+      <Button
+        variant="outlined"
+        fullWidth
+        startIcon={<FilterAltOff />}
+        onClick={handleClearFilters}
+        disabled={selectedRatings.length === 0 && selectedSizes.length === 0}
+        sx={{ mb: 2 }}
+      >
+        Clear Filters
+      </Button>
+
       <FormControl fullWidth sx={{ mb: 2 }}>
         <InputLabel id="rating-select-label">Rating</InputLabel>
         <Select
           labelId="rating-select-label"
           id="rating-select"
           multiple
-          value={selectedRatings} // Used prop
-          onChange={handleRatingChange} // Used handler
-          input={<OutlinedInput label="Rating" />} // Ensures label floats correctly
+          value={selectedRatings}
+          onChange={handleRatingChange}
+          input={<OutlinedInput label="Rating" />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={{
-            // Prevents menu from overlapping the select input too much
             PaperProps: {
               style: {
-                maxHeight: 224, // Example max height
+                maxHeight: UI_CONFIG.SIDEBAR_FILTER_MAX_HEIGHT,
               },
             },
           }}
         >
           {ratings.map((rating) => (
             <MenuItem key={rating} value={rating}>
-              <Checkbox checked={selectedRatings.indexOf(rating) > -1} />{' '}
-              {/* Reflects selection */}
+              <Checkbox checked={selectedRatings.indexOf(rating) > -1} />
               <ListItemText primary={rating} />
             </MenuItem>
           ))}
@@ -140,15 +167,12 @@ export function DashboardSidebar({
 
       <Divider sx={{ mb: 2, borderColor: theme.palette.divider }} />
 
-      {/* Filter by Size */}
       <Typography
         variant="subtitle1"
         gutterBottom
         component="div"
         sx={{ mt: 1 }}
       >
-        {' '}
-        {/* Added mt for spacing */}
         Size
       </Typography>
       <FormGroup sx={{ mb: 2 }}>
@@ -157,8 +181,8 @@ export function DashboardSidebar({
             key={size}
             control={
               <Checkbox
-                checked={selectedSizes.indexOf(size) > -1} // Reflects selection
-                onChange={handleSizeChange} // Used handler
+                checked={selectedSizes.indexOf(size) > -1}
+                onChange={handleSizeChange}
                 name={size}
               />
             }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import {
   Table,
   TableBody,
@@ -6,9 +6,11 @@ import {
   Paper,
   Box,
   TextField,
+  useTheme,
+  InputAdornment,
 } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import { StreamData } from '../../types/stream'; // Ensure StreamData includes 'rating' and 'size'
+import { StreamData } from '../../types/stream';
 import { StreamTableHeader } from './StreamTableHeader';
 import { StreamTableRow } from './StreamTableRow';
 import { SortDirection, SortField } from '../../types/table';
@@ -17,98 +19,116 @@ import { sortStreams } from '../../utils/sorting';
 interface StreamTableProps {
   streams: StreamData[];
   onStreamClick: (stream: StreamData) => void;
-  selectedRatings: string[]; // Added
-  selectedSizes: string[]; // Added
+  selectedRatings: string[];
+  selectedSizes: string[];
 }
 
 export function StreamTable({
   streams,
   onStreamClick,
-  selectedRatings, // Added
-  selectedSizes, // Added
+  selectedRatings,
+  selectedSizes,
 }: StreamTableProps) {
   const [sortField, setSortField] = useState<SortField>('name');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [searchTerm, setSearchTerm] = useState('');
+  const theme = useTheme();
 
-  const handleSort = (field: SortField) => {
-    const isAsc = sortField === field && sortDirection === 'asc';
-    setSortDirection(isAsc ? 'desc' : 'asc');
+  // Memoize the sort handler to prevent unnecessary re-renders of child components
+  const handleSort = useCallback((field: SortField) => {
+    setSortDirection((prevDirection) => {
+      const isAsc = sortField === field && prevDirection === 'asc';
+      return isAsc ? 'desc' : 'asc';
+    });
     setSortField(field);
-  };
+  }, [sortField]);
 
-  const filteredStreams = streams.filter((stream) => {
-    // Apply rating filters
-    if (
-      selectedRatings.length > 0 &&
-      !selectedRatings.includes(stream.rating)
-    ) {
-      return false;
-    }
+  // Memoize filtered streams calculation
+  const filteredStreams = useMemo(() => {
+    return streams.filter((stream) => {
+      if (
+        selectedRatings.length > 0 &&
+        !selectedRatings.includes(stream.rating)
+      ) {
+        return false;
+      }
 
-    // Apply size filters
-    if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
-      return false;
-    }
+      if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
+        return false;
+      }
 
-    // Apply search term filter (existing logic)
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      return (
-        stream.name.toLowerCase().includes(searchLower) ||
-        (stream.gauge?.name &&
-          stream.gauge.name.toLowerCase().includes(searchLower))
-      ); // Added optional chaining for gauge
-    }
-    return true; // If no search term, and passed other filters, include it
-  });
+      if (searchTerm) {
+        const searchLower = searchTerm.toLowerCase();
+        return (
+          stream.name.toLowerCase().includes(searchLower) ||
+          (stream.gauge?.name &&
+            stream.gauge.name.toLowerCase().includes(searchLower))
+        );
+      }
+      return true;
+    });
+  }, [streams, selectedRatings, selectedSizes, searchTerm]);
 
-  const sortedStreams = sortStreams(filteredStreams, sortField, sortDirection);
+  // Memoize sorted streams calculation
+  const sortedStreams = useMemo(() => {
+    return sortStreams(filteredStreams, sortField, sortDirection);
+  }, [filteredStreams, sortField, sortDirection]);
+
+  // Memoize search handler
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  }, []);
+
+  // Memoize stream click handler to ensure referential stability
+  const handleStreamClick = useCallback((stream: StreamData) => {
+    onStreamClick(stream);
+  }, [onStreamClick]);
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Box
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          mb: 2,
-          maxWidth: 400,
-          position: 'relative',
-        }}
-      >
-        <Search
-          sx={{
-            position: 'absolute',
-            left: 8,
-            color: 'text.secondary',
-          }}
-        />
+      <Paper elevation={0} sx={{ mb: 3, p: 2, backgroundColor: theme.palette.background.paper }}>
         <TextField
-          placeholder="Search streams..."
+          placeholder="Search streams by name..."
           variant="outlined"
           size="small"
           fullWidth
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleSearchChange}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search sx={{ color: 'text.secondary' }} />
+              </InputAdornment>
+            ),
+          }}
           sx={{
+            maxWidth: 400,
             '& .MuiOutlinedInput-root': {
-              pl: 4.5,
+              backgroundColor: theme.palette.background.default,
               '& fieldset': {
-                borderColor: 'divider',
+                borderColor: theme.palette.divider,
+              },
+              '&:hover fieldset': {
+                borderColor: theme.palette.primary.main,
               },
             },
           }}
         />
-      </Box>
+      </Paper>
       <TableContainer
         component={Paper}
         elevation={0}
         sx={{
-          bgcolor: 'background.paper',
+          backgroundColor: theme.palette.background.paper,
           '& .MuiTableCell-root': {
             py: 1.5,
             px: 2,
             fontSize: '0.875rem',
+          },
+          '& .MuiTableRow-root': {
+            '&:hover': {
+              backgroundColor: theme.palette.action.hover,
+            },
           },
         }}
       >
@@ -121,9 +141,9 @@ export function StreamTable({
           <TableBody>
             {sortedStreams.map((stream) => (
               <StreamTableRow
-                key={`${stream.name}-${stream.gauge?.id || Math.random()}`} // Added optional chaining and fallback for key
+                key={`${stream.name}-${stream.gauge?.id || Math.random()}`}
                 stream={stream}
-                onClick={onStreamClick}
+                onClick={handleStreamClick}
               />
             ))}
           </TableBody>

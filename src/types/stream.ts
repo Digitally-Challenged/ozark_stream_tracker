@@ -15,7 +15,10 @@ export enum LevelStatus {
 
 export interface GaugeReading {
   value: number;
-  timestamp: string;
+  timestamp?: string;
+  dateTime?: string;
+  unit?: string;
+  qualifiers?: string[];
 }
 
 export interface StreamGauge {
