@@ -14,9 +14,11 @@ import {
   DarkModeOutlined,
   LightModeOutlined,
   Waves,
+  Refresh,
 } from '@mui/icons-material';
-import { useTheme as useColorMode } from '../../context/ThemeContext';
-import { glassmorphism, waterGradients } from '../../theme/waterTheme';
+import { useColorMode } from '../../context/ThemeContext';
+import { useGaugeDataContext } from '../../context/GaugeDataContext';
+import { waterGradients } from '../../theme/waterTheme';
 
 interface HeaderProps {
   onFilterClick: () => void;
@@ -34,10 +36,15 @@ const wave = keyframes`
   100% { transform: translateX(-100%); }
 `;
 
+const spin = keyframes`
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+`;
+
 export function Header({ onFilterClick, filterOpen }: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
+  const { refresh, isLoading } = useGaugeDataContext();
 
   return (
     <AppBar
@@ -132,6 +139,23 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
           >
             KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
           </Typography>
+
+          <IconButton
+            onClick={refresh}
+            disabled={isLoading}
+            sx={{
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+              '&.Mui-disabled': {
+                color: 'rgba(255, 255, 255, 0.5)',
+              },
+            }}
+            aria-label="refresh data"
+          >
+            <Refresh sx={{ animation: isLoading ? `${spin} 1s linear infinite` : 'none' }} />
+          </IconButton>
 
           <IconButton
             onClick={onFilterClick}
