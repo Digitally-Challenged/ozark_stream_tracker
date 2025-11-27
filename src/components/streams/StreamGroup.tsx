@@ -4,6 +4,8 @@ import { Box, Collapse } from '@mui/material';
 import { StreamData, LevelStatus } from '../../types/stream';
 import { StreamGroupHeader } from './StreamGroupHeader';
 import { StreamTable } from './StreamTable';
+import { StreamCardGrid } from './StreamCardGrid';
+import { ViewMode } from '../../hooks/useViewPreference';
 
 interface StreamGroupProps {
   status: LevelStatus;
@@ -12,6 +14,7 @@ interface StreamGroupProps {
   onStreamClick: (stream: StreamData) => void;
   selectedRatings: string[];
   selectedSizes: string[];
+  viewMode: ViewMode;
 }
 
 export function StreamGroup({
@@ -21,6 +24,7 @@ export function StreamGroup({
   onStreamClick,
   selectedRatings,
   selectedSizes,
+  viewMode,
 }: StreamGroupProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
 
@@ -37,12 +41,16 @@ export function StreamGroup({
         onToggle={() => setExpanded(!expanded)}
       />
       <Collapse in={expanded}>
-        <StreamTable
-          streams={streams}
-          onStreamClick={onStreamClick}
-          selectedRatings={selectedRatings}
-          selectedSizes={selectedSizes}
-        />
+        {viewMode === 'cards' ? (
+          <StreamCardGrid streams={streams} onStreamClick={onStreamClick} />
+        ) : (
+          <StreamTable
+            streams={streams}
+            onStreamClick={onStreamClick}
+            selectedRatings={selectedRatings}
+            selectedSizes={selectedSizes}
+          />
+        )}
       </Collapse>
     </Box>
   );
