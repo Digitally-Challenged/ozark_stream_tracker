@@ -3,9 +3,11 @@ import { Box, Container } from '@mui/material';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
 import { StreamGroup } from '../components/streams/StreamGroup';
 import { StreamDetail } from '../components/streams/StreamDetail';
+import { ViewToggle } from '../components/streams/ViewToggle';
 import { streams } from '../data/streamData';
 import { StreamData, LevelStatus } from '../types/stream';
 import { useAllStreamStatuses } from '../hooks/useStreamStatus';
+import { useViewPreference } from '../hooks/useViewPreference';
 import { groupStreamsByStatus, GROUP_ORDER } from '../utils/streamGrouping';
 
 interface DashboardPageProps {
@@ -19,6 +21,7 @@ export function DashboardPage({
 }: DashboardPageProps) {
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
   const streamStatuses = useAllStreamStatuses(streams);
+  const { viewMode, setViewMode } = useViewPreference();
 
   // Filter streams first
   const filteredStreams = useMemo(() => {
@@ -52,6 +55,9 @@ export function DashboardPage({
         }}
       >
         <DashboardHeader />
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+          <ViewToggle viewMode={viewMode} onChange={setViewMode} />
+        </Box>
         {GROUP_ORDER.map((status) => (
           <StreamGroup
             key={status}
@@ -61,6 +67,7 @@ export function DashboardPage({
             onStreamClick={(stream) => setSelectedStream(stream)}
             selectedRatings={selectedRatings}
             selectedSizes={selectedSizes}
+            viewMode={viewMode}
           />
         ))}
       </Container>
