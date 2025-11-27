@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header } from './components/core/Header';
 import { Footer } from './components/core/Footer';
 import { DashboardSidebar } from './components/dashboard/DashboardSidebar';
 import { ThemeProvider } from './context/ThemeContext';
+import { GaugeDataProvider } from './context/GaugeDataContext';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
@@ -34,9 +35,10 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <CssBaseline />
-      <BrowserRouter>
+    <GaugeDataProvider>
+      <ThemeProvider>
+        <CssBaseline />
+        <BrowserRouter>
         <Box
           sx={{
             display: 'flex',
@@ -79,8 +81,9 @@ function App() {
             <Footer />
           </ErrorBoundary>
         </Box>
-      </BrowserRouter>
-    </ThemeProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </GaugeDataProvider>
   );
 }
 
