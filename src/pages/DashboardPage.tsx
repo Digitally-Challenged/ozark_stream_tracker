@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Container } from '@mui/material';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
-import { StreamTable } from '../components/streams/StreamTable';
+import { StreamGroup } from '../components/streams/StreamGroup';
 import { StreamDetail } from '../components/streams/StreamDetail';
 import { streams } from '../data/streamData';
-import { StreamData } from '../types/stream';
+import { StreamData, LevelStatus } from '../types/stream';
+import { useAllStreamStatuses } from '../hooks/useStreamStatus';
+import { groupStreamsByStatus, GROUP_ORDER } from '../utils/streamGrouping';
 
 interface DashboardPageProps {
   selectedRatings: string[];
@@ -16,6 +18,27 @@ export function DashboardPage({
   selectedSizes,
 }: DashboardPageProps) {
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
+  const streamStatuses = useAllStreamStatuses(streams);
+
+  // Filter streams first
+  const filteredStreams = useMemo(() => {
+    return streams.filter((stream) => {
+      if (selectedRatings.length > 0 && !selectedRatings.includes(stream.rating)) {
+        return false;
+      }
+      if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
+        return false;
+      }
+      return true;
+    });
+  }, [selectedRatings, selectedSizes]);
+
+  // Group filtered streams by status
+  const groupedStreams = useMemo(() => {
+    return groupStreamsByStatus(filteredStreams, (stream) =>
+      streamStatuses.get(stream.name)
+    );
+  }, [filteredStreams, streamStatuses]);
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,12 +52,17 @@ export function DashboardPage({
         }}
       >
         <DashboardHeader />
-        <StreamTable
-          streams={streams}
-          onStreamClick={(stream) => setSelectedStream(stream)}
-          selectedRatings={selectedRatings}
-          selectedSizes={selectedSizes}
-        />
+        {GROUP_ORDER.map((status) => (
+          <StreamGroup
+            key={status}
+            status={status}
+            streams={groupedStreams[status]}
+            defaultExpanded={status !== LevelStatus.TooLow}
+            onStreamClick={(stream) => setSelectedStream(stream)}
+            selectedRatings={selectedRatings}
+            selectedSizes={selectedSizes}
+          />
+        ))}
       </Container>
       <StreamDetail
         stream={selectedStream}
