@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { TableRow, TableCell, Tooltip, useTheme, Link, Typography } from '@mui/material';
+import { TableRow, TableCell, Tooltip, useTheme, Link, Typography, Box } from '@mui/material';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
@@ -100,10 +100,15 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
         )}
       </TableCell>
 
-      {/* Current Reading */}
+      {/* Current Reading with Trend */}
       <TableCell>
         {reading && !loading && !error ? (
-          <span>{reading.value.toFixed(2)} ft</span>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <span>{reading.value.toFixed(2)} ft</span>
+            {currentLevel?.trend && currentLevel.trend !== LevelTrend.None && (
+              <TrendIcon trend={currentLevel.trend} size="small" />
+            )}
+          </Box>
         ) : loading ? (
           'Loading...'
         ) : error ? (

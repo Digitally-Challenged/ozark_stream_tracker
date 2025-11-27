@@ -74,7 +74,21 @@ export function StreamCard({ stream, onClick }: StreamCardProps) {
                   {reading.value.toFixed(2)} ft
                 </Typography>
                 {currentLevel?.trend && currentLevel.trend !== LevelTrend.None && (
-                  <TrendIcon trend={currentLevel.trend} size="small" />
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <TrendIcon trend={currentLevel.trend} size="medium" />
+                    <Typography
+                      variant="caption"
+                      sx={{
+                        color: currentLevel.trend === LevelTrend.Rising ? 'success.main' : 'error.main',
+                        fontWeight: 'bold',
+                        textTransform: 'uppercase',
+                        fontSize: '0.7rem',
+                      }}
+                    >
+                      {currentLevel.trend === LevelTrend.Rising ? 'Rising' :
+                       currentLevel.trend === LevelTrend.Falling ? 'Falling' : 'Stable'}
+                    </Typography>
+                  </Box>
                 )}
               </Box>
               <Typography variant="body2" color="text.secondary">
