@@ -8,4 +8,5 @@ export type SortField =
   | 'reading'
   | 'time'
   | 'quality'
-  | 'level';
+  | 'level'
+  | 'trend';

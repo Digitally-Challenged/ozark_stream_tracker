@@ -17,6 +17,8 @@ import {
 } from '@mui/icons-material';
 import { StreamData } from '../../types/stream';
 import { format, isValid } from 'date-fns';
+import { useStreamGauge } from '../../hooks/useStreamGauge';
+import { useRelativeTime } from '../../hooks/useRelativeTime';
 
 interface StreamDetailProps {
   stream: StreamData | null;
@@ -24,10 +26,11 @@ interface StreamDetailProps {
   onClose: () => void;
 }
 
-export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
+// Internal component that safely uses hooks
+function StreamDetailContent({ stream, onClose }: { stream: StreamData; onClose: () => void }) {
   const theme = useTheme();
-
-  if (!stream) return null;
+  const { reading } = useStreamGauge(stream);
+  const relativeTime = useRelativeTime(reading?.timestamp);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'Not available';
@@ -36,18 +39,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
   };
 
   return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      maxWidth="md"
-      fullWidth
-      PaperProps={{
-        sx: {
-          bgcolor: theme.palette.background.paper,
-          backgroundImage: 'none',
-        },
-      }}
-    >
+    <>
       <DialogTitle
         sx={{
           borderBottom: `1px solid ${theme.palette.divider}`,
@@ -65,10 +57,8 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Flow Rate:{' '}
-                {stream.currentFlow
-                  ? `${stream.currentFlow} cfs`
-                  : 'Not available'}
+                Current Reading:{' '}
+                {reading?.value ? `${reading.value.toFixed(2)} ft` : 'Not available'}
               </Typography>
             </Box>
           </Grid>
@@ -79,10 +69,8 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Temperature:{' '}
-                {stream.temperature
-                  ? `${stream.temperature}°F`
-                  : 'Not available'}
+                Target Range:{' '}
+                {stream.targetLevels.tooLow}ft - {stream.targetLevels.high}ft
               </Typography>
             </Box>
           </Grid>
@@ -93,7 +81,7 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Status: {stream.status || 'Not available'}
+                Quality Rating: {stream.quality}
               </Typography>
             </Box>
           </Grid>
@@ -104,43 +92,19 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Last Updated: {formatDate(stream.lastUpdated)}
+                Last Updated: {reading?.timestamp ? (
+                  <>
+                    {formatDate(reading.timestamp)}
+                    {relativeTime && (
+                      <Typography component="span" variant="body2" sx={{ ml: 1, opacity: 0.7 }}>
+                        ({relativeTime})
+                      </Typography>
+                    )}
+                  </>
+                ) : 'Not available'}
               </Typography>
             </Box>
           </Grid>
-
-          {stream.waterQuality && (
-            <Grid item xs={12}>
-              <Typography
-                variant="h6"
-                gutterBottom
-                sx={{
-                  color: theme.palette.text.primary,
-                  fontWeight: 500,
-                  mt: 2,
-                }}
-              >
-                Water Quality
-              </Typography>
-              <Box sx={{ pl: 1 }}>
-                <Typography color="text.primary" paragraph>
-                  pH: {stream.waterQuality.ph || 'Not available'}
-                </Typography>
-                <Typography color="text.primary" paragraph>
-                  Turbidity:{' '}
-                  {stream.waterQuality.turbidity
-                    ? `${stream.waterQuality.turbidity} NTU`
-                    : 'Not available'}
-                </Typography>
-                <Typography color="text.primary">
-                  Dissolved Oxygen:{' '}
-                  {stream.waterQuality.dissolvedOxygen
-                    ? `${stream.waterQuality.dissolvedOxygen} mg/L`
-                    : 'Not available'}
-                </Typography>
-              </Box>
-            </Grid>
-          )}
         </Grid>
       </DialogContent>
 
@@ -164,6 +128,28 @@ export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
           Close
         </Button>
       </DialogActions>
+    </>
+  );
+}
+
+// Main component that handles null checks
+export function StreamDetail({ stream, open, onClose }: StreamDetailProps) {
+  const theme = useTheme();
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{
+        sx: {
+          bgcolor: theme.palette.background.paper,
+          backgroundImage: 'none',
+        },
+      }}
+    >
+      {stream && <StreamDetailContent stream={stream} onClose={onClose} />}
     </Dialog>
   );
 }

@@ -1,6 +1,7 @@
 import { Box, Typography, Paper, Grid, useTheme, Tooltip } from '@mui/material';
 import { WaterDrop, Waves, Terrain, AccessTime } from '@mui/icons-material';
 import { keyframes } from '@mui/system';
+import { LiveTime } from '../common/LiveTime';
 
 const fadeInUp = keyframes`
   from {
@@ -13,17 +14,8 @@ const fadeInUp = keyframes`
   }
 `;
 
-const pulseIcon = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
+// Pulse animation available for future use
+// const pulseIcon = keyframes`...`;
 
 export function DashboardHeader() {
   const theme = useTheme();
@@ -52,10 +44,10 @@ export function DashboardHeader() {
     },
     {
       label: 'Last Updated',
-      value: '3:25:16 PM',
+      value: 'live',
       icon: AccessTime,
       color: theme.palette.info.main,
-      tooltip: 'Most recent gauge reading update',
+      tooltip: 'Current time - gauges refresh every 15 minutes',
     },
   ];
 
@@ -121,7 +113,15 @@ export function DashboardHeader() {
                       fontWeight: 600,
                     }}
                   >
-                    {stat.value}
+                    {stat.value === 'live' ? (
+                      <LiveTime 
+                        showSeconds={true} 
+                        variant="body1" 
+                        color="textPrimary"
+                      />
+                    ) : (
+                      stat.value
+                    )}
                   </Typography>
                 </Box>
                 </Paper>

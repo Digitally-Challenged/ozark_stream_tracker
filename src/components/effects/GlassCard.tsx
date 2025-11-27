@@ -1,4 +1,4 @@
-import React from 'react';
+// React import not needed in modern React
 import { Box, BoxProps } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { glassmorphism } from '../../theme/waterTheme';

@@ -4,8 +4,9 @@
   "description": "Backend scraper service for Turner Bend water level",
   "main": "turnerBendScraper.js",
   "scripts": {
-    "start": "node turnerBendScraper.js",
-    "dev": "nodemon turnerBendScraper.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "scraper-only": "node turnerBendScraper.js"
   },
   "dependencies": {
     "axios": "^1.6.0",

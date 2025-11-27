@@ -1,4 +1,4 @@
-import React from 'react';
+// React import not needed in modern React
 import { Chip, Box, Tooltip, useTheme } from '@mui/material';
 import { 
   Opacity,
@@ -11,22 +11,62 @@ import {
 
 interface SizeBadgeProps {
   size: string;
-  variant?: 'default' | 'outlined';
+  variant?: 'filled' | 'outlined';
   animated?: boolean;
 }
 
 const sizeInfo = {
-  XS: { label: 'Extra Small', icon: WaterDrop, color: '#e3f2fd', description: 'Tiny creek, very technical' },
-  VS: { label: 'Very Small', icon: Opacity, color: '#bbdefb', description: 'Small creek, requires precision' },
-  S: { label: 'Small', icon: Water, color: '#90caf9', description: 'Small river, good for practice' },
-  M: { label: 'Medium', icon: Waves, color: '#64b5f6', description: 'Medium river, versatile runs' },
-  L: { label: 'Large', icon: Pool, color: '#42a5f5', description: 'Large river, big water' },
-  H: { label: 'Huge', icon: Tsunami, color: '#2196f3', description: 'Very large river' },
-  DC: { label: 'Dam Controlled', icon: Pool, color: '#1e88e5', description: 'Flow controlled by dam' },
-  A: { label: 'Always Runnable', icon: Waves, color: '#1976d2', description: 'Consistent flow year-round' },
+  XS: { 
+    label: 'Extra Small', 
+    icon: WaterDrop, 
+    color: '#e3f2fd', 
+    description: 'XS: < 20ft wide, < 1 sq mi watershed, 1.5 in/hr rain rate, 3-6 hr window to "too low"' 
+  },
+  VS: { 
+    label: 'Very Small', 
+    icon: Opacity, 
+    color: '#bbdefb', 
+    description: 'VS: 20-30ft wide, 1-4 sq mi watershed, 1.0 in/hr rain rate, 6-12 hr window to "too low"' 
+  },
+  S: { 
+    label: 'Small', 
+    icon: Water, 
+    color: '#90caf9', 
+    description: 'S: 30-40ft wide, 4-10 sq mi watershed, 0.75 in/hr rain rate, 1 day window to "too low"' 
+  },
+  M: { 
+    label: 'Medium', 
+    icon: Waves, 
+    color: '#64b5f6', 
+    description: 'M: 40-75ft wide, 10-25 sq mi watershed, 0.5 in/hr rain rate, 1-2 day window to "too low"' 
+  },
+  L: { 
+    label: 'Large', 
+    icon: Pool, 
+    color: '#42a5f5', 
+    description: 'L: > 75ft wide, > 25 sq mi watershed, 0.2 in/hr rain rate, 2-5 day window to "too low"' 
+  },
+  H: { 
+    label: 'Huge', 
+    icon: Tsunami, 
+    color: '#2196f3', 
+    description: 'H: > 150ft wide, > 75 sq mi watershed, 0.1 in/hr rain rate, 5+ day window to "too low"' 
+  },
+  DC: { 
+    label: 'Dam Controlled', 
+    icon: Pool, 
+    color: '#1e88e5', 
+    description: 'DC: Dam Controlled - Check Release Schedule! Flow depends on dam operations, not rainfall.' 
+  },
+  A: { 
+    label: 'Always Runnable', 
+    icon: Waves, 
+    color: '#1976d2', 
+    description: 'A: Always Runs - Consistent flow year-round, typically spring-fed or large watershed' 
+  },
 };
 
-export function SizeBadge({ size, variant = 'default', animated = true }: SizeBadgeProps) {
+export function SizeBadge({ size, variant = 'filled', animated = true }: SizeBadgeProps) {
   const theme = useTheme();
   const info = sizeInfo[size as keyof typeof sizeInfo] || sizeInfo.M;
   const Icon = info.icon;

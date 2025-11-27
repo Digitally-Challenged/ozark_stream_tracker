@@ -7,7 +7,8 @@ interface TurnerBendData {
 }
 
 export class TurnerBendScraper {
-  private static readonly SCRAPE_URL = 'https://www.turnerbend.com/WaterLevel.html';
+  // URL available for future server-side scraping implementation
+  // private static readonly SCRAPE_URL = 'https://www.turnerbend.com/WaterLevel.html';
   private static readonly API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/turner-bend/current';
   private static readonly CACHE_KEY = 'turner-bend-gauge-data';
   private static readonly CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
@@ -20,30 +21,28 @@ export class TurnerBendScraper {
         return cached;
       }
 
-      // Try to fetch from backend API first
-      try {
-        const response = await fetch(this.API_URL);
-        if (response.ok) {
-          const data = await response.json();
-          const reading = this.parseToGaugeReading(data);
-          this.setCachedData(reading);
-          return reading;
-        }
-      } catch (apiError) {
-        console.warn('API not available, using fallback data');
-      }
-
-      // Fallback to mock data if API is not available
-      // In production, this would use a CORS proxy or other solution
-      const mockData: TurnerBendData = {
-        level: 2.5,
-        date: new Date().toISOString(),
-        description: 'Good level for paddling'
-      };
-
-      const reading = this.parseToGaugeReading(mockData);
-      this.setCachedData(reading);
+      // Try to fetch from backend API - NO FALLBACK TO MOCK DATA
+      const response = await fetch(this.API_URL, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+        // Add timeout to fail fast if server is down
+        signal: AbortSignal.timeout(5000)
+      });
       
+      if (!response.ok) {
+        throw new Error(`Turner Bend API error: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      if (!data || typeof data.level !== 'number') {
+        throw new Error('Invalid Turner Bend data format received');
+      }
+      
+      const reading = this.parseToGaugeReading(data);
+      this.setCachedData(reading);
       return reading;
     } catch (error) {
       console.error('Error fetching Turner Bend gauge data:', error);

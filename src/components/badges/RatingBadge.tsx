@@ -2,7 +2,6 @@ import React from 'react';
 import { Chip, Box, useTheme } from '@mui/material';
 import { waterGradients } from '../../theme/waterTheme';
 import { 
-  Looks6, 
   LooksOne, 
   LooksTwo, 
   Looks3, 
@@ -40,7 +39,7 @@ export function RatingBadge({ rating, size = 'small', animated = true }: RatingB
     return { gradient: waterGradients.shallow, color: theme.palette.primary.main };
   };
 
-  const getRatingIcon = () => {
+  const getRatingIcon = (): React.ReactElement | undefined => {
     if (rating === 'A' || rating === 'PLAY') return <Pool sx={{ fontSize: 16 }} />;
     if (rating.includes('V+')) return <SportsScore sx={{ fontSize: 16 }} />;
     if (rating.includes('V')) return <Looks5 sx={{ fontSize: 16 }} />;
@@ -48,7 +47,7 @@ export function RatingBadge({ rating, size = 'small', animated = true }: RatingB
     if (rating.includes('III')) return <Looks3 sx={{ fontSize: 16 }} />;
     if (rating.includes('II')) return <LooksTwo sx={{ fontSize: 16 }} />;
     if (rating.includes('I')) return <LooksOne sx={{ fontSize: 16 }} />;
-    return null;
+    return undefined;
   };
 
   const { gradient, color } = getRatingColor(rating);

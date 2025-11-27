@@ -22,7 +22,6 @@ export function sortStreams(
 ): StreamData[] {
   return [...streams].sort((a, b) => {
     let comparison = 0;
-    let trendA: number, trendB: number;
 
     switch (sortField) {
       case 'name':
@@ -40,11 +39,12 @@ export function sortStreams(
       case 'quality':
         comparison = a.quality.localeCompare(b.quality);
         break;
-      case 'trend':
-        trendA = getTrendPriority(a.currentLevel?.trend);
-        trendB = getTrendPriority(b.currentLevel?.trend);
+      case 'trend': {
+        const trendA = getTrendPriority(a.currentLevel?.trend);
+        const trendB = getTrendPriority(b.currentLevel?.trend);
         comparison = trendB - trendA; // Higher priority first
         break;
+      }
       case 'level':
         if (a.currentLevel?.status && b.currentLevel?.status) {
           comparison = a.currentLevel.status.localeCompare(
@@ -52,11 +52,20 @@ export function sortStreams(
           );
         }
         break;
-      case 'reading':
-        const readingA = a.currentFlow ?? -Infinity;
-        const readingB = b.currentFlow ?? -Infinity;
+      case 'reading': {
+        // Use gauge reading value instead of non-existent currentFlow
+        const readingA = a.currentLevel?.reading?.value ?? -Infinity;
+        const readingB = b.currentLevel?.reading?.value ?? -Infinity;
         comparison = readingA - readingB;
         break;
+      }
+      case 'time': {
+        // Sort by timestamp of gauge readings
+        const timeA = a.currentLevel?.reading?.timestamp ? new Date(a.currentLevel.reading.timestamp).getTime() : -Infinity;
+        const timeB = b.currentLevel?.reading?.timestamp ? new Date(b.currentLevel.reading.timestamp).getTime() : -Infinity;
+        comparison = timeB - timeA; // Most recent first
+        break;
+      }
       default:
         comparison = 0;
     }

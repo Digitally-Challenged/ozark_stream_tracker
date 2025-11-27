@@ -1,4 +1,4 @@
-import React from 'react';
+// React import not needed in modern React
 import { Box, keyframes } from '@mui/material';
 import {
   WaterDrop,

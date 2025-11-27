@@ -7,7 +7,7 @@ Real-time water level monitoring for Arkansas and Oklahoma whitewater streams. T
 
 ## 🚀 Features
 
-- **Real-time Gauge Data**: Live water levels from 150+ USGS monitoring stations
+- **Real-time Gauge Data**: Live water levels from 190+ USGS monitoring locations
 - **Stream Conditions**: Visual indicators for optimal paddling conditions
 - **Dark Mode**: Eye-friendly dark theme for low-light viewing
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
@@ -25,7 +25,7 @@ Real-time water level monitoring for Arkansas and Oklahoma whitewater streams. T
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/ozark_stream_tracker.git
+git clone https://github.com/Digitally-Challenged/ozark_stream_tracker.git
 cd ozark_stream_tracker
 ```
 
@@ -74,12 +74,30 @@ netlify deploy --prod
 
 For production, set these in Netlify's environment variables:
 
-- `VITE_API_URL` - (Optional) Backend API URL for Turner Bend gauge
+- `VITE_API_URL` - (Optional) Backend API URL for Turner Bend gauge. Defaults to `http://localhost:3001/api/turner-bend/current` in development if not provided.
 
 ## 📊 Data Sources
 
 - **USGS Gauges**: Real-time data from United States Geological Survey
 - **Turner Bend**: Custom web scraping solution (requires backend service)
+
+### Turner Bend Backend Setup
+
+A minimal backend service is included under `server/` to fetch Turner Bend data without CORS issues:
+
+1. Install dependencies and run locally (port 3001):
+```bash
+cd server
+npm install
+npm run start
+```
+
+2. Expose API endpoints (examples):
+- `GET /api/turner-bend/current` – returns latest scraped reading
+- `POST /api/turner-bend/scrape` – triggers a fresh scrape
+
+3. Frontend configuration:
+- Set `VITE_API_URL` to your deployed backend URL. In development, if unset, the app defaults to `http://localhost:3001/api/turner-bend/current`.
 
 ## 🎨 Features Overview
 
@@ -88,6 +106,7 @@ For production, set these in Netlify's environment variables:
 - Real-time search
 - Color-coded water levels
 - Trend indicators (rising/falling/stable)
+- Dynamic timestamps (e.g., “5 minutes ago”)
 
 ### Filtering System
 - Rating filters (Class I-V, Play spots)

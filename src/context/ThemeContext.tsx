@@ -1,11 +1,11 @@
-import React, { createContext, useContext, useState, useMemo, useEffect } from 'react';
+import React, { createContext, useContext, useState, useMemo } from 'react';
 import {
   ThemeProvider as MuiThemeProvider,
   createTheme,
 } from '@mui/material/styles';
 import { PaletteMode } from '@mui/material';
 import { THEME_CONFIG } from '../constants';
-import { waterGradients, glassmorphism, shadows } from '../theme/waterTheme';
+// Unused theme imports removed - these are available for future use
 
 interface ThemeContextType {
   mode: PaletteMode;
@@ -17,7 +17,7 @@ const ThemeContext = createContext<ThemeContextType>({
   toggleColorMode: () => {},
 });
 
-export const useTheme = () => useContext(ThemeContext);
+export const useColorMode = () => useContext(ThemeContext);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [mode, setMode] = useState<PaletteMode>(() => {

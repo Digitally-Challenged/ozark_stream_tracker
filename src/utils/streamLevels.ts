@@ -59,7 +59,8 @@ export const getLevelStatusColor = (status: LevelStatus, theme: Theme): string =
 };
 
 export const getQualityColor = (quality: string, theme: Theme): string => {
-  const alpha = theme.palette.mode === 'dark' ? '0.2' : '0.1';
+  // Alpha value available for future use
+  // const alpha = theme.palette.mode === 'dark' ? '0.2' : '0.1';
   
   switch (quality) {
     case 'A':

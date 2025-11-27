@@ -1,4 +1,4 @@
-import React from 'react';
+import { memo } from 'react';
 import { TableHead, TableRow, TableCell, TableSortLabel } from '@mui/material';
 import { SortDirection, SortField } from '../../types/table';
 
@@ -22,6 +22,7 @@ const StreamTableHeaderComponent = ({
     { field: 'time', label: 'Time' },
     { field: 'quality', label: 'Quality' },
     { field: 'level', label: 'Current Level' },
+    { field: 'trend', label: 'Trend' },
   ];
 
   return (
@@ -45,4 +46,4 @@ const StreamTableHeaderComponent = ({
 
 // Memoize the component to prevent unnecessary re-renders
 // Only re-render if sortField, sortDirection, or onSort changes
-export const StreamTableHeader = React.memo(StreamTableHeaderComponent);
+export const StreamTableHeader = memo(StreamTableHeaderComponent);
