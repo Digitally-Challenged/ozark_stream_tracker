@@ -1,5 +1,5 @@
 // src/hooks/useGaugeReading.ts
-import { useMemo } from 'react';
+import { useMemo, useEffect, useRef } from 'react';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
 import { GaugeReading, LevelStatus, LevelTrend, TargetLevels } from '../types/stream';
 import { determineLevel, determineTrend } from '../utils/streamLevels';
@@ -21,6 +21,7 @@ export function useGaugeReading(
 ): UseGaugeReadingResult {
   const { gauges, isLoading } = useGaugeDataContext();
   const { addReading, getPreviousReading } = useGaugeHistory(gaugeId);
+  const lastReadingRef = useRef<string | null>(null);
 
   const gaugeData = gauges.get(gaugeId);
 
@@ -54,16 +55,21 @@ export function useGaugeReading(
       ? determineTrend(reading, previousReading)
       : LevelTrend.None;
 
-    // Store current reading for future trend calculation
-    addReading(reading);
-
     return {
       reading,
       currentLevel: { status, trend },
       loading: false,
       error: null,
     };
-  }, [gaugeData, isLoading, targetLevels, addReading, getPreviousReading]);
+  }, [gaugeData, isLoading, targetLevels, getPreviousReading]);
+
+  // Store reading in history AFTER render (side effect)
+  useEffect(() => {
+    if (result.reading && result.reading.timestamp !== lastReadingRef.current) {
+      lastReadingRef.current = result.reading.timestamp ?? null;
+      addReading(result.reading);
+    }
+  }, [result.reading, addReading]);
 
   return result;
 }
