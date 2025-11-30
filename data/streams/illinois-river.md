@@ -71,6 +71,11 @@ But catch it on a weekday in May or September, put in at Watts and take out wher
 ## Geographic Context
 The Illinois River begins in the Boston Mountains of northwest Arkansas near Hogeye and flows westward into Oklahoma through Cherokee and Adair counties before reaching Lake Tenkiller. The river is part of the Arkansas River watershed system.
 
+## Images
+
+![Illinois River flowing through Oklahoma](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Illinois_River_Oklahoma.jpg/1280px-Illinois_River_Oklahoma.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
+
 ## Sources
 - [Illinois River, Oklahoma - Southwest Paddler](https://southwestpaddler.com/docs/illinois.html)
 - [Illinois Bayou, Arkansas - Southwest Paddler](http://www.southwestpaddler.com/docs/arkansas12.html)

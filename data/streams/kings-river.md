@@ -76,6 +76,11 @@ The Kings River forms in the Boston Mountains of northwest Arkansas very close t
 - Restrictions on development in the river basin
 - Enhanced pollution protections
 
+## Images
+
+![Kings River Falls within the Kings River Natural Area](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Kings_River_Falls_002.jpg/1280px-Kings_River_Falls_002.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
+
 ## Sources
 - [Kings River, Arkansas - Southwest Paddler](http://southwestpaddler.com/docs/kings3.html)
 - [The Rivers of Arkansas - Southwest Paddler](http://www.southwestpaddler.com/indexAR.html)

@@ -74,28 +74,14 @@ Past 2.4 feet, you'd better know what you're doing. At 4.5 and beyond, you'd bet
 
 ## Images
 
-### Mulberry River Bridge (Wire Ford Bridge)
-![Historic Mulberry River Bridge](https://commons.wikimedia.org/wiki/File:Mulberry_River_Bridge.JPG)
-*Photo: Wikimedia Commons, Public Domain. Historic Pratt through truss bridge near Pleasant Hill, Arkansas, listed on the National Register of Historic Places.*
+![Mulberry River flowing through the Ozark National Forest](https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mulberry_River_-_Arkansas.jpg/1280px-Mulberry_River_-_Arkansas.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
 
-### Paddling Near Ozark
-![Paddling Near Ozark Arkansas](https://commons.wikimedia.org/wiki/File:Paddling_Near_Ozark_Arkansas.jpg)
-*Photo: Wikimedia Commons (1,200 × 1,534px). Paddling scene near Ozark, Arkansas on the Mulberry River.*
+![Historic Mulberry River Bridge near Pleasant Hill](https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Mulberry_River_Bridge.JPG/1280px-Mulberry_River_Bridge.JPG)
+*Photo: Public Domain, via Wikimedia Commons. Historic Pratt through truss bridge listed on the National Register of Historic Places.*
 
-### Scenic River Views
-The Mulberry River flows through the Ozark National Forest with prime Ozark Mountain scenery - narrow canyons, tree-lined bluffs, and dense woods. The river features milky blue-green water characteristic of Ozark streams.
-
-For additional images of the Mulberry River:
-- [Wikimedia Commons: Mulberry River (Arkansas)](https://commons.wikimedia.org/wiki/Category:Mulberry_River_(Arkansas)) - Public domain and CC-licensed images
-- [USDA Forest Service: Mulberry River](https://www.fs.usda.gov/r08/ozark-stfrancis/recreation/mulberry-river) - Public domain U.S. government photos
-- [Arkansas Canoe Club Whitewater School - Turner Bend](https://www.flickr.com/photos/21253784@N02/41057985975/) - May 2018 whitewater training photos
-
-**Notable Features Visible in River Photography:**
-- House-sized boulders and rock gardens
-- Class II-III rapids including Big Al's Twist, Chainsaw Jungle, Jump Start, and Whoop and Holler
-- Turner Bend area - popular access point and historic outfitter location
-- Forested hillsides and bluff scenery
-- Emerald green water characteristic of the river
+![Paddling near Ozark, Arkansas](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Paddling_Near_Ozark_Arkansas.jpg/800px-Paddling_Near_Ozark_Arkansas.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
 
 ## Sources
 - [Mulberry River, Arkansas - Southwest Paddler](http://www.southwestpaddler.com/docs/arkansas7.html)

@@ -33,40 +33,14 @@ Contact local paddling community for gauge information.
 
 ## Images
 
-### The Washing Machine Rapid
-![The Washing Machine - Class IV rapid at Cossatot Falls](https://www.tomkennonphotography.com/images/xl/061508-103web.jpg)
-*Photo: Tom Kennon, All Rights Reserved, via [Tom Kennon Photography](https://www.tomkennonphotography.com/photo/the-washing-machine/)*
+![Cossatot River flowing through the Ouachita Mountains](https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Cossatot_River_Arkansas.jpg/1280px-Cossatot_River_Arkansas.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
 
-The Washing Machine is a Class IV+ rapid in the famous Cossatot Falls section, one of six named drops in this challenging 1/8-mile stretch that drops 40 feet.
+![Cossatot River at Cossatot River State Park-Natural Area](https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Cossatot_River_004.jpg/1280px-Cossatot_River_004.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
 
-### Cossatot Falls Overview
-![Cossatot Falls - One of Arkansas's most impressive water features](https://photosofarkansas.com/wp-content/uploads/2016/08/TZCL-correct-col-bal-30-x-45-akvis-enhancer-10_10-final-no1-morie-vel-viz-spline-220-dpi-23-x-34-flat-3-seg-combo-no1-1024x683.jpg)
-*Photo: Paul Caldwell, Copyright Paul Caldwell, via [Photos of Arkansas](https://photosofarkansas.com/tag/cossatot-river/)*
-
-The complete Cossatot Falls section showing the dramatic whitewater and rock formations that give this river its "Skull Crusher" reputation.
-
-### Cossatot River Scenery
-![Patterns in the Rock on the Cossatot River](https://photosofarkansas.com/wp-content/uploads/2015/12/For-web-Patterns-in-the-Rock-on-the-Cossatot-River-699x1024.jpg)
-*Photo: Paul Caldwell, Copyright Paul Caldwell, via [Photos of Arkansas](https://photosofarkansas.com/tag/cossatot-river/)*
-
-The unique sandstone and quartz formations that characterize the Cossatot's rugged Ouachita Mountain setting.
-
-### Rapids Detail
-![Swirls and foam in Cossatot River rapids](https://photosofarkansas.com/wp-content/uploads/2013/08/No-128_Swirls_in_Foam-1024x699.jpg)
-*Photo: Paul Caldwell, Copyright Paul Caldwell, via [Photos of Arkansas](https://photosofarkansas.com/tag/cossatot-river/)*
-
-Close-up of the powerful hydraulics that make this one of Arkansas's most challenging whitewater runs.
-
-### River Corridor
-![Cossatot River landscape in the Ouachita Mountains](https://rivers.gov/sites/rivers/files/2022-10/cossatot_river.jpg)
-*Photo: Terry Olsen, Used by Permission - All Rights Reserved, via [Rivers.gov](https://rivers.gov/image/cossatot-river-0)*
-
-The National Wild and Scenic Cossatot River flowing through its protected corridor in Cossatot River State Park-Natural Area.
-
-### Additional Photo Resources
-- [Cossatot Falls Gallery](https://www.flickr.com/photos/cormackphotos/7681144378) - Flickr photos by Cormack Photos
-- [Cossatot Falls, Arkansas](https://www.flickr.com/photos/rastaseeds/27326359422/) - RastaSeeds OneLUV on Flickr
-- [Cossatot River at Devil's Den](https://www.flickr.com/photos/russ-w/14104390660/) - Russ W. on Flickr
+![Scenic view of Cossatot State Park](https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cossatot_State_Park_003.jpg/1280px-Cossatot_State_Park_003.jpg)
+*Photo: Public Domain, via Wikimedia Commons*
 
 **Note:** Named rapids in the falls section include Cossatosser (II+), Eye Opener, B.M.F. (III), Washing Machine (IV+), Whiplash (III+), Shoulderbone (II), with Deer Camp Rapid (III), Devil's Hollow Rapid (III+), and Devil's Hollow Falls (IV) downstream.
 

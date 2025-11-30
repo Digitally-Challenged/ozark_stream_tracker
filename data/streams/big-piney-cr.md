@@ -76,36 +76,6 @@ Big Piney forms up in the Boston Mountains close to the headwaters of Hailstone,
 ## Geographic Context
 Big Piney Creek forms in the Boston Mountains of northwest Arkansas very close to the headwaters of the Hailstone (Upper Upper Buffalo), Kings and Mulberry Rivers, as well as Little Piney Creek and the Upper White River.
 
-## Images
-
-### Photo Resources
-
-Due to copyright restrictions, direct image embedding is limited. However, high-quality photos of Big Piney Creek showcasing its distinctive emerald-green water, sandstone bluffs, and whitewater features can be found at these sources:
-
-**Big Piney Creek Scenic Views:**
-- [Big Piney Creek by Jeron Sewell](https://www.rivers.gov/image/big-piney-creek-0) - Professional photo showing the creek's characteristic milky turquoise-green water. Photo by Jeron Sewell, used by permission via Rivers.gov.
-
-**Historic Bridge Photography (Public Domain):**
-- [Big Piney Creek Bridge at Highway 123](https://www.loc.gov/item/ar0080/) - Library of Congress HAER documentation includes 10 historic photos of the 1931 Baltimore truss bridge spanning Big Piney Creek at Fort Douglas. Public domain images showing the creek and surrounding forest. Photos by Historic American Engineering Record.
-
-**Long Pool Recreation Area:**
-- Long Pool features a large natural swimming pool, huge boulders, and towering bluffs across Big Piney Creek
-- Long Pool Falls: 44-foot waterfall visible after rain, spilling over scenic bluff
-- Images available on [USFS Long Pool page](https://www.fs.usda.gov/recarea/osfnf/recarea/?recid=43459) and visitor photo galleries on [The Dyrt](https://thedyrt.com/camping/arkansas/arkansas-long-pool-campground) (50+ photos) and TripAdvisor
-
-**Whitewater Action:**
-- Paddling photos showing Class II-III rapids through boulder gardens
-- Images of the distinctive emerald-green water color characteristic of Ozark limestone streams
-- Available through outfitter sites and paddling trip reports
-
-**Key Visual Features to Look For:**
-- The signature "creme de menthe green" water color from limestone geology
-- Sandstone bluffs and rock formations
-- Boulder gardens in the Treat to Long Pool whitewater section
-- Dense hardwood and pine forests along creek banks
-- The historic 1931 one-lane bridge at Highway 123
-- Long Pool's large swimming hole with towering bluffs
-
 ## Sources
 - [Big Piney Creek, Arkansas - Southwest Paddler](https://www.southwestpaddler.com/docs/arkansas4.html)
 - [Map of Big Piney Creek - Southwest Paddler](http://southwestpaddler.com/docs/Bigpineymap.html)
