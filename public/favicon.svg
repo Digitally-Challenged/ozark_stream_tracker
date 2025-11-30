@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="water" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0288d1"/>
+      <stop offset="100%" style="stop-color:#01579b"/>
+    </linearGradient>
+  </defs>
+  <!-- Water wave background -->
+  <circle cx="50" cy="50" r="48" fill="url(#water)"/>
+  <!-- Kayak paddle -->
+  <g fill="#fff">
+    <!-- Paddle shaft -->
+    <rect x="22" y="48" width="56" height="4" rx="2"/>
+    <!-- Left blade -->
+    <ellipse cx="18" cy="50" rx="8" ry="14"/>
+    <!-- Right blade -->
+    <ellipse cx="82" cy="50" rx="8" ry="14"/>
+  </g>
+  <!-- Wave lines -->
+  <path d="M15 68 Q30 60 45 68 T75 68 T95 68" stroke="#fff" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M5 78 Q20 70 35 78 T65 78 T95 78" stroke="#fff" stroke-width="2" fill="none" opacity="0.4"/>
+</svg>

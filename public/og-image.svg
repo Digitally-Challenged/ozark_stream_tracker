@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d47a1"/>
+      <stop offset="50%" style="stop-color:#1565c0"/>
+      <stop offset="100%" style="stop-color:#0288d1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Wave patterns -->
+  <path d="M0 450 Q150 400 300 450 T600 450 T900 450 T1200 450 L1200 630 L0 630 Z" fill="#fff" opacity="0.1"/>
+  <path d="M0 500 Q150 450 300 500 T600 500 T900 500 T1200 500 L1200 630 L0 630 Z" fill="#fff" opacity="0.08"/>
+  <path d="M0 550 Q150 500 300 550 T600 550 T900 550 T1200 550 L1200 630 L0 630 Z" fill="#fff" opacity="0.05"/>
+
+  <!-- Paddle icon -->
+  <g transform="translate(100, 200)">
+    <rect x="0" y="48" width="120" height="8" rx="4" fill="#fff"/>
+    <ellipse cx="-10" cy="52" rx="18" ry="32" fill="#fff"/>
+    <ellipse cx="130" cy="52" rx="18" ry="32" fill="#fff"/>
+  </g>
+
+  <!-- Title -->
+  <text x="280" y="260" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="700" fill="#fff">Ozark Stream Tracker</text>
+
+  <!-- Subtitle -->
+  <text x="280" y="340" font-family="system-ui, -apple-system, sans-serif" font-size="36" fill="#fff" opacity="0.9">Real-time water levels for 95+ whitewater streams</text>
+
+  <!-- Tagline -->
+  <text x="280" y="400" font-family="system-ui, -apple-system, sans-serif" font-size="28" fill="#fff" opacity="0.7">Arkansas • Oklahoma • Missouri</text>
+
+  <!-- URL -->
+  <text x="280" y="560" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#fff" opacity="0.6">streamfeed.netlify.app</text>
+</svg>
