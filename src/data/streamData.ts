@@ -498,6 +498,22 @@ export const streams: StreamData[] = [
     },
   },
   {
+    name: 'WOKA Whitewater Park',
+    rating: 'PLAY',
+    size: 'A',
+    gauge: {
+      name: 'Illinois R. nr Siloam Springs',
+      id: '07195430',
+      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07195430',
+    },
+    quality: 'A',
+    targetLevels: {
+      tooLow: 2.0,
+      optimal: 3.5,
+      high: 6.0,
+    },
+  },
+  {
     name: 'Frog Bayou',
     rating: 'II',
     size: 'L',
