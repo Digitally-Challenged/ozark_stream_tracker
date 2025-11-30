@@ -92,7 +92,15 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
               {stream.name}
             </Link>
           ) : (
-            stream.name
+            <Typography
+              component="span"
+              sx={{
+                fontWeight: 500,
+                color: theme.palette.text.secondary,
+              }}
+            >
+              {stream.name}
+            </Typography>
           );
         })()}
       </TableCell>
