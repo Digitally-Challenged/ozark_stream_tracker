@@ -11,7 +11,7 @@ import { StreamHazards } from '../components/stream-page/StreamHazards';
 import { StreamSources } from '../components/stream-page/StreamSources';
 import { streams } from '../data/streamData';
 
-export function StreamPage() {
+export default function StreamPage() {
   const { streamId } = useParams<{ streamId: string }>();
   const navigate = useNavigate();
   const theme = useTheme();
