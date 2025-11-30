@@ -7,6 +7,7 @@ import {
   Box,
   Typography,
   useTheme,
+  Skeleton,
 } from '@mui/material';
 import { StreamData, LevelStatus, LevelTrend } from '../../types/stream';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
@@ -83,7 +84,10 @@ export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCa
           </Box>
 
           {loading ? (
-            <Typography color="text.secondary">Loading...</Typography>
+            <Box sx={{ mt: 1 }}>
+              <Skeleton variant="text" width="60%" height={36} />
+              <Skeleton variant="text" width="40%" height={20} sx={{ mt: 0.5 }} />
+            </Box>
           ) : error ? (
             <Typography color="error">Unavailable</Typography>
           ) : reading ? (
