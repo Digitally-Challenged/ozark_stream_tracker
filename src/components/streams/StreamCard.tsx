@@ -17,6 +17,7 @@ import { SizeBadge } from '../badges/SizeBadge';
 import { StreamConditionIcon } from '../icons/StreamConditionIcon';
 import { TrendIcon } from '../icons/TrendIcon';
 import { LiquidFillBar } from '../common/LiquidFillBar';
+import { glassmorphism } from '../../theme/waterTheme';
 
 interface StreamCardProps {
   stream: StreamData;
@@ -47,10 +48,13 @@ export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCa
       sx={{
         height: '100%',
         borderLeft: `4px solid ${statusColor}`,
-        transition: 'transform 0.2s, box-shadow 0.2s',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        ...(theme.palette.mode === 'dark' ? glassmorphism.dark : glassmorphism.light),
+        backdropFilter: 'blur(8px)',
         '&:hover': {
-          transform: 'translateY(-2px)',
-          boxShadow: theme.shadows[4],
+          transform: 'translateY(-4px) scale(1.01)',
+          boxShadow: `0 12px 40px ${statusColor}30`,
+          borderLeftWidth: '6px',
         },
       }}
     >
