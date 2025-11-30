@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import {
   Box,
   Container,
@@ -27,6 +27,12 @@ export function DashboardPage({
   selectedSizes,
 }: DashboardPageProps) {
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
+  const handleStreamClick = useCallback((stream: StreamData) => {
+    setSelectedStream(stream);
+  }, []);
+  const handleCloseDetail = useCallback(() => {
+    setSelectedStream(null);
+  }, []);
   const streamStatuses = useAllStreamStatuses(streams);
   const { viewMode, setViewMode } = useViewPreference();
   const { isLoading, lastUpdated, error: gaugeError } = useGaugeDataContext();
@@ -106,7 +112,7 @@ export function DashboardPage({
             status={status}
             streams={groupedStreams[status]}
             defaultExpanded={status !== LevelStatus.TooLow}
-            onStreamClick={(stream) => setSelectedStream(stream)}
+            onStreamClick={handleStreamClick}
             selectedRatings={selectedRatings}
             selectedSizes={selectedSizes}
             viewMode={viewMode}
@@ -116,7 +122,7 @@ export function DashboardPage({
       <StreamDetail
         stream={selectedStream}
         open={selectedStream !== null}
-        onClose={() => setSelectedStream(null)}
+        onClose={handleCloseDetail}
       />
     </Box>
   );

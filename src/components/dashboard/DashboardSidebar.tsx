@@ -200,7 +200,7 @@ export function DashboardSidebar({
       elevation={4}
       sx={{
         '& .MuiDrawer-paper': {
-          width,
+          width: { xs: '100%', sm: width },
           boxSizing: 'border-box',
           backgroundColor: theme.palette.background.default,
           border: 'none',

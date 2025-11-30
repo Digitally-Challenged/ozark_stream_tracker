@@ -1,5 +1,5 @@
 // src/components/streams/StreamGroup.tsx
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { Box, Collapse } from '@mui/material';
 import { StreamData, LevelStatus } from '../../types/stream';
 import { StreamGroupHeader } from './StreamGroupHeader';
@@ -27,6 +27,7 @@ export function StreamGroup({
   viewMode,
 }: StreamGroupProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
+  const handleToggle = useCallback(() => setExpanded(prev => !prev), []);
 
   if (streams.length === 0) {
     return null;
@@ -38,7 +39,7 @@ export function StreamGroup({
         status={status}
         count={streams.length}
         expanded={expanded}
-        onToggle={() => setExpanded(!expanded)}
+        onToggle={handleToggle}
       />
       <Collapse in={expanded}>
         {viewMode === 'cards' ? (

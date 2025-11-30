@@ -7,6 +7,7 @@ import {
   Box,
   keyframes,
   alpha,
+  Badge,
 } from '@mui/material';
 import {
   Kayaking,
@@ -23,6 +24,7 @@ import { waterGradients } from '../../theme/waterTheme';
 interface HeaderProps {
   onFilterClick: () => void;
   filterOpen: boolean;
+  activeFilterCount?: number;
 }
 
 const float = keyframes`
@@ -41,7 +43,7 @@ const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-export function Header({ onFilterClick, filterOpen }: HeaderProps) {
+export function Header({ onFilterClick, filterOpen, activeFilterCount = 0 }: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
   const { refresh, isLoading } = useGaugeDataContext();
@@ -145,6 +147,8 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
             disabled={isLoading}
             sx={{
               color: 'white',
+              minWidth: 48,
+              minHeight: 48,
               '&:hover': {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },
@@ -161,24 +165,39 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
             />
           </IconButton>
 
-          <IconButton
-            onClick={onFilterClick}
+          <Badge
+            badgeContent={activeFilterCount}
+            color="primary"
             sx={{
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              '& .MuiBadge-badge': {
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
               },
-              transform: filterOpen ? 'rotate(180deg)' : 'none',
-              transition: 'transform 0.3s ease',
             }}
           >
-            <FilterList />
-          </IconButton>
+            <IconButton
+              onClick={onFilterClick}
+              sx={{
+                color: 'white',
+                minWidth: 48,
+                minHeight: 48,
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                },
+                transform: filterOpen ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.3s ease',
+              }}
+            >
+              <FilterList />
+            </IconButton>
+          </Badge>
 
           <IconButton
             onClick={toggleColorMode}
             sx={{
               color: 'white',
+              minWidth: 48,
+              minHeight: 48,
               '&:hover': {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },

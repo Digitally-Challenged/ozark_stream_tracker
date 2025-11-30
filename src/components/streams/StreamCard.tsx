@@ -1,4 +1,5 @@
 // src/components/streams/StreamCard.tsx
+import { memo } from 'react';
 import {
   Card,
   CardContent,
@@ -27,7 +28,7 @@ const STATUS_COLORS: Record<LevelStatus, string> = {
   [LevelStatus.TooLow]: '#d32f2f',
 };
 
-export function StreamCard({ stream, onClick }: StreamCardProps) {
+export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCardProps) {
   const { currentLevel, reading, loading, error } = useGaugeReading(
     stream.gauge.id,
     stream.targetLevels
@@ -142,4 +143,8 @@ export function StreamCard({ stream, onClick }: StreamCardProps) {
       </CardActionArea>
     </Card>
   );
-}
+}, (prevProps, nextProps) => {
+  return prevProps.stream.name === nextProps.stream.name &&
+         prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
+         prevProps.onClick === nextProps.onClick;
+});

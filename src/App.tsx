@@ -42,6 +42,7 @@ function App() {
               <Header
                 onFilterClick={() => setFilterOpen(!filterOpen)}
                 filterOpen={filterOpen}
+                activeFilterCount={selectedRatings.length + selectedSizes.length}
               />
               <Box sx={{ display: 'flex', flex: 1 }}>
                 <Routes>

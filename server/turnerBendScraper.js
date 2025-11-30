@@ -150,7 +150,7 @@ class TurnerBendScraperService {
 }
 
 // Express API endpoint setup
-function setupAPI(app) {
+function setupAPI(app, scrapeLimiter = null) {
   const scraper = new TurnerBendScraperService();
   
   app.get('/api/turner-bend/current', async (req, res) => {
@@ -165,23 +165,25 @@ function setupAPI(app) {
       }
     } catch (error) {
       console.error('Turner Bend API error:', error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'Failed to get Turner Bend data',
-        message: error.message,
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An internal error occurred',
         timestamp: new Date().toISOString()
       });
     }
   });
 
-  app.post('/api/turner-bend/scrape', async (req, res) => {
+  // Apply scrape rate limiter if provided
+  const scrapeMiddleware = scrapeLimiter ? [scrapeLimiter] : [];
+  app.post('/api/turner-bend/scrape', ...scrapeMiddleware, async (req, res) => {
     try {
       const data = await scraper.scrapeWaterLevel();
       res.json(data);
     } catch (error) {
       console.error('Turner Bend scrape error:', error);
-      res.status(500).json({ 
+      res.status(500).json({
         error: 'Failed to scrape Turner Bend data',
-        message: error.message,
+        message: process.env.NODE_ENV === 'development' ? error.message : 'An internal error occurred',
         timestamp: new Date().toISOString()
       });
     }

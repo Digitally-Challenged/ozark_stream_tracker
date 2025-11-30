@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { GaugeReading } from '../types/stream';
 
 interface GaugeHistoryEntry {
@@ -46,7 +46,7 @@ export function useGaugeHistory(gaugeId: string) {
     }
   }, [history]);
 
-  const addReading = (reading: GaugeReading) => {
+  const addReading = useCallback((reading: GaugeReading) => {
     const now = Date.now();
     const newEntry: GaugeHistoryEntry = {
       gaugeId,
@@ -77,23 +77,23 @@ export function useGaugeHistory(gaugeId: string) {
       // Add new entry
       return [...filtered, newEntry].sort((a, b) => b.timestamp - a.timestamp);
     });
-  };
+  }, [gaugeId, MAX_HISTORY_HOURS, MIN_TREND_INTERVAL_MINUTES]);
 
-  const getPreviousReading = (): GaugeReading | null => {
+  const getPreviousReading = useCallback((): GaugeReading | null => {
     const gaugeHistory = history
       .filter((entry) => entry.gaugeId === gaugeId)
       .sort((a, b) => b.timestamp - a.timestamp);
 
     // Return the second most recent reading (first is current)
     return gaugeHistory.length > 1 ? gaugeHistory[1].reading : null;
-  };
+  }, [history, gaugeId]);
 
-  const getReadingAge = (reading: GaugeReading): number => {
+  const getReadingAge = useCallback((reading: GaugeReading): number => {
     const entry = history.find(
       (h) => h.gaugeId === gaugeId && h.reading.timestamp === reading.timestamp
     );
     return entry ? Date.now() - entry.timestamp : 0;
-  };
+  }, [history, gaugeId]);
 
   return {
     addReading,
