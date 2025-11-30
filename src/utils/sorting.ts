@@ -61,8 +61,12 @@ export function sortStreams(
       }
       case 'time': {
         // Sort by timestamp of gauge readings
-        const timeA = a.currentLevel?.reading?.timestamp ? new Date(a.currentLevel.reading.timestamp).getTime() : -Infinity;
-        const timeB = b.currentLevel?.reading?.timestamp ? new Date(b.currentLevel.reading.timestamp).getTime() : -Infinity;
+        const timeA = a.currentLevel?.reading?.timestamp
+          ? new Date(a.currentLevel.reading.timestamp).getTime()
+          : -Infinity;
+        const timeB = b.currentLevel?.reading?.timestamp
+          ? new Date(b.currentLevel.reading.timestamp).getTime()
+          : -Infinity;
         comparison = timeB - timeA; // Most recent first
         break;
       }

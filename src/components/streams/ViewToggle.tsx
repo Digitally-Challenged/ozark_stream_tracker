@@ -9,7 +9,10 @@ interface ViewToggleProps {
 }
 
 export function ViewToggle({ viewMode, onChange }: ViewToggleProps) {
-  const handleChange = (_: React.MouseEvent<HTMLElement>, newMode: ViewMode | null) => {
+  const handleChange = (
+    _: React.MouseEvent<HTMLElement>,
+    newMode: ViewMode | null
+  ) => {
     if (newMode !== null) {
       onChange(newMode);
     }

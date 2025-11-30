@@ -9,7 +9,9 @@ interface TurnerBendData {
 export class TurnerBendScraper {
   // URL available for future server-side scraping implementation
   // private static readonly SCRAPE_URL = 'https://www.turnerbend.com/WaterLevel.html';
-  private static readonly API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api/turner-bend/current';
+  private static readonly API_URL =
+    import.meta.env.VITE_API_URL ||
+    'http://localhost:3001/api/turner-bend/current';
   private static readonly CACHE_KEY = 'turner-bend-gauge-data';
   private static readonly CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
 
@@ -25,22 +27,24 @@ export class TurnerBendScraper {
       const response = await fetch(this.API_URL, {
         method: 'GET',
         headers: {
-          'Accept': 'application/json',
+          Accept: 'application/json',
         },
         // Add timeout to fail fast if server is down
-        signal: AbortSignal.timeout(5000)
+        signal: AbortSignal.timeout(5000),
       });
-      
+
       if (!response.ok) {
-        throw new Error(`Turner Bend API error: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `Turner Bend API error: ${response.status} ${response.statusText}`
+        );
       }
-      
+
       const data = await response.json();
-      
+
       if (!data || typeof data.level !== 'number') {
         throw new Error('Invalid Turner Bend data format received');
       }
-      
+
       const reading = this.parseToGaugeReading(data);
       this.setCachedData(reading);
       return reading;
@@ -67,7 +71,7 @@ export class TurnerBendScraper {
 
       const { data, timestamp } = JSON.parse(cached);
       const age = Date.now() - timestamp;
-      
+
       if (age > this.CACHE_DURATION) {
         localStorage.removeItem(this.CACHE_KEY);
         return null;
@@ -94,6 +98,8 @@ export class TurnerBendScraper {
   static async scrapeFromServer(): Promise<TurnerBendData | null> {
     // This would be implemented on a backend service
     // to avoid CORS issues and properly parse HTML
-    throw new Error('Server-side scraping not implemented. Use a backend service.');
+    throw new Error(
+      'Server-side scraping not implemented. Use a backend service.'
+    );
   }
 }

@@ -78,9 +78,7 @@ export function DashboardSidebar({
     const {
       target: { value },
     } = event;
-    setSelectedRatings(
-      typeof value === 'string' ? value.split(',') : value
-    );
+    setSelectedRatings(typeof value === 'string' ? value.split(',') : value);
   };
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {

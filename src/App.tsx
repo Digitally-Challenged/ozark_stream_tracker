@@ -8,6 +8,7 @@ import { GaugeDataProvider } from './context/GaugeDataContext';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
+import { StreamPage } from './pages/StreamPage';
 import { ScraperScheduler } from './services/scraperScheduler';
 
 function ErrorFallback({ error }: { error: Error }) {
@@ -39,48 +40,49 @@ function App() {
       <ThemeProvider>
         <CssBaseline />
         <BrowserRouter>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            minHeight: '100vh',
-            bgcolor: (theme) =>
-              theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
-          }}
-        >
-          <ErrorBoundary FallbackComponent={ErrorFallback}>
-            <Header
-              onFilterClick={() => setFilterOpen(!filterOpen)}
-              filterOpen={filterOpen}
-            />
-            <Box sx={{ display: 'flex', flex: 1 }}>
-              <Routes>
-                <Route
-                  path="/"
-                  element={<Navigate to="/dashboard" replace />}
-                />
-                <Route
-                  path="/dashboard"
-                  element={
-                    <DashboardPage
-                      selectedRatings={selectedRatings}
-                      selectedSizes={selectedSizes}
-                    />
-                  }
-                />
-              </Routes>
-            </Box>
-            <DashboardSidebar
-              open={filterOpen}
-              onClose={() => setFilterOpen(false)}
-              selectedRatings={selectedRatings}
-              setSelectedRatings={setSelectedRatings}
-              selectedSizes={selectedSizes}
-              setSelectedSizes={setSelectedSizes}
-            />
-            <Footer />
-          </ErrorBoundary>
-        </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              minHeight: '100vh',
+              bgcolor: (theme) =>
+                theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
+            }}
+          >
+            <ErrorBoundary FallbackComponent={ErrorFallback}>
+              <Header
+                onFilterClick={() => setFilterOpen(!filterOpen)}
+                filterOpen={filterOpen}
+              />
+              <Box sx={{ display: 'flex', flex: 1 }}>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Navigate to="/dashboard" replace />}
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <DashboardPage
+                        selectedRatings={selectedRatings}
+                        selectedSizes={selectedSizes}
+                      />
+                    }
+                  />
+                  <Route path="/stream/:streamId" element={<StreamPage />} />
+                </Routes>
+              </Box>
+              <DashboardSidebar
+                open={filterOpen}
+                onClose={() => setFilterOpen(false)}
+                selectedRatings={selectedRatings}
+                setSelectedRatings={setSelectedRatings}
+                selectedSizes={selectedSizes}
+                setSelectedSizes={setSelectedSizes}
+              />
+              <Footer />
+            </ErrorBoundary>
+          </Box>
         </BrowserRouter>
       </ThemeProvider>
     </GaugeDataProvider>

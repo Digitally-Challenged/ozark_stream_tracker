@@ -6,13 +6,13 @@ export const waterGradients = {
   medium: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
   deep: 'linear-gradient(135deg, #1e3c72 0%, #2a5298 100%)',
   rapid: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-  
+
   // Time-based gradients
   dawn: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
   day: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
   dusk: 'linear-gradient(135deg, #d299c2 0%, #fef9d7 100%)',
   night: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
-  
+
   // Condition gradients
   optimal: 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)',
   warning: 'linear-gradient(135deg, #f2994a 0%, #f2c94c 100%)',

@@ -17,11 +17,7 @@ export function Footer() {
       }}
     >
       <Container maxWidth="sm">
-        <Typography
-          variant="body2"
-          color="text.secondary"
-          align="center"
-        >
+        <Typography variant="body2" color="text.secondary" align="center">
           ©{' '}
           <Link
             href="#"

@@ -1,5 +1,11 @@
 import { useState, useMemo } from 'react';
-import { Box, Container, CircularProgress, Alert, Typography } from '@mui/material';
+import {
+  Box,
+  Container,
+  CircularProgress,
+  Alert,
+  Typography,
+} from '@mui/material';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
 import { StreamGroup } from '../components/streams/StreamGroup';
 import { StreamDetail } from '../components/streams/StreamDetail';
@@ -28,7 +34,10 @@ export function DashboardPage({
   // Filter streams first
   const filteredStreams = useMemo(() => {
     return streams.filter((stream) => {
-      if (selectedRatings.length > 0 && !selectedRatings.includes(stream.rating)) {
+      if (
+        selectedRatings.length > 0 &&
+        !selectedRatings.includes(stream.rating)
+      ) {
         return false;
       }
       if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
@@ -62,7 +71,14 @@ export function DashboardPage({
         </Box>
 
         {isLoading && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', py: 4 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              py: 4,
+            }}
+          >
             <CircularProgress size={24} sx={{ mr: 2 }} />
             <Typography>Loading gauge data...</Typography>
           </Box>
@@ -75,7 +91,11 @@ export function DashboardPage({
         )}
 
         {lastUpdated && (
-          <Typography variant="caption" color="text.secondary" sx={{ mb: 2, display: 'block' }}>
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            sx={{ mb: 2, display: 'block' }}
+          >
             Data as of {lastUpdated.toLocaleTimeString()}
           </Typography>
         )}

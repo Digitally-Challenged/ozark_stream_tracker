@@ -10,11 +10,30 @@ interface StreamGroupHeaderProps {
   onToggle: () => void;
 }
 
-const STATUS_CONFIG: Record<LevelStatus, { label: string; emoji: string; color: string }> = {
-  [LevelStatus.Optimal]: { label: 'Optimal - Running Good', emoji: '🟢', color: '#2e7d32' },
-  [LevelStatus.Low]: { label: 'Low - Runnable but Scraping', emoji: '🟡', color: '#ed6c02' },
-  [LevelStatus.High]: { label: 'High - Running Fast', emoji: '🔵', color: '#0288d1' },
-  [LevelStatus.TooLow]: { label: 'Too Low - Not Runnable', emoji: '🔴', color: '#d32f2f' },
+const STATUS_CONFIG: Record<
+  LevelStatus,
+  { label: string; emoji: string; color: string }
+> = {
+  [LevelStatus.Optimal]: {
+    label: 'Optimal - Running Good',
+    emoji: '🟢',
+    color: '#2e7d32',
+  },
+  [LevelStatus.Low]: {
+    label: 'Low - Runnable but Scraping',
+    emoji: '🟡',
+    color: '#ed6c02',
+  },
+  [LevelStatus.High]: {
+    label: 'High - Running Fast',
+    emoji: '🔵',
+    color: '#0288d1',
+  },
+  [LevelStatus.TooLow]: {
+    label: 'Too Low - Not Runnable',
+    emoji: '🔴',
+    color: '#d32f2f',
+  },
 };
 
 export function StreamGroupHeader({
@@ -36,13 +55,15 @@ export function StreamGroupHeader({
         p: 2,
         cursor: 'pointer',
         borderRadius: 1,
-        bgcolor: theme.palette.mode === 'dark'
-          ? 'rgba(255,255,255,0.05)'
-          : 'rgba(0,0,0,0.02)',
+        bgcolor:
+          theme.palette.mode === 'dark'
+            ? 'rgba(255,255,255,0.05)'
+            : 'rgba(0,0,0,0.02)',
         '&:hover': {
-          bgcolor: theme.palette.mode === 'dark'
-            ? 'rgba(255,255,255,0.08)'
-            : 'rgba(0,0,0,0.04)',
+          bgcolor:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255,255,255,0.08)'
+              : 'rgba(0,0,0,0.04)',
         },
         borderLeft: `4px solid ${config.color}`,
         mb: 1,

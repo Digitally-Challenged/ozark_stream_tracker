@@ -1,16 +1,23 @@
 // src/hooks/useGaugeReading.ts
 import { useMemo, useEffect, useRef } from 'react';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
-import { GaugeReading, LevelStatus, LevelTrend, TargetLevels } from '../types/stream';
+import {
+  GaugeReading,
+  LevelStatus,
+  LevelTrend,
+  TargetLevels,
+} from '../types/stream';
 import { determineLevel, determineTrend } from '../utils/streamLevels';
 import { useGaugeHistory } from './useGaugeHistory';
 
 interface UseGaugeReadingResult {
   reading: GaugeReading | null;
-  currentLevel: {
-    status: LevelStatus;
-    trend: LevelTrend;
-  } | undefined;
+  currentLevel:
+    | {
+        status: LevelStatus;
+        trend: LevelTrend;
+      }
+    | undefined;
   loading: boolean;
   error: Error | null;
 }

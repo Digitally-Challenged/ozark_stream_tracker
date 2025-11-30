@@ -27,7 +27,13 @@ interface StreamDetailProps {
 }
 
 // Internal component that safely uses hooks
-function StreamDetailContent({ stream, onClose }: { stream: StreamData; onClose: () => void }) {
+function StreamDetailContent({
+  stream,
+  onClose,
+}: {
+  stream: StreamData;
+  onClose: () => void;
+}) {
   const theme = useTheme();
   const { reading } = useStreamGauge(stream);
   const relativeTime = useRelativeTime(reading?.timestamp);
@@ -58,7 +64,9 @@ function StreamDetailContent({ stream, onClose }: { stream: StreamData; onClose:
               />
               <Typography color="text.primary">
                 Current Reading:{' '}
-                {reading?.value ? `${reading.value.toFixed(2)} ft` : 'Not available'}
+                {reading?.value
+                  ? `${reading.value.toFixed(2)} ft`
+                  : 'Not available'}
               </Typography>
             </Box>
           </Grid>
@@ -69,8 +77,8 @@ function StreamDetailContent({ stream, onClose }: { stream: StreamData; onClose:
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Target Range:{' '}
-                {stream.targetLevels.tooLow}ft - {stream.targetLevels.high}ft
+                Target Range: {stream.targetLevels.tooLow}ft -{' '}
+                {stream.targetLevels.high}ft
               </Typography>
             </Box>
           </Grid>
@@ -92,16 +100,23 @@ function StreamDetailContent({ stream, onClose }: { stream: StreamData; onClose:
                 sx={{ fontSize: 20, color: theme.palette.primary.main }}
               />
               <Typography color="text.primary">
-                Last Updated: {reading?.timestamp ? (
+                Last Updated:{' '}
+                {reading?.timestamp ? (
                   <>
                     {formatDate(reading.timestamp)}
                     {relativeTime && (
-                      <Typography component="span" variant="body2" sx={{ ml: 1, opacity: 0.7 }}>
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ ml: 1, opacity: 0.7 }}
+                      >
                         ({relativeTime})
                       </Typography>
                     )}
                   </>
-                ) : 'Not available'}
+                ) : (
+                  'Not available'
+                )}
               </Typography>
             </Box>
           </Grid>

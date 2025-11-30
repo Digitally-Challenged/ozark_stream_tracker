@@ -14,12 +14,12 @@ interface LiveTimeProps {
 /**
  * Component that displays the current time and updates it in real-time
  */
-export function LiveTime({ 
-  showSeconds = true, 
-  showIcon = false, 
+export function LiveTime({
+  showSeconds = true,
+  showIcon = false,
   variant = 'body2',
   color = 'textSecondary',
-  updateInterval = 1000 
+  updateInterval = 1000,
 }: LiveTimeProps) {
   const [currentTime, setCurrentTime] = useState(new Date());
 
@@ -38,11 +38,11 @@ export function LiveTime({
     <Tooltip title={format(currentTime, fullFormat)}>
       <Box display="flex" alignItems="center" gap={0.5}>
         {showIcon && (
-          <AccessTime 
-            sx={{ 
+          <AccessTime
+            sx={{
               fontSize: variant === 'caption' ? 14 : 16,
-              color: 'text.secondary'
-            }} 
+              color: 'text.secondary',
+            }}
           />
         )}
         <Typography variant={variant} color={color}>

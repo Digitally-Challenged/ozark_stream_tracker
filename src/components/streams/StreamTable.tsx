@@ -35,13 +35,16 @@ export function StreamTable({
   const theme = useTheme();
 
   // Memoize the sort handler to prevent unnecessary re-renders of child components
-  const handleSort = useCallback((field: SortField) => {
-    setSortDirection((prevDirection) => {
-      const isAsc = sortField === field && prevDirection === 'asc';
-      return isAsc ? 'desc' : 'asc';
-    });
-    setSortField(field);
-  }, [sortField]);
+  const handleSort = useCallback(
+    (field: SortField) => {
+      setSortDirection((prevDirection) => {
+        const isAsc = sortField === field && prevDirection === 'asc';
+        return isAsc ? 'desc' : 'asc';
+      });
+      setSortField(field);
+    },
+    [sortField]
+  );
 
   // Memoize filtered streams calculation
   const filteredStreams = useMemo(() => {
@@ -75,18 +78,27 @@ export function StreamTable({
   }, [filteredStreams, sortField, sortDirection]);
 
   // Memoize search handler
-  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value);
-  }, []);
+  const handleSearchChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(e.target.value);
+    },
+    []
+  );
 
   // Memoize stream click handler to ensure referential stability
-  const handleStreamClick = useCallback((stream: StreamData) => {
-    onStreamClick(stream);
-  }, [onStreamClick]);
+  const handleStreamClick = useCallback(
+    (stream: StreamData) => {
+      onStreamClick(stream);
+    },
+    [onStreamClick]
+  );
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper elevation={0} sx={{ mb: 3, p: 2, backgroundColor: theme.palette.background.paper }}>
+      <Paper
+        elevation={0}
+        sx={{ mb: 3, p: 2, backgroundColor: theme.palette.background.paper }}
+      >
         <TextField
           placeholder="Search streams by name..."
           variant="outlined"

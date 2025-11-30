@@ -27,7 +27,7 @@ export function useStreamGauge(stream: StreamData) {
     loading: true,
     error: null,
   });
-  
+
   const { addReading, getPreviousReading } = useGaugeHistory(stream.gauge.id);
 
   useEffect(() => {
@@ -70,11 +70,15 @@ export function useStreamGauge(stream: StreamData) {
           }
 
           const data = await response.json();
-          
-          if (!data.value || !data.value.timeSeries || data.value.timeSeries.length === 0) {
+
+          if (
+            !data.value ||
+            !data.value.timeSeries ||
+            data.value.timeSeries.length === 0
+          ) {
             throw new Error('No data available from USGS');
           }
-          
+
           const latestValue = data.value.timeSeries[0].values[0].value[0];
 
           newReading = {
@@ -88,22 +92,28 @@ export function useStreamGauge(stream: StreamData) {
 
         // Get previous reading from storage BEFORE adding new one
         const previousReading = getPreviousReading();
-        
+
         // Add current reading to history for next comparison
         addReading(newReading);
 
         // Calculate new state
         const status = determineLevel(newReading.value, stream.targetLevels);
-        
+
         // Simple trend calculation: current vs previous
-        const trend = previousReading ? determineTrend(newReading, previousReading) : LevelTrend.None;
-        
+        const trend = previousReading
+          ? determineTrend(newReading, previousReading)
+          : LevelTrend.None;
+
         // Log real trend calculation
         if (previousReading) {
           const change = newReading.value - previousReading.value;
-          console.log(`[${stream.name}] TREND: ${trend} | Previous: ${previousReading.value}ft → Current: ${newReading.value}ft | Change: ${change > 0 ? '+' : ''}${change.toFixed(3)}ft`);
+          console.log(
+            `[${stream.name}] TREND: ${trend} | Previous: ${previousReading.value}ft → Current: ${newReading.value}ft | Change: ${change > 0 ? '+' : ''}${change.toFixed(3)}ft`
+          );
         } else {
-          console.log(`[${stream.name}] No previous reading - trend will appear on next update`);
+          console.log(
+            `[${stream.name}] No previous reading - trend will appear on next update`
+          );
         }
 
         setState({
@@ -126,7 +136,10 @@ export function useStreamGauge(stream: StreamData) {
     };
 
     fetchGaugeData();
-    const interval = setInterval(fetchGaugeData, API_CONFIG.REFRESH_INTERVAL_MS);
+    const interval = setInterval(
+      fetchGaugeData,
+      API_CONFIG.REFRESH_INTERVAL_MS
+    );
 
     return () => {
       mounted = false;

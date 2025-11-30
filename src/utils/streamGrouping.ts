@@ -19,7 +19,7 @@ export function groupStreamsByStatus(
     [LevelStatus.TooLow]: [],
   };
 
-  streams.forEach(stream => {
+  streams.forEach((stream) => {
     const status = getStatus(stream);
     if (status && groups[status]) {
       groups[status].push(stream);

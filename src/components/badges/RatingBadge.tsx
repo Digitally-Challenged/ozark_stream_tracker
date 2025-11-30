@@ -1,11 +1,11 @@
 import React from 'react';
 import { Chip, Box, useTheme } from '@mui/material';
 import { waterGradients } from '../../theme/waterTheme';
-import { 
-  LooksOne, 
-  LooksTwo, 
-  Looks3, 
-  Looks4, 
+import {
+  LooksOne,
+  LooksTwo,
+  Looks3,
+  Looks4,
   Looks5,
   SportsScore,
   Pool,
@@ -17,30 +17,55 @@ interface RatingBadgeProps {
   animated?: boolean;
 }
 
-export function RatingBadge({ rating, size = 'small', animated = true }: RatingBadgeProps) {
+export function RatingBadge({
+  rating,
+  size = 'small',
+  animated = true,
+}: RatingBadgeProps) {
   const theme = useTheme();
 
-  const getRatingColor = (rating: string): { gradient: string; color: string } => {
+  const getRatingColor = (
+    rating: string
+  ): { gradient: string; color: string } => {
     if (rating.includes('V')) {
-      return { gradient: waterGradients.danger, color: theme.palette.error.main };
+      return {
+        gradient: waterGradients.danger,
+        color: theme.palette.error.main,
+      };
     }
     if (rating.includes('IV')) {
-      return { gradient: waterGradients.rapid, color: theme.palette.warning.main };
+      return {
+        gradient: waterGradients.rapid,
+        color: theme.palette.warning.main,
+      };
     }
     if (rating.includes('III')) {
-      return { gradient: waterGradients.medium, color: theme.palette.info.main };
+      return {
+        gradient: waterGradients.medium,
+        color: theme.palette.info.main,
+      };
     }
     if (rating.includes('II')) {
-      return { gradient: waterGradients.shallow, color: theme.palette.success.main };
+      return {
+        gradient: waterGradients.shallow,
+        color: theme.palette.success.main,
+      };
     }
     if (rating === 'A' || rating === 'PLAY') {
-      return { gradient: waterGradients.optimal, color: theme.palette.success.light };
+      return {
+        gradient: waterGradients.optimal,
+        color: theme.palette.success.light,
+      };
     }
-    return { gradient: waterGradients.shallow, color: theme.palette.primary.main };
+    return {
+      gradient: waterGradients.shallow,
+      color: theme.palette.primary.main,
+    };
   };
 
   const getRatingIcon = (): React.ReactElement | undefined => {
-    if (rating === 'A' || rating === 'PLAY') return <Pool sx={{ fontSize: 16 }} />;
+    if (rating === 'A' || rating === 'PLAY')
+      return <Pool sx={{ fontSize: 16 }} />;
     if (rating.includes('V+')) return <SportsScore sx={{ fontSize: 16 }} />;
     if (rating.includes('V')) return <Looks5 sx={{ fontSize: 16 }} />;
     if (rating.includes('IV')) return <Looks4 sx={{ fontSize: 16 }} />;

@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "npm run parse-streams && vite build",
+    "parse-streams": "tsx scripts/parse-streams.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write . --ignore-path .prettierignore",
@@ -31,8 +32,10 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.11",
     "globals": "^15.9.0",
+    "gray-matter": "^4.0.3",
     "husky": "^9.0.0",
     "lint-staged": "^15.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.3.0",
     "vite": "^5.4.2"

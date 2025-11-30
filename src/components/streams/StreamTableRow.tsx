@@ -1,9 +1,19 @@
 import { memo } from 'react';
-import { TableRow, TableCell, Tooltip, useTheme, Link, Typography, Box } from '@mui/material';
+import {
+  TableRow,
+  TableCell,
+  Tooltip,
+  useTheme,
+  Link,
+  Typography,
+  Box,
+} from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
 import { getReadingFreshnessColor } from '../../utils/streamLevels';
+import { getStreamIdFromName } from '../../utils/streamIds';
 import InfoTooltip from './StreamInfoTooltip';
 import { format } from 'date-fns';
 import { RatingBadge } from '../badges/RatingBadge';
@@ -61,7 +71,31 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
       }}
     >
       {/* Stream Name */}
-      <TableCell>{stream.name}</TableCell>
+      <TableCell>
+        {(() => {
+          const streamId = getStreamIdFromName(stream.name);
+          return streamId ? (
+            <Link
+              component={RouterLink}
+              to={`/stream/${streamId}`}
+              onClick={(e) => e.stopPropagation()}
+              sx={{
+                color: theme.palette.text.primary,
+                textDecoration: 'none',
+                fontWeight: 500,
+                '&:hover': {
+                  color: theme.palette.primary.main,
+                  textDecoration: 'underline',
+                },
+              }}
+            >
+              {stream.name}
+            </Link>
+          ) : (
+            stream.name
+          );
+        })()}
+      </TableCell>
 
       {/* Rating */}
       <TableCell>
@@ -126,7 +160,11 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
           <>
             {format(new Date(reading.timestamp), 'MM/dd HH:mm')}
             <br />
-            <Typography variant="body2" component="span" sx={{ fontSize: '0.875rem' }}>
+            <Typography
+              variant="body2"
+              component="span"
+              sx={{ fontSize: '0.875rem' }}
+            >
               ({relativeTime})
             </Typography>
           </>
@@ -158,10 +196,7 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
             <span>Error</span>
           </Tooltip>
         ) : currentLevel?.status ? (
-          <StreamConditionIcon 
-            status={currentLevel.status} 
-            size="small" 
-          />
+          <StreamConditionIcon status={currentLevel.status} size="small" />
         ) : (
           'N/A'
         )}
@@ -193,17 +228,23 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
 
 // Memoize the component to prevent unnecessary re-renders
 // Only re-render if stream data or onClick handler changes
-export const StreamTableRow = memo(StreamTableRowComponent, (prevProps, nextProps) => {
-  // Custom comparison function for deep equality check
-  return (
-    prevProps.stream.name === nextProps.stream.name &&
-    prevProps.stream.rating === nextProps.stream.rating &&
-    prevProps.stream.size === nextProps.stream.size &&
-    prevProps.stream.quality === nextProps.stream.quality &&
-    prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
-    prevProps.stream.targetLevels.tooLow === nextProps.stream.targetLevels.tooLow &&
-    prevProps.stream.targetLevels.optimal === nextProps.stream.targetLevels.optimal &&
-    prevProps.stream.targetLevels.high === nextProps.stream.targetLevels.high &&
-    prevProps.onClick === nextProps.onClick
-  );
-});
+export const StreamTableRow = memo(
+  StreamTableRowComponent,
+  (prevProps, nextProps) => {
+    // Custom comparison function for deep equality check
+    return (
+      prevProps.stream.name === nextProps.stream.name &&
+      prevProps.stream.rating === nextProps.stream.rating &&
+      prevProps.stream.size === nextProps.stream.size &&
+      prevProps.stream.quality === nextProps.stream.quality &&
+      prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
+      prevProps.stream.targetLevels.tooLow ===
+        nextProps.stream.targetLevels.tooLow &&
+      prevProps.stream.targetLevels.optimal ===
+        nextProps.stream.targetLevels.optimal &&
+      prevProps.stream.targetLevels.high ===
+        nextProps.stream.targetLevels.high &&
+      prevProps.onClick === nextProps.onClick
+    );
+  }
+);

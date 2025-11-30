@@ -95,35 +95,35 @@ export function DashboardHeader() {
                   >
                     <stat.icon sx={{ fontSize: 24 }} />
                   </Box>
-                <Box>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color: theme.palette.text.secondary,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {stat.label}
-                  </Typography>
-                  <Typography
-                    variant="h5"
-                    sx={{
-                      mt: 0.5,
-                      color: theme.palette.text.primary,
-                      fontWeight: 600,
-                    }}
-                  >
-                    {stat.value === 'live' ? (
-                      <LiveTime 
-                        showSeconds={true} 
-                        variant="body1" 
-                        color="textPrimary"
-                      />
-                    ) : (
-                      stat.value
-                    )}
-                  </Typography>
-                </Box>
+                  <Box>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: theme.palette.text.secondary,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        mt: 0.5,
+                        color: theme.palette.text.primary,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {stat.value === 'live' ? (
+                        <LiveTime
+                          showSeconds={true}
+                          variant="body1"
+                          color="textPrimary"
+                        />
+                      ) : (
+                        stat.value
+                      )}
+                    </Typography>
+                  </Box>
                 </Paper>
               </Box>
             </Tooltip>

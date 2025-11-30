@@ -105,15 +105,15 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
             }}
           >
             <Kayaking sx={{ fontSize: 32 }} />
-            <Waves 
-              sx={{ 
-                fontSize: 24, 
+            <Waves
+              sx={{
+                fontSize: 24,
                 position: 'absolute',
                 bottom: -5,
                 left: '50%',
                 transform: 'translateX(-50%)',
                 opacity: 0.5,
-              }} 
+              }}
             />
           </Box>
           <Typography
@@ -154,7 +154,11 @@ export function Header({ onFilterClick, filterOpen }: HeaderProps) {
             }}
             aria-label="refresh data"
           >
-            <Refresh sx={{ animation: isLoading ? `${spin} 1s linear infinite` : 'none' }} />
+            <Refresh
+              sx={{
+                animation: isLoading ? `${spin} 1s linear infinite` : 'none',
+              }}
+            />
           </IconButton>
 
           <IconButton

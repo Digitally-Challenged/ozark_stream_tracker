@@ -157,11 +157,26 @@ export function StreamConditionIcon({
 
     switch (trend) {
       case LevelTrend.Rising:
-        return <TrendingUp {...trendIconProps} sx={{ ...trendIconProps.sx, color: 'success.main' }} />;
+        return (
+          <TrendingUp
+            {...trendIconProps}
+            sx={{ ...trendIconProps.sx, color: 'success.main' }}
+          />
+        );
       case LevelTrend.Falling:
-        return <TrendingDown {...trendIconProps} sx={{ ...trendIconProps.sx, color: 'error.main' }} />;
+        return (
+          <TrendingDown
+            {...trendIconProps}
+            sx={{ ...trendIconProps.sx, color: 'error.main' }}
+          />
+        );
       case LevelTrend.Holding:
-        return <Remove {...trendIconProps} sx={{ ...trendIconProps.sx, color: 'text.secondary' }} />;
+        return (
+          <Remove
+            {...trendIconProps}
+            sx={{ ...trendIconProps.sx, color: 'text.secondary' }}
+          />
+        );
       default:
         return null;
     }

@@ -31,11 +31,17 @@ export class ScraperScheduler {
     try {
       console.log('[ScraperScheduler] Starting Turner Bend scrape...');
       const data = await TurnerBendScraper.fetchGaugeData();
-      
+
       if (data) {
-        console.log('[ScraperScheduler] Successfully scraped Turner Bend data:', data);
+        console.log(
+          '[ScraperScheduler] Successfully scraped Turner Bend data:',
+          data
+        );
         // Store timestamp of last successful scrape
-        localStorage.setItem('turner-bend-last-scrape', new Date().toISOString());
+        localStorage.setItem(
+          'turner-bend-last-scrape',
+          new Date().toISOString()
+        );
       } else {
         console.error('[ScraperScheduler] Failed to scrape Turner Bend data');
       }

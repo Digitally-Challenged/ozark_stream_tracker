@@ -23,12 +23,13 @@ export function GlassCard({
 }: GlassCardProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  
-  const glassVariant = variant === 'auto' ? (isDark ? 'dark' : 'light') : variant;
+
+  const glassVariant =
+    variant === 'auto' ? (isDark ? 'dark' : 'light') : variant;
   const glassStyle = glassmorphism[glassVariant];
-  
+
   const customOpacity = opacity ?? (isDark ? 0.4 : 0.7);
-  
+
   return (
     <Box
       sx={{
@@ -37,19 +38,23 @@ export function GlassCard({
         borderRadius: 3,
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         ...glassStyle,
-        background: gradient || glassStyle.background.replace(/[\d.]+\)$/, `${customOpacity})`),
+        background:
+          gradient ||
+          glassStyle.background.replace(/[\d.]+\)$/, `${customOpacity})`),
         backdropFilter: `blur(${blur}px)`,
-        '&::before': gradient ? {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          background: gradient,
-          opacity: 0.1,
-          zIndex: -1,
-        } : {},
+        '&::before': gradient
+          ? {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: gradient,
+              opacity: 0.1,
+              zIndex: -1,
+            }
+          : {},
         ...(hover && {
           '&:hover': {
             transform: 'translateY(-2px)',

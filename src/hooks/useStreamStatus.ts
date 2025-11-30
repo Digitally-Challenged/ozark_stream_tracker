@@ -24,10 +24,13 @@ export function useAllStreamStatuses(
   return useMemo(() => {
     const statuses = new Map<string, LevelStatus | undefined>();
 
-    streams.forEach(stream => {
+    streams.forEach((stream) => {
       const gaugeData = gauges.get(stream.gauge.id);
       if (gaugeData?.reading) {
-        statuses.set(stream.name, determineLevel(gaugeData.reading.value, stream.targetLevels));
+        statuses.set(
+          stream.name,
+          determineLevel(gaugeData.reading.value, stream.targetLevels)
+        );
       } else {
         statuses.set(stream.name, undefined);
       }

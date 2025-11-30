@@ -7,7 +7,10 @@ import { formatDistanceToNow } from 'date-fns';
  * @param updateInterval - How often to update the relative time (in milliseconds)
  * @returns The formatted relative time string that updates automatically
  */
-export function useRelativeTime(timestamp: string | undefined, updateInterval: number = 60000) {
+export function useRelativeTime(
+  timestamp: string | undefined,
+  updateInterval: number = 60000
+) {
   const [relativeTime, setRelativeTime] = useState<string>('');
 
   useEffect(() => {

@@ -27,7 +27,8 @@ export function useViewPreference(): {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const responsiveDefault: ViewMode = windowWidth < MOBILE_BREAKPOINT ? 'cards' : 'table';
+  const responsiveDefault: ViewMode =
+    windowWidth < MOBILE_BREAKPOINT ? 'cards' : 'table';
   const viewMode = manualMode ?? responsiveDefault;
 
   const setViewMode = useCallback((mode: ViewMode) => {

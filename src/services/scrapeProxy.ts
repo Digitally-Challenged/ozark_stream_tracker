@@ -4,7 +4,7 @@
 export const SCRAPE_PROXY_ENDPOINTS = {
   // Example backend endpoint that would handle scraping
   TURNER_BEND: '/api/scrape/turner-bend',
-  
+
   // Alternative: Use a public CORS proxy (less reliable)
   CORS_PROXY: 'https://cors-anywhere.herokuapp.com/',
 };
@@ -12,7 +12,7 @@ export const SCRAPE_PROXY_ENDPOINTS = {
 export async function fetchViaProxy(url: string): Promise<Response> {
   // In production, replace with your backend endpoint
   const proxyUrl = `${SCRAPE_PROXY_ENDPOINTS.CORS_PROXY}${url}`;
-  
+
   return fetch(proxyUrl, {
     headers: {
       'X-Requested-With': 'XMLHttpRequest',

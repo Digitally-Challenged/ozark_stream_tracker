@@ -1,5 +1,12 @@
 // src/context/GaugeDataContext.tsx
-import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+  ReactNode,
+} from 'react';
 import { GaugeReading } from '../types/stream';
 import { API_CONFIG } from '../constants';
 import { streams } from '../data/streamData';
@@ -24,7 +31,7 @@ const GaugeDataContext = createContext<GaugeDataContextValue | null>(null);
 // Extract unique gauge IDs from stream data
 function getUniqueGaugeIds(): string[] {
   const ids = new Set<string>();
-  streams.forEach(stream => {
+  streams.forEach((stream) => {
     if (stream.gauge.id && stream.gauge.id !== 'TURNER_BEND') {
       ids.add(stream.gauge.id);
     }
@@ -70,7 +77,9 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
         data.value.timeSeries.forEach((series: unknown) => {
           const typedSeries = series as {
             sourceInfo?: { siteCode?: Array<{ value?: string }> };
-            values?: Array<{ value?: Array<{ value?: string; dateTime?: string }> }>;
+            values?: Array<{
+              value?: Array<{ value?: string; dateTime?: string }>;
+            }>;
           };
           const siteCode = typedSeries.sourceInfo?.siteCode?.[0]?.value;
           if (siteCode && typedSeries.values?.[0]?.value?.[0]) {
@@ -89,7 +98,7 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
       }
 
       // Mark missing gauges as unavailable
-      gaugeIds.forEach(id => {
+      gaugeIds.forEach((id) => {
         if (!newGauges.has(id)) {
           newGauges.set(id, {
             reading: null,
@@ -98,11 +107,12 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
           });
         }
       });
-
     } catch (err) {
-      setError(err instanceof Error ? err : new Error('Failed to fetch gauge data'));
+      setError(
+        err instanceof Error ? err : new Error('Failed to fetch gauge data')
+      );
       // Mark all as errored
-      gaugeIds.forEach(id => {
+      gaugeIds.forEach((id) => {
         newGauges.set(id, {
           reading: null,
           loading: false,
@@ -123,7 +133,8 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
       newGauges.set('TURNER_BEND', {
         reading: null,
         loading: false,
-        error: err instanceof Error ? err : new Error('Turner Bend fetch failed'),
+        error:
+          err instanceof Error ? err : new Error('Turner Bend fetch failed'),
       });
     }
 
@@ -139,7 +150,10 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
 
   // Auto-refresh interval
   useEffect(() => {
-    const interval = setInterval(fetchAllGauges, API_CONFIG.REFRESH_INTERVAL_MS);
+    const interval = setInterval(
+      fetchAllGauges,
+      API_CONFIG.REFRESH_INTERVAL_MS
+    );
     return () => clearInterval(interval);
   }, [fetchAllGauges]);
 
@@ -161,7 +175,9 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
 export function useGaugeDataContext() {
   const context = useContext(GaugeDataContext);
   if (!context) {
-    throw new Error('useGaugeDataContext must be used within GaugeDataProvider');
+    throw new Error(
+      'useGaugeDataContext must be used within GaugeDataProvider'
+    );
   }
   return context;
 }
