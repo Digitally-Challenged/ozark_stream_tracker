@@ -20,6 +20,7 @@ import {
 import { useColorMode } from '../../context/ThemeContext';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 import { waterGradients } from '../../theme/waterTheme';
+import { LiveIndicator } from '../common/LiveIndicator';
 
 interface HeaderProps {
   onFilterClick: () => void;
@@ -131,16 +132,18 @@ export function Header({ onFilterClick, filterOpen, activeFilterCount = 0 }: Hea
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Typography
-            sx={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              letterSpacing: '0.1em',
-              fontSize: { xs: '0.875rem', md: '1rem' },
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
-          </Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+            <LiveIndicator isLive={!isLoading} lastUpdated={null} />
+            <Typography
+              sx={{
+                color: 'rgba(255, 255, 255, 0.9)',
+                letterSpacing: '0.1em',
+                fontSize: '1rem',
+              }}
+            >
+              KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
+            </Typography>
+          </Box>
 
           <IconButton
             onClick={refresh}
