@@ -56,14 +56,62 @@ function getStatusLabel(status: string): string {
   }
 }
 
+// Separate component to safely use the gauge hook
+function GaugeDisplay({ streamData }: { streamData: StreamData }) {
+  const theme = useTheme();
+  const { reading, currentLevel } = useStreamGauge(streamData);
+  const trend = currentLevel?.trend ?? LevelTrend.None;
+
+  const status = reading?.value
+    ? determineLevel(reading.value, streamData.targetLevels)
+    : null;
+
+  if (!reading?.value) return null;
+
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 2,
+        bgcolor: 'rgba(255,255,255,0.15)',
+        borderRadius: 2,
+        p: 2,
+      }}
+    >
+      <WaterDrop sx={{ fontSize: 32 }} />
+      <Box>
+        <Typography variant="h5" sx={{ fontWeight: 600 }}>
+          {reading.value.toFixed(2)} ft
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          <TrendIcon trend={trend} />
+          <Typography variant="body2">
+            {trend === LevelTrend.Rising
+              ? 'Rising'
+              : trend === LevelTrend.Falling
+                ? 'Falling'
+                : 'Holding'}
+          </Typography>
+        </Box>
+      </Box>
+      {status && (
+        <Chip
+          label={getStatusLabel(status)}
+          size="small"
+          sx={{
+            bgcolor: getStatusColor(status, theme),
+            color: 'white',
+            fontWeight: 600,
+          }}
+        />
+      )}
+    </Box>
+  );
+}
+
 export function StreamHeader({ content, streamData }: StreamHeaderProps) {
   const theme = useTheme();
-  const { reading, trend } = useStreamGauge(streamData || null);
-
-  const status =
-    streamData && reading?.value
-      ? determineLevel(reading.value, streamData.targetLevels)
-      : null;
 
   return (
     <Box
@@ -128,46 +176,7 @@ export function StreamHeader({ content, streamData }: StreamHeaderProps) {
           </Box>
         </Box>
 
-        {streamData && reading?.value && (
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 2,
-              bgcolor: 'rgba(255,255,255,0.15)',
-              borderRadius: 2,
-              p: 2,
-            }}
-          >
-            <WaterDrop sx={{ fontSize: 32 }} />
-            <Box>
-              <Typography variant="h5" sx={{ fontWeight: 600 }}>
-                {reading.value.toFixed(2)} ft
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                <TrendIcon trend={trend} />
-                <Typography variant="body2">
-                  {trend === LevelTrend.Rising
-                    ? 'Rising'
-                    : trend === LevelTrend.Falling
-                      ? 'Falling'
-                      : 'Holding'}
-                </Typography>
-              </Box>
-            </Box>
-            {status && (
-              <Chip
-                label={getStatusLabel(status)}
-                size="small"
-                sx={{
-                  bgcolor: getStatusColor(status, theme),
-                  color: 'white',
-                  fontWeight: 600,
-                }}
-              />
-            )}
-          </Box>
-        )}
+        {streamData && <GaugeDisplay streamData={streamData} />}
       </Box>
     </Box>
   );

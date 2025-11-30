@@ -105,7 +105,9 @@ export function StreamCard({ stream, onClick }: StreamCardProps) {
                           color:
                             currentLevel.trend === LevelTrend.Rising
                               ? 'success.main'
-                              : 'error.main',
+                              : currentLevel.trend === LevelTrend.Falling
+                                ? 'error.main'
+                                : 'warning.main',
                           fontWeight: 'bold',
                           textTransform: 'uppercase',
                           fontSize: '0.7rem',

@@ -14,8 +14,11 @@ import {
   ThermostatOutlined,
   AccessTimeOutlined,
   ShowChartOutlined,
+  TrendingUp,
+  TrendingDown,
+  HorizontalRule,
 } from '@mui/icons-material';
-import { StreamData } from '../../types/stream';
+import { StreamData, LevelTrend } from '../../types/stream';
 import { format, isValid } from 'date-fns';
 import { useStreamGauge } from '../../hooks/useStreamGauge';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
@@ -35,8 +38,26 @@ function StreamDetailContent({
   onClose: () => void;
 }) {
   const theme = useTheme();
-  const { reading } = useStreamGauge(stream);
+  const { reading, currentLevel } = useStreamGauge(stream);
   const relativeTime = useRelativeTime(reading?.timestamp);
+
+  const getTrendInfo = () => {
+    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) {
+      return null;
+    }
+    switch (currentLevel.trend) {
+      case LevelTrend.Rising:
+        return { icon: TrendingUp, label: 'Rising', color: theme.palette.success.main };
+      case LevelTrend.Falling:
+        return { icon: TrendingDown, label: 'Falling', color: theme.palette.error.main };
+      case LevelTrend.Holding:
+        return { icon: HorizontalRule, label: 'Stable', color: theme.palette.warning.main };
+      default:
+        return null;
+    }
+  };
+
+  const trendInfo = getTrendInfo();
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'Not available';
@@ -67,6 +88,14 @@ function StreamDetailContent({
                 {reading?.value
                   ? `${reading.value.toFixed(2)} ft`
                   : 'Not available'}
+                {trendInfo && (
+                  <Box component="span" sx={{ ml: 1, display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
+                    <trendInfo.icon sx={{ fontSize: 18, color: trendInfo.color }} />
+                    <Typography component="span" variant="body2" sx={{ color: trendInfo.color, fontWeight: 'bold' }}>
+                      {trendInfo.label}
+                    </Typography>
+                  </Box>
+                )}
               </Typography>
             </Box>
           </Grid>

@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Tooltip } from '@mui/material';
 import {
   TrendingUp,
   TrendingDown,
@@ -6,6 +6,13 @@ import {
   HorizontalRule,
 } from '@mui/icons-material';
 import { LevelTrend } from '../../types/stream';
+
+const trendDescriptions: Record<LevelTrend, string> = {
+  [LevelTrend.Rising]: 'Water level rising - conditions may be improving',
+  [LevelTrend.Falling]: 'Water level falling - conditions may be worsening',
+  [LevelTrend.Holding]: 'Water level stable - conditions unchanged',
+  [LevelTrend.None]: 'No trend data available',
+};
 
 interface TrendIconProps {
   trend: LevelTrend;
@@ -31,7 +38,6 @@ export function TrendIcon({ trend, size = 'medium' }: TrendIconProps) {
               color: 'success.main',
               fontWeight: 'bold',
             }}
-            titleAccess="↗️ Water level rising"
           />
         );
       case LevelTrend.Falling:
@@ -42,7 +48,6 @@ export function TrendIcon({ trend, size = 'medium' }: TrendIconProps) {
               color: 'error.main',
               fontWeight: 'bold',
             }}
-            titleAccess="↘️ Water level falling"
           />
         );
       case LevelTrend.Holding:
@@ -52,7 +57,6 @@ export function TrendIcon({ trend, size = 'medium' }: TrendIconProps) {
               fontSize: iconSize,
               color: 'warning.main',
             }}
-            titleAccess="→ Water level stable"
           />
         );
       case LevelTrend.None:
@@ -64,23 +68,24 @@ export function TrendIcon({ trend, size = 'medium' }: TrendIconProps) {
               color: 'text.disabled',
               opacity: 0.3,
             }}
-            titleAccess="— No trend data"
           />
         );
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        minWidth: iconSize + 4,
-        minHeight: iconSize + 4,
-      }}
-    >
-      {getTrendDisplay()}
-    </Box>
+    <Tooltip title={trendDescriptions[trend]} arrow placement="top">
+      <Box
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          minWidth: iconSize + 4,
+          minHeight: iconSize + 4,
+        }}
+      >
+        {getTrendDisplay()}
+      </Box>
+    </Tooltip>
   );
 }

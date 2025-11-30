@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chip, Box, useTheme } from '@mui/material';
+import { Chip, Box, Tooltip, Typography, useTheme } from '@mui/material';
 import { waterGradients } from '../../theme/waterTheme';
 import {
   LooksOne,
@@ -10,6 +10,7 @@ import {
   SportsScore,
   Pool,
 } from '@mui/icons-material';
+import { getRatingDefinition } from '../../types/streamDefinitions';
 
 interface RatingBadgeProps {
   rating: string;
@@ -76,49 +77,63 @@ export function RatingBadge({
   };
 
   const { gradient, color } = getRatingColor(rating);
+  const ratingInfo = getRatingDefinition(rating);
+
+  const tooltipContent = (
+    <Box sx={{ p: 0.5, maxWidth: 280 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
+        {ratingInfo.name}
+      </Typography>
+      <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.4 }}>
+        {ratingInfo.description}
+      </Typography>
+    </Box>
+  );
 
   return (
-    <Box
-      sx={{
-        display: 'inline-flex',
-        position: 'relative',
-        ...(animated && {
-          '&:hover .rating-chip': {
-            transform: 'scale(1.05)',
-            boxShadow: `0 0 20px ${color}40`,
-          },
-        }),
-      }}
-    >
-      <Chip
-        className="rating-chip"
-        icon={getRatingIcon()}
-        label={rating}
-        size={size}
+    <Tooltip title={tooltipContent} arrow placement="top">
+      <Box
         sx={{
-          background: gradient,
-          color: '#fff',
-          fontWeight: 600,
-          fontSize: size === 'small' ? '0.75rem' : '0.875rem',
-          letterSpacing: '0.5px',
-          border: 'none',
-          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          '& .MuiChip-icon': {
-            color: '#fff',
-          },
+          display: 'inline-flex',
+          position: 'relative',
           ...(animated && {
-            animation: 'pulse 3s ease-in-out infinite',
-            '@keyframes pulse': {
-              '0%, 100%': {
-                opacity: 0.9,
-              },
-              '50%': {
-                opacity: 1,
-              },
+            '&:hover .rating-chip': {
+              transform: 'scale(1.05)',
+              boxShadow: `0 0 20px ${color}40`,
             },
           }),
         }}
-      />
-    </Box>
+      >
+        <Chip
+          className="rating-chip"
+          icon={getRatingIcon()}
+          label={rating}
+          size={size}
+          sx={{
+            background: gradient,
+            color: '#fff',
+            fontWeight: 600,
+            fontSize: size === 'small' ? '0.75rem' : '0.875rem',
+            letterSpacing: '0.5px',
+            border: 'none',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            '& .MuiChip-icon': {
+              color: '#fff',
+            },
+            ...(animated && {
+              animation: 'pulse 3s ease-in-out infinite',
+              '@keyframes pulse': {
+                '0%, 100%': {
+                  opacity: 0.9,
+                },
+                '50%': {
+                  opacity: 1,
+                },
+              },
+            }),
+          }}
+        />
+      </Box>
+    </Tooltip>
   );
 }

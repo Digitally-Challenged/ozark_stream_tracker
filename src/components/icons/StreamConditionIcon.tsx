@@ -1,5 +1,5 @@
 // React import not needed in modern React
-import { Box, keyframes } from '@mui/material';
+import { Box, Tooltip, Typography, keyframes } from '@mui/material';
 import {
   WaterDrop,
   Waves,
@@ -10,6 +10,7 @@ import {
   Opacity,
 } from '@mui/icons-material';
 import { LevelStatus, LevelTrend } from '../../types/stream';
+import { getLevelDefinition } from '../../types/streamDefinitions';
 
 interface StreamConditionIconProps {
   status: LevelStatus;
@@ -46,6 +47,15 @@ const pulse = keyframes`
   }
 `;
 
+const statusToLevelKey = (status: LevelStatus): 'tooLow' | 'low' | 'optimal' | 'high' => {
+  switch (status) {
+    case LevelStatus.TooLow: return 'tooLow';
+    case LevelStatus.Low: return 'low';
+    case LevelStatus.Optimal: return 'optimal';
+    case LevelStatus.High: return 'high';
+  }
+};
+
 export function StreamConditionIcon({
   status,
   trend,
@@ -58,6 +68,18 @@ export function StreamConditionIcon({
   };
 
   const iconSize = sizeMap[size];
+  const levelInfo = getLevelDefinition(statusToLevelKey(status));
+
+  const tooltipContent = (
+    <Box sx={{ p: 0.5, maxWidth: 240 }}>
+      <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
+        {levelInfo.name}
+      </Typography>
+      <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.4 }}>
+        {levelInfo.description}
+      </Typography>
+    </Box>
+  );
 
   const getStatusIcon = () => {
     switch (status) {
@@ -183,22 +205,24 @@ export function StreamConditionIcon({
   };
 
   return (
-    <Box
-      sx={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: 0.5,
-        p: 1,
-        borderRadius: 2,
-        background: (theme) =>
-          theme.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.05)'
-            : 'rgba(0, 0, 0, 0.02)',
-        backdropFilter: 'blur(10px)',
-      }}
-    >
-      {getStatusIcon()}
-      {getTrendIcon()}
-    </Box>
+    <Tooltip title={tooltipContent} arrow placement="top">
+      <Box
+        sx={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 0.5,
+          p: 1,
+          borderRadius: 2,
+          background: (theme) =>
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(0, 0, 0, 0.02)',
+          backdropFilter: 'blur(10px)',
+        }}
+      >
+        {getStatusIcon()}
+        {getTrendIcon()}
+      </Box>
+    </Tooltip>
   );
 }
