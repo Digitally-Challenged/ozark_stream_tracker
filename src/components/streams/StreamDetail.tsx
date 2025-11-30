@@ -8,6 +8,7 @@ import {
   Grid,
   Box,
   useTheme,
+  Divider,
 } from '@mui/material';
 import {
   WaterDropOutlined,
@@ -17,11 +18,16 @@ import {
   TrendingUp,
   TrendingDown,
   HorizontalRule,
+  OpenInNew,
+  WarningAmber,
 } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { format, isValid } from 'date-fns';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
+import { getStreamIdFromName } from '../../utils/streamIds';
+import { streamContent } from '../../data/streamContent.generated';
 
 interface StreamDetailProps {
   stream: StreamData | null;
@@ -40,6 +46,10 @@ function StreamDetailContent({
   const theme = useTheme();
   const { reading, currentLevel } = useGaugeReading(stream.gauge.id, stream.targetLevels);
   const relativeTime = useRelativeTime(reading?.timestamp);
+
+  // Get narrative content for this stream
+  const streamId = getStreamIdFromName(stream.name);
+  const content = streamId ? streamContent[streamId] : null;
 
   const getTrendInfo = () => {
     if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) {
@@ -150,6 +160,52 @@ function StreamDetailContent({
             </Box>
           </Grid>
         </Grid>
+
+        {/* Stream Narrative Section */}
+        {content && (
+          <>
+            <Divider sx={{ my: 3 }} />
+            <Box>
+              <Typography
+                variant="subtitle1"
+                sx={{ fontWeight: 600, mb: 1.5, color: theme.palette.primary.main }}
+              >
+                About This Stream
+              </Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  lineHeight: 1.7,
+                  whiteSpace: 'pre-wrap',
+                  // Limit to ~4 lines with ellipsis
+                  display: '-webkit-box',
+                  WebkitLineClamp: 4,
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                }}
+              >
+                {content.description}
+              </Typography>
+
+              {/* Hazards preview if available */}
+              {content.hazards && content.hazards.length > 0 && (
+                <Box sx={{ mt: 2 }}>
+                  <Box display="flex" alignItems="center" gap={0.5} sx={{ mb: 0.5 }}>
+                    <WarningAmber sx={{ fontSize: 16, color: 'warning.main' }} />
+                    <Typography variant="caption" sx={{ fontWeight: 600, color: 'warning.main' }}>
+                      Key Hazards
+                    </Typography>
+                  </Box>
+                  <Typography variant="caption" color="text.secondary">
+                    {content.hazards.slice(0, 3).join(' • ')}
+                    {content.hazards.length > 3 && ' • ...'}
+                  </Typography>
+                </Box>
+              )}
+            </Box>
+          </>
+        )}
       </DialogContent>
 
       <DialogActions
@@ -157,8 +213,24 @@ function StreamDetailContent({
           borderTop: `1px solid ${theme.palette.divider}`,
           px: 3,
           py: 2,
+          justifyContent: 'space-between',
         }}
       >
+        <Box>
+          {streamId && (
+            <Button
+              component={RouterLink}
+              to={`/stream/${streamId}`}
+              onClick={onClose}
+              startIcon={<OpenInNew />}
+              sx={{
+                color: theme.palette.primary.main,
+              }}
+            >
+              View Full Details
+            </Button>
+          )}
+        </Box>
         <Button
           onClick={onClose}
           variant="contained"
