@@ -9,7 +9,7 @@
 **Topo Quads:** Not specified
 
 ## Description
-One of Arkansas's premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.
+The name "Cossatot" comes from a Caddo word meaning "skull crusher" – and this river lives up to it. One of Arkansas's premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.
 
 The Cossatot has a reputation, and it earned it honest. Different hazards than Fall Creek even when they're running the same class rating – the river has its own mind about how to test you.
 

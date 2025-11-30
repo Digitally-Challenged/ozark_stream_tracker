@@ -885,7 +885,7 @@ export const streamContent: StreamContentMap = {
       "length": "Not specified",
       "season": "Not specified"
     },
-    "description": "One of Arkansas's premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.\n\nThe Cossatot has a reputation, and it earned it honest. Different hazards than Fall Creek even when they're running the same class rating – the river has its own mind about how to test you.\n\nContact the local paddling community for current beta on access points and conditions. This is the kind of run where you want to know what you're getting into before you put on.",
+    "description": "The name \"Cossatot\" comes from a Caddo word meaning \"skull crusher\" – and this river lives up to it. One of Arkansas's premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.\n\nThe Cossatot has a reputation, and it earned it honest. Different hazards than Fall Creek even when they're running the same class rating – the river has its own mind about how to test you.\n\nContact the local paddling community for current beta on access points and conditions. This is the kind of run where you want to know what you're getting into before you put on.",
     "sections": [],
     "accessPoints": [
       {
