@@ -8,7 +8,7 @@ import { GaugeDataProvider } from './context/GaugeDataContext';
 import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
-import { StreamPage } from './pages/StreamPage';
+import { StreamPageLazy } from './pages/StreamPageLazy';
 import { ScraperScheduler } from './services/scraperScheduler';
 
 function ErrorFallback({ error }: { error: Error }) {
@@ -69,7 +69,7 @@ function App() {
                       />
                     }
                   />
-                  <Route path="/stream/:streamId" element={<StreamPage />} />
+                  <Route path="/stream/:streamId" element={<StreamPageLazy />} />
                 </Routes>
               </Box>
               <DashboardSidebar
