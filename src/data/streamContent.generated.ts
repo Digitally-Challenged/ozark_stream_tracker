@@ -665,6 +665,56 @@ export const streamContent: StreamContentMap = {
     "geographicContext": "The Buffalo River watershed includes some of the most scenic Ozark terrain, with connections to the headwaters of other major streams. The Hailstone (Upper Upper Buffalo) forms in the Boston Mountains very close to the headwaters of Kings River, Big Piney Creek, Mulberry River, Little Piney Creek and the Upper White River.",
     "specialDesignation": "**First National River** - Designated March 1, 1972\n- Protected from dams and impoundments\n- Managed by National Park Service\n- Undammed for entire length\n- Multiple tributaries also protected as Wild and Scenic"
   },
+  "caddo-r": {
+    "id": "caddo-r",
+    "name": "Caddo River",
+    "overview": {
+      "rating": "Class I-II",
+      "watershedSize": "L",
+      "gradient": "Gentle",
+      "length": "~82 miles total",
+      "season": "March-June best; year-round possible"
+    },
+    "description": "The Caddo River winds through the Ouachita Mountains from Black Springs to DeGray Lake, offering some of the best family-friendly floating in Arkansas. This pool-and-drop river is gentle enough for novice paddlers yet with enough Class I and II rapids along the way to keep it exciting. Clear water, gravel bars for lunch stops, and views ranging from rocky outcrops to forested hillsides make it a classic Ouachita float. The river is ideal for all levels of floating experience.",
+    "sections": [
+      {
+        "name": "Caddo Gap to Glenwood (7.5 mi)",
+        "character": "Most popular section",
+        "notes": "Houses to hillsides to rocky outcrops, gravel bars for rest stops"
+      },
+      {
+        "name": "Glenwood to Amity (8 mi)",
+        "character": "More whitewater, some flat stretches",
+        "notes": "Check flows - above 250 cfs recommended"
+      },
+      {
+        "name": "Norman to Amity (29 mi)",
+        "character": "Longer wilderness float",
+        "notes": "Multi-day trip option"
+      }
+    ],
+    "accessPoints": [],
+    "rapids": [],
+    "hazards": [
+      "Strainers in some sections",
+      "Glenwood to Amity requires good line selection or you'll end up in rocks/trees",
+      "Higher water increases difficulty"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "Caddo River - Southwest Paddler",
+        "url": "http://southwestpaddler.com/docs/ouachita8.html"
+      },
+      {
+        "title": "Paddling the Caddo River - Arkansas.com",
+        "url": "https://www.arkansas.com/articles/paddling-caddo-river"
+      }
+    ],
+    "geographicContext": "",
+    "specialDesignation": ""
+  },
   "cadron-cr": {
     "id": "cadron-cr",
     "name": "Cadron Creek",
@@ -713,6 +763,43 @@ export const streamContent: StreamContentMap = {
       }
     ],
     "geographicContext": "Located in central Arkansas, Cadron Creek is often overlooked by paddlers heading to more well-known destinations like the Buffalo National River. The creek flows through Cleburne, Faulkner, and Conway Counties before joining the Arkansas River.",
+    "specialDesignation": ""
+  },
+  "camp-cr": {
+    "id": "camp-cr",
+    "name": "Camp Creek",
+    "overview": {
+      "rating": "Class IV+",
+      "watershedSize": "S",
+      "gradient": "Steep",
+      "length": "Short steep run",
+      "season": "Rain-dependent"
+    },
+    "description": "Camp Creek is a steep tributary in the Little Missouri River watershed, offering expert paddlers a challenging Class IV+ run when conditions align. This small creek requires recent rainfall and rises and falls quickly. Not for the faint of heart - tight drops, technical moves, and the commitment level that comes with a remote steep creek in the Ouachitas.",
+    "sections": [
+      {
+        "name": "Main Run",
+        "character": "Steep creek",
+        "notes": "Scouting recommended, remote"
+      }
+    ],
+    "accessPoints": [],
+    "rapids": [],
+    "hazards": [
+      "Remote location - help is far away",
+      "Rapid rises and falls with rain",
+      "Wood and strainers common on small creeks",
+      "Expert only"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "Little Missouri River - Southwest Paddler",
+        "url": "http://southwestpaddler.com/docs/ouachita9.html"
+      }
+    ],
+    "geographicContext": "",
     "specialDesignation": ""
   },
   "cedar-cr": {
@@ -868,6 +955,62 @@ export const streamContent: StreamContentMap = {
     "geographicContext": "",
     "specialDesignation": ""
   },
+  "dragover": {
+    "id": "dragover",
+    "name": "Dragover (Ouachita River)",
+    "overview": {
+      "rating": "Class I-II",
+      "watershedSize": "L",
+      "gradient": "Gentle",
+      "length": "3.5 miles (horseshoe loop)",
+      "season": "Year-round when levels permit"
+    },
+    "description": "The Dragover is one of Arkansas's most unique floats - a 3-mile horseshoe bend on the Upper Ouachita River where the put-in and take-out are only a quarter mile apart. The name comes from the option to literally drag your boat over from the take-out back to the put-in for another lap. Deep pools, Class I-II rapids, and the convenience of a short shuttle make this a perfect beginner-friendly destination. You can paddle the loop in about 90 minutes, making multiple runs in a day easy.",
+    "sections": [
+      {
+        "name": "Dragover Loop (3.5 mi)",
+        "character": "Horseshoe bend, beginner-friendly",
+        "notes": "Put-in and take-out 1/4 mile apart"
+      }
+    ],
+    "accessPoints": [
+      {
+        "name": "Put-in: Dragover Float Camp",
+        "location": "End of Dragover Road (dirt)",
+        "directions": "From Hot Springs, west on US 270 to Mount Ida, right on Hwy 27, cross Lake Ouachita at Washita, left on Hwy 88, drive 8 miles, left on Dragover Road to dead end",
+        "notes": "Steep bank with Forest Service stairs and rolling ladder to assist boat access"
+      },
+      {
+        "name": "Take-out",
+        "location": "Quarter mile from put-in",
+        "notes": "Short walk back to vehicle"
+      }
+    ],
+    "rapids": [],
+    "hazards": [
+      "Steep bank at put-in - use the stairs and ladder",
+      "Can get bony at low water",
+      "Check gauge before going"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "Dragover Float on the Ouachita River - Right Kind of Lost",
+        "url": "https://www.rightkindoflost.com/dragover-float-on-the-ouachita-river/"
+      },
+      {
+        "title": "Ouachita River - Southwest Paddler",
+        "url": "http://southwestpaddler.com/docs/ouachita2.html"
+      },
+      {
+        "title": "AllTrails - Ouachita River Dragover",
+        "url": "https://www.alltrails.com/trail/us/arkansas/ouachita-river-dragover"
+      }
+    ],
+    "geographicContext": "",
+    "specialDesignation": ""
+  },
   "e-fk-white-r": {
     "id": "e-fk-white-r",
     "name": "East Fork White R.",
@@ -939,6 +1082,47 @@ export const streamContent: StreamContentMap = {
     "tributaries": [],
     "images": [],
     "sources": [],
+    "geographicContext": "",
+    "specialDesignation": ""
+  },
+  "ellis-cr": {
+    "id": "ellis-cr",
+    "name": "Ellis Creek",
+    "overview": {
+      "rating": "Class III-IV",
+      "watershedSize": "XS",
+      "gradient": "Steep",
+      "length": "Short steep run",
+      "season": "Rain-dependent"
+    },
+    "description": "Ellis Creek is a steep tributary in the Baron Fork watershed of northwest Arkansas, offering a challenging Class III-IV run when rain brings it up. Like most creeks this size, it rises fast after storms and drops quickly, so timing is everything. Technical moves, tight lines, and the usual hazards of steep creeks in the Ozarks.",
+    "sections": [
+      {
+        "name": "Upper Ellis Branch",
+        "character": "Steep creek",
+        "notes": "Rain-dependent, scout first run"
+      }
+    ],
+    "accessPoints": [],
+    "rapids": [],
+    "hazards": [
+      "Wood and strainers - always scout after storms",
+      "Rises and falls rapidly",
+      "Remote - limited bailout options",
+      "Intermediate to advanced paddlers"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "Arkansas Rivers List - Ozark Pages",
+        "url": "https://www.ozarkpages.com/whitewater/AR.html"
+      },
+      {
+        "title": "River Facts - Arkansas",
+        "url": "https://www.riverfacts.com/states/ar.html"
+      }
+    ],
     "geographicContext": "",
     "specialDesignation": ""
   },
@@ -2687,6 +2871,71 @@ export const streamContent: StreamContentMap = {
     "geographicContext": "",
     "specialDesignation": ""
   },
+  "saint-francis-r": {
+    "id": "saint-francis-r",
+    "name": "Saint Francis River (Missouri)",
+    "overview": {
+      "rating": "Class II-IV",
+      "watershedSize": "L",
+      "gradient": "Moderate to steep in whitewater sections",
+      "length": "Multiple sections available",
+      "season": "Winter-Spring; after heavy rain in summer/fall"
+    },
+    "description": "The Saint Francis River is Missouri's only true whitewater river, drawing paddlers from St. Louis and beyond when spring rains bring the water up. The Millstream Gardens to Silver Mines section is the classic run - exposed granite and igneous rock create legitimate Class II-III rapids (up to IV-V in flood stage) unlike anything else in the state. The river is fed entirely by runoff, so timing matters - check gauges and be ready to go when the window opens. The Missouri Whitewater Association calls this home, and their annual Missouri Whitewater Championships in March has been running for nearly 60 years.",
+    "sections": [
+      {
+        "name": "Millstream Gardens to Silver Mines",
+        "character": "The classic Missouri whitewater run",
+        "notes": "Put in at Millstream Gardens Conservation Area"
+      },
+      {
+        "name": "Silver Mines Area",
+        "character": "Popular gathering spot",
+        "notes": "\"D-Bridge\" parking lot is the meet-up spot"
+      }
+    ],
+    "accessPoints": [
+      {
+        "name": "Put-in: Millstream Gardens Conservation Area",
+        "location": "Upriver from Silver Mines",
+        "directions": "West of Fredericktown off Hwy 72"
+      },
+      {
+        "name": "Take-out: Silver Mines Recreation Area",
+        "location": "Mark Twain National Forest",
+        "directions": "East of Ironton off Hwy 72"
+      }
+    ],
+    "rapids": [],
+    "hazards": [
+      "Water levels change rapidly - what's runnable today may be too low tomorrow",
+      "High water increases difficulty significantly",
+      "Cold water in spring - dress for immersion",
+      "Limited bailout in some sections"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "St. Francis River Whitewater - St. Louis Outdoor Adventures",
+        "url": "https://stlouisoutdooradventures.com/st-francis-river-whitewater/"
+      },
+      {
+        "title": "St. Francis River - Missouri Float Trips",
+        "url": "https://www.floatmissouri.com/plan/missouri-rivers/st-francis-river/"
+      },
+      {
+        "title": "Missouri Whitewater Association",
+        "url": "https://missouriwhitewater.org/"
+      },
+      {
+        "title": "Silver Mines Recreation Area - USFS",
+        "url": "https://www.fs.usda.gov/recarea/mtnf/recreation/scenicdrivinginfo/recarea/?recid=21840"
+      }
+    ],
+    "geographicContext": "",
+    "specialDesignation": ""
+  },
   "saline-r": {
     "id": "saline-r",
     "name": "Saline R.",
@@ -2982,25 +3231,32 @@ export const streamContent: StreamContentMap = {
       "rating": "Class I-II",
       "watershedSize": "L",
       "gradient": "Gentle to moderate",
-      "length": "~100+ miles (Arkansas and Oklahoma sections)",
+      "length": "~60 miles (Arkansas)",
       "season": "Year-round (spring-fed)"
     },
-    "description": "The Spring River rises from underground and runs cold and clear through Arkansas and Oklahoma, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The Arkansas sections run from Mammoth Springs down through Hardy and Ravenden to Old Davidsonville, with the South Fork adding its own cold water to the mix. Across the state line, the Oklahoma stretch carries the same clear character. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.",
+    "description": "The Spring River rises from Mammoth Spring in north-central Arkansas and runs cold and clear through the Ozarks, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The main sections run from Mammoth Spring down through Hardy and Ravenden to the confluence with the Black River near Black Rock, with the South Fork adding its own cold water to the mix near Hardy. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.",
     "sections": [
       {
-        "name": "Arkansas Sections",
-        "character": "Major tributary with similar spring-fed characteristics",
-        "notes": "Popular paddling section"
+        "name": "Mammoth Spring to Hardy",
+        "character": "Upper section with spring-fed clarity",
+        "notes": "Popular paddling section, joins South Fork near Hardy"
       },
       {
-        "name": "Oklahoma Section"
-      }
-    ],
-    "accessPoints": [
+        "name": "Hardy to Ravenden",
+        "character": "Middle section",
+        "notes": "Multiple outfitters in Hardy area"
+      },
       {
-        "name": "Arkansas Access Points"
+        "name": "Ravenden to Black Rock",
+        "character": "Lower section",
+        "notes": "Less crowded than upper sections"
+      },
+      {
+        "name": "South Fork of the Spring River",
+        "character": "Major tributary with similar spring-fed characteristics"
       }
     ],
+    "accessPoints": [],
     "rapids": [],
     "hazards": [
       "Spring water runs cold even in summer - dress for immersion, not air temperature",
@@ -3019,15 +3275,11 @@ export const streamContent: StreamContentMap = {
         "url": "http://southwestpaddler.com/docs/spring5.html"
       },
       {
-        "title": "Spring River, Oklahoma - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansasok8.html"
-      },
-      {
-        "title": "Arkansas River, Oklahoma - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansasok.html"
+        "title": "Encyclopedia of Arkansas - Spring River",
+        "url": "https://encyclopediaofarkansas.net/entries/spring-river-5375/"
       }
     ],
-    "geographicContext": "The Spring River is part of the larger Arkansas River watershed system in Arkansas and Oklahoma. The South Fork represents a major tributary with significant spring-fed flows.",
+    "geographicContext": "The Spring River flows entirely within Arkansas, rising from Mammoth Spring (one of the largest springs in the US) in Fulton County and flowing southeast to join the Black River near Black Rock in Lawrence County. The South Fork represents a major tributary with significant spring-fed flows.",
     "specialDesignation": ""
   },
   "stepp-cr": {
@@ -3479,6 +3731,37 @@ export const streamContent: StreamContentMap = {
     "tributaries": [],
     "images": [],
     "sources": [],
+    "geographicContext": "",
+    "specialDesignation": ""
+  },
+  "woka-whitewater-park": {
+    "id": "woka-whitewater-park",
+    "name": "WOKA Whitewater Park",
+    "overview": {
+      "rating": "PLAY",
+      "watershedSize": "A (Always available)",
+      "gradient": "Constructed features",
+      "length": "1,200 feet",
+      "season": "Year-round (weather permitting)"
+    },
+    "description": "WOKA - Waters of Oklahoma and Arkansas - is a purpose-built whitewater park in Watts, Oklahoma, just across the state line from Siloam Springs, Arkansas. The 1,200-foot long, 100-foot wide side channel of the Illinois River features eight engineered drop features designed for kayakers, surfers, and tubers of all abilities. Unlike theme park wave pools, WOKA offers authentic river conditions with real current and natural consequences. The park emphasizes that this is genuine whitewater - expect to get wet, tired, and maybe a little scraped up.",
+    "sections": [],
+    "accessPoints": [],
+    "rapids": [],
+    "hazards": [
+      "Authentic whitewater conditions - not a theme park",
+      "Cold water - Illinois River runs cool",
+      "Natural risks inherent to whitewater",
+      "Expect to swim, especially while learning features"
+    ],
+    "tributaries": [],
+    "images": [],
+    "sources": [
+      {
+        "title": "Visit WOKA",
+        "url": "https://visitwoka.com/"
+      }
+    ],
     "geographicContext": "",
     "specialDesignation": ""
   }

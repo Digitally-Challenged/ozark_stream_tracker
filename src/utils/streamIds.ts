@@ -93,6 +93,14 @@ const STREAM_NAME_TO_ID: Record<string, string> = {
   'West Fork White River': 'west-fork-white-river',
   'White R., Middle Fork': 'white-r-middle-fork',
   'Wister Wave': 'wister-wave',
+  'Rockport': 'rockport',
+  "Roger's Private Idaho": 'rogers-private-idaho',
+  'Caddo R.': 'caddo-r',
+  'Camp Cr.': 'camp-cr',
+  'Dragover (Ouachita R.)': 'dragover',
+  'Ellis Cr.': 'ellis-cr',
+  'Saint Francis R. (MO)': 'saint-francis-r',
+  'WOKA Whitewater Park': 'woka-whitewater-park',
 
   // EFLB special case
   'EFLB': 'eflb',

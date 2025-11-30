@@ -4,44 +4,39 @@
 **Rating:** Class I-II
 **Watershed Size:** L
 **Gradient:** Gentle to moderate
-**Length:** ~100+ miles (Arkansas and Oklahoma sections)
+**Length:** ~60 miles (Arkansas)
 **Season:** Year-round (spring-fed)
 
 ## Description
-The Spring River rises from underground and runs cold and clear through Arkansas and Oklahoma, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The Arkansas sections run from Mammoth Springs down through Hardy and Ravenden to Old Davidsonville, with the South Fork adding its own cold water to the mix. Across the state line, the Oklahoma stretch carries the same clear character. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.
+The Spring River rises from Mammoth Spring in north-central Arkansas and runs cold and clear through the Ozarks, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The main sections run from Mammoth Spring down through Hardy and Ravenden to the confluence with the Black River near Black Rock, with the South Fork adding its own cold water to the mix near Hardy. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.
 
 ## Sections
 
-### Arkansas Sections
+### Mammoth Spring to Hardy
+- **Character:** Upper section with spring-fed clarity
+- **Features:** Clear cold water, scenic bluffs
+- **Notes:** Popular paddling section, joins South Fork near Hardy
 
-#### Hardy to Ravenden
-- **Character:** Upper Arkansas section
-- **Features:** Clear spring-fed water
-- **Notes:** Popular paddling section
+### Hardy to Ravenden
+- **Character:** Middle section
+- **Features:** Consistent Class I-II, gravel bars
+- **Notes:** Multiple outfitters in Hardy area
 
-#### Ravenden to Old Davidsonville State Park
-- **Character:** Middle Arkansas section
-- **Features:** Historic area, scenic float
+### Ravenden to Black Rock
+- **Character:** Lower section
+- **Features:** Continues to confluence with Black River
+- **Notes:** Less crowded than upper sections
 
-#### South Fork of the Spring River
-- **Sections covered:**
-  - Mammoth Springs to Hardy
-  - Hardy to Ravenden
-  - Ravenden to Old Davidsonville State Park
+### South Fork of the Spring River
 - **Character:** Major tributary with similar spring-fed characteristics
-
-### Oklahoma Section
-- Listed as tributary of Arkansas River system
-- Connected to Neosho River watershed
-- Popular recreational paddling destination
+- **Features:** Cold, clear water joining main stem near Hardy
 
 ## Access Points
 
-### Arkansas Access Points
-- **Hardy** - Major access point for upper sections
+- **Mammoth Spring State Park** - Upper put-in near the spring source
+- **Hardy** - Major access point, multiple outfitters
 - **Ravenden** - Mid-point access
-- **Old Davidsonville State Park** - Lower Arkansas section take-out
-- **Mammoth Springs** - South Fork put-in
+- **Black Rock** - Lower take-out near Black River confluence
 
 ## Rapids & Features
 - Class I to Class II rapids throughout
@@ -61,11 +56,10 @@ The Spring River rises from underground and runs cold and clear through Arkansas
 ## Special Features
 - **Spring-fed:** Provides year-round paddling opportunities
 - **Water Quality:** Known for clear, cold water
-- **Fishery:** Popular sport fishing destination
-- **Multi-state:** Flows through both Arkansas and Oklahoma
+- **Fishery:** Popular sport fishing destination (trout in upper sections)
 
 ## Geographic Context
-The Spring River is part of the larger Arkansas River watershed system in Arkansas and Oklahoma. The South Fork represents a major tributary with significant spring-fed flows.
+The Spring River flows entirely within Arkansas, rising from Mammoth Spring (one of the largest springs in the US) in Fulton County and flowing southeast to join the Black River near Black Rock in Lawrence County. The South Fork represents a major tributary with significant spring-fed flows.
 
 ## Images
 
@@ -88,5 +82,4 @@ For direct use in publications, visit the Wikimedia Commons links above to downl
 ## Sources
 - [Spring River, Arkansas - Southwest Paddler](http://www.southwestpaddler.com/docs/spring2.html)
 - [South Fork of the Spring River - Southwest Paddler](http://southwestpaddler.com/docs/spring5.html)
-- [Spring River, Oklahoma - Southwest Paddler](http://southwestpaddler.com/docs/arkansasok8.html)
-- [Arkansas River, Oklahoma - Southwest Paddler](http://southwestpaddler.com/docs/arkansasok.html)
+- [Encyclopedia of Arkansas - Spring River](https://encyclopediaofarkansas.net/entries/spring-river-5375/)
