@@ -51,6 +51,9 @@ export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCa
         transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
         ...(theme.palette.mode === 'dark' ? glassmorphism.dark : glassmorphism.light),
         backdropFilter: 'blur(8px)',
+        boxShadow: currentLevel?.status === LevelStatus.Optimal
+          ? `0 0 20px ${statusColor}40`
+          : 'none',
         '&:hover': {
           transform: 'translateY(-4px) scale(1.01)',
           boxShadow: `0 12px 40px ${statusColor}30`,
