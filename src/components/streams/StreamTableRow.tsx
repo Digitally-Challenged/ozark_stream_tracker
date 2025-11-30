@@ -7,6 +7,7 @@ import {
   Link,
   Typography,
   Box,
+  Skeleton,
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { StreamData, LevelTrend } from '../../types/stream';
@@ -152,7 +153,7 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
             )}
           </Box>
         ) : loading ? (
-          'Loading...'
+          <Skeleton variant="text" width={80} height={24} />
         ) : error ? (
           <Tooltip title={error.message}>
             <span>Error</span>
@@ -198,7 +199,7 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
         }}
       >
         {loading ? (
-          'Loading...'
+          <Skeleton variant="circular" width={24} height={24} />
         ) : error ? (
           <Tooltip title={error.message}>
             <span>Error</span>
@@ -213,7 +214,7 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
       {/* Trend */}
       <TableCell>
         {loading ? (
-          'Loading...'
+          <Skeleton variant="circular" width={20} height={20} />
         ) : error ? (
           <Tooltip title={error.message}>
             <span>Error</span>
