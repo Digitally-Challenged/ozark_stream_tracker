@@ -26,18 +26,18 @@ function TrendIcon({ trend }: { trend: LevelTrend }) {
   }
 }
 
-function getStatusColor(status: string): string {
+function getStatusColor(status: string, theme: ReturnType<typeof useTheme>): string {
   switch (status) {
     case 'X':
-      return '#e57373'; // red - too low
+      return theme.palette.error.main;
     case 'L':
-      return '#ffb74d'; // orange - low
+      return theme.palette.warning.main;
     case 'O':
-      return '#81c784'; // green - optimal
+      return theme.palette.success.main;
     case 'H':
-      return '#64b5f6'; // blue - high
+      return theme.palette.info.main;
     default:
-      return '#9e9e9e'; // grey
+      return theme.palette.grey[500];
   }
 }
 
@@ -160,7 +160,7 @@ export function StreamHeader({ content, streamData }: StreamHeaderProps) {
                 label={getStatusLabel(status)}
                 size="small"
                 sx={{
-                  bgcolor: getStatusColor(status),
+                  bgcolor: getStatusColor(status, theme),
                   color: 'white',
                   fontWeight: 600,
                 }}
