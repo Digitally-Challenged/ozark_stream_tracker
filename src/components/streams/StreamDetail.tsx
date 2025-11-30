@@ -20,7 +20,7 @@ import {
 } from '@mui/icons-material';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { format, isValid } from 'date-fns';
-import { useStreamGauge } from '../../hooks/useStreamGauge';
+import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
 
 interface StreamDetailProps {
@@ -38,7 +38,7 @@ function StreamDetailContent({
   onClose: () => void;
 }) {
   const theme = useTheme();
-  const { reading, currentLevel } = useStreamGauge(stream);
+  const { reading, currentLevel } = useGaugeReading(stream.gauge.id, stream.targetLevels);
   const relativeTime = useRelativeTime(reading?.timestamp);
 
   const getTrendInfo = () => {

@@ -7,8 +7,7 @@ import {
 } from '@mui/icons-material';
 import { StreamContent } from '../../types/streamContent';
 import { StreamData, LevelTrend } from '../../types/stream';
-import { useStreamGauge } from '../../hooks/useStreamGauge';
-import { determineLevel } from '../../utils/streamLevels';
+import { useGaugeReading } from '../../hooks/useGaugeReading';
 
 interface StreamHeaderProps {
   content: StreamContent;
@@ -59,12 +58,9 @@ function getStatusLabel(status: string): string {
 // Separate component to safely use the gauge hook
 function GaugeDisplay({ streamData }: { streamData: StreamData }) {
   const theme = useTheme();
-  const { reading, currentLevel } = useStreamGauge(streamData);
+  const { reading, currentLevel } = useGaugeReading(streamData.gauge.id, streamData.targetLevels);
   const trend = currentLevel?.trend ?? LevelTrend.None;
-
-  const status = reading?.value
-    ? determineLevel(reading.value, streamData.targetLevels)
-    : null;
+  const status = currentLevel?.status ?? null;
 
   if (!reading?.value) return null;
 

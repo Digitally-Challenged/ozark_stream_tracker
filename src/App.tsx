@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header } from './components/core/Header';
 import { Footer } from './components/core/Footer';
@@ -9,7 +9,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { StreamPageLazy } from './pages/StreamPageLazy';
-import { ScraperScheduler } from './services/scraperScheduler';
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -24,16 +23,6 @@ function App() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-
-  useEffect(() => {
-    // Start the Turner Bend scraper scheduler
-    ScraperScheduler.start();
-
-    // Cleanup on unmount
-    return () => {
-      ScraperScheduler.stop();
-    };
-  }, []);
 
   return (
     <GaugeDataProvider>
