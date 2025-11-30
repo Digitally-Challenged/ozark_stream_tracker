@@ -16,6 +16,7 @@ import { RatingBadge } from '../badges/RatingBadge';
 import { SizeBadge } from '../badges/SizeBadge';
 import { StreamConditionIcon } from '../icons/StreamConditionIcon';
 import { TrendIcon } from '../icons/TrendIcon';
+import { LiquidFillBar } from '../common/LiquidFillBar';
 
 interface StreamCardProps {
   stream: StreamData;
@@ -127,18 +128,18 @@ export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCa
                     </Box>
                   )}
               </Box>
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                 Updated {relativeTime}
               </Typography>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                display="block"
-                sx={{ mt: 1 }}
-              >
-                Optimal: {stream.targetLevels.tooLow}-{stream.targetLevels.high}{' '}
-                ft
-              </Typography>
+              {currentLevel?.status && (
+                <LiquidFillBar
+                  currentValue={reading.value}
+                  minValue={stream.targetLevels.tooLow * 0.5}
+                  maxValue={stream.targetLevels.high * 1.5}
+                  status={currentLevel.status}
+                  height={40}
+                />
+              )}
             </Box>
           ) : (
             <Typography color="text.secondary">No data</Typography>
