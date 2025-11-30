@@ -482,22 +482,6 @@ export const streams: StreamData[] = [
     },
   },
   {
-    name: "Fisher's Ford",
-    rating: 'PLAY',
-    size: 'A',
-    gauge: {
-      name: 'Illinois R. nr Siloam Springs',
-      id: '07195430',
-      url: 'http://waterdata.usgs.gov/nwis/uv/?site_no=07195430',
-    },
-    quality: 'A',
-    targetLevels: {
-      tooLow: 2.1,
-      optimal: 3.7,
-      high: 5.0,
-    },
-  },
-  {
     name: 'WOKA Whitewater Park',
     rating: 'PLAY',
     size: 'A',
