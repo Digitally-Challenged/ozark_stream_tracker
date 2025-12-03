@@ -33,9 +33,17 @@ class TurnerBendScraperService {
       console.log('Turner Bend page content preview:', pageText.substring(0, 500));
       
       // Look for water level patterns like "0.8'" or "2.5 feet"
-      const levelMatch = pageText.match(/(\d+\.?\d*)\s*['"]|Level:\s*(\d+\.?\d*)|Water\s*Level:\s*(\d+\.?\d*)/i);
+      // FIXED: Handles date-level concatenation (e.g., "12-03-20252.2'" -> 2.2)
+      // Pattern breakdown:
+      // 1. Date followed by level (handles MM-DD-YYYYx.x' concatenation)
+      // 2. Standalone level not preceded by digit
+      // 3. "Level: X.X" format
+      // 4. "Water Level: X.X" format
+      const levelMatch = pageText.match(
+        /\d{1,2}-\d{1,2}-\d{4}\s*(\d{1,2}\.\d+)\s*['"]|(?<!\d)(\d{1,2}\.\d+)\s*['"]|Level:\s*(\d+\.?\d*)|Water\s*Level:\s*(\d+\.?\d*)/i
+      );
       if (levelMatch) {
-        const parsed = parseFloat(levelMatch[1] || levelMatch[2] || levelMatch[3]);
+        const parsed = parseFloat(levelMatch[1] || levelMatch[2] || levelMatch[3] || levelMatch[4]);
         if (!isNaN(parsed) && parsed >= 0) {
           waterLevel = parsed;
           console.log('Found water level:', waterLevel, 'from match:', levelMatch[0]);
