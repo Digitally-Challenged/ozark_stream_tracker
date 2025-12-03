@@ -17,6 +17,7 @@
 ### Task 1: Create GaugeDataContext Types
 
 **Files:**
+
 - Create: `src/context/GaugeDataContext.tsx`
 
 **Step 1: Create the context file with types**
@@ -204,6 +205,7 @@ git commit -m "feat: add GaugeDataContext for batched gauge fetching"
 ### Task 2: Create useGaugeReading Hook
 
 **Files:**
+
 - Create: `src/hooks/useGaugeReading.ts`
 
 **Step 1: Create the hook**
@@ -212,16 +214,23 @@ git commit -m "feat: add GaugeDataContext for batched gauge fetching"
 // src/hooks/useGaugeReading.ts
 import { useMemo } from 'react';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
-import { GaugeReading, LevelStatus, LevelTrend, TargetLevels } from '../types/stream';
+import {
+  GaugeReading,
+  LevelStatus,
+  LevelTrend,
+  TargetLevels,
+} from '../types/stream';
 import { determineLevel, determineTrend } from '../utils/streamLevels';
 import { useGaugeHistory } from './useGaugeHistory';
 
 interface UseGaugeReadingResult {
   reading: GaugeReading | null;
-  currentLevel: {
-    status: LevelStatus;
-    trend: LevelTrend;
-  } | undefined;
+  currentLevel:
+    | {
+        status: LevelStatus;
+        trend: LevelTrend;
+      }
+    | undefined;
   loading: boolean;
   error: Error | null;
 }
@@ -297,16 +306,19 @@ git commit -m "feat: add useGaugeReading hook consuming context"
 ### Task 3: Wrap App with GaugeDataProvider
 
 **Files:**
+
 - Modify: `src/App.tsx`
 
 **Step 1: Import and wrap with provider**
 
 Add import at top of `src/App.tsx`:
+
 ```typescript
 import { GaugeDataProvider } from './context/GaugeDataContext';
 ```
 
 Wrap the return JSX - change from:
+
 ```typescript
 return (
   <ThemeProvider>
@@ -315,6 +327,7 @@ return (
 ```
 
 To:
+
 ```typescript
 return (
   <GaugeDataProvider>
@@ -324,6 +337,7 @@ return (
 ```
 
 And add closing tag before final `</ThemeProvider>`:
+
 ```typescript
       </BrowserRouter>
     </ThemeProvider>
@@ -348,26 +362,31 @@ git commit -m "feat: wrap App with GaugeDataProvider"
 ### Task 4: Update StreamTableRow to Use New Hook
 
 **Files:**
+
 - Modify: `src/components/streams/StreamTableRow.tsx`
 
 **Step 1: Replace useStreamGauge with useGaugeReading**
 
 Change import from:
+
 ```typescript
 import { useStreamGauge } from '../../hooks/useStreamGauge';
 ```
 
 To:
+
 ```typescript
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 ```
 
 Change hook usage from:
+
 ```typescript
 const { currentLevel, reading, loading, error } = useStreamGauge(stream);
 ```
 
 To:
+
 ```typescript
 const { currentLevel, reading, loading, error } = useGaugeReading(
   stream.gauge.id,
@@ -394,6 +413,7 @@ git commit -m "refactor: StreamTableRow uses useGaugeReading hook"
 ### Task 5: Create StreamGroupHeader Component
 
 **Files:**
+
 - Create: `src/components/streams/StreamGroupHeader.tsx`
 
 **Step 1: Create the component**
@@ -491,6 +511,7 @@ git commit -m "feat: add StreamGroupHeader component"
 ### Task 6: Create StreamGroup Component
 
 **Files:**
+
 - Create: `src/components/streams/StreamGroup.tsx`
 
 **Step 1: Create the component**
@@ -564,6 +585,7 @@ git commit -m "feat: add StreamGroup component with collapsible sections"
 ### Task 7: Create Stream Grouping Utility
 
 **Files:**
+
 - Create: `src/utils/streamGrouping.ts`
 
 **Step 1: Create the utility**
@@ -590,7 +612,7 @@ export function groupStreamsByStatus(
     [LevelStatus.TooLow]: [],
   };
 
-  streams.forEach(stream => {
+  streams.forEach((stream) => {
     const status = getStatus(stream);
     if (status && groups[status]) {
       groups[status].push(stream);
@@ -629,6 +651,7 @@ git commit -m "feat: add stream grouping utility"
 ### Task 8: Create useStreamStatus Hook
 
 **Files:**
+
 - Create: `src/hooks/useStreamStatus.ts`
 
 **Step 1: Create the hook**
@@ -660,10 +683,13 @@ export function useAllStreamStatuses(
   return useMemo(() => {
     const statuses = new Map<string, LevelStatus | undefined>();
 
-    streams.forEach(stream => {
+    streams.forEach((stream) => {
       const gaugeData = gauges.get(stream.gauge.id);
       if (gaugeData?.reading) {
-        statuses.set(stream.name, determineLevel(gaugeData.reading.value, stream.targetLevels));
+        statuses.set(
+          stream.name,
+          determineLevel(gaugeData.reading.value, stream.targetLevels)
+        );
       } else {
         statuses.set(stream.name, undefined);
       }
@@ -691,11 +717,13 @@ git commit -m "feat: add useStreamStatus hook for getting stream conditions"
 ### Task 9: Update DashboardPage with Grouped Streams
 
 **Files:**
+
 - Modify: `src/pages/DashboardPage.tsx`
 
 **Step 1: Update imports**
 
 Add to imports:
+
 ```typescript
 import { useAllStreamStatuses } from '../hooks/useStreamStatus';
 import { StreamGroup } from '../components/streams/StreamGroup';
@@ -772,6 +800,7 @@ export function DashboardPage({
 **Step 3: Add useMemo import if not present**
 
 Ensure useMemo is imported:
+
 ```typescript
 import { useState, useMemo } from 'react';
 ```
@@ -795,6 +824,7 @@ git commit -m "feat: DashboardPage shows streams grouped by condition"
 ### Task 10: Create useViewPreference Hook
 
 **Files:**
+
 - Create: `src/hooks/useViewPreference.ts`
 
 **Step 1: Create the hook**
@@ -829,7 +859,8 @@ export function useViewPreference(): {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const responsiveDefault: ViewMode = windowWidth < MOBILE_BREAKPOINT ? 'cards' : 'table';
+  const responsiveDefault: ViewMode =
+    windowWidth < MOBILE_BREAKPOINT ? 'cards' : 'table';
   const viewMode = manualMode ?? responsiveDefault;
 
   const setViewMode = useCallback((mode: ViewMode) => {
@@ -862,6 +893,7 @@ git commit -m "feat: add useViewPreference hook with responsive defaults"
 ### Task 11: Create ViewToggle Component
 
 **Files:**
+
 - Create: `src/components/streams/ViewToggle.tsx`
 
 **Step 1: Create the component**
@@ -924,6 +956,7 @@ git commit -m "feat: add ViewToggle component"
 ### Task 12: Create StreamCard Component
 
 **Files:**
+
 - Create: `src/components/streams/StreamCard.tsx`
 
 **Step 1: Create the component**
@@ -1042,6 +1075,7 @@ git commit -m "feat: add StreamCard component"
 ### Task 13: Create StreamCardGrid Component
 
 **Files:**
+
 - Create: `src/components/streams/StreamCardGrid.tsx`
 
 **Step 1: Create the component**
@@ -1087,6 +1121,7 @@ git commit -m "feat: add StreamCardGrid component"
 ### Task 14: Update StreamGroup to Support Both Views
 
 **Files:**
+
 - Modify: `src/components/streams/StreamGroup.tsx`
 
 **Step 1: Update to accept viewMode and render conditionally**
@@ -1168,22 +1203,26 @@ git commit -m "feat: StreamGroup supports card and table views"
 ### Task 15: Update DashboardPage with View Toggle
 
 **Files:**
+
 - Modify: `src/pages/DashboardPage.tsx`
 
 **Step 1: Add view toggle to page**
 
 Update imports:
+
 ```typescript
 import { useViewPreference } from '../hooks/useViewPreference';
 import { ViewToggle } from '../components/streams/ViewToggle';
 ```
 
 Add hook in component:
+
 ```typescript
 const { viewMode, setViewMode } = useViewPreference();
 ```
 
 Add toolbar with toggle after `<DashboardHeader />`:
+
 ```typescript
 <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
   <ViewToggle viewMode={viewMode} onChange={setViewMode} />
@@ -1191,6 +1230,7 @@ Add toolbar with toggle after `<DashboardHeader />`:
 ```
 
 Pass viewMode to each StreamGroup:
+
 ```typescript
 <StreamGroup
   key={status}
@@ -1223,22 +1263,26 @@ git commit -m "feat: add view toggle to DashboardPage"
 ### Task 16: Add Loading State to Dashboard
 
 **Files:**
+
 - Modify: `src/pages/DashboardPage.tsx`
 
 **Step 1: Add loading state from context**
 
 Add import:
+
 ```typescript
 import { useGaugeDataContext } from '../context/GaugeDataContext';
 import { CircularProgress } from '@mui/material';
 ```
 
 Add in component:
+
 ```typescript
 const { isLoading, lastUpdated, error: gaugeError } = useGaugeDataContext();
 ```
 
 Add loading state before groups:
+
 ```typescript
 {isLoading && (
   <Box sx={{ display: 'flex', justifyContent: 'center', py: 4 }}>
@@ -1261,6 +1305,7 @@ Add loading state before groups:
 ```
 
 Add Alert import:
+
 ```typescript
 import { Alert } from '@mui/material';
 ```
@@ -1282,22 +1327,26 @@ git commit -m "feat: add loading and error states to DashboardPage"
 ### Task 17: Add Refresh Button to Header
 
 **Files:**
+
 - Modify: `src/components/core/Header.tsx`
 
 **Step 1: Add refresh button**
 
 Add imports:
+
 ```typescript
 import { Refresh } from '@mui/icons-material';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 ```
 
 Add in component:
+
 ```typescript
 const { refresh, isLoading } = useGaugeDataContext();
 ```
 
 Add refresh button next to theme toggle:
+
 ```typescript
 <IconButton
   onClick={refresh}
@@ -1310,6 +1359,7 @@ Add refresh button next to theme toggle:
 ```
 
 Add keyframes for spin animation (in sx or global styles):
+
 ```typescript
 '@keyframes spin': {
   from: { transform: 'rotate(0deg)' },
@@ -1334,6 +1384,7 @@ git commit -m "feat: add refresh button to header"
 ### Task 18: Final Verification & Cleanup
 
 **Files:**
+
 - Review all modified files
 - Delete deprecated code if any
 
@@ -1370,12 +1421,12 @@ git commit -m "chore: cleanup and final polish"
 
 ## Summary
 
-| Phase | Tasks | Key Deliverables |
-|-------|-------|------------------|
-| 1. Data Architecture | 1-4 | GaugeDataContext, useGaugeReading |
-| 2. Visual Grouping | 5-9 | StreamGroup, StreamGroupHeader, grouping utils |
-| 3. Card View | 10-15 | StreamCard, ViewToggle, useViewPreference |
-| 4. Polish | 16-18 | Loading states, refresh button, cleanup |
+| Phase                | Tasks | Key Deliverables                               |
+| -------------------- | ----- | ---------------------------------------------- |
+| 1. Data Architecture | 1-4   | GaugeDataContext, useGaugeReading              |
+| 2. Visual Grouping   | 5-9   | StreamGroup, StreamGroupHeader, grouping utils |
+| 3. Card View         | 10-15 | StreamCard, ViewToggle, useViewPreference      |
+| 4. Polish            | 16-18 | Loading states, refresh button, cleanup        |
 
 **Total Tasks:** 18
 **Estimated Time:** 2-3 hours of focused implementation

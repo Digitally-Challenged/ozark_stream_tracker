@@ -93,7 +93,9 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
 
             // Debug first few gauges
             if (newGauges.size < 3) {
-              console.log(`GAUGE ${siteCode}: ${values.length} values, current=${latestValue.value}, previous=${previousValue?.value}`);
+              console.log(
+                `GAUGE ${siteCode}: ${values.length} values, current=${latestValue.value}, previous=${previousValue?.value}`
+              );
             }
 
             newGauges.set(siteCode, {
@@ -102,11 +104,13 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
                 timestamp: latestValue.dateTime,
                 dateTime: latestValue.dateTime,
               },
-              previousReading: previousValue ? {
-                value: parseFloat(previousValue.value || '0'),
-                timestamp: previousValue.dateTime,
-                dateTime: previousValue.dateTime,
-              } : null,
+              previousReading: previousValue
+                ? {
+                    value: parseFloat(previousValue.value || '0'),
+                    timestamp: previousValue.dateTime,
+                    dateTime: previousValue.dateTime,
+                  }
+                : null,
               loading: false,
               error: null,
             });

@@ -1,6 +1,7 @@
 # Bobtail Cr.
 
 ## Overview
+
 **Rating:** III-IV+
 **TDCR:** 7776
 **Gradient:** 125 fpm (1 mile at 165 fpm)
@@ -9,6 +10,7 @@
 **Topo Quads:** Searcy County
 
 ## Description
+
 First run January 1994 by Cowper Chadbourn, Jim McDaniel, and Paul Newton. Just 2.5 miles long, but it packs in about ten very significant rapids plus lots of class III action between them.
 
 Opens with three-quarters of a mile of shallow, fast class II-III through willows and downed trees, warming you up for what's coming. Then you hit "Zorro" – a tight slot with a wave and hole train. "Go Left Falls" (also called "Cowper Dam" after the guy who scouted it) sends water off slanted rock into a narrow slot with an undercut. "Coliseum" makes you go right down a 6-foot stairstep.
@@ -20,14 +22,17 @@ Considered one of the best runs in the area. You'll need skills on par with Beec
 ## Access Points
 
 ### Put-in
+
 **Location:** Remote Forest Service roads, Searcy County
 **Directions:** South from Richland Campground 3.6 miles on FS 1205. East (left) 2.0 miles on FS 1219. North (left) 3.0 miles on FS 1219A, then east on barely visible 4WD road.
 
 ### Take-out
+
 **Location:** Section 2 of Richland Creek
 **Directions:** Paddle out 9.5 miles on Richland Creek, or optional carry approximately 1.0 mile along trail back to Richland Campground bridge.
 
 ## Hazards
+
 - Undercuts
 - Hydraulics
 - Difficult rapids
@@ -41,17 +46,20 @@ Considered one of the best runs in the area. You'll need skills on par with Beec
 - "The Slot"
 
 ## Gauge Information
+
 - Richland Campground bridge above 1 foot airspace (about 4.0 feet or higher on USGS gauge)
 - Recent heavy local rains required
 - Falling Water Falls runnable all the way across indicates water on Bobtail
 - 1.5 inches or more rain in last 12 hours on Tilly and Ben Hur gauges
 
 ## Shuttle
+
 Complex shuttle via Forest Service roads or long paddle out on Richland Creek (9.5 miles).
 
 ## Images
 
-*No publicly available images found for this creek.*
+_No publicly available images found for this creek._
 
 ## Sources
+
 - https://www.ozarkpages.com/whitewater/AR.html

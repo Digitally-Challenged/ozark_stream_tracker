@@ -24,22 +24,26 @@ Real-time water level monitoring for Arkansas and Oklahoma whitewater streams. T
 ## 📦 Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Digitally-Challenged/ozark_stream_tracker.git
 cd ozark_stream_tracker
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Create a `.env` file (optional):
+
 ```bash
 cp .env.example .env
 ```
 
 4. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -57,6 +61,7 @@ The build output will be in the `dist` directory.
 ### Deploy to Netlify
 
 1. **Via Netlify CLI**:
+
 ```bash
 npm install -g netlify-cli
 netlify deploy --prod
@@ -86,6 +91,7 @@ For production, set these in Netlify's environment variables:
 A minimal backend service is included under `server/` to fetch Turner Bend data without CORS issues:
 
 1. Install dependencies and run locally (port 3001):
+
 ```bash
 cd server
 npm install
@@ -93,15 +99,18 @@ npm run start
 ```
 
 2. Expose API endpoints (examples):
+
 - `GET /api/turner-bend/current` – returns latest scraped reading
 - `POST /api/turner-bend/scrape` – triggers a fresh scrape
 
 3. Frontend configuration:
+
 - Set `VITE_API_URL` to your deployed backend URL. In development, if unset, the app defaults to `http://localhost:3001/api/turner-bend/current`.
 
 ## 🎨 Features Overview
 
 ### Stream Table
+
 - Sortable columns
 - Real-time search
 - Color-coded water levels
@@ -109,11 +118,13 @@ npm run start
 - Dynamic timestamps (e.g., “5 minutes ago”)
 
 ### Filtering System
+
 - Rating filters (Class I-V, Play spots)
 - Size categories (XS to DC/A)
 - Persistent filter preferences
 
 ### Visual Indicators
+
 - **Green**: Optimal paddling conditions
 - **Yellow**: Low but runnable
 - **Blue**: High water
@@ -122,6 +133,7 @@ npm run start
 ## 🔧 Development
 
 ### Project Structure
+
 ```
 src/
 ├── components/       # React components

@@ -70,9 +70,10 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
               ? 'rgba(255, 255, 255, 0.08)'
               : 'rgba(0, 0, 0, 0.04)',
           transform: 'scale(1.005)',
-          boxShadow: theme.palette.mode === 'dark'
-            ? '0 4px 20px rgba(0, 0, 0, 0.3)'
-            : '0 4px 20px rgba(0, 0, 0, 0.1)',
+          boxShadow:
+            theme.palette.mode === 'dark'
+              ? '0 4px 20px rgba(0, 0, 0, 0.3)'
+              : '0 4px 20px rgba(0, 0, 0, 0.1)',
         },
         '&:active': {
           transform: 'scale(0.995)',

@@ -3,6 +3,7 @@
 ## Strategy
 
 **Primary sources (in order):**
+
 1. Wikimedia Commons - `site:commons.wikimedia.org "{stream name}" Arkansas`
 2. Flickr Creative Commons - CC-BY, CC-BY-SA licenses
 3. Government sources - USGS, NPS (Buffalo River), USFS
@@ -10,6 +11,7 @@
 **Gap-filling:** Bing Image Search for discovery, then trace to source for license verification.
 
 **Coverage targets:**
+
 - Flagship rivers: 5 images each
 - Other streams: Best effort (expect ~70% with 0 images)
 - No-image handling: Skip `## Images` section entirely
@@ -20,7 +22,7 @@
 ## Images
 
 ![Description of image](https://url...)
-*Photo: Photographer Name, License, via Source*
+_Photo: Photographer Name, License, via Source_
 ```
 
 - Descriptive alt text
@@ -72,6 +74,7 @@
 ## Verification
 
 After each batch:
+
 - Confirm images load
 - Confirm attributions are complete
 - Commit changes

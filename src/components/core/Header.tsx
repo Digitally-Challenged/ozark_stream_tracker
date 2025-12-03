@@ -44,7 +44,11 @@ const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-export function Header({ onFilterClick, filterOpen, activeFilterCount = 0 }: HeaderProps) {
+export function Header({
+  onFilterClick,
+  filterOpen,
+  activeFilterCount = 0,
+}: HeaderProps) {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
   const { refresh, isLoading } = useGaugeDataContext();
@@ -132,7 +136,13 @@ export function Header({ onFilterClick, filterOpen, activeFilterCount = 0 }: Hea
         </Box>
 
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+          <Box
+            sx={{
+              display: { xs: 'none', md: 'flex' },
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
             <LiveIndicator isLive={!isLoading} lastUpdated={null} />
             <Typography
               sx={{

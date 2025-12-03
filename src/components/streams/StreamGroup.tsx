@@ -27,7 +27,7 @@ export function StreamGroup({
   viewMode,
 }: StreamGroupProps) {
   const [expanded, setExpanded] = useState(defaultExpanded);
-  const handleToggle = useCallback(() => setExpanded(prev => !prev), []);
+  const handleToggle = useCallback(() => setExpanded((prev) => !prev), []);
 
   if (streams.length === 0) {
     return null;

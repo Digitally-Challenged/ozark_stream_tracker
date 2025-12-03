@@ -29,6 +29,7 @@
 ### Task 1: Create Lazy StreamPage Wrapper
 
 **Files:**
+
 - Create: `src/pages/StreamPageLazy.tsx`
 
 **Step 1: Create lazy wrapper component**
@@ -86,6 +87,7 @@ Prepares for code splitting stream content into separate chunk."
 ### Task 2: Convert StreamPage to Default Export
 
 **Files:**
+
 - Modify: `src/pages/StreamPage.tsx`
 
 **Step 1: Change named export to default export**
@@ -121,6 +123,7 @@ Required for React.lazy() dynamic import."
 ### Task 3: Update Router to Use Lazy Component
 
 **Files:**
+
 - Modify: `src/App.tsx`
 
 **Step 1: Update import statement**
@@ -156,6 +159,7 @@ Replace with:
 Run: `npm run build`
 
 Expected output should show separate chunk for StreamPage:
+
 ```
 dist/assets/StreamPage-[hash].js   ~150+ kB
 ```
@@ -210,6 +214,7 @@ git commit -m "chore: verify lazy loading implementation complete"
 ## Rollback Plan
 
 If issues arise, revert by:
+
 1. Change `StreamPageLazy` back to `StreamPage` in App.tsx import
 2. Delete `StreamPageLazy.tsx`
 3. Change `export default function` back to `export function` in StreamPage.tsx

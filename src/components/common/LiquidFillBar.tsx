@@ -22,7 +22,10 @@ interface LiquidFillBarProps {
   height?: number;
 }
 
-const STATUS_COLORS: Record<LevelStatus, { primary: string; secondary: string }> = {
+const STATUS_COLORS: Record<
+  LevelStatus,
+  { primary: string; secondary: string }
+> = {
   [LevelStatus.Optimal]: { primary: '#2e7d32', secondary: '#4caf50' },
   [LevelStatus.Low]: { primary: '#ed6c02', secondary: '#ff9800' },
   [LevelStatus.High]: { primary: '#0288d1', secondary: '#03a9f4' },
@@ -41,7 +44,10 @@ export function LiquidFillBar({
 
   // Calculate fill percentage (clamped between 0 and 100)
   const range = maxValue - minValue;
-  const fillPercent = Math.min(100, Math.max(0, ((currentValue - minValue) / range) * 100));
+  const fillPercent = Math.min(
+    100,
+    Math.max(0, ((currentValue - minValue) / range) * 100)
+  );
 
   const tooltipText = `${currentValue.toFixed(2)} ft (${fillPercent.toFixed(0)}% of range)`;
 
@@ -113,7 +119,8 @@ export function LiquidFillBar({
                 fontSize: '0.9rem',
                 color: (theme) =>
                   fillPercent > 50 ? '#fff' : theme.palette.text.primary,
-                textShadow: fillPercent > 50 ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
+                textShadow:
+                  fillPercent > 50 ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
               }}
             >
               {currentValue.toFixed(1)} ft

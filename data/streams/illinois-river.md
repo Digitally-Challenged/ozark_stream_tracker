@@ -1,6 +1,7 @@
 # Illinois River
 
 ## Overview
+
 **Rating:** Class I-II
 **Watershed Size:** L
 **Gradient:** Gentle
@@ -8,6 +9,7 @@
 **Season:** Year-round, best spring through fall
 
 ## Description
+
 The Illinois starts up in the Boston Mountains near Hogeye, Arkansas, and runs 145 miles west into Oklahoma before it finds Tenkiller Lake. Between those points, it cuts through limestone country - the kind of bluffs that catch afternoon light just right, rolling Ozark hills that haven't changed much in your lifetime or mine.
 
 Class I to II water, mostly. Gentle enough for canoes and rafts, spirited enough to keep you honest. The river sees heavy traffic around Tahlequah - that town built itself on Illinois River dollars - and you'll know it when peak season hits. Crowds change a river's character some. Water quality varies too, section by section, season by season.
@@ -19,17 +21,20 @@ But catch it on a weekday in May or September, put in at Watts and take out wher
 ### Arkansas Section
 
 #### Orr Bridge (Hogeye) to Twin Bridges at Goose Creek
+
 - **Character:** Upper Arkansas section
 - **Notes:** Floated when water is high enough
 - **Time:** Orr Bridge to Twin Bridges section is available when water levels permit
 
 #### Twin Bridges to Siloam Springs
+
 - **Time:** ~8 hour float
 - **Character:** Arkansas/Oklahoma border region
 
 ### Oklahoma Section
 
 #### Twin Falls (Watts) to Carter's Landing
+
 - **Distance:** 65.4 miles navigable
 - **Put-in:** Watts, Oklahoma Public Access Area where US Highway 59 crosses
 - **Take-out:** Carter's Landing at headwaters of Tenkiller Lake
@@ -39,16 +44,19 @@ But catch it on a weekday in May or September, put in at Watts and take out wher
 ## Access Points
 
 ### Arkansas Access
+
 - **Orr Bridge** - Hogeye area
 - **Twin Bridges** - Goose Creek
 - **Siloam Springs** - Arkansas/Oklahoma border region
 
 ### Oklahoma Access
+
 - **Twin Falls** - Watts, Oklahoma (US Highway 59)
 - **Multiple access points** - Along 65.4 mile navigable section
 - **Carter's Landing** - Tenkiller Lake headwaters
 
 ## Rapids & Features
+
 - Gentle Class I-II rapids
 - Limestone bluffs
 - Rolling hills of the Ozarks
@@ -56,12 +64,14 @@ But catch it on a weekday in May or September, put in at Watts and take out wher
 - Scenic beauty throughout
 
 ## Hazards
+
 - Water quality concerns in some sections
 - Crowding during peak season, especially near Tahlequah
 - Variable water levels
 - Recreational use pressure
 
 ## Special Features
+
 - **Economic Impact:** Significant contributor to local economy
 - **Tahlequah Hub:** Heart of Illinois River recreation
 - **Multi-state River:** Flows through Arkansas and Oklahoma
@@ -69,14 +79,16 @@ But catch it on a weekday in May or September, put in at Watts and take out wher
 - **Access:** Excellent public access system in Oklahoma
 
 ## Geographic Context
+
 The Illinois River begins in the Boston Mountains of northwest Arkansas near Hogeye and flows westward into Oklahoma through Cherokee and Adair counties before reaching Lake Tenkiller. The river is part of the Arkansas River watershed system.
 
 ## Images
 
 ![Illinois River flowing through Oklahoma](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Illinois_River_Oklahoma.jpg/1280px-Illinois_River_Oklahoma.jpg)
-*Photo: Public Domain, via Wikimedia Commons*
+_Photo: Public Domain, via Wikimedia Commons_
 
 ## Sources
+
 - [Illinois River, Oklahoma - Southwest Paddler](https://southwestpaddler.com/docs/illinois.html)
 - [Illinois Bayou, Arkansas - Southwest Paddler](http://www.southwestpaddler.com/docs/arkansas12.html)
 - [Map of the Illinois River, Oklahoma - Southwest Paddler](http://southwestpaddler.com/docs/IllinoisOKmap.html)

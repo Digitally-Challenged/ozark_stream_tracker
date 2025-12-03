@@ -15,6 +15,7 @@
 **Voice Prompt Location:** `/Users/COLEMAN/Documents/GitHub/ozark_stream_tracker/data/streams/_VOICE_PROMPT.md`
 
 **Voice Characteristics:**
+
 - Folksy but not dumb - plain language with occasional poetry
 - Dry wit - understated humor, lets facts speak
 - Respects the river - reverence, not fear-mongering
@@ -30,6 +31,7 @@
 ## Task 1: Batch A - Streams adkins through boss-hollow (12 files)
 
 **Files to Process:**
+
 - `data/streams/adkins-cr.md`
 - `data/streams/archey-cr.md`
 - `data/streams/baker-cr.md`
@@ -66,6 +68,7 @@ For each file in the batch:
 **Step 3: Verify transformations**
 
 For each file, confirm:
+
 - Description section has been transformed
 - No information was lost
 - No exclamation points or forbidden words ("thrilling", "exciting", "adventure")
@@ -84,6 +87,7 @@ git commit -m "feat: add voice to stream descriptions (batch A: adkins-boulder)"
 ## Task 2: Batch B - Streams buffalo through eflb (8 files)
 
 **Files to Process:**
+
 - `data/streams/buffalo-r.md`
 - `data/streams/cadron-cr.md`
 - `data/streams/cedar-cr.md`
@@ -107,6 +111,7 @@ git commit -m "feat: add voice to stream descriptions (batch B: buffalo-eflb)"
 ## Task 3: Batch C - Streams fall through hurricane-cr (13 files)
 
 **Files to Process:**
+
 - `data/streams/fall-cr.md`
 - `data/streams/falling-water-cr.md`
 - `data/streams/falls-br.md`
@@ -135,6 +140,7 @@ git commit -m "feat: add voice to stream descriptions (batch C: fall-hurricane)"
 ## Task 4: Batch D - Streams illinois through little-sugar (14 files)
 
 **Files to Process:**
+
 - `data/streams/illinois-bayou.md`
 - `data/streams/illinois-r.md`
 - `data/streams/illinois-river.md`
@@ -164,6 +170,7 @@ git commit -m "feat: add voice to stream descriptions (batch D: illinois-long-br
 ## Task 5: Batch E - Streams long-devils through mulberry (14 files)
 
 **Files to Process:**
+
 - `data/streams/long-devils-fork-cr.md`
 - `data/streams/lower-saline-r.md`
 - `data/streams/m-fork-little-mill-cr.md`
@@ -193,6 +200,7 @@ git commit -m "feat: add voice to stream descriptions (batch E: long-devils-ratt
 ## Task 6: Batch F - Streams richland through spring (14 files)
 
 **Files to Process:**
+
 - `data/streams/richland-cr.md`
 - `data/streams/rock-cr.md`
 - `data/streams/rockport.md`
@@ -222,6 +230,7 @@ git commit -m "feat: add voice to stream descriptions (batch F: richland-spring)
 ## Task 7: Batch G - Streams stepp through wister (14 files)
 
 **Files to Process:**
+
 - `data/streams/stepp-cr.md`
 - `data/streams/sugar-cr.md`
 - `data/streams/sulphur-cr.md`
@@ -253,6 +262,7 @@ git commit -m "feat: add voice to stream descriptions (batch G: stepp-wister)"
 **Step 1: Spot-check sample files**
 
 Read and verify voice quality on:
+
 - `data/streams/big-piney-cr.md` (flagship stream)
 - `data/streams/buffalo-r.md` (national river)
 - `data/streams/cossatot-r.md` (skull crusher)
@@ -289,12 +299,15 @@ git commit -m "fix: voice transformation quality fixes"
 ## Transformation Voice Reference (Quick Guide)
 
 ### Before (dry):
+
 > The creek is characterized by creme de menthe colored water flowing through willow jungles and boulder garden rapids.
 
 ### After (voice):
+
 > The water runs that creme de menthe green you only see in the Ozarks. Willow jungles line the banks thick enough to swallow a canoe, and the boulder gardens will keep you honest all the way down.
 
 ### Key Phrases to Use:
+
 - "you'll find..." / "you'll want to..."
 - "they call it..." / "they named this one..."
 - "there's a reason..."
@@ -303,6 +316,7 @@ git commit -m "fix: voice transformation quality fixes"
 - "earned its name" / "earned that reputation"
 
 ### Hazards Voice Example:
+
 - Before: "Strainers may be present after storms."
 - After: "Strainers show up overnight after storms. They don't announce themselves."
 
@@ -310,15 +324,15 @@ git commit -m "fix: voice transformation quality fixes"
 
 ## Summary
 
-| Task | Batch | Files | Streams |
-|------|-------|-------|---------|
-| 1 | A | 12 | adkins through boulder |
-| 2 | B | 8 | buffalo through eflb |
-| 3 | C | 13 | fall through hurricane |
-| 4 | D | 14 | illinois through long-branch |
-| 5 | E | 14 | long-devils through rattlesnake |
-| 6 | F | 14 | richland through spring |
-| 7 | G | 14 | stepp through wister |
-| 8 | QA | - | Quality review and fixes |
+| Task | Batch | Files | Streams                         |
+| ---- | ----- | ----- | ------------------------------- |
+| 1    | A     | 12    | adkins through boulder          |
+| 2    | B     | 8     | buffalo through eflb            |
+| 3    | C     | 13    | fall through hurricane          |
+| 4    | D     | 14    | illinois through long-branch    |
+| 5    | E     | 14    | long-devils through rattlesnake |
+| 6    | F     | 14    | richland through spring         |
+| 7    | G     | 14    | stepp through wister            |
+| 8    | QA    | -     | Quality review and fixes        |
 
 **Total: 89 files across 7 processing batches + 1 QA task**

@@ -46,38 +46,43 @@ export function useGaugeHistory(gaugeId: string) {
     }
   }, [history]);
 
-  const addReading = useCallback((reading: GaugeReading) => {
-    const now = Date.now();
-    const newEntry: GaugeHistoryEntry = {
-      gaugeId,
-      reading,
-      timestamp: now,
-    };
+  const addReading = useCallback(
+    (reading: GaugeReading) => {
+      const now = Date.now();
+      const newEntry: GaugeHistoryEntry = {
+        gaugeId,
+        reading,
+        timestamp: now,
+      };
 
-    setHistory((prev) => {
-      // Remove old entries and add new one
-      const cutoffTime = now - MAX_HISTORY_HOURS * 60 * 60 * 1000;
-      const filtered = prev.filter((entry) => entry.timestamp > cutoffTime);
+      setHistory((prev) => {
+        // Remove old entries and add new one
+        const cutoffTime = now - MAX_HISTORY_HOURS * 60 * 60 * 1000;
+        const filtered = prev.filter((entry) => entry.timestamp > cutoffTime);
 
-      // Check if we already have a recent reading (avoid duplicates)
-      const recentEntry = filtered
-        .filter((entry) => entry.gaugeId === gaugeId)
-        .sort((a, b) => b.timestamp - a.timestamp)[0];
+        // Check if we already have a recent reading (avoid duplicates)
+        const recentEntry = filtered
+          .filter((entry) => entry.gaugeId === gaugeId)
+          .sort((a, b) => b.timestamp - a.timestamp)[0];
 
-      if (
-        recentEntry &&
-        now - recentEntry.timestamp < MIN_TREND_INTERVAL_MINUTES * 60 * 1000
-      ) {
-        // Too recent, just update the existing entry
-        return filtered.map((entry) =>
-          entry === recentEntry ? newEntry : entry
+        if (
+          recentEntry &&
+          now - recentEntry.timestamp < MIN_TREND_INTERVAL_MINUTES * 60 * 1000
+        ) {
+          // Too recent, just update the existing entry
+          return filtered.map((entry) =>
+            entry === recentEntry ? newEntry : entry
+          );
+        }
+
+        // Add new entry
+        return [...filtered, newEntry].sort(
+          (a, b) => b.timestamp - a.timestamp
         );
-      }
-
-      // Add new entry
-      return [...filtered, newEntry].sort((a, b) => b.timestamp - a.timestamp);
-    });
-  }, [gaugeId, MAX_HISTORY_HOURS, MIN_TREND_INTERVAL_MINUTES]);
+      });
+    },
+    [gaugeId, MAX_HISTORY_HOURS, MIN_TREND_INTERVAL_MINUTES]
+  );
 
   const getPreviousReading = useCallback((): GaugeReading | null => {
     const gaugeHistory = history
@@ -88,12 +93,16 @@ export function useGaugeHistory(gaugeId: string) {
     return gaugeHistory.length > 1 ? gaugeHistory[1].reading : null;
   }, [history, gaugeId]);
 
-  const getReadingAge = useCallback((reading: GaugeReading): number => {
-    const entry = history.find(
-      (h) => h.gaugeId === gaugeId && h.reading.timestamp === reading.timestamp
-    );
-    return entry ? Date.now() - entry.timestamp : 0;
-  }, [history, gaugeId]);
+  const getReadingAge = useCallback(
+    (reading: GaugeReading): number => {
+      const entry = history.find(
+        (h) =>
+          h.gaugeId === gaugeId && h.reading.timestamp === reading.timestamp
+      );
+      return entry ? Date.now() - entry.timestamp : 0;
+    },
+    [history, gaugeId]
+  );
 
   return {
     addReading,

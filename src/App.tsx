@@ -42,7 +42,9 @@ function App() {
               <Header
                 onFilterClick={() => setFilterOpen(!filterOpen)}
                 filterOpen={filterOpen}
-                activeFilterCount={selectedRatings.length + selectedSizes.length}
+                activeFilterCount={
+                  selectedRatings.length + selectedSizes.length
+                }
               />
               <Box sx={{ display: 'flex', flex: 1 }}>
                 <Routes>
@@ -59,7 +61,10 @@ function App() {
                       />
                     }
                   />
-                  <Route path="/stream/:streamId" element={<StreamPageLazy />} />
+                  <Route
+                    path="/stream/:streamId"
+                    element={<StreamPageLazy />}
+                  />
                 </Routes>
               </Box>
               <DashboardSidebar

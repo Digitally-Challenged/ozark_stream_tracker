@@ -15,6 +15,7 @@
 ### Task 1: Create Skeleton Loading Component
 
 **Files:**
+
 - Create: `src/components/common/StreamSkeleton.tsx`
 
 **Step 1: Create the StreamSkeleton component**
@@ -113,11 +114,13 @@ git commit -m "feat: add shimmer skeleton loading component"
 ### Task 2: Integrate Skeleton into StreamCard
 
 **Files:**
+
 - Modify: `src/components/streams/StreamCard.tsx:85-87`
 
 **Step 1: Import StreamSkeleton at the top of the file**
 
 Add this import after the existing imports:
+
 ```tsx
 import { StreamSkeleton } from '../common/StreamSkeleton';
 ```
@@ -125,6 +128,7 @@ import { StreamSkeleton } from '../common/StreamSkeleton';
 **Step 2: Replace the loading state text with skeleton**
 
 Find this block (around line 85-87):
+
 ```tsx
           {loading ? (
             <Typography color="text.secondary">Loading...</Typography>
@@ -132,6 +136,7 @@ Find this block (around line 85-87):
 ```
 
 Replace with:
+
 ```tsx
           {loading ? (
             <Box sx={{ mt: 1 }}>
@@ -144,6 +149,7 @@ Replace with:
 **Step 3: Add Skeleton import from MUI**
 
 Find the MUI imports at the top:
+
 ```tsx
 import {
   Card,
@@ -156,6 +162,7 @@ import {
 ```
 
 Add `Skeleton` to the import:
+
 ```tsx
 import {
   Card,
@@ -190,11 +197,13 @@ git commit -m "feat: add skeleton loading state to StreamCard"
 ### Task 3: Integrate Skeleton into StreamTableRow
 
 **Files:**
+
 - Modify: `src/components/streams/StreamTableRow.tsx:146-163`
 
 **Step 1: Add Skeleton import**
 
 Find the MUI imports at the top and add `Skeleton`:
+
 ```tsx
 import {
   TableRow,
@@ -211,6 +220,7 @@ import {
 **Step 2: Replace loading text in Current Reading cell**
 
 Find the loading state (around line 154):
+
 ```tsx
         ) : loading ? (
           'Loading...'
@@ -218,6 +228,7 @@ Find the loading state (around line 154):
 ```
 
 Replace with:
+
 ```tsx
         ) : loading ? (
           <Skeleton variant="text" width={80} height={24} />
@@ -227,6 +238,7 @@ Replace with:
 **Step 3: Replace loading text in Current Level cell**
 
 Find this block (around line 200):
+
 ```tsx
         {loading ? (
           'Loading...'
@@ -234,6 +246,7 @@ Find this block (around line 200):
 ```
 
 Replace with:
+
 ```tsx
         {loading ? (
           <Skeleton variant="circular" width={24} height={24} />
@@ -243,6 +256,7 @@ Replace with:
 **Step 4: Replace loading text in Trend cell**
 
 Find this block (around line 215):
+
 ```tsx
         {loading ? (
           'Loading...'
@@ -250,6 +264,7 @@ Find this block (around line 215):
 ```
 
 Replace with:
+
 ```tsx
         {loading ? (
           <Skeleton variant="circular" width={20} height={20} />
@@ -275,6 +290,7 @@ git commit -m "feat: add skeleton loading states to StreamTableRow"
 ### Task 4: Create Live Indicator Component
 
 **Files:**
+
 - Create: `src/components/common/LiveIndicator.tsx`
 
 **Step 1: Create the LiveIndicator component**
@@ -309,7 +325,10 @@ interface LiveIndicatorProps {
   lastUpdated?: Date | null;
 }
 
-export function LiveIndicator({ isLive = true, lastUpdated }: LiveIndicatorProps) {
+export function LiveIndicator({
+  isLive = true,
+  lastUpdated,
+}: LiveIndicatorProps) {
   const theme = useTheme();
 
   return (
@@ -361,7 +380,11 @@ export function LiveIndicator({ isLive = true, lastUpdated }: LiveIndicatorProps
             ml: 0.5,
           }}
         >
-          • {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          •{' '}
+          {lastUpdated.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
         </Typography>
       )}
     </Box>
@@ -386,11 +409,13 @@ git commit -m "feat: add LiveIndicator component with pulse animation"
 ### Task 5: Add Live Indicator to Header
 
 **Files:**
+
 - Modify: `src/components/core/Header.tsx:20-22,133-143`
 
 **Step 1: Import LiveIndicator**
 
 Add after the existing imports:
+
 ```tsx
 import { LiveIndicator } from '../common/LiveIndicator';
 ```
@@ -398,33 +423,35 @@ import { LiveIndicator } from '../common/LiveIndicator';
 **Step 2: Add LiveIndicator before the tagline**
 
 Find this block (around line 133-143):
+
 ```tsx
-          <Typography
-            sx={{
-              color: 'rgba(255, 255, 255, 0.9)',
-              letterSpacing: '0.1em',
-              fontSize: { xs: '0.875rem', md: '1rem' },
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
-          </Typography>
+<Typography
+  sx={{
+    color: 'rgba(255, 255, 255, 0.9)',
+    letterSpacing: '0.1em',
+    fontSize: { xs: '0.875rem', md: '1rem' },
+    display: { xs: 'none', md: 'block' },
+  }}
+>
+  KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
+</Typography>
 ```
 
 Replace with:
+
 ```tsx
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
-            <LiveIndicator isLive={!isLoading} lastUpdated={null} />
-            <Typography
-              sx={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                letterSpacing: '0.1em',
-                fontSize: '1rem',
-              }}
-            >
-              KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
-            </Typography>
-          </Box>
+<Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap: 2 }}>
+  <LiveIndicator isLive={!isLoading} lastUpdated={null} />
+  <Typography
+    sx={{
+      color: 'rgba(255, 255, 255, 0.9)',
+      letterSpacing: '0.1em',
+      fontSize: '1rem',
+    }}
+  >
+    KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
+  </Typography>
+</Box>
 ```
 
 **Step 3: Verify compilation**
@@ -451,6 +478,7 @@ git commit -m "feat: add LiveIndicator to header showing data status"
 ### Task 6: Create LiquidFillBar Component
 
 **Files:**
+
 - Create: `src/components/common/LiquidFillBar.tsx`
 
 **Step 1: Create the LiquidFillBar component**
@@ -480,7 +508,10 @@ interface LiquidFillBarProps {
   height?: number;
 }
 
-const STATUS_COLORS: Record<LevelStatus, { primary: string; secondary: string }> = {
+const STATUS_COLORS: Record<
+  LevelStatus,
+  { primary: string; secondary: string }
+> = {
   [LevelStatus.Optimal]: { primary: '#2e7d32', secondary: '#4caf50' },
   [LevelStatus.Low]: { primary: '#ed6c02', secondary: '#ff9800' },
   [LevelStatus.High]: { primary: '#0288d1', secondary: '#03a9f4' },
@@ -500,7 +531,10 @@ export function LiquidFillBar({
 
   // Calculate fill percentage (clamped between 0 and 100)
   const range = maxValue - minValue;
-  const fillPercent = Math.min(100, Math.max(0, ((currentValue - minValue) / range) * 100));
+  const fillPercent = Math.min(
+    100,
+    Math.max(0, ((currentValue - minValue) / range) * 100)
+  );
 
   const tooltipText = `${currentValue.toFixed(2)} ft (${fillPercent.toFixed(0)}% of range)`;
 
@@ -513,13 +547,15 @@ export function LiquidFillBar({
           height: height,
           borderRadius: 2,
           overflow: 'hidden',
-          background: theme.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.05)'
-            : 'rgba(0, 0, 0, 0.05)',
+          background:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.05)'
+              : 'rgba(0, 0, 0, 0.05)',
           border: '1px solid',
-          borderColor: theme.palette.mode === 'dark'
-            ? 'rgba(255, 255, 255, 0.1)'
-            : 'rgba(0, 0, 0, 0.1)',
+          borderColor:
+            theme.palette.mode === 'dark'
+              ? 'rgba(255, 255, 255, 0.1)'
+              : 'rgba(0, 0, 0, 0.1)',
         }}
       >
         {/* Fill level */}
@@ -569,7 +605,8 @@ export function LiquidFillBar({
                 fontWeight: 700,
                 fontSize: '0.9rem',
                 color: fillPercent > 50 ? '#fff' : theme.palette.text.primary,
-                textShadow: fillPercent > 50 ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
+                textShadow:
+                  fillPercent > 50 ? '0 1px 2px rgba(0,0,0,0.3)' : 'none',
               }}
             >
               {currentValue.toFixed(1)} ft
@@ -625,11 +662,13 @@ git commit -m "feat: add LiquidFillBar component with wave animation"
 ### Task 7: Add LiquidFillBar to StreamCard
 
 **Files:**
+
 - Modify: `src/components/streams/StreamCard.tsx:90-138`
 
 **Step 1: Import LiquidFillBar**
 
 Add after existing imports:
+
 ```tsx
 import { LiquidFillBar } from '../common/LiquidFillBar';
 ```
@@ -639,6 +678,7 @@ import { LiquidFillBar } from '../common/LiquidFillBar';
 Find the block that displays reading data (around lines 90-138). After the trend display and before the closing `</Box>`, add the LiquidFillBar.
 
 Find this section:
+
 ```tsx
               <Typography variant="body2" color="text.secondary">
                 Updated {relativeTime}
@@ -655,19 +695,22 @@ Find this section:
 ```
 
 Replace with:
+
 ```tsx
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                Updated {relativeTime}
-              </Typography>
-              {currentLevel?.status && (
-                <LiquidFillBar
-                  currentValue={reading.value}
-                  minValue={stream.targetLevels.tooLow * 0.5}
-                  maxValue={stream.targetLevels.high * 1.5}
-                  status={currentLevel.status}
-                  height={40}
-                />
-              )}
+<Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+  Updated {relativeTime}
+</Typography>;
+{
+  currentLevel?.status && (
+    <LiquidFillBar
+      currentValue={reading.value}
+      minValue={stream.targetLevels.tooLow * 0.5}
+      maxValue={stream.targetLevels.high * 1.5}
+      status={currentLevel.status}
+      height={40}
+    />
+  );
+}
 ```
 
 **Step 3: Verify compilation**
@@ -694,11 +737,13 @@ git commit -m "feat: add LiquidFillBar to StreamCard for visual water levels"
 ### Task 8: Add Glassmorphism to StreamCard
 
 **Files:**
+
 - Modify: `src/components/streams/StreamCard.tsx:43-54`
 
 **Step 1: Import glassmorphism from waterTheme**
 
 Add to imports:
+
 ```tsx
 import { glassmorphism } from '../../theme/waterTheme';
 ```
@@ -706,6 +751,7 @@ import { glassmorphism } from '../../theme/waterTheme';
 **Step 2: Update Card sx prop to use glassmorphism**
 
 Find the Card component's sx prop (around lines 43-54):
+
 ```tsx
       sx={{
         height: '100%',
@@ -719,6 +765,7 @@ Find the Card component's sx prop (around lines 43-54):
 ```
 
 Replace with:
+
 ```tsx
       sx={{
         height: '100%',
@@ -756,11 +803,13 @@ git commit -m "feat: add glassmorphism effect to StreamCard"
 ### Task 9: Add Status Glow Effect to Cards
 
 **Files:**
+
 - Modify: `src/components/streams/StreamCard.tsx:43-54`
 
 **Step 1: Import shadows from waterTheme**
 
 Update the waterTheme import:
+
 ```tsx
 import { glassmorphism, shadows } from '../../theme/waterTheme';
 ```
@@ -768,6 +817,7 @@ import { glassmorphism, shadows } from '../../theme/waterTheme';
 **Step 2: Add glow effect based on status**
 
 Find the Card sx prop and add a glow effect. Update the sx to:
+
 ```tsx
       sx={{
         height: '100%',
@@ -789,6 +839,7 @@ Find the Card sx prop and add a glow effect. Update the sx to:
 **Step 3: Import LevelStatus if not already imported**
 
 Ensure LevelStatus is in the import:
+
 ```tsx
 import { StreamData, LevelStatus, LevelTrend } from '../../types/stream';
 ```
@@ -817,11 +868,13 @@ git commit -m "feat: add status-based glow effect to optimal cards"
 ### Task 10: Add Row Hover Glow to StreamTableRow
 
 **Files:**
+
 - Modify: `src/components/streams/StreamTableRow.tsx:59-71`
 
 **Step 1: Enhance TableRow hover effect**
 
 Find the TableRow sx prop (around lines 59-71):
+
 ```tsx
       sx={{
         cursor: 'pointer',
@@ -835,6 +888,7 @@ Find the TableRow sx prop (around lines 59-71):
 ```
 
 Replace with:
+
 ```tsx
       sx={{
         cursor: 'pointer',
@@ -906,21 +960,23 @@ Expected: Push succeeds
 
 ## Summary of Changes
 
-| Component | Enhancement |
-|-----------|-------------|
-| StreamSkeleton | Shimmer animation skeleton loader |
-| LiveIndicator | Pulsing "LIVE" badge with glow |
-| LiquidFillBar | Animated water fill with wave effect |
-| StreamCard | Glassmorphism + status glow + fill bar |
-| StreamTableRow | Enhanced hover with lift and shadow |
-| Header | Live data indicator integration |
+| Component      | Enhancement                            |
+| -------------- | -------------------------------------- |
+| StreamSkeleton | Shimmer animation skeleton loader      |
+| LiveIndicator  | Pulsing "LIVE" badge with glow         |
+| LiquidFillBar  | Animated water fill with wave effect   |
+| StreamCard     | Glassmorphism + status glow + fill bar |
+| StreamTableRow | Enhanced hover with lift and shadow    |
+| Header         | Live data indicator integration        |
 
 ## Files Created
+
 - `src/components/common/StreamSkeleton.tsx`
 - `src/components/common/LiveIndicator.tsx`
 - `src/components/common/LiquidFillBar.tsx`
 
 ## Files Modified
+
 - `src/components/streams/StreamCard.tsx`
 - `src/components/streams/StreamTableRow.tsx`
 - `src/components/core/Header.tsx`

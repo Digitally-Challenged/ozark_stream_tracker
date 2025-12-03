@@ -1,6 +1,7 @@
 # Richland Creek
 
 ## Overview
+
 **Rating:** Section 1: III-IV, Section 2: II-III
 **Watershed Size:** M
 **Gradient:** Section 1: 55 fpm (some sections approach 80 fpm), Section 2: 20 fpm
@@ -8,6 +9,7 @@
 **Season:** Rainfall dependent
 
 ## Description
+
 Richland Creek rises north of Highway 16 on Raspberry Mountain, then delivers one of the premier advanced whitewater runs in Arkansas. Don't let the Wild and Scenic designation fool you - Section 1 is serious class III-IV water with a 55 fpm gradient that approaches 80 fpm in places, featuring named rapids that demand respect.
 
 The upper section (S1, 6 miles) is technical, challenging whitewater. Richland Falls announces itself with a 6-foot drop. Then comes Crack in the Rock (III+) and Knuckle Buster (III+), followed by Upper Screw Up (III). The most dangerous rapid is Lower Screw Up, also called Shaw's Folly (IV), which features a badly undercut rock. Maytag (III) rounds out the named rapids. At higher levels, the water volume and steep gradient can create a very dangerous combination, making for a solid class IV-V run.
@@ -17,12 +19,14 @@ Section 2 (10 miles) runs class II-III with a gentler 20 fpm gradient. The lower
 ## Features
 
 ### Richland Falls
+
 - Located on Richland Creek
 - Accessible by heading upstream from Woolum
 - Major attraction and scenic feature
 - Popular swimming and photography destination
 
 ### Richland Creek Wilderness Area
+
 - Protected wilderness area
 - Numerous beautiful waterfalls
 - Worth a day of exploring
@@ -31,21 +35,27 @@ Section 2 (10 miles) runs class II-III with a gentler 20 fpm gradient. The lower
 ## Access Points
 
 ### Buffalo River Confluence
+
 **Location:** Woolum access on Buffalo River
 **Notes:** Put-in located opposite mouth of Richland Creek on scenic gravel bar
 **Access to Creek:** Can paddle upstream to Richland Falls
 
 ## Special Designation
+
 **Wild and Scenic Tributary** - Protected status as part of Buffalo National River system
+
 - Part of first National River designation (1972)
 - Protected from dams and impoundments
 - Managed as wilderness area
 
 ## Geographic Context
+
 Richland Creek rises in northeastern Pope County near Highway 16 and Raspberry Mountain. It flows through the Richland Creek Wilderness Area before joining the Buffalo National River. The creek is located in the same region as Falling Water Creek, another scenic Buffalo tributary.
 
 ## Hazards
+
 Section 1 (Class III-IV):
+
 - Lower Screw Up/Shaw's Folly (IV): Most dangerous rapid with badly undercut rock
 - Richland Falls: 6-foot drop requiring precise line
 - Crack in the Rock (III+) and Knuckle Buster (III+): Technical rapids demanding attention
@@ -54,17 +64,20 @@ Section 1 (Class III-IV):
 - Water comes and goes with the rain
 
 Section 2 (Class II-III):
+
 - Access points are scarce as hen's teeth
 - Wilderness means wilderness - you're a long way from the truck
 - Technical stretches that'll keep you honest
 
 ## Related Streams
+
 - **Falling Water Creek** - Nearby tributary that flows into Richland Creek
 - **Buffalo River** - Main stem at confluence
 
 ## Images
 
 ### Available Images on Wikimedia Commons
+
 Two public domain images are available via [Wikimedia Commons - Richland Creek Wilderness Category](https://commons.wikimedia.org/wiki/Category:Richland_Creek_Wilderness):
 
 1. **Richland Creek in the Richland Creek Wilderness, AR.jpg** (5,616 × 3,744 pixels)
@@ -79,6 +92,7 @@ Two public domain images are available via [Wikimedia Commons - Richland Creek W
    - Source: [Library of Congress](https://www.loc.gov/item/91684781/)
 
 ### Flickr Creative Commons Images
+
 The following CC-licensed images are available on Flickr by photographer cormackphotos:
 
 1. **Six Finger Falls** - [View on Flickr](https://www.flickr.com/photos/cormackphotos/3618951452)
@@ -99,6 +113,7 @@ The following CC-licensed images are available on Flickr by photographer cormack
 Note: Flickr images require checking individual license terms before use. Most appear to be CC-licensed but verify before downloading.
 
 ## Sources
+
 - [Richland Creek, Arkansas - Southwest Paddler](http://southwestpaddler.com/docs/buffalo5.html)
 - [Middle Buffalo National River - Southwest Paddler](http://southwestpaddler.com/docs/buffalo3.html)
 - [Buffalo National River - Southwest Paddler](http://southwestpaddler.com/docs/buffalo.html)

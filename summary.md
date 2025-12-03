@@ -2,7 +2,7 @@
 
 - **Purpose**: Real-time stream monitoring system for outdoor enthusiasts to track water levels in Ozark area streams and rivers for activities like kayaking, fishing, and swimming
 - **Target Users**: Kayakers, anglers, swimmers, and outdoor recreation enthusiasts in the Ozark region who need current water conditions
-- **Core Features**: 
+- **Core Features**:
   - Real-time USGS gauge data integration with 15-minute refresh
   - Sortable/searchable table of 190+ monitored streams
   - Stream filtering by rating and size

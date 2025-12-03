@@ -44,7 +44,10 @@ function StreamDetailContent({
   onClose: () => void;
 }) {
   const theme = useTheme();
-  const { reading, currentLevel } = useGaugeReading(stream.gauge.id, stream.targetLevels);
+  const { reading, currentLevel } = useGaugeReading(
+    stream.gauge.id,
+    stream.targetLevels
+  );
   const relativeTime = useRelativeTime(reading?.timestamp);
 
   // Get narrative content for this stream
@@ -57,11 +60,23 @@ function StreamDetailContent({
     }
     switch (currentLevel.trend) {
       case LevelTrend.Rising:
-        return { icon: TrendingUp, label: 'Rising', color: theme.palette.success.main };
+        return {
+          icon: TrendingUp,
+          label: 'Rising',
+          color: theme.palette.success.main,
+        };
       case LevelTrend.Falling:
-        return { icon: TrendingDown, label: 'Falling', color: theme.palette.error.main };
+        return {
+          icon: TrendingDown,
+          label: 'Falling',
+          color: theme.palette.error.main,
+        };
       case LevelTrend.Holding:
-        return { icon: HorizontalRule, label: 'Stable', color: theme.palette.warning.main };
+        return {
+          icon: HorizontalRule,
+          label: 'Stable',
+          color: theme.palette.warning.main,
+        };
       default:
         return null;
     }
@@ -99,9 +114,23 @@ function StreamDetailContent({
                   ? `${reading.value.toFixed(2)} ft`
                   : 'Not available'}
                 {trendInfo && (
-                  <Box component="span" sx={{ ml: 1, display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
-                    <trendInfo.icon sx={{ fontSize: 18, color: trendInfo.color }} />
-                    <Typography component="span" variant="body2" sx={{ color: trendInfo.color, fontWeight: 'bold' }}>
+                  <Box
+                    component="span"
+                    sx={{
+                      ml: 1,
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 0.5,
+                    }}
+                  >
+                    <trendInfo.icon
+                      sx={{ fontSize: 18, color: trendInfo.color }}
+                    />
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      sx={{ color: trendInfo.color, fontWeight: 'bold' }}
+                    >
                       {trendInfo.label}
                     </Typography>
                   </Box>
@@ -168,7 +197,11 @@ function StreamDetailContent({
             <Box>
               <Typography
                 variant="subtitle1"
-                sx={{ fontWeight: 600, mb: 1.5, color: theme.palette.primary.main }}
+                sx={{
+                  fontWeight: 600,
+                  mb: 1.5,
+                  color: theme.palette.primary.main,
+                }}
               >
                 About This Stream
               </Typography>
@@ -191,9 +224,19 @@ function StreamDetailContent({
               {/* Hazards preview if available */}
               {content.hazards && content.hazards.length > 0 && (
                 <Box sx={{ mt: 2 }}>
-                  <Box display="flex" alignItems="center" gap={0.5} sx={{ mb: 0.5 }}>
-                    <WarningAmber sx={{ fontSize: 16, color: 'warning.main' }} />
-                    <Typography variant="caption" sx={{ fontWeight: 600, color: 'warning.main' }}>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    gap={0.5}
+                    sx={{ mb: 0.5 }}
+                  >
+                    <WarningAmber
+                      sx={{ fontSize: 16, color: 'warning.main' }}
+                    />
+                    <Typography
+                      variant="caption"
+                      sx={{ fontWeight: 600, color: 'warning.main' }}
+                    >
                       Key Hazards
                     </Typography>
                   </Box>

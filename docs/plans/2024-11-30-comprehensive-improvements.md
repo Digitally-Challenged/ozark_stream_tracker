@@ -11,11 +11,11 @@
 
 ### 1.1 Delete Dead Code
 
-| File | Action | Reason |
-|------|--------|--------|
+| File                               | Action | Reason                                              |
+| ---------------------------------- | ------ | --------------------------------------------------- |
 | `src/services/scraperScheduler.ts` | DELETE | Redundant - GaugeDataContext refreshes every 15 min |
-| `src/services/scrapeProxy.ts` | DELETE | Unused CORS proxy reference |
-| `src/hooks/useStreamGauge.ts` | DELETE | Duplicates GaugeDataContext + useGaugeReading |
+| `src/services/scrapeProxy.ts`      | DELETE | Unused CORS proxy reference                         |
+| `src/hooks/useStreamGauge.ts`      | DELETE | Duplicates GaugeDataContext + useGaugeReading       |
 
 **Update App.tsx**: Remove ScraperScheduler import and initialization (lines 12, 28-35).
 
@@ -32,6 +32,7 @@
 ### 1.4 Gate Console Logging
 
 Wrap all console.log with `import.meta.env.DEV` check:
+
 - Any remaining debug logs after useStreamGauge deletion
 
 ---
@@ -44,13 +45,18 @@ Wrap all console.log with `import.meta.env.DEV` check:
 
 ```tsx
 // src/components/streams/StreamCard.tsx
-export const StreamCard = memo(function StreamCard({ stream, onClick }: StreamCardProps) {
-  // existing implementation
-}, (prevProps, nextProps) => {
-  return prevProps.stream.name === nextProps.stream.name &&
-         prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
-         prevProps.onClick === nextProps.onClick;
-});
+export const StreamCard = memo(
+  function StreamCard({ stream, onClick }: StreamCardProps) {
+    // existing implementation
+  },
+  (prevProps, nextProps) => {
+    return (
+      prevProps.stream.name === nextProps.stream.name &&
+      prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
+      prevProps.onClick === nextProps.onClick
+    );
+  }
+);
 ```
 
 ### 2.2 Stabilize Callbacks in DashboardPage
@@ -66,9 +72,12 @@ const handleStreamClick = useCallback((stream: StreamData) => {
 
 ```tsx
 // src/hooks/useGaugeHistory.ts
-const addReading = useCallback((reading: GaugeReading) => {
-  // implementation
-}, [gaugeId]);
+const addReading = useCallback(
+  (reading: GaugeReading) => {
+    // implementation
+  },
+  [gaugeId]
+);
 
 const getPreviousReading = useCallback((): GaugeReading | null => {
   // implementation
@@ -79,7 +88,7 @@ const getPreviousReading = useCallback((): GaugeReading | null => {
 
 ```tsx
 // src/components/streams/StreamGroup.tsx
-const handleToggle = useCallback(() => setExpanded(prev => !prev), []);
+const handleToggle = useCallback(() => setExpanded((prev) => !prev), []);
 ```
 
 ### 2.5 Centralize Relative Time Updates (Optional - Higher Effort)
@@ -105,13 +114,13 @@ const rateLimit = require('express-rate-limit');
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
-  message: { error: 'Too many requests' }
+  message: { error: 'Too many requests' },
 });
 
 const scrapeLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
   max: 5,
-  message: { error: 'Scrape rate limit exceeded' }
+  message: { error: 'Scrape rate limit exceeded' },
 });
 
 app.use('/api/', apiLimiter);
@@ -122,9 +131,14 @@ app.post('/api/turner-bend/scrape', scrapeLimiter);
 
 ```javascript
 // server/server.js
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? ['https://ozark-stream-tracker.netlify.app']
-  : ['http://localhost:5174', 'http://localhost:5175', 'https://ozark-stream-tracker.netlify.app'];
+const allowedOrigins =
+  process.env.NODE_ENV === 'production'
+    ? ['https://ozark-stream-tracker.netlify.app']
+    : [
+        'http://localhost:5174',
+        'http://localhost:5175',
+        'https://ozark-stream-tracker.netlify.app',
+      ];
 
 app.use(cors({ origin: allowedOrigins, credentials: true }));
 ```
@@ -135,8 +149,11 @@ app.use(cors({ origin: allowedOrigins, credentials: true }));
 // server/turnerBendScraper.js (both error handlers)
 res.status(500).json({
   error: 'Failed to get Turner Bend data',
-  message: process.env.NODE_ENV === 'development' ? error.message : 'An internal error occurred',
-  timestamp: new Date().toISOString()
+  message:
+    process.env.NODE_ENV === 'development'
+      ? error.message
+      : 'An internal error occurred',
+  timestamp: new Date().toISOString(),
 });
 ```
 
@@ -162,7 +179,7 @@ git add server/package-lock.json
   style={{
     position: 'absolute',
     left: '-9999px',
-    '&:focus': { left: 0, top: 0, zIndex: 9999 }
+    '&:focus': { left: 0, top: 0, zIndex: 9999 },
   }}
 >
   Skip to main content
@@ -171,13 +188,13 @@ git add server/package-lock.json
 
 ### 4.2 Add aria-labels to Interactive Elements
 
-| File | Line | Fix |
-|------|------|-----|
-| `Header.tsx` | 164-176 | `aria-label="Open filters"` |
-| `Header.tsx` | 178-192 | `aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}` |
-| `StreamGroupHeader.tsx` | 89 | `aria-label={expanded ? 'Collapse section' : 'Expand section'}` |
-| `DashboardSidebar.tsx` | 118-123 | `aria-label="Close filter panel"` |
-| `StreamTable.tsx` | 102 | `aria-label="Search streams by name"` |
+| File                    | Line    | Fix                                                                    |
+| ----------------------- | ------- | ---------------------------------------------------------------------- |
+| `Header.tsx`            | 164-176 | `aria-label="Open filters"`                                            |
+| `Header.tsx`            | 178-192 | `aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}` |
+| `StreamGroupHeader.tsx` | 89      | `aria-label={expanded ? 'Collapse section' : 'Expand section'}`        |
+| `DashboardSidebar.tsx`  | 118-123 | `aria-label="Close filter panel"`                                      |
+| `StreamTable.tsx`       | 102     | `aria-label="Search streams by name"`                                  |
 
 ### 4.3 Add Keyboard Support to StreamGroupHeader
 
@@ -238,7 +255,7 @@ const activeFilterCount = selectedRatings.length + selectedSizes.length;
   <IconButton aria-label="Open filters">
     <FilterList />
   </IconButton>
-</Badge>
+</Badge>;
 ```
 
 ### 5.4 Add "Show Runnable" Quick Filter
@@ -281,14 +298,14 @@ Create proper TypeScript interfaces for USGS API responses instead of inline typ
 
 ## Priority Order
 
-| Phase | Effort | Impact | Risk |
-|-------|--------|--------|------|
-| 1. Foundation Cleanup | 4 hrs | High | Low |
-| 2. Performance | 4-6 hrs | High | Medium |
-| 3. Security | 2-3 hrs | Medium | Low |
-| 4. Accessibility | 4-6 hrs | High | Low |
-| 5. Mobile UX | 4-6 hrs | High | Medium |
-| 6. Architecture | 2-4 hrs | Medium | Low |
+| Phase                 | Effort  | Impact | Risk   |
+| --------------------- | ------- | ------ | ------ |
+| 1. Foundation Cleanup | 4 hrs   | High   | Low    |
+| 2. Performance        | 4-6 hrs | High   | Medium |
+| 3. Security           | 2-3 hrs | Medium | Low    |
+| 4. Accessibility      | 4-6 hrs | High   | Low    |
+| 5. Mobile UX          | 4-6 hrs | High   | Medium |
+| 6. Architecture       | 2-4 hrs | Medium | Low    |
 
 **Total estimated effort**: 20-29 hours (3-4 focused sessions)
 
@@ -299,11 +316,13 @@ Create proper TypeScript interfaces for USGS API responses instead of inline typ
 ## Files Changed Summary
 
 ### Deleted
+
 - `src/services/scraperScheduler.ts`
 - `src/services/scrapeProxy.ts`
 - `src/hooks/useStreamGauge.ts`
 
 ### Modified (Major)
+
 - `src/App.tsx` - Remove scheduler, add skip link
 - `src/pages/DashboardPage.tsx` - Stabilize callbacks, add quick filter
 - `src/components/streams/StreamCard.tsx` - Add memo, use theme colors
@@ -314,6 +333,7 @@ Create proper TypeScript interfaces for USGS API responses instead of inline typ
 - `server/server.js` - Add rate limiting, fix CORS
 
 ### Modified (Minor)
+
 - `src/components/core/Header.tsx` - Touch targets, aria-labels, filter badge
 - `src/components/dashboard/DashboardSidebar.tsx` - Responsive width, aria-label
 - `src/components/icons/StreamConditionIcon.tsx` - Reduced motion support

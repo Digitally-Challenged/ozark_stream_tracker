@@ -13,12 +13,10 @@ The codebase currently utilizes both Material UI (MUI) and Tailwind CSS.
 To address this, the following strategy will be adopted for styling moving forward:
 
 1.  **Prioritize Material UI for Core Structure and Components**:
-
     - MUI will be the primary choice for overall application structure, layout elements (`Box`, `Grid`, `Container`), interactive components (`Button`, `Dialog`, `Table`, `TextField`, `Select`, etc.), and theming (dark/light mode).
     - Leverage MUI's `sx` prop or `styled()` API for component-specific customizations that align with the MUI ecosystem.
 
 2.  **Utilize Tailwind CSS for Utility-First Styling**:
-
     - Tailwind CSS will be used for applying utility classes _within_ components (both MUI and custom ones) where it simplifies development and offers more direct control than MUI's `sx` prop for certain use cases. Examples include:
       - Fine-grained padding, margin, and other spacing utilities.
       - Typography helpers (though MUI's `Typography` component should be preferred for semantic text).
@@ -27,7 +25,6 @@ To address this, the following strategy will be adopted for styling moving forwa
     - The `Footer.tsx` component is a good example where Tailwind can be effectively used for a largely static, custom-styled element.
 
 3.  **Synchronized Theming**:
-
     - The `tailwind.config.js` file should continue to be synchronized with the MUI theme (`src/context/ThemeContext.tsx`). This means Tailwind color names, spacing units, font families, etc., should correspond to the values defined in the MUI theme. This ensures visual consistency regardless of whether MUI or Tailwind is applying the style.
     - Avoid defining custom, one-off values in Tailwind that don't have a counterpart in the MUI theme, unless absolutely necessary for a specific, isolated case.
 

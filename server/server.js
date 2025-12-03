@@ -7,26 +7,33 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Enable CORS for frontend (stricter in production)
-const allowedOrigins = process.env.NODE_ENV === 'production'
-  ? ['https://ozark-stream-tracker.netlify.app']
-  : ['http://localhost:5174', 'http://localhost:5175', 'https://ozark-stream-tracker.netlify.app'];
+const allowedOrigins =
+  process.env.NODE_ENV === 'production'
+    ? ['https://ozark-stream-tracker.netlify.app']
+    : [
+        'http://localhost:5174',
+        'http://localhost:5175',
+        'https://ozark-stream-tracker.netlify.app',
+      ];
 
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 // Rate limiting
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100,
-  message: { error: 'Too many requests' }
+  message: { error: 'Too many requests' },
 });
 
 const scrapeLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 5,
-  message: { error: 'Scrape rate limit exceeded' }
+  message: { error: 'Scrape rate limit exceeded' },
 });
 
 app.use('/api/', apiLimiter);
@@ -44,9 +51,12 @@ setupAPI(app, scrapeLimiter);
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Server error:', err);
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Internal server error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    message:
+      process.env.NODE_ENV === 'development'
+        ? err.message
+        : 'Something went wrong',
   });
 });
 

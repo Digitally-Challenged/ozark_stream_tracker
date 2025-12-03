@@ -36,14 +36,18 @@ describe('TrendIcon', () => {
   });
 
   it('should apply small size correctly', () => {
-    const { container } = render(<TrendIcon trend={LevelTrend.Rising} size="small" />);
+    const { container } = render(
+      <TrendIcon trend={LevelTrend.Rising} size="small" />
+    );
 
     const svg = container.querySelector('svg');
     expect(svg).toBeTruthy();
   });
 
   it('should apply large size correctly', () => {
-    const { container } = render(<TrendIcon trend={LevelTrend.Rising} size="large" />);
+    const { container } = render(
+      <TrendIcon trend={LevelTrend.Rising} size="large" />
+    );
 
     const svg = container.querySelector('svg');
     expect(svg).toBeTruthy();

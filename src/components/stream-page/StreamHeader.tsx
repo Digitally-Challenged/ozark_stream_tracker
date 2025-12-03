@@ -25,7 +25,10 @@ function TrendIcon({ trend }: { trend: LevelTrend }) {
   }
 }
 
-function getStatusColor(status: string, theme: ReturnType<typeof useTheme>): string {
+function getStatusColor(
+  status: string,
+  theme: ReturnType<typeof useTheme>
+): string {
   switch (status) {
     case 'X':
       return theme.palette.error.main;
@@ -58,7 +61,10 @@ function getStatusLabel(status: string): string {
 // Separate component to safely use the gauge hook
 function GaugeDisplay({ streamData }: { streamData: StreamData }) {
   const theme = useTheme();
-  const { reading, currentLevel } = useGaugeReading(streamData.gauge.id, streamData.targetLevels);
+  const { reading, currentLevel } = useGaugeReading(
+    streamData.gauge.id,
+    streamData.targetLevels
+  );
   const trend = currentLevel?.trend ?? LevelTrend.None;
   const status = currentLevel?.status ?? null;
 

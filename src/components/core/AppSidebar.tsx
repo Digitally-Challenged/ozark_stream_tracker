@@ -8,8 +8,6 @@ import {
   ListItemText,
   Divider,
   Typography,
-  useTheme,
-  ListItemIcon,
 } from '@mui/material';
 import {
   Close,
@@ -20,7 +18,6 @@ import {
   Info,
   Email,
   Map,
-  Launch
 } from '@mui/icons-material';
 
 interface AppSidebarProps {
@@ -29,11 +26,13 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ open, onClose }: AppSidebarProps) {
-  const theme = useTheme();
-
   const menuItems = [
     { text: 'Learn More', icon: <Info />, href: '#' },
-    { text: 'Contact', icon: <Email />, href: 'mailto:contact@ozarkstreamtracker.com' }, // Placeholder
+    {
+      text: 'Contact',
+      icon: <Email />,
+      href: 'mailto:contact@ozarkstreamtracker.com',
+    }, // Placeholder
     { text: 'Trail Finder', icon: <Map />, href: '#' },
   ];
 
@@ -72,8 +71,8 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
               onClick={onClose}
               sx={{ py: 1.5 }}
             >
-              <ListItemText 
-                primary={item.text} 
+              <ListItemText
+                primary={item.text}
                 primaryTypographyProps={{ fontSize: '1.1rem' }}
               />
             </ListItemButton>
@@ -102,7 +101,7 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
               onClick={onClose}
               sx={{ py: 1.5 }}
             >
-              <ListItemText 
+              <ListItemText
                 primary={item.text}
                 primaryTypographyProps={{ fontSize: '1.1rem' }}
               />
@@ -113,5 +112,3 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
     </Drawer>
   );
 }
-
-

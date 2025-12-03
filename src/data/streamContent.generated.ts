@@ -4,3852 +4,4125 @@
 import type { StreamContentMap } from '../types/streamContent';
 
 export const streamContent: StreamContentMap = {
-  "adkins-cr": {
-    "id": "adkins-cr",
-    "name": "Adkins Cr.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "150 fpm (2nd mile at 190 fpm)",
-      "length": "15 miles (2 miles on Adkins plus 13 miles on Hailstone Cr.)",
-      "season": "FLOOD"
+  'adkins-cr': {
+    id: 'adkins-cr',
+    name: 'Adkins Cr.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: '150 fpm (2nd mile at 190 fpm)',
+      length: '15 miles (2 miles on Adkins plus 13 miles on Hailstone Cr.)',
+      season: 'FLOOD',
     },
-    "description": "First descent June 17, 2000. Some creeks get overlooked because they're mean enough that nobody talks about them. Adkins is one of those – 1.75 miles of blind boulder piles that'll test whether you've got the skills or just the gear.\n\nThe creek opens with three blind ledges they call \"Gimme Three Steps,\" and if you're smart you'll heed that Skynyrd warning. Then comes \"The Last Step\" – a big drop into an undercut grotto that earned its name the hard way. Downstream you'll find \"Ghost's Hole\" and \"Dead Man's Leap,\" neither of which got called that for being friendly.\n\nAfter Adkins dumps you out, you've still got 13 miles of floodstage Hailstone Creek to navigate. This is wilderness paddling where the only thing continuous is the commitment. You'll need expert-level skills and local knowledge, or you'll be providing both to the next group through.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "First descent June 17, 2000. Some creeks get overlooked because they're mean enough that nobody talks about them. Adkins is one of those – 1.75 miles of blind boulder piles that'll test whether you've got the skills or just the gear.\n\nThe creek opens with three blind ledges they call \"Gimme Three Steps,\" and if you're smart you'll heed that Skynyrd warning. Then comes \"The Last Step\" – a big drop into an undercut grotto that earned its name the hard way. Downstream you'll find \"Ghost's Hole\" and \"Dead Man's Leap,\" neither of which got called that for being friendly.\n\nAfter Adkins dumps you out, you've still got 13 miles of floodstage Hailstone Creek to navigate. This is wilderness paddling where the only thing continuous is the commitment. You'll need expert-level skills and local knowledge, or you'll be providing both to the next group through.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Newton County - Dahl Memorial Wilderness access",
-        "directions": "Dixon Ridge Road west off Highway 21 about 1.5 miles north of Fallsville. Look for a small road turning right in a switchback that leads to Dahl Memorial wilderness access at approximately elevation 1820 feet."
+        name: 'Put-in',
+        location: 'Newton County - Dahl Memorial Wilderness access',
+        directions:
+          'Dixon Ridge Road west off Highway 21 about 1.5 miles north of Fallsville. Look for a small road turning right in a switchback that leads to Dahl Memorial wilderness access at approximately elevation 1820 feet.',
       },
       {
-        "name": "Take-out",
-        "location": "Highway 21 bridge over Buffalo River",
-        "directions": "Standard Hailstone Creek take-out at Highway 21 bridge."
-      }
+        name: 'Take-out',
+        location: 'Highway 21 bridge over Buffalo River',
+        directions: 'Standard Hailstone Creek take-out at Highway 21 bridge.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers throughout the run",
-      "Severely undercut rocks",
-      "Severe rapids with blind approaches",
-      "Hydraulics",
-      "\"Gimme Three Steps\" - three blind ledges",
-      "\"The Last Step\" - big drop with undercut grotto",
-      "\"Ghost's Hole\"",
-      "\"Dead Man's Leap\""
+    rapids: [],
+    hazards: [
+      'Strainers throughout the run',
+      'Severely undercut rocks',
+      'Severe rapids with blind approaches',
+      'Hydraulics',
+      '"Gimme Three Steps" - three blind ledges',
+      '"The Last Step" - big drop with undercut grotto',
+      '"Ghost\'s Hole"',
+      '"Dead Man\'s Leap"',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "archey-cr": {
-    "id": "archey-cr",
-    "name": "Archey Cr.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Unknown",
-      "length": "20 miles",
-      "season": "RAIN"
+  'archey-cr': {
+    id: 'archey-cr',
+    name: 'Archey Cr.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Unknown',
+      length: '20 miles',
+      season: 'RAIN',
     },
-    "description": "They call it Archey's Fork of Little Red, and it's one of those rare Ozark runs where you can stretch your legs over two days if you've got camping permissions sorted out. Twenty miles is a long haul by creek standards, but Archey keeps you honest with class II+ rapids running pretty much continuous the whole way.\n\nThe willows here don't quit. They lean over the water like they're trying to catch something, and what they catch is boats that don't pay attention. But if you're looking for an overnight trip with sustained whitewater action and you're tired of the usual runs, Archey'll treat you right.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "They call it Archey's Fork of Little Red, and it's one of those rare Ozark runs where you can stretch your legs over two days if you've got camping permissions sorted out. Twenty miles is a long haul by creek standards, but Archey keeps you honest with class II+ rapids running pretty much continuous the whole way.\n\nThe willows here don't quit. They lean over the water like they're trying to catch something, and what they catch is boats that don't pay attention. But if you're looking for an overnight trip with sustained whitewater action and you're tired of the usual runs, Archey'll treat you right.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Highway 264 bridge north of Clinton",
-        "directions": "From Clinton, take Highway 16 west, then Highway 264 north to the bridge over the creek."
+        name: 'Put-in',
+        location: 'Highway 264 bridge north of Clinton',
+        directions:
+          'From Clinton, take Highway 16 west, then Highway 264 north to the bridge over the creek.',
       },
       {
-        "name": "Take-out",
-        "location": "Highway 65 bridge in Clinton",
-        "directions": "Highway 65 bridge over the creek in Clinton."
-      }
+        name: 'Take-out',
+        location: 'Highway 65 bridge in Clinton',
+        directions: 'Highway 65 bridge over the creek in Clinton.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Numerous strainers",
-      "Willow trees along banks",
-      "Continuous whitewater requiring sustained attention"
+    rapids: [],
+    hazards: [
+      'Numerous strainers',
+      'Willow trees along banks',
+      'Continuous whitewater requiring sustained attention',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "baker-cr": {
-    "id": "baker-cr",
-    "name": "Baker Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'baker-cr': {
+    id: 'baker-cr',
+    name: 'Baker Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Baker Creek's one of those runs that got a rating but not much else written down. The folks who know it keep paddling it, but they're not the type to fill out beta sheets. What we know is it's solid intermediate water – class III-IV depending on what the rain brings – and it's out there waiting if you're willing to ask around and find your own way in.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Baker Creek's one of those runs that got a rating but not much else written down. The folks who know it keep paddling it, but they're not the type to fill out beta sheets. What we know is it's solid intermediate water – class III-IV depending on what the rain brings – and it's out there waiting if you're willing to ask around and find your own way in.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "bear-cr": {
-    "id": "bear-cr",
-    "name": "Bear Cr.",
-    "overview": {
-      "rating": "III-V*",
-      "watershedSize": "",
-      "gradient": "185 fpm average",
-      "length": "4 miles",
-      "season": "FLOOD"
+  'bear-cr': {
+    id: 'bear-cr',
+    name: 'Bear Cr.',
+    overview: {
+      rating: 'III-V*',
+      watershedSize: '',
+      gradient: '185 fpm average',
+      length: '4 miles',
+      season: 'FLOOD',
     },
-    "description": "First descent December 12, 1999. Bear Creek drains into Middle Big Piney, and like its namesake it'll maul you if you don't respect what you're walking into. Opens with a 50-60 yard stair-stepping slide that funnels down steep, then cuts into a gorge so narrow you can almost touch both sides.\n\nThat first mile and a quarter drops 300 feet per mile. Technical doesn't half describe it – you're threading tight lines through boulder fields and long slides with no room for second-guessing. \"Baby Bear Falls\" drops 15-plus feet into a grotto. \"Mama Bear Falls\" is a 20-yard slide into a notch four feet wide, which is about as welcoming as it sounds. Then \"Papa Bear Falls\" finishes the family reunion with multiple 12-foot drops.\n\nBelow the bears, the creek eases to fast class II before joining Big Piney. But don't relax too much – this creek stays tight enough to pin a boat in places where you won't want to be pinned.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "First descent December 12, 1999. Bear Creek drains into Middle Big Piney, and like its namesake it'll maul you if you don't respect what you're walking into. Opens with a 50-60 yard stair-stepping slide that funnels down steep, then cuts into a gorge so narrow you can almost touch both sides.\n\nThat first mile and a quarter drops 300 feet per mile. Technical doesn't half describe it – you're threading tight lines through boulder fields and long slides with no room for second-guessing. \"Baby Bear Falls\" drops 15-plus feet into a grotto. \"Mama Bear Falls\" is a 20-yard slide into a notch four feet wide, which is about as welcoming as it sounds. Then \"Papa Bear Falls\" finishes the family reunion with multiple 12-foot drops.\n\nBelow the bears, the creek eases to fast class II before joining Big Piney. But don't relax too much – this creek stays tight enough to pin a boat in places where you won't want to be pinned.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Near Bertha, off Highway 123",
-        "directions": "Go 4 miles west on Highway 123 from Pelsor (Sand Gap) to Bertha. Take Forest Service Road 1802 South, continue about 1.3 miles to a deer camp. A trail crosses a small creek - bushwhack left to the main creek where 3 upper forks merge at elevation 1490 feet."
+        name: 'Put-in',
+        location: 'Near Bertha, off Highway 123',
+        directions:
+          'Go 4 miles west on Highway 123 from Pelsor (Sand Gap) to Bertha. Take Forest Service Road 1802 South, continue about 1.3 miles to a deer camp. A trail crosses a small creek - bushwhack left to the main creek where 3 upper forks merge at elevation 1490 feet.',
       },
       {
-        "name": "Take-out",
-        "location": "Above Big Piney confluence",
-        "directions": "East from Highway 123 bridge over Big Piney 1/4 mile. Highway crosses Sugar Creek in a right turn. Take first left road (South) that leads to a deer camp with 4WD trail 1/4 mile to creek above Piney confluence (elevation 720 feet)."
-      }
+        name: 'Take-out',
+        location: 'Above Big Piney confluence',
+        directions:
+          'East from Highway 123 bridge over Big Piney 1/4 mile. Highway crosses Sugar Creek in a right turn. Take first left road (South) that leads to a deer camp with 4WD trail 1/4 mile to creek above Piney confluence (elevation 720 feet).',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Undercut ledges and rocks",
-      "Overhanging branches",
-      "Strainers",
-      "Waterfalls",
-      "Very tight sections with pinning hazards",
-      "\"Mama Bear Falls\" - 20 yard slide into 4-foot wide notch",
-      "\"Papa Bear Falls\" - 12+ foot drops",
-      "\"Bear Trap\""
+    rapids: [],
+    hazards: [
+      'Undercut ledges and rocks',
+      'Overhanging branches',
+      'Strainers',
+      'Waterfalls',
+      'Very tight sections with pinning hazards',
+      '"Mama Bear Falls" - 20 yard slide into 4-foot wide notch',
+      '"Papa Bear Falls" - 12+ foot drops',
+      '"Bear Trap"',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "beech-cr": {
-    "id": "beech-cr",
-    "name": "Beech Cr.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "90 fpm (some sections approach 120 fpm)",
-      "length": "7.5 miles",
-      "season": "FLOOD"
+  'beech-cr': {
+    id: 'beech-cr',
+    name: 'Beech Cr.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: '90 fpm (some sections approach 120 fpm)',
+      length: '7.5 miles',
+      season: 'FLOOD',
     },
-    "description": "They say it's quite possibly the toughest overall run in the Ozarks, and the people saying that aren't the type to exaggerate. First complete run probably happened Fall of '86 with Jeff Green's group, which should tell you how long it took before anyone strung it all together.\n\nThe rapids run long, continuous, and demanding through a gorge so remote it's almost inaccessible. Penalties for mistakes are severe, which is a polite way of saying the creek doesn't give you many second chances. First mile's called \"Jungle Gym\" and there's a nasty hole 30 yards from the put-in, just so you know what you're in for.\n\nYou'll find Beech Ball, a class IV that lives up to its name. White Lightning – a long slide with waves big enough to make you religious. Beech Falls, another class IV ledge. And dozens of other long, technical drops that nobody bothered to name because they figured if you're on Beech Creek, you're already committed.\n\nThis run needs expert-level skills, the fitness to back them up, and the ability to make no mistakes on continuous difficult whitewater. Arguably the most difficult overall run in the Midwest, if you're keeping score.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "They say it's quite possibly the toughest overall run in the Ozarks, and the people saying that aren't the type to exaggerate. First complete run probably happened Fall of '86 with Jeff Green's group, which should tell you how long it took before anyone strung it all together.\n\nThe rapids run long, continuous, and demanding through a gorge so remote it's almost inaccessible. Penalties for mistakes are severe, which is a polite way of saying the creek doesn't give you many second chances. First mile's called \"Jungle Gym\" and there's a nasty hole 30 yards from the put-in, just so you know what you're in for.\n\nYou'll find Beech Ball, a class IV that lives up to its name. White Lightning – a long slide with waves big enough to make you religious. Beech Falls, another class IV ledge. And dozens of other long, technical drops that nobody bothered to name because they figured if you're on Beech Creek, you're already committed.\n\nThis run needs expert-level skills, the fitness to back them up, and the ability to make no mistakes on continuous difficult whitewater. Arguably the most difficult overall run in the Midwest, if you're keeping score.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Near Boxley, requires landowner permission and hike",
-        "directions": "Cave Mountain Road west of Boxley. Hike down to Edgemon Creek from near Ryker, past Whitaker Point trail head. Landowner permission REQUIRED."
+        name: 'Put-in',
+        location: 'Near Boxley, requires landowner permission and hike',
+        directions:
+          'Cave Mountain Road west of Boxley. Hike down to Edgemon Creek from near Ryker, past Whitaker Point trail head. Landowner permission REQUIRED.',
       },
       {
-        "name": "Take-out",
-        "location": "Beech Creek bridge at Highway 21 at Boxley",
-        "directions": "Park at Boxley bridge over Buffalo River, walk to Beech Creek bridge."
-      }
+        name: 'Take-out',
+        location: 'Beech Creek bridge at Highway 21 at Boxley',
+        directions:
+          'Park at Boxley bridge over Buffalo River, walk to Beech Creek bridge.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Continuous tough rapids",
-      "Strainers",
-      "Undercuts throughout",
-      "Nasty hole 30 yards from put-in",
-      "\"Beech Ball\" - class IV",
-      "\"White Lightning\" - long slide with huge waves",
-      "\"Beech Falls\" - class IV ledge",
-      "Dozens of other long, technical drops",
-      "Almost inaccessible gorge location complicates rescue"
+    rapids: [],
+    hazards: [
+      'Continuous tough rapids',
+      'Strainers',
+      'Undercuts throughout',
+      'Nasty hole 30 yards from put-in',
+      '"Beech Ball" - class IV',
+      '"White Lightning" - long slide with huge waves',
+      '"Beech Falls" - class IV ledge',
+      'Dozens of other long, technical drops',
+      'Almost inaccessible gorge location complicates rescue',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "ben-doodle-cr": {
-    "id": "ben-doodle-cr",
-    "name": "Ben Doodle Cr.",
-    "overview": {
-      "rating": "IV-V",
-      "watershedSize": "",
-      "gradient": "350 fpm (1/2 mile at 550 fpm)",
-      "length": "7.5 miles (counting 5.75 miles on Blackburn Cr. and Lee Cr.)",
-      "season": "FLOOD"
+  'ben-doodle-cr': {
+    id: 'ben-doodle-cr',
+    name: 'Ben Doodle Cr.',
+    overview: {
+      rating: 'IV-V',
+      watershedSize: '',
+      gradient: '350 fpm (1/2 mile at 550 fpm)',
+      length: '7.5 miles (counting 5.75 miles on Blackburn Cr. and Lee Cr.)',
+      season: 'FLOOD',
     },
-    "description": "First run April 5, 1999, and they barely made it down at low water with some rapids unrun. Ben Doodle holds the title for fastest and most difficult creek in Crawford County, and the steepest you can drive to without needing a helicopter.\n\nRight at the put-in there's barbed wire, which means a 30-yard carry unless you want to meet \"Doodle Slide\" – 18 feet of drop that earned that fence. After that comes \"Midget Maker,\" a 12-foot blind drop. \"Atom Smasher\" splits 40-plus feet of total vertical into pieces. Then \"Tenderizer\" and \"Masticator\" – an 18-foot class V drop in a section that's losing 700 feet per mile. The names tell you what the rapids do.\n\nBelow the big hits, you've got continuous class II-III until Ben Doodle dumps into flooded Blackburn Creek. This is serious Ozark creeking through ugly boulder piles with minimal room to maneuver. Budget 3-4 hours for navigating the gorge, and that's if things go smooth.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'First run April 5, 1999, and they barely made it down at low water with some rapids unrun. Ben Doodle holds the title for fastest and most difficult creek in Crawford County, and the steepest you can drive to without needing a helicopter.\n\nRight at the put-in there\'s barbed wire, which means a 30-yard carry unless you want to meet "Doodle Slide" – 18 feet of drop that earned that fence. After that comes "Midget Maker," a 12-foot blind drop. "Atom Smasher" splits 40-plus feet of total vertical into pieces. Then "Tenderizer" and "Masticator" – an 18-foot class V drop in a section that\'s losing 700 feet per mile. The names tell you what the rapids do.\n\nBelow the big hits, you\'ve got continuous class II-III until Ben Doodle dumps into flooded Blackburn Creek. This is serious Ozark creeking through ugly boulder piles with minimal room to maneuver. Budget 3-4 hours for navigating the gorge, and that\'s if things go smooth.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Remote area off Highway 220 south of Lee Creek",
-        "directions": "Take Highway 220 south from Lee Creek (paved side) almost to top of hill. Turn on first major dirt road left (goes to Chester and Highway 71). Follow approximately 5 miles to four-way intersection. Take left switchback approximately 2 miles. Past RV hookup, take right fork downhill (or hike 1/8 mile if no 4WD) to creek."
+        name: 'Put-in',
+        location: 'Remote area off Highway 220 south of Lee Creek',
+        directions:
+          'Take Highway 220 south from Lee Creek (paved side) almost to top of hill. Turn on first major dirt road left (goes to Chester and Highway 71). Follow approximately 5 miles to four-way intersection. Take left switchback approximately 2 miles. Past RV hookup, take right fork downhill (or hike 1/8 mile if no 4WD) to creek.',
       },
       {
-        "name": "Take-out",
-        "location": "Highway 220 bridge over Lee Creek",
-        "directions": "Highway 220 bridge over Lee Creek."
-      }
+        name: 'Take-out',
+        location: 'Highway 220 bridge over Lee Creek',
+        directions: 'Highway 220 bridge over Lee Creek.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Waterfalls",
-      "Undercut rocks",
-      "Trees",
-      "Barbed wire at the first rapid",
-      "Continuous heavy rapids",
-      "\"Doodle Slide\" - 18+ feet",
-      "\"Midget Maker\" - 12-foot blind drop",
-      "\"Atom Smasher\" - 40+ foot total vertical",
-      "\"Tenderizer\" and \"Masticator\" - 18-foot class V drop",
-      "Ugly boulder piles with minimal maneuvering room"
+    rapids: [],
+    hazards: [
+      'Waterfalls',
+      'Undercut rocks',
+      'Trees',
+      'Barbed wire at the first rapid',
+      'Continuous heavy rapids',
+      '"Doodle Slide" - 18+ feet',
+      '"Midget Maker" - 12-foot blind drop',
+      '"Atom Smasher" - 40+ foot total vertical',
+      '"Tenderizer" and "Masticator" - 18-foot class V drop',
+      'Ugly boulder piles with minimal maneuvering room',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "big-devils-fork-cr": {
-    "id": "big-devils-fork-cr",
-    "name": "Big Devils Fork Cr.",
-    "overview": {
-      "rating": "III-V*",
-      "watershedSize": "",
-      "gradient": "190 fpm (not counting Richland)",
-      "length": "2.4 miles plus 1.5 miles on Richland",
-      "season": "FLOOD"
+  'big-devils-fork-cr': {
+    id: 'big-devils-fork-cr',
+    name: 'Big Devils Fork Cr.',
+    overview: {
+      rating: 'III-V*',
+      watershedSize: '',
+      gradient: '190 fpm (not counting Richland)',
+      length: '2.4 miles plus 1.5 miles on Richland',
+      season: 'FLOOD',
     },
-    "description": "First descent April 11, 1995. Big Devils Fork starts tiny but builds intensity fast, like a fire catching hold. You'll hit many tough class III to IV rapids mixed with strainers and undercut rocks before you even get to the main event.\n\nThat main event is Twin Falls near where the creek meets Richland. Depending on water levels, you can run Big Devils Fork on the left or carry over to Long Devils Fork. In 20-plus runs, only two or three people have found clean lines on Long Devil's Falls, which ought to tell you something about the odds.\n\nThis is experts only. The course runs extremely tight, the gradient's high, and there's significant risk to life and limb. Not the kind of thing you say to sound dramatic – just the way it is.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "First descent April 11, 1995. Big Devils Fork starts tiny but builds intensity fast, like a fire catching hold. You'll hit many tough class III to IV rapids mixed with strainers and undercut rocks before you even get to the main event.\n\nThat main event is Twin Falls near where the creek meets Richland. Depending on water levels, you can run Big Devils Fork on the left or carry over to Long Devils Fork. In 20-plus runs, only two or three people have found clean lines on Long Devil's Falls, which ought to tell you something about the odds.\n\nThis is experts only. The course runs extremely tight, the gradient's high, and there's significant risk to life and limb. Not the kind of thing you say to sound dramatic – just the way it is.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Iceledo Gap area, requires 4WD",
-        "directions": "Newton County - south, downhill from Iceledo Gap to Hill Cemetery (4WD required). Drag downhill approximately 0.1 mile to creek."
+        name: 'Put-in',
+        location: 'Iceledo Gap area, requires 4WD',
+        directions:
+          'Newton County - south, downhill from Iceledo Gap to Hill Cemetery (4WD required). Drag downhill approximately 0.1 mile to creek.',
       },
       {
-        "name": "Take-out",
-        "location": "Richland Creek Campground",
-        "directions": "Richland Creek Campground on Forest Service Road."
-      }
+        name: 'Take-out',
+        location: 'Richland Creek Campground',
+        directions: 'Richland Creek Campground on Forest Service Road.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Severe undercuts",
-      "Difficult rapids",
-      "Overhanging branches",
-      "Strainers",
-      "Waterfalls",
-      "Twin Falls near confluence",
-      "Extremely tight course",
-      "At very high levels, expect solid class V for 4 miles"
+    rapids: [],
+    hazards: [
+      'Severe undercuts',
+      'Difficult rapids',
+      'Overhanging branches',
+      'Strainers',
+      'Waterfalls',
+      'Twin Falls near confluence',
+      'Extremely tight course',
+      'At very high levels, expect solid class V for 4 miles',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "big-piney-cr": {
-    "id": "big-piney-cr",
-    "name": "Big Piney Creek",
-    "overview": {
-      "rating": "Class I-III (Class III+ at high water)",
-      "watershedSize": "L",
-      "gradient": "Variable by section",
-      "length": "67 miles total, ~36.8 miles paddleable",
-      "season": "Late fall to early summer (rainfall dependent)"
+  'big-piney-cr': {
+    id: 'big-piney-cr',
+    name: 'Big Piney Creek',
+    overview: {
+      rating: 'Class I-III (Class III+ at high water)',
+      watershedSize: 'L',
+      gradient: 'Variable by section',
+      length: '67 miles total, ~36.8 miles paddleable',
+      season: 'Late fall to early summer (rainfall dependent)',
     },
-    "description": "The water runs that creme de menthe green you only see in the Ozarks – something about the limestone, they say. Big Piney forms east of Limestone in the Ozark National Forest, then winds 67 miles south-southeast through Pope and Johnson Counties to Lake Dardanelle on the Arkansas River.\n\nYou'll paddle through willow jungles thick enough to swallow a canoe, past rocky shoals and boulder gardens that'll keep you honest. The creek earned Wild & Scenic designation in 1992 – 45 miles of it, longest of seven such rivers in Arkansas. That designation means the government agrees with what paddlers already knew.\n\nBig Piney forms up in the Boston Mountains close to the headwaters of Hailstone, Kings, and Mulberry Rivers. Good company to keep. The creek's got about 37 miles of paddleable water split into sections, from class I-II up top to class II-III+ when the hills crowd in at Treat and things get serious.",
-    "sections": [
+    description:
+      "The water runs that creme de menthe green you only see in the Ozarks – something about the limestone, they say. Big Piney forms east of Limestone in the Ozark National Forest, then winds 67 miles south-southeast through Pope and Johnson Counties to Lake Dardanelle on the Arkansas River.\n\nYou'll paddle through willow jungles thick enough to swallow a canoe, past rocky shoals and boulder gardens that'll keep you honest. The creek earned Wild & Scenic designation in 1992 – 45 miles of it, longest of seven such rivers in Arkansas. That designation means the government agrees with what paddlers already knew.\n\nBig Piney forms up in the Boston Mountains close to the headwaters of Hailstone, Kings, and Mulberry Rivers. Good company to keep. The creek's got about 37 miles of paddleable water split into sections, from class I-II up top to class II-III+ when the hills crowd in at Treat and things get serious.",
+    sections: [
       {
-        "name": "Limestone to Highway 123",
-        "distance": "~10 miles",
-        "rating": "Class I-II",
-        "notes": "Not a common float; usually too low water. Worth considering when conditions are right."
+        name: 'Limestone to Highway 123',
+        distance: '~10 miles',
+        rating: 'Class I-II',
+        notes:
+          'Not a common float; usually too low water. Worth considering when conditions are right.',
       },
       {
-        "name": "Highway 123 to Treat",
-        "distance": "~8 miles",
-        "rating": "Class I-II",
-        "notes": "Rapids more subdued, all Class I and II varieties."
+        name: 'Highway 123 to Treat',
+        distance: '~8 miles',
+        rating: 'Class I-II',
+        notes: 'Rapids more subdued, all Class I and II varieties.',
       },
       {
-        "name": "Treat to Long Pool",
-        "distance": "~10 miles",
-        "rating": "Class II-III (up to III+ at high water)",
-        "notes": "Where the stream has earned its reputation among whitewater enthusiasts. Hills crowd the creek for space, resulting in continuous action with rapids named \"Roller Coaster,\" \"Surfing Hole,\" and \"Cascades of Extinction.\" This is considered a class II-solid III strip of water."
+        name: 'Treat to Long Pool',
+        distance: '~10 miles',
+        rating: 'Class II-III (up to III+ at high water)',
+        notes:
+          'Where the stream has earned its reputation among whitewater enthusiasts. Hills crowd the creek for space, resulting in continuous action with rapids named "Roller Coaster," "Surfing Hole," and "Cascades of Extinction." This is considered a class II-solid III strip of water.',
       },
       {
-        "name": "Long Pool to Highway 164 (Twin Bridges)",
-        "distance": "~5 miles",
-        "rating": "Class I",
-        "notes": "Slows down considerably. Pools become longer as creek leaves the Ozarks."
-      }
+        name: 'Long Pool to Highway 164 (Twin Bridges)',
+        distance: '~5 miles',
+        rating: 'Class I',
+        notes:
+          'Slows down considerably. Pools become longer as creek leaves the Ozarks.',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Put-in (Upper Section)",
-        "location": "CR 29 access at Limestone",
-        "directions": "East of Limestone in the Ozark National Forest, Newton County"
+        name: 'Put-in (Upper Section)',
+        location: 'CR 29 access at Limestone',
+        directions:
+          'East of Limestone in the Ozark National Forest, Newton County',
       },
       {
-        "name": "Major Access Points"
+        name: 'Major Access Points',
       },
       {
-        "name": "Take-out",
-        "location": "Rushing Bridge on Highway 27",
-        "directions": "Just north of the Town of Piney, about 36.8 miles below Limestone"
-      }
+        name: 'Take-out',
+        location: 'Rushing Bridge on Highway 27',
+        directions:
+          'Just north of the Town of Piney, about 36.8 miles below Limestone',
+      },
     ],
-    "rapids": [
-      "Roller Coaster",
-      "Surfing Hole",
-      "Cascades of Extinction"
+    rapids: ['Roller Coaster', 'Surfing Hole', 'Cascades of Extinction'],
+    hazards: [
+      'Willow thickets - traditional canoe-catchers',
+      'Rocky shoals and boulder gardens',
+      'Water level dependent - can be too low in dry periods',
+      'Class III rapids become more challenging at higher flows',
     ],
-    "hazards": [
-      "Willow thickets - traditional canoe-catchers",
-      "Rocky shoals and boulder gardens",
-      "Water level dependent - can be too low in dry periods",
-      "Class III rapids become more challenging at higher flows"
-    ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Big Piney Creek, Arkansas - Southwest Paddler",
-        "url": "https://www.southwestpaddler.com/docs/arkansas4.html"
+        title: 'Big Piney Creek, Arkansas - Southwest Paddler',
+        url: 'https://www.southwestpaddler.com/docs/arkansas4.html',
       },
       {
-        "title": "Map of Big Piney Creek - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/Bigpineymap.html"
+        title: 'Map of Big Piney Creek - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/Bigpineymap.html',
       },
       {
-        "title": "Big Piney Creek - Arkansas.com",
-        "url": "https://www.arkansas.com/clarksville/outdoor-recreation/big-piney-creek"
+        title: 'Big Piney Creek - Arkansas.com',
+        url: 'https://www.arkansas.com/clarksville/outdoor-recreation/big-piney-creek',
       },
       {
-        "title": "Big Piney Creek - Rivers.gov",
-        "url": "https://rivers.gov/river/big-piney"
-      }
+        title: 'Big Piney Creek - Rivers.gov',
+        url: 'https://rivers.gov/river/big-piney',
+      },
     ],
-    "geographicContext": "Big Piney Creek forms in the Boston Mountains of northwest Arkansas very close to the headwaters of the Hailstone (Upper Upper Buffalo), Kings and Mulberry Rivers, as well as Little Piney Creek and the Upper White River.",
-    "specialDesignation": ""
+    geographicContext:
+      'Big Piney Creek forms in the Boston Mountains of northwest Arkansas very close to the headwaters of the Hailstone (Upper Upper Buffalo), Kings and Mulberry Rivers, as well as Little Piney Creek and the Upper White River.',
+    specialDesignation: '',
   },
-  "blackburn-cr": {
-    "id": "blackburn-cr",
-    "name": "Blackburn Cr.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "25 fpm",
-      "length": "8 miles",
-      "season": "RAIN"
+  'blackburn-cr': {
+    id: 'blackburn-cr',
+    name: 'Blackburn Cr.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: '25 fpm',
+      length: '8 miles',
+      season: 'RAIN',
     },
-    "description": "Great class II+ wilderness run that got overlooked for years, probably because the folks who knew about it were too busy paddling it. First run likely happened mid-1980s, but nobody bothered to write it down.\n\nWhat you get is a bouncy run through several miles of wild country near Devils Den State Park – fast curves and swift rapids with strainers keeping you awake. At normal levels, no serious hazards for competent class II-III boaters. Just good wilderness paddling through scenic country.\n\nBut when Lee Creek pushes over 10-12 feet, a hole forms just past Hart Creek confluence. They call it \"hole-o-death,\" and unlike most rapid names, that one's not overselling. When Lee hits 15 feet, the strainers turn the whole creek into a death trap. There's a reason the locals know not to run it high.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'Great class II+ wilderness run that got overlooked for years, probably because the folks who knew about it were too busy paddling it. First run likely happened mid-1980s, but nobody bothered to write it down.\n\nWhat you get is a bouncy run through several miles of wild country near Devils Den State Park – fast curves and swift rapids with strainers keeping you awake. At normal levels, no serious hazards for competent class II-III boaters. Just good wilderness paddling through scenic country.\n\nBut when Lee Creek pushes over 10-12 feet, a hole forms just past Hart Creek confluence. They call it "hole-o-death," and unlike most rapid names, that one\'s not overselling. When Lee hits 15 feet, the strainers turn the whole creek into a death trap. There\'s a reason the locals know not to run it high.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Near Devils Den State Park, I-540 area",
-        "directions": "Highway 74 west off I-540. Just before drop into Devils Den State Park, take dirt road on left past \"steep grade\" warning sign. Follow approximately 1 mile, turn left steeply downhill approximately 1-1.5 miles. **4WD ONLY - extremely rough in wet weather.**"
+        name: 'Put-in',
+        location: 'Near Devils Den State Park, I-540 area',
+        directions:
+          'Highway 74 west off I-540. Just before drop into Devils Den State Park, take dirt road on left past "steep grade" warning sign. Follow approximately 1 mile, turn left steeply downhill approximately 1-1.5 miles. **4WD ONLY - extremely rough in wet weather.**',
       },
       {
-        "name": "Take-out",
-        "location": "Lee Creek at Highway 220 bridge (Section 2 put-in)",
-        "directions": "Highway 220 bridge over Lee Creek. Shuttle back through Chester (Fall Creek blocks Devils Den route at high water)."
-      }
+        name: 'Take-out',
+        location: 'Lee Creek at Highway 220 bridge (Section 2 put-in)',
+        directions:
+          'Highway 220 bridge over Lee Creek. Shuttle back through Chester (Fall Creek blocks Devils Den route at high water).',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers and downed trees are main hazard",
-      "A few good hydraulics to watch for",
-      "At high levels (Lee over 10-12 feet): \"hole-o-death\" just past Hart Creek confluence",
-      "Over 15 feet on Lee Creek: strainers make creek extremely dangerous"
+    rapids: [],
+    hazards: [
+      'Strainers and downed trees are main hazard',
+      'A few good hydraulics to watch for',
+      'At high levels (Lee over 10-12 feet): "hole-o-death" just past Hart Creek confluence',
+      'Over 15 feet on Lee Creek: strainers make creek extremely dangerous',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "bobtail-cr": {
-    "id": "bobtail-cr",
-    "name": "Bobtail Cr.",
-    "overview": {
-      "rating": "III-IV+",
-      "watershedSize": "",
-      "gradient": "125 fpm (1 mile at 165 fpm)",
-      "length": "2.5 miles (plus 9.5 miles on Section 2 of Richland Cr.)",
-      "season": "FLOOD"
+  'bobtail-cr': {
+    id: 'bobtail-cr',
+    name: 'Bobtail Cr.',
+    overview: {
+      rating: 'III-IV+',
+      watershedSize: '',
+      gradient: '125 fpm (1 mile at 165 fpm)',
+      length: '2.5 miles (plus 9.5 miles on Section 2 of Richland Cr.)',
+      season: 'FLOOD',
     },
-    "description": "First run January 1994 by Cowper Chadbourn, Jim McDaniel, and Paul Newton. Just 2.5 miles long, but it packs in about ten very significant rapids plus lots of class III action between them.\n\nOpens with three-quarters of a mile of shallow, fast class II-III through willows and downed trees, warming you up for what's coming. Then you hit \"Zorro\" – a tight slot with a wave and hole train. \"Go Left Falls\" (also called \"Cowper Dam\" after the guy who scouted it) sends water off slanted rock into a narrow slot with an undercut. \"Coliseum\" makes you go right down a 6-foot stairstep.\n\nAfter some class II-III, you reach the feature section: \"Bail-Baby-Bail,\" \"Werewolf,\" \"The Funnel,\" \"The Slot.\" That final three-quarters of a mile is Ozark steep creekin' at its best – the kind of paddling that reminds you why you do this.\n\nConsidered one of the best runs in the area. You'll need skills on par with Beech or Shop Creek, just condensed into a shorter package. After Bobtail dumps you into Richland, you've got 9.5 miles to think about what just happened.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'First run January 1994 by Cowper Chadbourn, Jim McDaniel, and Paul Newton. Just 2.5 miles long, but it packs in about ten very significant rapids plus lots of class III action between them.\n\nOpens with three-quarters of a mile of shallow, fast class II-III through willows and downed trees, warming you up for what\'s coming. Then you hit "Zorro" – a tight slot with a wave and hole train. "Go Left Falls" (also called "Cowper Dam" after the guy who scouted it) sends water off slanted rock into a narrow slot with an undercut. "Coliseum" makes you go right down a 6-foot stairstep.\n\nAfter some class II-III, you reach the feature section: "Bail-Baby-Bail," "Werewolf," "The Funnel," "The Slot." That final three-quarters of a mile is Ozark steep creekin\' at its best – the kind of paddling that reminds you why you do this.\n\nConsidered one of the best runs in the area. You\'ll need skills on par with Beech or Shop Creek, just condensed into a shorter package. After Bobtail dumps you into Richland, you\'ve got 9.5 miles to think about what just happened.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Remote Forest Service roads, Searcy County",
-        "directions": "South from Richland Campground 3.6 miles on FS 1205. East (left) 2.0 miles on FS 1219. North (left) 3.0 miles on FS 1219A, then east on barely visible 4WD road."
+        name: 'Put-in',
+        location: 'Remote Forest Service roads, Searcy County',
+        directions:
+          'South from Richland Campground 3.6 miles on FS 1205. East (left) 2.0 miles on FS 1219. North (left) 3.0 miles on FS 1219A, then east on barely visible 4WD road.',
       },
       {
-        "name": "Take-out",
-        "location": "Section 2 of Richland Creek",
-        "directions": "Paddle out 9.5 miles on Richland Creek, or optional carry approximately 1.0 mile along trail back to Richland Campground bridge."
-      }
+        name: 'Take-out',
+        location: 'Section 2 of Richland Creek',
+        directions:
+          'Paddle out 9.5 miles on Richland Creek, or optional carry approximately 1.0 mile along trail back to Richland Campground bridge.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Undercuts",
-      "Hydraulics",
-      "Difficult rapids",
-      "Strainers throughout",
-      "\"Zorro\" - tight slot with wave/hole train",
-      "\"Go Left Falls/Cowper Dam\" - narrow slot with undercut",
-      "\"Coliseum/Go Right Falls\" - 6-foot stairstep",
-      "\"Bail-Baby-Bail\"",
-      "\"Werewolf\"",
-      "\"The Funnel\"",
-      "\"The Slot\""
+    rapids: [],
+    hazards: [
+      'Undercuts',
+      'Hydraulics',
+      'Difficult rapids',
+      'Strainers throughout',
+      '"Zorro" - tight slot with wave/hole train',
+      '"Go Left Falls/Cowper Dam" - narrow slot with undercut',
+      '"Coliseum/Go Right Falls" - 6-foot stairstep',
+      '"Bail-Baby-Bail"',
+      '"Werewolf"',
+      '"The Funnel"',
+      '"The Slot"',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "boss-hollow": {
-    "id": "boss-hollow",
-    "name": "Boss Hollow",
-    "overview": {
-      "rating": "IV-V*",
-      "watershedSize": "",
-      "gradient": "200 fpm",
-      "length": "4 miles (2 miles on Boss Hollow, 2 miles on Buck Branch)",
-      "season": "FLOOD"
+  'boss-hollow': {
+    id: 'boss-hollow',
+    name: 'Boss Hollow',
+    overview: {
+      rating: 'IV-V*',
+      watershedSize: '',
+      gradient: '200 fpm',
+      length: '4 miles (2 miles on Boss Hollow, 2 miles on Buck Branch)',
+      season: 'FLOOD',
     },
-    "description": "First descent December 17, 1995. Boss Hollow comes at you fast and narrow right from the start – small slides and ledges that build into something bigger. You'll hit a tight technical section with \"Toilet Bowl,\" \"Baby Boss Slide,\" \"Face Slap Falls,\" and \"Sycamore Slot.\" The names aren't trying to be cute.\n\nThen you reach \"THE BOSS,\" which announces itself with \"Performance Evaluation,\" \"Broken Paddle,\" and \"Half A Paddle\" – three rapids that are really just the entrance exam. The line goes main channel left through a slot, over a ledge, down a narrow slide, then cuts 90 degrees right to a big slide. Thread it clean or don't thread it at all.\n\nSomewhere in here there's a house-sized slab rock that's at least 50% undercut. They call it \"The Undercut\" because sometimes the obvious name is the right one. Avoid it.\n\nFinal two miles down Buck Branch give you many class III drops and several play spots to catch your breath. This is expert-level flood paddling that needs precise boat control and decision-making skills that don't falter under pressure.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'First descent December 17, 1995. Boss Hollow comes at you fast and narrow right from the start – small slides and ledges that build into something bigger. You\'ll hit a tight technical section with "Toilet Bowl," "Baby Boss Slide," "Face Slap Falls," and "Sycamore Slot." The names aren\'t trying to be cute.\n\nThen you reach "THE BOSS," which announces itself with "Performance Evaluation," "Broken Paddle," and "Half A Paddle" – three rapids that are really just the entrance exam. The line goes main channel left through a slot, over a ledge, down a narrow slide, then cuts 90 degrees right to a big slide. Thread it clean or don\'t thread it at all.\n\nSomewhere in here there\'s a house-sized slab rock that\'s at least 50% undercut. They call it "The Undercut" because sometimes the obvious name is the right one. Avoid it.\n\nFinal two miles down Buck Branch give you many class III drops and several play spots to catch your breath. This is expert-level flood paddling that needs precise boat control and decision-making skills that don\'t falter under pressure.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Off Highway 7 near Compton",
-        "directions": "Turn west from Highway 7 at \"Who Would Have Thought It Gift Shop.\" Take left fork approximately 1.2 miles to 6th drive/road left. Park and carry/drive 0.75 mile (4WD only) to gate. ATV trail downhill just before gate. Drag approximately 0.5 miles to put-in (elevation 1560 feet)."
+        name: 'Put-in',
+        location: 'Off Highway 7 near Compton',
+        directions:
+          'Turn west from Highway 7 at "Who Would Have Thought It Gift Shop." Take left fork approximately 1.2 miles to 6th drive/road left. Park and carry/drive 0.75 mile (4WD only) to gate. ATV trail downhill just before gate. Drag approximately 0.5 miles to put-in (elevation 1560 feet).',
       },
       {
-        "name": "Take-out",
-        "location": "Near Hurricane Creek put-in",
-        "directions": "Right fork at gift shop down to Hurricane Creek put-in. Road forks at bottom - left fork fords creek (park if high and carry 0.5 mile). If crossable, drive 0.5 mile to house in left bend (ask permission to park)."
-      }
+        name: 'Take-out',
+        location: 'Near Hurricane Creek put-in',
+        directions:
+          'Right fork at gift shop down to Hurricane Creek put-in. Road forks at bottom - left fork fords creek (park if high and carry 0.5 mile). If crossable, drive 0.5 mile to house in left bend (ask permission to park).',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Undercut ledges and rocks",
-      "Overhanging branches",
-      "Strainers",
-      "Waterfalls",
-      "Very tight sections with pinning hazards",
-      "\"Toilet Bowl\"",
-      "\"Baby Boss Slide\"",
-      "\"Face Slap Falls\"",
-      "\"Sycamore Slot\"",
-      "\"Performance Evaluation\"",
-      "\"Broken Paddle\"",
-      "\"Half A Paddle\"",
-      "\"THE BOSS\" - complex multi-part rapid",
-      "\"The Undercut\" - house-sized slab rock at least 50% undercut",
-      "Vertical pins possible on left side of THE BOSS"
+    rapids: [],
+    hazards: [
+      'Undercut ledges and rocks',
+      'Overhanging branches',
+      'Strainers',
+      'Waterfalls',
+      'Very tight sections with pinning hazards',
+      '"Toilet Bowl"',
+      '"Baby Boss Slide"',
+      '"Face Slap Falls"',
+      '"Sycamore Slot"',
+      '"Performance Evaluation"',
+      '"Broken Paddle"',
+      '"Half A Paddle"',
+      '"THE BOSS" - complex multi-part rapid',
+      '"The Undercut" - house-sized slab rock at least 50% undercut',
+      'Vertical pins possible on left side of THE BOSS',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "boulder-cr": {
-    "id": "boulder-cr",
-    "name": "Boulder Cr.",
-    "overview": {
-      "rating": "IV-V+ (P)",
-      "watershedSize": "",
-      "gradient": "250 fpm average (1.25 mile section over 500 fpm)",
-      "length": "2.75 miles",
-      "season": "FLOOD"
+  'boulder-cr': {
+    id: 'boulder-cr',
+    name: 'Boulder Cr.',
+    overview: {
+      rating: 'IV-V+ (P)',
+      watershedSize: '',
+      gradient: '250 fpm average (1.25 mile section over 500 fpm)',
+      length: '2.75 miles',
+      season: 'FLOOD',
     },
-    "description": "First attempt November 7, 1996 by Bill and Chanoy Herring and Kevin Fendley. They made it three-quarters of a mile before injury ended that conversation. First successful run came April 23, 2004 during the \"Earth Day Floods\" when Zach Williams, Sean Ruggles, and Bill Herring completed it in 7-plus hours with a dozen portages.\n\nThe vital statistics are sobering: 250 feet per mile average gradient, with a quarter-mile section dropping 200 feet. Huge boulders create nearly continuous and blind class IV-V rapids mixed with sieves. This is the kind of creek where the rock decides and you adapt.\n\nYou'll find Upper Gorge with its boulder jumble under the bluff. \"Strainer Strainer,\" which is a rock sieve. \"Pretzel,\" a class IV+ that twists you around. \"Elbow,\" a very long class V with tricky ledges. \"The Falls\" – a quarter-mile section that lives up to the name. \"Pearly Gate,\" a steep plunge between boulders. \"Salvation Eddy,\" where you'll understand why it's called that. \"Cliff Rapid\" with its large sieve. \"Just When You Thought It Was Over,\" which answers that thought.\n\nSuitable only for a team of well-prepared class V creek boaters. Expect multiple portages and a full day commitment. This creek doesn't care if you're ready or not, but you'd better be.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'First attempt November 7, 1996 by Bill and Chanoy Herring and Kevin Fendley. They made it three-quarters of a mile before injury ended that conversation. First successful run came April 23, 2004 during the "Earth Day Floods" when Zach Williams, Sean Ruggles, and Bill Herring completed it in 7-plus hours with a dozen portages.\n\nThe vital statistics are sobering: 250 feet per mile average gradient, with a quarter-mile section dropping 200 feet. Huge boulders create nearly continuous and blind class IV-V rapids mixed with sieves. This is the kind of creek where the rock decides and you adapt.\n\nYou\'ll find Upper Gorge with its boulder jumble under the bluff. "Strainer Strainer," which is a rock sieve. "Pretzel," a class IV+ that twists you around. "Elbow," a very long class V with tricky ledges. "The Falls" – a quarter-mile section that lives up to the name. "Pearly Gate," a steep plunge between boulders. "Salvation Eddy," where you\'ll understand why it\'s called that. "Cliff Rapid" with its large sieve. "Just When You Thought It Was Over," which answers that thought.\n\nSuitable only for a team of well-prepared class V creek boaters. Expect multiple portages and a full day commitment. This creek doesn\'t care if you\'re ready or not, but you\'d better be.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Near Kyles Landing area, Highway 74",
-        "directions": "Dirt road leading steeply downhill roughly across from Kyles Landing road (Highway 74 area). Stay right past house on right. Drag downhill to abandoned house, hike straight down old road approximately 75 yards to creek."
+        name: 'Put-in',
+        location: 'Near Kyles Landing area, Highway 74',
+        directions:
+          'Dirt road leading steeply downhill roughly across from Kyles Landing road (Highway 74 area). Stay right past house on right. Drag downhill to abandoned house, hike straight down old road approximately 75 yards to creek.',
       },
       {
-        "name": "Take-out",
-        "location": "Mt. Sherman Cemetery Road near Diamond Cave",
-        "directions": "Mt. Sherman Cemetery Road south toward Diamond Cave. Park on LEFT (creek) side just upstream of slab stream crossing. **Do not block right driveway.**"
-      }
+        name: 'Take-out',
+        location: 'Mt. Sherman Cemetery Road near Diamond Cave',
+        directions:
+          'Mt. Sherman Cemetery Road south toward Diamond Cave. Park on LEFT (creek) side just upstream of slab stream crossing. **Do not block right driveway.**',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Continuous severe rapids",
-      "Unrunnable boulder sieves (multiple portages required)",
-      "Numerous undercut rocks",
-      "Keeper hydraulics",
-      "Numerous strainers",
-      "\"Strainer Strainer\" - rock sieve",
-      "\"Pretzel\" - class IV+",
-      "\"Elbow\" - very long class V with tricky ledges",
-      "\"The Falls\" - quarter mile section",
-      "\"Pearly Gate\" - steep plunge between boulders",
-      "\"Cliff Rapid\" - large sieve",
-      "\"Just When You Thought It Was Over\""
+    rapids: [],
+    hazards: [
+      'Continuous severe rapids',
+      'Unrunnable boulder sieves (multiple portages required)',
+      'Numerous undercut rocks',
+      'Keeper hydraulics',
+      'Numerous strainers',
+      '"Strainer Strainer" - rock sieve',
+      '"Pretzel" - class IV+',
+      '"Elbow" - very long class V with tricky ledges',
+      '"The Falls" - quarter mile section',
+      '"Pearly Gate" - steep plunge between boulders',
+      '"Cliff Rapid" - large sieve',
+      '"Just When You Thought It Was Over"',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "buffalo-r": {
-    "id": "buffalo-r",
-    "name": "Buffalo National River",
-    "overview": {
-      "rating": "Class I-III (varies by section, upper has most whitewater)",
-      "watershedSize": "L",
-      "gradient": "Variable by section",
-      "length": "~135 miles from headwaters to White River",
-      "season": "Year-round, best flows spring and after rain"
+  'buffalo-r': {
+    id: 'buffalo-r',
+    name: 'Buffalo National River',
+    overview: {
+      rating: 'Class I-III (varies by section, upper has most whitewater)',
+      watershedSize: 'L',
+      gradient: 'Variable by section',
+      length: '~135 miles from headwaters to White River',
+      season: 'Year-round, best flows spring and after rain',
     },
-    "description": "Congress made this the first National River back in '72. There's a reason for that – 135 miles of water running free through the Ozarks, no dams, no impoundments, just river doing what rivers do.\n\nThe Upper Buffalo is where you'll find the whitewater, along with bluffs that rise 500 to 700 feet over your head. Limestone cliffs worn smooth by time, sink holes opening up in the earth, springs pouring cold water from the rock. There are caves back in the hollows and waterfalls tumbling down after good rain. The rock formations here tell stories if you know how to listen.\n\nAs you drift downstream, the river spreads out and settles down. Middle sections run Class I-II, more forgiving water. By the time you reach the lower stretches near Buffalo City, it's mostly flatwater – wider pools, gentle current, the kind of paddling where you can put your oar across the gunwales and just watch the canyon walls slide by.\n\nYou'll find your run depending on what you're after. Technical drops up high, scenic floating down low, and a whole lot of river in between.",
-    "sections": [
+    description:
+      "Congress made this the first National River back in '72. There's a reason for that – 135 miles of water running free through the Ozarks, no dams, no impoundments, just river doing what rivers do.\n\nThe Upper Buffalo is where you'll find the whitewater, along with bluffs that rise 500 to 700 feet over your head. Limestone cliffs worn smooth by time, sink holes opening up in the earth, springs pouring cold water from the rock. There are caves back in the hollows and waterfalls tumbling down after good rain. The rock formations here tell stories if you know how to listen.\n\nAs you drift downstream, the river spreads out and settles down. Middle sections run Class I-II, more forgiving water. By the time you reach the lower stretches near Buffalo City, it's mostly flatwater – wider pools, gentle current, the kind of paddling where you can put your oar across the gunwales and just watch the canyon walls slide by.\n\nYou'll find your run depending on what you're after. Technical drops up high, scenic floating down low, and a whole lot of river in between.",
+    sections: [
       {
-        "name": "Upper Buffalo National River",
-        "rating": "Class II-III (most whitewater)",
-        "character": "Most technical paddling on the Buffalo",
-        "notes": "Water level dependent"
+        name: 'Upper Buffalo National River',
+        rating: 'Class II-III (most whitewater)',
+        character: 'Most technical paddling on the Buffalo',
+        notes: 'Water level dependent',
       },
       {
-        "name": "Middle Buffalo National River",
-        "rating": "Class I-II",
-        "character": "Mix of gentle water and moderate rapids"
+        name: 'Middle Buffalo National River',
+        rating: 'Class I-II',
+        character: 'Mix of gentle water and moderate rapids',
       },
       {
-        "name": "Lower Buffalo National River",
-        "rating": "Class I",
-        "character": "Gentler water, wider river"
+        name: 'Lower Buffalo National River',
+        rating: 'Class I',
+        character: 'Gentler water, wider river',
       },
       {
-        "name": "Buffalo City to Norfork Lake",
-        "distance": "11 miles",
-        "rating": "Class I",
-        "character": "Scenic flatwater run with occasional Class I rapids",
-        "notes": "Where Buffalo confluences with White River"
-      }
+        name: 'Buffalo City to Norfork Lake',
+        distance: '11 miles',
+        rating: 'Class I',
+        character: 'Scenic flatwater run with occasional Class I rapids',
+        notes: 'Where Buffalo confluences with White River',
+      },
     ],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Water level can change on you quick after rain",
-      "Strainers and logjams move around year to year – keep your eyes open",
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Water level can change on you quick after rain',
+      'Strainers and logjams move around year to year – keep your eyes open',
       "Those Class III rapids up top aren't forgiving of sloppy lines",
-      "Some sections put you a long way from the nearest road",
-      "Weather in the canyon can turn before you see it coming"
+      'Some sections put you a long way from the nearest road',
+      'Weather in the canyon can turn before you see it coming',
     ],
-    "tributaries": [],
-    "images": [
+    tributaries: [],
+    images: [
       {
-        "alt": "Roark Bluff in winter along the Buffalo River",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG/1280px-Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG",
-        "caption": "Roark Bluff in winter - one of the most iconic landmarks on the Buffalo River, stretching nearly three-quarters of a mile. Public Domain, via Wikimedia Commons"
+        alt: 'Roark Bluff in winter along the Buffalo River',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG/1280px-Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG',
+        caption:
+          'Roark Bluff in winter - one of the most iconic landmarks on the Buffalo River, stretching nearly three-quarters of a mile. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Steel Creek Overlook panorama view",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Buffalo_national_river_steel_creek_overlook.jpg/1280px-Buffalo_national_river_steel_creek_overlook.jpg",
-        "caption": "Panoramic view from Steel Creek Overlook showing Roark Bluff and the Buffalo River canyon, 450 feet below. Public Domain, via Wikimedia Commons"
+        alt: 'Steel Creek Overlook panorama view',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Buffalo_national_river_steel_creek_overlook.jpg/1280px-Buffalo_national_river_steel_creek_overlook.jpg',
+        caption:
+          'Panoramic view from Steel Creek Overlook showing Roark Bluff and the Buffalo River canyon, 450 feet below. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Canoe at Roark Bluff",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG/1280px-The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG",
-        "caption": "Paddling toward Roark Bluff on the Buffalo River. Public Domain, via Wikimedia Commons"
+        alt: 'Canoe at Roark Bluff',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG/1280px-The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG',
+        caption:
+          'Paddling toward Roark Bluff on the Buffalo River. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Misty bluff along the Buffalo River",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Misty_Bluff_along_the_Buffalo_River.jpg/1280px-Misty_Bluff_along_the_Buffalo_River.jpg",
-        "caption": "Atmospheric view of limestone bluffs rising through morning mist along the Buffalo River. Public Domain, via Wikimedia Commons"
+        alt: 'Misty bluff along the Buffalo River',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Misty_Bluff_along_the_Buffalo_River.jpg/1280px-Misty_Bluff_along_the_Buffalo_River.jpg',
+        caption:
+          'Atmospheric view of limestone bluffs rising through morning mist along the Buffalo River. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Buffalo River at Pruitt Landing",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Buffalo_River_Pruitt_Landing.JPG/1280px-Buffalo_River_Pruitt_Landing.JPG",
-        "caption": "Pruitt Landing - a popular put-in point showing classic Buffalo River scenery with gravel bars and towering bluffs. Photo: Chris Light, CC BY-SA 3.0, via Wikimedia Commons"
+        alt: 'Buffalo River at Pruitt Landing',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Buffalo_River_Pruitt_Landing.JPG/1280px-Buffalo_River_Pruitt_Landing.JPG',
+        caption:
+          'Pruitt Landing - a popular put-in point showing classic Buffalo River scenery with gravel bars and towering bluffs. Photo: Chris Light, CC BY-SA 3.0, via Wikimedia Commons',
       },
       {
-        "alt": "Paddlers in the Lower Buffalo Wilderness",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG/1280px-Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG",
-        "caption": "Boaters paddle through the Lower Buffalo Wilderness surrounded by dense Ozark forest. Public Domain, via Wikimedia Commons"
+        alt: 'Paddlers in the Lower Buffalo Wilderness',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG/1280px-Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG',
+        caption:
+          'Boaters paddle through the Lower Buffalo Wilderness surrounded by dense Ozark forest. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Aerial view of Buffalo River at Highway 65",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg/1280px-Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg",
-        "caption": "Aerial view showing the Buffalo River winding through the Ozark Mountains at the Highway 65 crossing. Public Domain, via Wikimedia Commons"
+        alt: 'Aerial view of Buffalo River at Highway 65',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg/1280px-Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg',
+        caption:
+          'Aerial view showing the Buffalo River winding through the Ozark Mountains at the Highway 65 crossing. Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Canoeing in fall on Buffalo River",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg/1280px-Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg",
-        "caption": "Fall paddling on the Buffalo River with autumn colors reflecting in the water. Public Domain, via Wikimedia Commons"
-      }
+        alt: 'Canoeing in fall on Buffalo River',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg/1280px-Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg',
+        caption:
+          'Fall paddling on the Buffalo River with autumn colors reflecting in the water. Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [
+    sources: [
       {
-        "title": "Buffalo National River, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo.html"
+        title: 'Buffalo National River, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo.html',
       },
       {
-        "title": "Upper Buffalo National River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo2.html"
+        title: 'Upper Buffalo National River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo2.html',
       },
       {
-        "title": "Middle Buffalo National River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo3.html"
+        title: 'Middle Buffalo National River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo3.html',
       },
       {
-        "title": "Lower Buffalo National River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo4.html"
+        title: 'Lower Buffalo National River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo4.html',
       },
       {
-        "title": "Richland Creek - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo5.html"
+        title: 'Richland Creek - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo5.html',
       },
       {
-        "title": "Hailstone River - Southwest Paddler",
-        "url": "https://southwestpaddler.com/docs/buffalo6.html"
+        title: 'Hailstone River - Southwest Paddler',
+        url: 'https://southwestpaddler.com/docs/buffalo6.html',
       },
       {
-        "title": "Falling Water Creek - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo7.html"
+        title: 'Falling Water Creek - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo7.html',
       },
       {
-        "title": "Map of Buffalo National River - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/docs/Buffalomap.html"
-      }
+        title: 'Map of Buffalo National River - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/docs/Buffalomap.html',
+      },
     ],
-    "geographicContext": "The Buffalo River watershed includes some of the most scenic Ozark terrain, with connections to the headwaters of other major streams. The Hailstone (Upper Upper Buffalo) forms in the Boston Mountains very close to the headwaters of Kings River, Big Piney Creek, Mulberry River, Little Piney Creek and the Upper White River.",
-    "specialDesignation": "**First National River** - Designated March 1, 1972\n- Protected from dams and impoundments\n- Managed by National Park Service\n- Undammed for entire length\n- Multiple tributaries also protected as Wild and Scenic"
+    geographicContext:
+      'The Buffalo River watershed includes some of the most scenic Ozark terrain, with connections to the headwaters of other major streams. The Hailstone (Upper Upper Buffalo) forms in the Boston Mountains very close to the headwaters of Kings River, Big Piney Creek, Mulberry River, Little Piney Creek and the Upper White River.',
+    specialDesignation:
+      '**First National River** - Designated March 1, 1972\n- Protected from dams and impoundments\n- Managed by National Park Service\n- Undammed for entire length\n- Multiple tributaries also protected as Wild and Scenic',
   },
-  "caddo-r": {
-    "id": "caddo-r",
-    "name": "Caddo River",
-    "overview": {
-      "rating": "Class I-II",
-      "watershedSize": "L",
-      "gradient": "Gentle",
-      "length": "~82 miles total",
-      "season": "March-June best; year-round possible"
+  'caddo-r': {
+    id: 'caddo-r',
+    name: 'Caddo River',
+    overview: {
+      rating: 'Class I-II',
+      watershedSize: 'L',
+      gradient: 'Gentle',
+      length: '~82 miles total',
+      season: 'March-June best; year-round possible',
     },
-    "description": "The Caddo winds its way through the Ouachitas from Black Springs down to DeGray, and you'll find it's some of the best floating water in the state. It's got a pool-and-drop rhythm that treats you right - gentle enough for the family but with enough class I and II ripples to keep you awake. The water runs clear over gravel bars perfect for a lunch stop, with rocky outcrops and green hillsides watching you pass. It's an honest river for honest paddling.",
-    "sections": [
+    description:
+      "The Caddo winds its way through the Ouachitas from Black Springs down to DeGray, and you'll find it's some of the best floating water in the state. It's got a pool-and-drop rhythm that treats you right - gentle enough for the family but with enough class I and II ripples to keep you awake. The water runs clear over gravel bars perfect for a lunch stop, with rocky outcrops and green hillsides watching you pass. It's an honest river for honest paddling.",
+    sections: [
       {
-        "name": "Caddo Gap to Glenwood (7.5 mi)",
-        "character": "Most popular section",
-        "notes": "Houses to hillsides to rocky outcrops, gravel bars for rest stops"
+        name: 'Caddo Gap to Glenwood (7.5 mi)',
+        character: 'Most popular section',
+        notes:
+          'Houses to hillsides to rocky outcrops, gravel bars for rest stops',
       },
       {
-        "name": "Glenwood to Amity (8 mi)",
-        "character": "More whitewater, some flat stretches",
-        "notes": "Check flows - above 250 cfs recommended"
+        name: 'Glenwood to Amity (8 mi)',
+        character: 'More whitewater, some flat stretches',
+        notes: 'Check flows - above 250 cfs recommended',
       },
       {
-        "name": "Norman to Amity (29 mi)",
-        "character": "Longer wilderness float",
-        "notes": "Multi-day trip option"
-      }
+        name: 'Norman to Amity (29 mi)',
+        character: 'Longer wilderness float',
+        notes: 'Multi-day trip option',
+      },
     ],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Strainers in some sections",
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Strainers in some sections',
       "Glenwood to Amity requires good line selection or you'll end up in rocks/trees",
-      "Higher water increases difficulty"
+      'Higher water increases difficulty',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Caddo River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/ouachita8.html"
+        title: 'Caddo River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/ouachita8.html',
       },
       {
-        "title": "Paddling the Caddo River - Arkansas.com",
-        "url": "https://www.arkansas.com/articles/paddling-caddo-river"
-      }
+        title: 'Paddling the Caddo River - Arkansas.com',
+        url: 'https://www.arkansas.com/articles/paddling-caddo-river',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "cadron-cr": {
-    "id": "cadron-cr",
-    "name": "Cadron Creek",
-    "overview": {
-      "rating": "Class I-III",
-      "watershedSize": "M",
-      "gradient": "Variable",
-      "length": "59 miles total, ~38.5 miles paddleable (SH 124 to Arkansas River)",
-      "season": "Rainfall dependent"
+  'cadron-cr': {
+    id: 'cadron-cr',
+    name: 'Cadron Creek',
+    overview: {
+      rating: 'Class I-III',
+      watershedSize: 'M',
+      gradient: 'Variable',
+      length:
+        '59 miles total, ~38.5 miles paddleable (SH 124 to Arkansas River)',
+      season: 'Rainfall dependent',
     },
-    "description": "You've probably driven over this one a dozen times on Highway 65, heading up to the Buffalo, never giving it a second thought. That's Cadron Creek below you – 59 miles of water running west from the hills near Heber Springs all the way to the Arkansas River, and about 38 of those miles will float a boat when the rain's been decent.\n\nIt's the kind of creek that keeps surprising you. Fields and farm houses one bend, then limestone bluffs rising up the next. Canyons cutting through typical Arkansas hill country, the water running Class I-III depending on where you catch it. Not many folks know about it, which suits the locals just fine.\n\nPut in at Highway 124, take out where it meets the Arkansas River a few miles northwest of Little Rock. It's there when you need something closer to home, something that doesn't require driving to the high country.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "You've probably driven over this one a dozen times on Highway 65, heading up to the Buffalo, never giving it a second thought. That's Cadron Creek below you – 59 miles of water running west from the hills near Heber Springs all the way to the Arkansas River, and about 38 of those miles will float a boat when the rain's been decent.\n\nIt's the kind of creek that keeps surprising you. Fields and farm houses one bend, then limestone bluffs rising up the next. Canyons cutting through typical Arkansas hill country, the water running Class I-III depending on where you catch it. Not many folks know about it, which suits the locals just fine.\n\nPut in at Highway 124, take out where it meets the Arkansas River a few miles northwest of Little Rock. It's there when you need something closer to home, something that doesn't require driving to the high country.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Highway 124 crossing",
-        "notes": "Upper limit of paddleable section"
+        name: 'Put-in',
+        location: 'Highway 124 crossing',
+        notes: 'Upper limit of paddleable section',
       },
       {
-        "name": "Highway 65",
-        "location": "North of Conway",
-        "notes": "Major highway crossing and access point"
+        name: 'Highway 65',
+        location: 'North of Conway',
+        notes: 'Major highway crossing and access point',
       },
       {
-        "name": "Take-out",
-        "location": "Arkansas River confluence",
-        "notes": "Just a few miles northwest of Little Rock"
-      }
+        name: 'Take-out',
+        location: 'Arkansas River confluence',
+        notes: 'Just a few miles northwest of Little Rock',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Lives and dies by rainfall – check the forecast",
-      "What ran Class II last week might be a rock garden today",
-      "Those Class III drops don't care if you're having a bad day"
+    rapids: [],
+    hazards: [
+      'Lives and dies by rainfall – check the forecast',
+      'What ran Class II last week might be a rock garden today',
+      "Those Class III drops don't care if you're having a bad day",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Cadron Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansas5.html"
+        title: 'Cadron Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/arkansas5.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
-      }
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
+      },
     ],
-    "geographicContext": "Located in central Arkansas, Cadron Creek is often overlooked by paddlers heading to more well-known destinations like the Buffalo National River. The creek flows through Cleburne, Faulkner, and Conway Counties before joining the Arkansas River.",
-    "specialDesignation": ""
+    geographicContext:
+      'Located in central Arkansas, Cadron Creek is often overlooked by paddlers heading to more well-known destinations like the Buffalo National River. The creek flows through Cleburne, Faulkner, and Conway Counties before joining the Arkansas River.',
+    specialDesignation: '',
   },
-  "camp-cr": {
-    "id": "camp-cr",
-    "name": "Camp Creek",
-    "overview": {
-      "rating": "Class IV+",
-      "watershedSize": "S",
-      "gradient": "Steep",
-      "length": "Short steep run",
-      "season": "Rain-dependent"
+  'camp-cr': {
+    id: 'camp-cr',
+    name: 'Camp Creek',
+    overview: {
+      rating: 'Class IV+',
+      watershedSize: 'S',
+      gradient: 'Steep',
+      length: 'Short steep run',
+      season: 'Rain-dependent',
     },
-    "description": "Camp Creek don't run often, but when the Little Missouri's up and the rain's falling right, this steep tributary comes alive. You're looking at class IV+ water that asks a lot of you - tight drops, technical moves, and the kind of commitment you only find in the deep Ouachitas. It rises fast and drops faster, so you better be at the put-in when the window opens. This ain't for the faint of heart.",
-    "sections": [
+    description:
+      "Camp Creek don't run often, but when the Little Missouri's up and the rain's falling right, this steep tributary comes alive. You're looking at class IV+ water that asks a lot of you - tight drops, technical moves, and the kind of commitment you only find in the deep Ouachitas. It rises fast and drops faster, so you better be at the put-in when the window opens. This ain't for the faint of heart.",
+    sections: [
       {
-        "name": "Main Run",
-        "character": "Steep creek",
-        "notes": "Scouting recommended, remote"
-      }
+        name: 'Main Run',
+        character: 'Steep creek',
+        notes: 'Scouting recommended, remote',
+      },
     ],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Remote location - help is far away",
-      "Rapid rises and falls with rain",
-      "Wood and strainers common on small creeks",
-      "Expert only"
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Remote location - help is far away',
+      'Rapid rises and falls with rain',
+      'Wood and strainers common on small creeks',
+      'Expert only',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Little Missouri River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/ouachita9.html"
-      }
+        title: 'Little Missouri River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/ouachita9.html',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "cedar-cr": {
-    "id": "cedar-cr",
-    "name": "Cedar Cr.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "50 fpm",
-      "length": "7 miles",
-      "season": "RAIN"
+  'cedar-cr': {
+    id: 'cedar-cr',
+    name: 'Cedar Cr.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: '50 fpm',
+      length: '7 miles',
+      season: 'RAIN',
     },
-    "description": "Small, swift water running through Crawford County with a choice in your hand – take the West Fork or the East Fork, each with its own temperament.\n\nWest Fork below the Highway 162 bridge serves up what some call the best surfing in the state. Continuous waves and holes, the kind of playground water that keeps you busy. That first major hole below the bridge will hold your boat at high levels, so scout it before you commit.\n\nEast Fork runs smaller and steeper, more technical drops in the Class II-III range. There's an 8-foot dam you'll need to walk around – no discussion about that one.\n\nWhen Lee Creek's too low or too high, Cedar often splits the difference. Seven miles of it, running when you need it to.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Small, swift water running through Crawford County with a choice in your hand – take the West Fork or the East Fork, each with its own temperament.\n\nWest Fork below the Highway 162 bridge serves up what some call the best surfing in the state. Continuous waves and holes, the kind of playground water that keeps you busy. That first major hole below the bridge will hold your boat at high levels, so scout it before you commit.\n\nEast Fork runs smaller and steeper, more technical drops in the Class II-III range. There's an 8-foot dam you'll need to walk around – no discussion about that one.\n\nWhen Lee Creek's too low or too high, Cedar often splits the difference. Seven miles of it, running when you need it to.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in Options",
-        "directions": "Highway 282 west from I-540 to Rudy. Hobbtown Road north from Rudy to Hobbtown."
+        name: 'Put-in Options',
+        directions:
+          'Highway 282 west from I-540 to Rudy. Hobbtown Road north from Rudy to Hobbtown.',
       },
       {
-        "name": "Take-out",
-        "location": "Frog Bayou in Rudy",
-        "directions": "Confluence with Frog Bayou in Rudy."
-      }
+        name: 'Take-out',
+        location: 'Frog Bayou in Rudy',
+        directions: 'Confluence with Frog Bayou in Rudy.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers move around on you, especially after high water",
-      "That first hole below the 162 bridge will keep your boat if you let it",
-      "8-foot dam on East Fork – portage it, don't be a hero"
+    rapids: [],
+    hazards: [
+      'Strainers move around on you, especially after high water',
+      'That first hole below the 162 bridge will keep your boat if you let it',
+      "8-foot dam on East Fork – portage it, don't be a hero",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "clear-cr": {
-    "id": "clear-cr",
-    "name": "Clear Cr.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "30-40 fpm",
-      "length": "3 miles",
-      "season": "FLOOD"
+  'clear-cr': {
+    id: 'clear-cr',
+    name: 'Clear Cr.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: '30-40 fpm',
+      length: '3 miles',
+      season: 'FLOOD',
     },
-    "description": "First two-thirds runs Clear Creek proper – fast water, good Class II+ drops coming at you steady. There's a surf wave right below the put-in bridge that'll stand your boat on end if the water's up. Another beauty half a mile down.\n\nThink Lee Creek but squeezed tighter. Watch for construction debris around the I-540 bridges and rebar hanging off the old train trestle – interstate work left its mark here. Below the trestle there's a ledge in a Class II rapid that makes a fine spot for playing around, spinning out if you've got the skill.\n\nThen Frog Bayou comes in and everything changes. Flow triples, the creek becomes a river, and you've got heavy Class II+ water for the next three-quarters of a mile. It's a different animal entirely.\n\nWhole run takes less than two hours. Quick hit of whitewater near Chester, then you're done.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "First two-thirds runs Clear Creek proper – fast water, good Class II+ drops coming at you steady. There's a surf wave right below the put-in bridge that'll stand your boat on end if the water's up. Another beauty half a mile down.\n\nThink Lee Creek but squeezed tighter. Watch for construction debris around the I-540 bridges and rebar hanging off the old train trestle – interstate work left its mark here. Below the trestle there's a ledge in a Class II rapid that makes a fine spot for playing around, spinning out if you've got the skill.\n\nThen Frog Bayou comes in and everything changes. Flow triples, the creek becomes a river, and you've got heavy Class II+ water for the next three-quarters of a mile. It's a different animal entirely.\n\nWhole run takes less than two hours. Quick hit of whitewater near Chester, then you're done.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Highway 282 bridge in Chester",
-        "directions": "Highway 71 north of I-40, then Highway 282 west to Chester. Put-in at Highway 282 bridge in Chester (park downstream river right)."
+        name: 'Put-in',
+        location: 'Highway 282 bridge in Chester',
+        directions:
+          'Highway 71 north of I-40, then Highway 282 west to Chester. Put-in at Highway 282 bridge in Chester (park downstream river right).',
       },
       {
-        "name": "Take-out",
-        "location": "Ash Street low water bridge in Mountainburg",
-        "directions": "Ash Street low water bridge in Mountainburg."
-      }
+        name: 'Take-out',
+        location: 'Ash Street low water bridge in Mountainburg',
+        directions: 'Ash Street low water bridge in Mountainburg.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers and heavy water once Frog Bayou joins up",
+    rapids: [],
+    hazards: [
+      'Strainers and heavy water once Frog Bayou joins up',
       "Construction debris from I-540 scattered around – metal and concrete where you don't want it",
-      "Three culverts to watch for",
-      "Rebar sticking out of that train trestle",
-      "More than a foot of water over Ash Street bridge means stay home"
+      'Three culverts to watch for',
+      'Rebar sticking out of that train trestle',
+      'More than a foot of water over Ash Street bridge means stay home',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "cossatot-r": {
-    "id": "cossatot-r",
-    "name": "Cossatot R.",
-    "overview": {
-      "rating": "II-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'cossatot-r': {
+    id: 'cossatot-r',
+    name: 'Cossatot R.',
+    overview: {
+      rating: 'II-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The name \"Cossatot\" comes from a Caddo word meaning \"skull crusher\" – and this river lives up to it. One of Arkansas's premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.\n\nThe Cossatot has a reputation, and it earned it honest. The river carves through the Ouachita Mountains with a character all its own – powerful hydraulics, undercut rocks, and technical moves that demand respect at every level.\n\nContact the local paddling community for current beta on access points and conditions. This is the kind of run where you want to know what you're getting into before you put on.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'The name "Cossatot" comes from a Caddo word meaning "skull crusher" – and this river lives up to it. One of Arkansas\'s premier whitewater runs, the kind of river that keeps paddlers coming back year after year. Runs Class II-IV depending on the section and the water level.\n\nThe Cossatot has a reputation, and it earned it honest. The river carves through the Ouachita Mountains with a character all its own – powerful hydraulics, undercut rocks, and technical moves that demand respect at every level.\n\nContact the local paddling community for current beta on access points and conditions. This is the kind of run where you want to know what you\'re getting into before you put on.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified in source",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified in source',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified in source",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified in source',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Powerful hydraulics throughout",
-      "Undercut rocks",
-      "Technical rapids requiring precise boat control",
-      "Water levels can change rapidly"
+    rapids: [],
+    hazards: [
+      'Powerful hydraulics throughout',
+      'Undercut rocks',
+      'Technical rapids requiring precise boat control',
+      'Water levels can change rapidly',
     ],
-    "tributaries": [],
-    "images": [
+    tributaries: [],
+    images: [
       {
-        "alt": "Cossatot River flowing through the Ouachita Mountains",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Cossatot_River_Arkansas.jpg/1280px-Cossatot_River_Arkansas.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
+        alt: 'Cossatot River flowing through the Ouachita Mountains',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Cossatot_River_Arkansas.jpg/1280px-Cossatot_River_Arkansas.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Cossatot River at Cossatot River State Park-Natural Area",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Cossatot_River_004.jpg/1280px-Cossatot_River_004.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
+        alt: 'Cossatot River at Cossatot River State Park-Natural Area',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Cossatot_River_004.jpg/1280px-Cossatot_River_004.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Scenic view of Cossatot State Park",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cossatot_State_Park_003.jpg/1280px-Cossatot_State_Park_003.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
-      }
+        alt: 'Scenic view of Cossatot State Park',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cossatot_State_Park_003.jpg/1280px-Cossatot_State_Park_003.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "crooked-cr": {
-    "id": "crooked-cr",
-    "name": "Crooked Cr.",
-    "overview": {
-      "rating": "III-IV (V)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'crooked-cr': {
+    id: 'crooked-cr',
+    name: 'Crooked Cr.',
+    overview: {
+      rating: 'III-IV (V)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Advanced creek running in Arkansas hill country, Class III-IV with possible Class V rapids when everything lines up wrong. This is technical water for paddlers who know what they're doing.\n\nThe name tells you something – creeks don't run straight in the Ozarks, and this one takes that to heart. Limited public information available, which generally means the locals know it and everyone else should ask questions before showing up.\n\nContact the paddling community for current access and conditions. Not the place to learn advanced creek technique.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Advanced creek running in Arkansas hill country, Class III-IV with possible Class V rapids when everything lines up wrong. This is technical water for paddlers who know what they're doing.\n\nThe name tells you something – creeks don't run straight in the Ozarks, and this one takes that to heart. Limited public information available, which generally means the locals know it and everyone else should ask questions before showing up.\n\nContact the paddling community for current access and conditions. Not the place to learn advanced creek technique.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "dragover": {
-    "id": "dragover",
-    "name": "Dragover (Ouachita River)",
-    "overview": {
-      "rating": "Class I-II",
-      "watershedSize": "L",
-      "gradient": "Gentle",
-      "length": "3.5 miles (horseshoe loop)",
-      "season": "Year-round when levels permit"
+  dragover: {
+    id: 'dragover',
+    name: 'Dragover (Ouachita River)',
+    overview: {
+      rating: 'Class I-II',
+      watershedSize: 'L',
+      gradient: 'Gentle',
+      length: '3.5 miles (horseshoe loop)',
+      season: 'Year-round when levels permit',
     },
-    "description": "The Dragover is one of Arkansas's most unique floats - a 3-mile horseshoe bend on the Upper Ouachita River where the put-in and take-out are only a quarter mile apart. The name comes from the option to literally drag your boat over from the take-out back to the put-in for another lap. Deep pools, Class I-II rapids, and the convenience of a short shuttle make this a perfect beginner-friendly destination. You can paddle the loop in about 90 minutes, making multiple runs in a day easy.",
-    "sections": [
+    description:
+      "The Dragover is one of Arkansas's most unique floats - a 3-mile horseshoe bend on the Upper Ouachita River where the put-in and take-out are only a quarter mile apart. The name comes from the option to literally drag your boat over from the take-out back to the put-in for another lap. Deep pools, Class I-II rapids, and the convenience of a short shuttle make this a perfect beginner-friendly destination. You can paddle the loop in about 90 minutes, making multiple runs in a day easy.",
+    sections: [
       {
-        "name": "Dragover Loop (3.5 mi)",
-        "character": "Horseshoe bend, beginner-friendly",
-        "notes": "Put-in and take-out 1/4 mile apart"
-      }
+        name: 'Dragover Loop (3.5 mi)',
+        character: 'Horseshoe bend, beginner-friendly',
+        notes: 'Put-in and take-out 1/4 mile apart',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Put-in: Dragover Float Camp",
-        "location": "End of Dragover Road (dirt)",
-        "directions": "From Hot Springs, west on US 270 to Mount Ida, right on Hwy 27, cross Lake Ouachita at Washita, left on Hwy 88, drive 8 miles, left on Dragover Road to dead end",
-        "notes": "Steep bank with Forest Service stairs and rolling ladder to assist boat access"
+        name: 'Put-in: Dragover Float Camp',
+        location: 'End of Dragover Road (dirt)',
+        directions:
+          'From Hot Springs, west on US 270 to Mount Ida, right on Hwy 27, cross Lake Ouachita at Washita, left on Hwy 88, drive 8 miles, left on Dragover Road to dead end',
+        notes:
+          'Steep bank with Forest Service stairs and rolling ladder to assist boat access',
       },
       {
-        "name": "Take-out",
-        "location": "Quarter mile from put-in",
-        "notes": "Short walk back to vehicle"
-      }
+        name: 'Take-out',
+        location: 'Quarter mile from put-in',
+        notes: 'Short walk back to vehicle',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Steep bank at put-in - use the stairs and ladder",
-      "Can get bony at low water",
-      "Check gauge before going"
+    rapids: [],
+    hazards: [
+      'Steep bank at put-in - use the stairs and ladder',
+      'Can get bony at low water',
+      'Check gauge before going',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Dragover Float on the Ouachita River - Right Kind of Lost",
-        "url": "https://www.rightkindoflost.com/dragover-float-on-the-ouachita-river/"
+        title: 'Dragover Float on the Ouachita River - Right Kind of Lost',
+        url: 'https://www.rightkindoflost.com/dragover-float-on-the-ouachita-river/',
       },
       {
-        "title": "Ouachita River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/ouachita2.html"
+        title: 'Ouachita River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/ouachita2.html',
       },
       {
-        "title": "AllTrails - Ouachita River Dragover",
-        "url": "https://www.alltrails.com/trail/us/arkansas/ouachita-river-dragover"
-      }
+        title: 'AllTrails - Ouachita River Dragover',
+        url: 'https://www.alltrails.com/trail/us/arkansas/ouachita-river-dragover',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "e-fk-white-r": {
-    "id": "e-fk-white-r",
-    "name": "East Fork White R.",
-    "overview": {
-      "rating": "II*",
-      "watershedSize": "",
-      "gradient": "Less than 20 fpm",
-      "length": "1.75 miles",
-      "season": "FALL, SPRING"
+  'e-fk-white-r': {
+    id: 'e-fk-white-r',
+    name: 'East Fork White R.',
+    overview: {
+      rating: 'II*',
+      watershedSize: '',
+      gradient: 'Less than 20 fpm',
+      length: '1.75 miles',
+      season: 'FALL, SPRING',
     },
-    "description": "Most paddlers don't know this one's here, which is fine by the Fayetteville locals who use it for afternoon floats when the bigger creeks are blown out or dried up.\n\nShort shuttle, easy access, and a watershed big enough to hold water up to a week after decent rain. That's the real gift – while the small creeks in Madison County flash and fade, the East Fork White keeps running. Makes it a good training ground, the kind of place you can count on to work on your strokes without driving to the Buffalo.\n\nLess than 20 feet per mile gradient, so it's not going to scare you. Just Class II with a star for the occasional surprise. One and three-quarter miles from put-in to take-out near Durham.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Most paddlers don't know this one's here, which is fine by the Fayetteville locals who use it for afternoon floats when the bigger creeks are blown out or dried up.\n\nShort shuttle, easy access, and a watershed big enough to hold water up to a week after decent rain. That's the real gift – while the small creeks in Madison County flash and fade, the East Fork White keeps running. Makes it a good training ground, the kind of place you can count on to work on your strokes without driving to the Buffalo.\n\nLess than 20 feet per mile gradient, so it's not going to scare you. Just Class II with a star for the occasional surprise. One and three-quarter miles from put-in to take-out near Durham.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Gravel road near Durham",
-        "directions": "Highway 16 south from Durham approximately 3 miles. Gravel road marked by exposed red clay layer to left. Road cuts through red clay. Put-in at bridge. Follow first left on road marked by stop sign after crossing bridge and drainage."
+        name: 'Put-in',
+        location: 'Gravel road near Durham',
+        directions:
+          'Highway 16 south from Durham approximately 3 miles. Gravel road marked by exposed red clay layer to left. Road cuts through red clay. Put-in at bridge. Follow first left on road marked by stop sign after crossing bridge and drainage.',
       },
       {
-        "name": "Take-out",
-        "location": "Gravel road",
-        "directions": "Destination obvious from put-in directions."
-      }
+        name: 'Take-out',
+        location: 'Gravel road',
+        directions: 'Destination obvious from put-in directions.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers like any Ozark creek worth running",
-      "Hydraulics get unfriendly when the water comes up"
+    rapids: [],
+    hazards: [
+      'Strainers like any Ozark creek worth running',
+      'Hydraulics get unfriendly when the water comes up',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "eflb": {
-    "id": "eflb",
-    "name": "East Fork Little Buffalo (EFLB)",
-    "overview": {
-      "rating": "III-IV (V)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "8 miles",
-      "season": "FLOOD"
+  eflb: {
+    id: 'eflb',
+    name: 'East Fork Little Buffalo (EFLB)',
+    overview: {
+      rating: 'III-IV (V)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: '8 miles',
+      season: 'FLOOD',
     },
-    "description": "Classic Ozark creek running through Newton County, the kind of water that separates folks who paddle from folks who just say they do. Eight miles starting small and steep at Barberry Creek, picking up volume from three tributaries in the first mile.\n\nYou'll hit Half Moon early – Class III that's honest about it. Then comes Johnson's Squeeze, and that's where things get serious. Class V, severely choked down, one of the most dangerous drops in the Ozarks. Portage left and don't argue with it. Below the Squeeze you'll find numerous Class III and III+ rapids cutting through what some claim is the best scenery in the Ozarks.\n\nSecond Gorge brings the Obliterator – mean hole with a twisting approach that makes the entrance as hard as the drop. At high water, it's basically one long Class IV+ rapid with blind drops coming at you continuous.\n\nThird Gorge has a different personality altogether, saving its hardest drops for the end. There's a Class III+ with a bruising landing zone, though you can sneak left if you're paying attention.\n\nTake out at the low water bridge a mile past Third Gorge, or push on to Murray if you're not done yet. Either way, you'll have earned your supper.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Classic Ozark creek running through Newton County, the kind of water that separates folks who paddle from folks who just say they do. Eight miles starting small and steep at Barberry Creek, picking up volume from three tributaries in the first mile.\n\nYou'll hit Half Moon early – Class III that's honest about it. Then comes Johnson's Squeeze, and that's where things get serious. Class V, severely choked down, one of the most dangerous drops in the Ozarks. Portage left and don't argue with it. Below the Squeeze you'll find numerous Class III and III+ rapids cutting through what some claim is the best scenery in the Ozarks.\n\nSecond Gorge brings the Obliterator – mean hole with a twisting approach that makes the entrance as hard as the drop. At high water, it's basically one long Class IV+ rapid with blind drops coming at you continuous.\n\nThird Gorge has a different personality altogether, saving its hardest drops for the end. There's a Class III+ with a bruising landing zone, though you can sneak left if you're paying attention.\n\nTake out at the low water bridge a mile past Third Gorge, or push on to Murray if you're not done yet. Either way, you'll have earned your supper.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "County road southwest of Deer, requires landowner permission",
-        "directions": "County road 2 miles southwest of Deer on Highway 16. Turn north, follow approximately 4 miles to house. **ASK FOR PERMISSION.** Drag 1 mile down old logging road to creek."
+        name: 'Put-in',
+        location:
+          'County road southwest of Deer, requires landowner permission',
+        directions:
+          'County road 2 miles southwest of Deer on Highway 16. Turn north, follow approximately 4 miles to house. **ASK FOR PERMISSION.** Drag 1 mile down old logging road to creek.',
       },
       {
-        "name": "Take-out",
-        "location": "Low water slab crossing",
-        "directions": "Shiloh Road east of Highway 21 just south of Mossville. Drive 2 miles, take right fork, descend steep hill 4 miles to wide low-water slab across creek."
-      }
+        name: 'Take-out',
+        location: 'Low water slab crossing',
+        directions:
+          'Shiloh Road east of Highway 21 just south of Mossville. Drive 2 miles, take right fork, descend steep hill 4 miles to wide low-water slab across creek.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Strainers throughout – they own this creek",
+    rapids: [],
+    hazards: [
+      'Strainers throughout – they own this creek',
       "Johnson's Squeeze is a mandatory portage, no discussion",
-      "The Obliterator lives up to its name",
-      "Second Gorge at high water is blind drops one after another",
-      "Third Gorge will bruise you if you miss your line",
-      "Remote water – rescue gets complicated in a hurry out here"
+      'The Obliterator lives up to its name',
+      'Second Gorge at high water is blind drops one after another',
+      'Third Gorge will bruise you if you miss your line',
+      'Remote water – rescue gets complicated in a hurry out here',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "ellis-cr": {
-    "id": "ellis-cr",
-    "name": "Ellis Creek",
-    "overview": {
-      "rating": "Class III-IV",
-      "watershedSize": "XS",
-      "gradient": "Steep",
-      "length": "Short steep run",
-      "season": "Rain-dependent"
+  'ellis-cr': {
+    id: 'ellis-cr',
+    name: 'Ellis Creek',
+    overview: {
+      rating: 'Class III-IV',
+      watershedSize: 'XS',
+      gradient: 'Steep',
+      length: 'Short steep run',
+      season: 'Rain-dependent',
     },
-    "description": "You'll find Ellis Creek feeding the Baron Fork, a steep run that needs a good rain to show its teeth. It's class III to IV water, rising and falling with the storm. Like most creeks this size, timing is everything - you catch it right, and you've got technical lines and tight moves. You catch it wrong, and you're hiking. Watch for wood; these small drainages love to collect timber.",
-    "sections": [
+    description:
+      "You'll find Ellis Creek feeding the Baron Fork, a steep run that needs a good rain to show its teeth. It's class III to IV water, rising and falling with the storm. Like most creeks this size, timing is everything - you catch it right, and you've got technical lines and tight moves. You catch it wrong, and you're hiking. Watch for wood; these small drainages love to collect timber.",
+    sections: [
       {
-        "name": "Upper Ellis Branch",
-        "character": "Steep creek",
-        "notes": "Rain-dependent, scout first run"
-      }
+        name: 'Upper Ellis Branch',
+        character: 'Steep creek',
+        notes: 'Rain-dependent, scout first run',
+      },
     ],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Wood and strainers - always scout after storms",
-      "Rises and falls rapidly",
-      "Remote - limited bailout options",
-      "Intermediate to advanced paddlers"
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Wood and strainers - always scout after storms',
+      'Rises and falls rapidly',
+      'Remote - limited bailout options',
+      'Intermediate to advanced paddlers',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Arkansas Rivers List - Ozark Pages",
-        "url": "https://www.ozarkpages.com/whitewater/AR.html"
+        title: 'Arkansas Rivers List - Ozark Pages',
+        url: 'https://www.ozarkpages.com/whitewater/AR.html',
       },
       {
-        "title": "River Facts - Arkansas",
-        "url": "https://www.riverfacts.com/states/ar.html"
-      }
+        title: 'River Facts - Arkansas',
+        url: 'https://www.riverfacts.com/states/ar.html',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "fall-cr": {
-    "id": "fall-cr",
-    "name": "Fall Cr.",
-    "overview": {
-      "rating": "II-IV",
-      "watershedSize": "",
-      "gradient": "50 fpm (80 fpm first 2.5 miles)",
-      "length": "12 miles",
-      "season": "Not specified"
+  'fall-cr': {
+    id: 'fall-cr',
+    name: 'Fall Cr.',
+    overview: {
+      rating: 'II-IV',
+      watershedSize: '',
+      gradient: '50 fpm (80 fpm first 2.5 miles)',
+      length: '12 miles',
+      season: 'Not specified',
     },
-    "description": "You'll find Fall Creek wearing the same numbers as the Cossatot, but don't let that fool you. The water runs different here, the rocks read different, the whole thing asks different questions of a paddler. Same rating on paper, different river in practice.\n\nTwelve miles total, but it's those first four that'll test you proper. The gradient hits eighty feet per mile in the first stretch, then settles to fifty for the remainder. \"Threes with trees\" is how folks describe it - at high water you'll find few eddies and no pools, just continuous class III water threading through obstacles.\n\nThe named rapids tell their own story. Introduction gets you started at class III. Poke in the Eye earns its name. Then you've got Hal's Falls, also class III, but at higher levels that terminal hydraulic becomes something you need to think about carefully.\n\nEnd of the sixth mile brings the worst hazard on the creek: two barbed wire fences stretched across the water. Extremely dangerous, difficult to spot, and exactly where you don't want them. Keep your eyes sharp.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "You'll find Fall Creek wearing the same numbers as the Cossatot, but don't let that fool you. The water runs different here, the rocks read different, the whole thing asks different questions of a paddler. Same rating on paper, different river in practice.\n\nTwelve miles total, but it's those first four that'll test you proper. The gradient hits eighty feet per mile in the first stretch, then settles to fifty for the remainder. \"Threes with trees\" is how folks describe it - at high water you'll find few eddies and no pools, just continuous class III water threading through obstacles.\n\nThe named rapids tell their own story. Introduction gets you started at class III. Poke in the Eye earns its name. Then you've got Hal's Falls, also class III, but at higher levels that terminal hydraulic becomes something you need to think about carefully.\n\nEnd of the sixth mile brings the worst hazard on the creek: two barbed wire fences stretched across the water. Extremely dangerous, difficult to spot, and exactly where you don't want them. Keep your eyes sharp.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified in source",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified in source',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified in source",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified in source',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "**Two barbed wire fences** - End of 6th mile. Extremely dangerous and difficult to spot. Critical hazard.",
+    rapids: [],
+    hazards: [
+      '**Two barbed wire fences** - End of 6th mile. Extremely dangerous and difficult to spot. Critical hazard.',
       "**Hal's Falls** - Class III with terminal river-wide hydraulic at higher water levels",
-      "**High water conditions** - Few eddies, no pools. \"Threes with trees\" - limited room for error",
-      "**First 4 miles** - Toughest section with 80 fpm gradient",
-      "Whatever you learned on the Cossatot won't prepare you for this one. Different animal entirely."
+      '**High water conditions** - Few eddies, no pools. "Threes with trees" - limited room for error',
+      '**First 4 miles** - Toughest section with 80 fpm gradient',
+      "Whatever you learned on the Cossatot won't prepare you for this one. Different animal entirely.",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "falling-water-cr": {
-    "id": "falling-water-cr",
-    "name": "Falling Water Creek",
-    "overview": {
-      "rating": "Class III",
-      "watershedSize": "S",
-      "gradient": "60+ fpm",
-      "length": "6 miles",
-      "season": "Rainfall dependent (expert level creek)"
+  'falling-water-cr': {
+    id: 'falling-water-cr',
+    name: 'Falling Water Creek',
+    overview: {
+      rating: 'Class III',
+      watershedSize: 'S',
+      gradient: '60+ fpm',
+      length: '6 miles',
+      season: 'Rainfall dependent (expert level creek)',
     },
-    "description": "Falling Water comes off the north slope of Raspberry Mountain near Highway 16, running six miles through country that'll make you understand why folks built a wilderness area next door. Class III water in a narrow streambed that drops better than sixty feet per mile. Technical, steep, the kind of run where you better know what you're doing before you put in.\n\nThe creek drops over its namesake falls a few miles east of Ben Hur - ten-foot sheer drop, big pool below, nice swimming hole when the weather's warm and you're not trying to paddle through it. At high water those rapids come fast in that narrow channel, few eddies to speak of, just continuous class III reading like a book you better know how to translate.\n\nThis is Ozark whitewater done proper: forested canyon walls, waterfalls catching light, water that doesn't give you much time to think between moves.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Falling Water comes off the north slope of Raspberry Mountain near Highway 16, running six miles through country that'll make you understand why folks built a wilderness area next door. Class III water in a narrow streambed that drops better than sixty feet per mile. Technical, steep, the kind of run where you better know what you're doing before you put in.\n\nThe creek drops over its namesake falls a few miles east of Ben Hur - ten-foot sheer drop, big pool below, nice swimming hole when the weather's warm and you're not trying to paddle through it. At high water those rapids come fast in that narrow channel, few eddies to speak of, just continuous class III reading like a book you better know how to translate.\n\nThis is Ozark whitewater done proper: forested canyon walls, waterfalls catching light, water that doesn't give you much time to think between moves.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Upper Access",
-        "location": "Near Ben Hur community",
-        "directions": "Travel East on AR Highway 16 from Pelsor/Sand Gap (located on Scenic Highway 7 between Russellville and Jasper). Travel about 9 miles on AR Highway 16 (past Pedestal Rocks/Kings Bluff) to the community of Ben Hur. About a mile east/south of Ben Hur, turn left onto FR# 1205/CR# 68/Upper Falling Water Road."
+        name: 'Upper Access',
+        location: 'Near Ben Hur community',
+        directions:
+          'Travel East on AR Highway 16 from Pelsor/Sand Gap (located on Scenic Highway 7 between Russellville and Jasper). Travel about 9 miles on AR Highway 16 (past Pedestal Rocks/Kings Bluff) to the community of Ben Hur. About a mile east/south of Ben Hur, turn left onto FR# 1205/CR# 68/Upper Falling Water Road.',
       },
       {
-        "name": "Take-out",
-        "location": "Richland Creek confluence",
-        "notes": "6 miles downstream from headwaters"
-      }
+        name: 'Take-out',
+        location: 'Richland Creek confluence',
+        notes: '6 miles downstream from headwaters',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "**Class III difficulty** - Don't bring beginners",
-      "**Falling Water Falls** - 10-foot sheer drop",
-      "**Narrow streambed** - Few eddies at high water, continuous rapids",
-      "**Steep gradient** - 60+ fpm keeps you moving",
+      '**Falling Water Falls** - 10-foot sheer drop',
+      '**Narrow streambed** - Few eddies at high water, continuous rapids',
+      '**Steep gradient** - 60+ fpm keeps you moving',
       "Remote wilderness location - help's a long way off",
-      "Very water level dependent - needs a good rain",
-      "Limited rescue access",
-      "Only runnable after significant rainfall - this one doesn't stay up long"
+      'Very water level dependent - needs a good rain',
+      'Limited rescue access',
+      "Only runnable after significant rainfall - this one doesn't stay up long",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Falling Water Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo7.html"
+        title: 'Falling Water Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo7.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
       },
       {
-        "title": "Falling Water Falls - Arkansas.com",
-        "url": "https://www.arkansas.com/witts-springs/natural-attractions/falling-water-falls"
+        title: 'Falling Water Falls - Arkansas.com',
+        url: 'https://www.arkansas.com/witts-springs/natural-attractions/falling-water-falls',
       },
       {
-        "title": "Falling Water Falls - Explore the Ozarks",
-        "url": "https://www.exploretheozarksonline.com/activities/parksnature/nationalforests/ozark/bigpiney/fallingwaterfalls.html"
-      }
+        title: 'Falling Water Falls - Explore the Ozarks',
+        url: 'https://www.exploretheozarksonline.com/activities/parksnature/nationalforests/ozark/bigpiney/fallingwaterfalls.html',
+      },
     ],
-    "geographicContext": "Located in northeastern Pope County in the Ozark National Forest. Falling Water Creek is just south of the Richland Creek Wilderness Area and near other scenic features like Pedestal Rocks and Kings Bluff. The creek is accessed via Scenic Highway 7 and Highway 16.",
-    "specialDesignation": ""
+    geographicContext:
+      'Located in northeastern Pope County in the Ozark National Forest. Falling Water Creek is just south of the Richland Creek Wilderness Area and near other scenic features like Pedestal Rocks and Kings Bluff. The creek is accessed via Scenic Highway 7 and Highway 16.',
+    specialDesignation: '',
   },
-  "falls-br": {
-    "id": "falls-br",
-    "name": "Falls Br.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "150 fpm (300+ fpm max in first mile)",
-      "length": "9 miles (4 miles on Falls Branch)",
-      "season": "Not specified"
+  'falls-br': {
+    id: 'falls-br',
+    name: 'Falls Br.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: '150 fpm (300+ fpm max in first mile)',
+      length: '9 miles (4 miles on Falls Branch)',
+      season: 'Not specified',
     },
-    "description": "Falls Branch runs class III to V, which is to say it runs hard when it runs at all. First descent came April 22, 1996, and after that first run they started calling it \"Dead Falls Branch\" on account of all the downed trees. That ought to tell you something about what you're getting into.\n\nNine miles total, four of them on Falls Branch proper, and that first mile will get your attention quick - three hundred feet per mile or better, water coming downhill like it's got somewhere to be. The gradient settles to one-fifty for the remainder, which sounds reasonable until you're in it.\n\nYou've got Nate's Falls early on - ten to twelve foot drop with undercut boulders that require respect. Then there's Surprise Turn, which earned its name the hard way. The kind of water where things can go sideways in a hurry and you better have the skills to deal with it.\n\nNot many folks run this one. Probably for good reason.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Falls Branch runs class III to V, which is to say it runs hard when it runs at all. First descent came April 22, 1996, and after that first run they started calling it \"Dead Falls Branch\" on account of all the downed trees. That ought to tell you something about what you're getting into.\n\nNine miles total, four of them on Falls Branch proper, and that first mile will get your attention quick - three hundred feet per mile or better, water coming downhill like it's got somewhere to be. The gradient settles to one-fifty for the remainder, which sounds reasonable until you're in it.\n\nYou've got Nate's Falls early on - ten to twelve foot drop with undercut boulders that require respect. Then there's Surprise Turn, which earned its name the hard way. The kind of water where things can go sideways in a hurry and you better have the skills to deal with it.\n\nNot many folks run this one. Probably for good reason.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "**Nate's Falls** - 10-12 foot drop with undercut boulders. Scout carefully.",
-      "**Extreme gradient** - First mile hits 300+ fpm. Remainder averages 150 fpm.",
-      "**Downed trees** - Called \"Dead Falls Branch\" after first descent due to many trees in creek",
-      "**Surprise Turn** - Named rapid requiring technical maneuvering",
-      "Class III-V difficulty - Expert water where mistakes cost",
-      "Everything you'd expect from water running this hard. Plus what you don't."
+      '**Extreme gradient** - First mile hits 300+ fpm. Remainder averages 150 fpm.',
+      '**Downed trees** - Called "Dead Falls Branch" after first descent due to many trees in creek',
+      '**Surprise Turn** - Named rapid requiring technical maneuvering',
+      'Class III-V difficulty - Expert water where mistakes cost',
+      "Everything you'd expect from water running this hard. Plus what you don't.",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "fern-gulley": {
-    "id": "fern-gulley",
-    "name": "Fern Gulley",
-    "overview": {
-      "rating": "IV-V",
-      "watershedSize": "",
-      "gradient": "300 fpm (0.5 mile section at 400 fpm)",
-      "length": "4 miles (2.75 miles on Little Mill Creek)",
-      "season": "Not specified"
+  'fern-gulley': {
+    id: 'fern-gulley',
+    name: 'Fern Gulley',
+    overview: {
+      rating: 'IV-V',
+      watershedSize: '',
+      gradient: '300 fpm (0.5 mile section at 400 fpm)',
+      length: '4 miles (2.75 miles on Little Mill Creek)',
+      season: 'Not specified',
     },
-    "description": "Fern Gulley. The name sounds gentle, but the water isn't. This is the jewel of steep creeking in the southern Ozarks - four miles of class IV-V water that doesn't let up, doesn't give you time to breathe, doesn't offer much in the way of forgiveness.\n\nThree hundred feet per mile average gradient, with half a mile hitting four hundred. Almost no eddies. Constant class IV intensity with class V interruptions. You start with The Test at class IV, proving you belong here. Then Rooster Poot, also class IV. Then Dumb and Dumber earns its V rating proper.\n\nAfter that comes Whack-A-Yaker, followed by The Drop Zone - two hundred yards of class V staircase that'll make you understand why this creek carries a 9895 TDCR. That's one of the hardest ratings in the state. Then you finish with Big Juju, which is exactly what it sounds like.\n\nThis creek's 2.75 miles on Little Mill Creek, then the rest on Fern Gulley proper. What else there is to know, well, that's between you and whoever's run it before. And there aren't many who have.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Fern Gulley. The name sounds gentle, but the water isn't. This is the jewel of steep creeking in the southern Ozarks - four miles of class IV-V water that doesn't let up, doesn't give you time to breathe, doesn't offer much in the way of forgiveness.\n\nThree hundred feet per mile average gradient, with half a mile hitting four hundred. Almost no eddies. Constant class IV intensity with class V interruptions. You start with The Test at class IV, proving you belong here. Then Rooster Poot, also class IV. Then Dumb and Dumber earns its V rating proper.\n\nAfter that comes Whack-A-Yaker, followed by The Drop Zone - two hundred yards of class V staircase that'll make you understand why this creek carries a 9895 TDCR. That's one of the hardest ratings in the state. Then you finish with Big Juju, which is exactly what it sounds like.\n\nThis creek's 2.75 miles on Little Mill Creek, then the rest on Fern Gulley proper. What else there is to know, well, that's between you and whoever's run it before. And there aren't many who have.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "**TDCR 9895** - One of Arkansas' hardest creeks",
-      "**The Drop Zone** - 200-yard class V staircase. The defining feature of this run.",
-      "**Dumb and Dumber** - Class V rapid",
-      "**Extreme gradient** - 300 fpm average, 400 fpm in steepest section",
-      "**Almost no eddies** - Constant class IV intensity with class V interruptions",
-      "**Named rapids**: The Test (IV), Rooster Poot (IV), Dumb and Dumber (V), Whack-A-Yaker, The Drop Zone (V), Big Juju",
-      "The kind that come standard with class IV-V. Don't underestimate water this steep."
+      '**The Drop Zone** - 200-yard class V staircase. The defining feature of this run.',
+      '**Dumb and Dumber** - Class V rapid',
+      '**Extreme gradient** - 300 fpm average, 400 fpm in steepest section',
+      '**Almost no eddies** - Constant class IV intensity with class V interruptions',
+      '**Named rapids**: The Test (IV), Rooster Poot (IV), Dumb and Dumber (V), Whack-A-Yaker, The Drop Zone (V), Big Juju',
+      "The kind that come standard with class IV-V. Don't underestimate water this steep.",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "fishers-ford": {
-    "id": "fishers-ford",
-    "name": "Fisher's Ford",
-    "overview": {
-      "rating": "I",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'fishers-ford': {
+    id: 'fishers-ford',
+    name: "Fisher's Ford",
+    overview: {
+      rating: 'I',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Fisher's Ford is where you bring folks who've never been in a boat before, or kids who need to learn that rivers can be gentle too. Easy water on the Illinois, the kind that forgives sloppy paddle strokes and lets you look around at the country instead of worrying about what's downstream.\n\nGood place to start. Everyone's got to start somewhere.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Fisher's Ford is where you bring folks who've never been in a boat before, or kids who need to learn that rivers can be gentle too. Easy water on the Illinois, the kind that forgives sloppy paddle strokes and lets you look around at the country instead of worrying about what's downstream.\n\nGood place to start. Everyone's got to start somewhere.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups or outfitters for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups or outfitters for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups or outfitters for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups or outfitters for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "frog-bayou": {
-    "id": "frog-bayou",
-    "name": "Frog Bayou",
-    "overview": {
-      "rating": "II",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'frog-bayou': {
+    id: 'frog-bayou',
+    name: 'Frog Bayou',
+    overview: {
+      rating: 'II',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Frog Bayou runs through Crawford County teaching new paddlers how to read moving water without scaring them off the sport. Class II water - enough to keep you honest, not enough to keep you up at night.\n\nWhat makes this one useful is how the gauge tells you what's happening elsewhere. When Frog Bayou's up around five feet, you'll know Clear Creek and Cedar Creek are worth the drive. Rivers talk to each other like that if you know how to listen.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Frog Bayou runs through Crawford County teaching new paddlers how to read moving water without scaring them off the sport. Class II water - enough to keep you honest, not enough to keep you up at night.\n\nWhat makes this one useful is how the gauge tells you what's happening elsewhere. When Frog Bayou's up around five feet, you'll know Clear Creek and Cedar Creek are worth the drive. Rivers talk to each other like that if you know how to listen.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Multiple access points exist. Cedar Creek confluence at Rudy is one option."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Multiple access points exist. Cedar Creek confluence at Rudy is one option.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "gutter-rock-cr": {
-    "id": "gutter-rock-cr",
-    "name": "Gutter Rock Cr.",
-    "overview": {
-      "rating": "III+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'gutter-rock-cr': {
+    id: 'gutter-rock-cr',
+    name: 'Gutter Rock Cr.',
+    overview: {
+      rating: 'III+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Gutter Rock Creek runs class III+, which means you better know how to brace and eddy out before you show up. Intermediate water that'll test whether you really are intermediate or just optimistic.\n\nBeyond that, you'll have to ask around. Some knowledge only travels word of mouth.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Gutter Rock Creek runs class III+, which means you better know how to brace and eddy out before you show up. Intermediate water that'll test whether you really are intermediate or just optimistic.\n\nBeyond that, you'll have to ask around. Some knowledge only travels word of mouth.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "hailstone-cr": {
-    "id": "hailstone-cr",
-    "name": "Hailstone Cr.",
-    "overview": {
-      "rating": "II to III+",
-      "watershedSize": "",
-      "gradient": "40 fpm",
-      "length": "14 miles",
-      "season": "Not specified"
+  'hailstone-cr': {
+    id: 'hailstone-cr',
+    name: 'Hailstone Cr.',
+    overview: {
+      rating: 'II to III+',
+      watershedSize: '',
+      gradient: '40 fpm',
+      length: '14 miles',
+      season: 'Not specified',
     },
-    "description": "Hailstone Creek might be the ultimate Arkansas wilderness run - fourteen miles of class II to III+ water through country that doesn't see many boats. This isn't a victory lap. This is a full-day expedition that'll take six hours or more to complete, a proper wilderness paddle where you're committed once you put in.\n\nThe creek reads steady enough through most of its length, forty feet per mile gradient keeping you honest but not overwhelming. Then about halfway down you'll find what makes this run memorable: an undercut cave on the left bank where a significant portion of the river just disappears. Water gets pulled into that darkness like it's got business down there. At high water, that cave could be a killer.\n\nThere's been close calls. Boaters swept toward that hole, stuck on debris, fighting to get clear. The kind of thing that reminds you why wilderness runs require respect. This isn't Adkins Creek or Boen Gulf where you can walk out if things go wrong. Out here, you're in it till you're done.\n\nMost everybody pulls out at the Highway 21 bridge, right where Hailstone meets the Buffalo. Fourteen miles, six hours, one serious hazard to avoid. That's Hailstone Creek.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Hailstone Creek might be the ultimate Arkansas wilderness run - fourteen miles of class II to III+ water through country that doesn't see many boats. This isn't a victory lap. This is a full-day expedition that'll take six hours or more to complete, a proper wilderness paddle where you're committed once you put in.\n\nThe creek reads steady enough through most of its length, forty feet per mile gradient keeping you honest but not overwhelming. Then about halfway down you'll find what makes this run memorable: an undercut cave on the left bank where a significant portion of the river just disappears. Water gets pulled into that darkness like it's got business down there. At high water, that cave could be a killer.\n\nThere's been close calls. Boaters swept toward that hole, stuck on debris, fighting to get clear. The kind of thing that reminds you why wilderness runs require respect. This isn't Adkins Creek or Boen Gulf where you can walk out if things go wrong. Out here, you're in it till you're done.\n\nMost everybody pulls out at the Highway 21 bridge, right where Hailstone meets the Buffalo. Fourteen miles, six hours, one serious hazard to avoid. That's Hailstone Creek.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Various - often used as continuation from other creeks",
-        "directions": "Multiple access points exist. Common to start from Adkins Creek or Boen Gulf confluence."
+        name: 'Put-in',
+        location: 'Various - often used as continuation from other creeks',
+        directions:
+          'Multiple access points exist. Common to start from Adkins Creek or Boen Gulf confluence.',
       },
       {
-        "name": "Take-out",
-        "location": "Highway 21 bridge over Buffalo River",
-        "directions": "Highway 21 bridge - standard Hailstone take-out."
-      }
+        name: 'Take-out',
+        location: 'Highway 21 bridge over Buffalo River',
+        directions: 'Highway 21 bridge - standard Hailstone take-out.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "**Undercut cave** - Approximately halfway down, left bank. Significant portion of river disappears into cave. Boaters have been swept toward cave and stuck on debris. At high water this is potentially fatal.",
-      "Class II to III+ rapids throughout 14-mile run",
-      "Wilderness location - 6+ hour commitment with limited bailout options",
-      "Remote area - rescue access extremely limited"
+    rapids: [],
+    hazards: [
+      '**Undercut cave** - Approximately halfway down, left bank. Significant portion of river disappears into cave. Boaters have been swept toward cave and stuck on debris. At high water this is potentially fatal.',
+      'Class II to III+ rapids throughout 14-mile run',
+      'Wilderness location - 6+ hour commitment with limited bailout options',
+      'Remote area - rescue access extremely limited',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "hart-cr": {
-    "id": "hart-cr",
-    "name": "Hart Cr.",
-    "overview": {
-      "rating": "III-IV (V)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'hart-cr': {
+    id: 'hart-cr',
+    name: 'Hart Cr.',
+    overview: {
+      rating: 'III-IV (V)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Hart Creek feeds into Blackburn with class III-IV water and possibly worse, depending on what the rain's been doing. Technical tributary that demands respect and skills to match.\n\nNow here's something worth knowing: when Lee Creek pushes over ten or twelve feet, there's a hydraulic forms just past where Hart meets Blackburn. Local paddlers call it the hole-o-death, and they're not being dramatic. That's the kind of feature you scout from shore, then decide whether your boat sees it or not.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Hart Creek feeds into Blackburn with class III-IV water and possibly worse, depending on what the rain's been doing. Technical tributary that demands respect and skills to match.\n\nNow here's something worth knowing: when Lee Creek pushes over ten or twelve feet, there's a hydraulic forms just past where Hart meets Blackburn. Local paddlers call it the hole-o-death, and they're not being dramatic. That's the kind of feature you scout from shore, then decide whether your boat sees it or not.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Confluence with Blackburn Creek, or continue to Lee Creek",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Confluence with Blackburn Creek, or continue to Lee Creek',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Advanced creek hazards",
-      "Possible class V rapids",
-      "\"Hole-o-death\" at the Blackburn confluence when Lee Creek's running over 10-12 feet - they named it that for a reason"
+    rapids: [],
+    hazards: [
+      'Advanced creek hazards',
+      'Possible class V rapids',
+      '"Hole-o-death" at the Blackburn confluence when Lee Creek\'s running over 10-12 feet - they named it that for a reason',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "haw-cr": {
-    "id": "haw-cr",
-    "name": "Haw Cr.",
-    "overview": {
-      "rating": "II+-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'haw-cr': {
+    id: 'haw-cr',
+    name: 'Haw Cr.',
+    overview: {
+      rating: 'II+-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Haw Creek runs II+ to III, solid intermediate water for paddlers who've moved past beginner runs but aren't chasing waterfalls yet. The kind of creek that teaches you how to move through a rapid instead of just surviving it.\n\nWhat else it has to offer, you'll need to find someone who knows it better than paper does.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Haw Creek runs II+ to III, solid intermediate water for paddlers who've moved past beginner runs but aren't chasing waterfalls yet. The kind of creek that teaches you how to move through a rapid instead of just surviving it.\n\nWhat else it has to offer, you'll need to find someone who knows it better than paper does.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "hurricane-cr-franklin": {
-    "id": "hurricane-cr-franklin",
-    "name": "Hurricane Cr. (Franklin)",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'hurricane-cr-franklin': {
+    id: 'hurricane-cr-franklin',
+    name: 'Hurricane Cr. (Franklin)',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "This is the Franklin County Hurricane Creek - not to be confused with its namesake over in Newton and Pope. Class II+ water, friendly enough for folks still learning how to ferry and catch eddies without making it look like a yard sale.\n\nGood stepping stone between easy water and the steeper stuff. Arkansas has three different Hurricane Creeks, which tells you something about how often storms tear through these hills.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'This is the Franklin County Hurricane Creek - not to be confused with its namesake over in Newton and Pope. Class II+ water, friendly enough for folks still learning how to ferry and catch eddies without making it look like a yard sale.\n\nGood stepping stone between easy water and the steeper stuff. Arkansas has three different Hurricane Creeks, which tells you something about how often storms tear through these hills.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "hurricane-cr-newton": {
-    "id": "hurricane-cr-newton",
-    "name": "Hurricane Cr. (Newton)",
-    "overview": {
-      "rating": "II+-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'hurricane-cr-newton': {
+    id: 'hurricane-cr-newton',
+    name: 'Hurricane Cr. (Newton)',
+    overview: {
+      rating: 'II+-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Newton and Pope County Hurricane Creek runs class II+ to III, which puts it a notch above its Franklin County cousin. Intermediate water with Boss Hollow feeding in along the way.\n\nThis is the Hurricane Creek that matters if you're in the Richland Creek drainage. Different creek, different character, same old Arkansas habit of naming waterways after weather.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Newton and Pope County Hurricane Creek runs class II+ to III, which puts it a notch above its Franklin County cousin. Intermediate water with Boss Hollow feeding in along the way.\n\nThis is the Hurricane Creek that matters if you're in the Richland Creek drainage. Different creek, different character, same old Arkansas habit of naming waterways after weather.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information. Boss Hollow take-out area may provide access."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information. Boss Hollow take-out area may provide access.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "hurricane-cr": {
-    "id": "hurricane-cr",
-    "name": "Hurricane Creek",
-    "overview": {
-      "rating": "Class II-III (Franklin County), Class II-III+ (Newton/Pope County)",
-      "watershedSize": "S-M",
-      "gradient": "Moderate to steep",
-      "length": "Variable by section",
-      "season": "Rainfall dependent"
+  'hurricane-cr': {
+    id: 'hurricane-cr',
+    name: 'Hurricane Creek',
+    overview: {
+      rating:
+        'Class II-III (Franklin County), Class II-III+ (Newton/Pope County)',
+      watershedSize: 'S-M',
+      gradient: 'Moderate to steep',
+      length: 'Variable by section',
+      season: 'Rainfall dependent',
     },
-    "description": "Arkansas has this habit of naming creeks after storms, which is how you end up with multiple Hurricane Creeks running through different valleys. The Franklin County version flows out of Shores Lake down to the Mulberry at Highway 215, just above I-40 at Alma. Class II-III water that doesn't see as many boats as it probably should.\n\nThe Newton/Pope County Hurricane Creek is a different animal - runs from Cub Creek ten miles down to Big Piney, class II to III+, more technical than its western cousin. Not far from Harrison if you know where to look.\n\nBoth decent runs. Neither one particularly famous. Sometimes the best water's the water nobody's talking about.",
-    "sections": [
+    description:
+      "Arkansas has this habit of naming creeks after storms, which is how you end up with multiple Hurricane Creeks running through different valleys. The Franklin County version flows out of Shores Lake down to the Mulberry at Highway 215, just above I-40 at Alma. Class II-III water that doesn't see as many boats as it probably should.\n\nThe Newton/Pope County Hurricane Creek is a different animal - runs from Cub Creek ten miles down to Big Piney, class II to III+, more technical than its western cousin. Not far from Harrison if you know where to look.\n\nBoth decent runs. Neither one particularly famous. Sometimes the best water's the water nobody's talking about.",
+    sections: [
       {
-        "name": "Franklin County - Mulberry Tributary",
-        "character": "Less-traveled tributary"
+        name: 'Franklin County - Mulberry Tributary',
+        character: 'Less-traveled tributary',
       },
       {
-        "name": "Newton/Pope County - Big Piney Tributary",
-        "distance": "10 miles",
-        "rating": "Class II-III+",
-        "character": "Technical whitewater section"
-      }
+        name: 'Newton/Pope County - Big Piney Tributary',
+        distance: '10 miles',
+        rating: 'Class II-III+',
+        character: 'Technical whitewater section',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Franklin County Section"
+        name: 'Franklin County Section',
       },
       {
-        "name": "Newton/Pope Section"
-      }
+        name: 'Newton/Pope Section',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Little-known stream with limited information",
-      "Technical rapids require intermediate to advanced skills",
-      "Water level dependent",
-      "Remote sections with limited access"
+    rapids: [],
+    hazards: [
+      'Little-known stream with limited information',
+      'Technical rapids require intermediate to advanced skills',
+      'Water level dependent',
+      'Remote sections with limited access',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Hurricane Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansas16.html"
+        title: 'Hurricane Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/arkansas16.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
       },
       {
-        "title": "Hurricane Creek - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Hurricane_Creek_(Arkansas"
-      }
+        title: 'Hurricane Creek - Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Hurricane_Creek_(Arkansas',
+      },
     ],
-    "geographicContext": "- **Franklin County section:** Located in Johnson and Newton counties, Ozark National Forest, Buffalo Ranger District\n- **Newton/Pope section:** Connects to Big Piney Creek watershed",
-    "specialDesignation": ""
+    geographicContext:
+      '- **Franklin County section:** Located in Johnson and Newton counties, Ozark National Forest, Buffalo Ranger District\n- **Newton/Pope section:** Connects to Big Piney Creek watershed',
+    specialDesignation: '',
   },
-  "illinois-bayou": {
-    "id": "illinois-bayou",
-    "name": "Illinois Bayou",
-    "overview": {
-      "rating": "II",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'illinois-bayou': {
+    id: 'illinois-bayou',
+    name: 'Illinois Bayou',
+    overview: {
+      rating: 'II',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Illinois Bayou runs friendly, the kind of water that won't punish your mistakes too hard. Class II chop and splash, nothing that'll keep you up at night. You'll find willow tangles and a few rock gardens, but mostly it's just good moving water through the hills.\n\nLeft Hand Prong feeds in from the north - that's a different animal altogether, Class II to IV depending on where you catch it. But the main stem here, this is where you learn to read current without getting schooled too hard. The creek takes new paddlers and gives them back with a little more confidence than they came with.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Illinois Bayou runs friendly, the kind of water that won't punish your mistakes too hard. Class II chop and splash, nothing that'll keep you up at night. You'll find willow tangles and a few rock gardens, but mostly it's just good moving water through the hills.\n\nLeft Hand Prong feeds in from the north - that's a different animal altogether, Class II to IV depending on where you catch it. But the main stem here, this is where you learn to read current without getting schooled too hard. The creek takes new paddlers and gives them back with a little more confidence than they came with.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "illinois-r": {
-    "id": "illinois-r",
-    "name": "Illinois R.",
-    "overview": {
-      "rating": "II+ (Hogeye Run section)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'illinois-r': {
+    id: 'illinois-r',
+    name: 'Illinois R.',
+    overview: {
+      rating: 'II+ (Hogeye Run section)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Illinois River wears different faces depending on where you catch it. Up at Hogeye Run, you'll find Class II+ water that pushes back just enough to keep things interesting - good water for learning what your boat can do. Down at Fisher's Ford, it's mellowed out to Class I, the kind of float where you can bring a cooler and not worry about it ending up in a tree.\n\nMultiple outfitters work this river, which tells you something about its temperament. Popular doesn't always mean good, but the Illinois has earned its traffic. The water's forgiving enough for first-timers, spirited enough for locals who've run it a hundred times.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Illinois River wears different faces depending on where you catch it. Up at Hogeye Run, you'll find Class II+ water that pushes back just enough to keep things interesting - good water for learning what your boat can do. Down at Fisher's Ford, it's mellowed out to Class I, the kind of float where you can bring a cooler and not worry about it ending up in a tree.\n\nMultiple outfitters work this river, which tells you something about its temperament. Popular doesn't always mean good, but the Illinois has earned its traffic. The water's forgiving enough for first-timers, spirited enough for locals who've run it a hundred times.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Various access points available",
-        "directions": "Multiple commercial outfitters provide access. Contact local outfitters for current information."
+        name: 'Put-in',
+        location: 'Various access points available',
+        directions:
+          'Multiple commercial outfitters provide access. Contact local outfitters for current information.',
       },
       {
-        "name": "Take-out",
-        "location": "Various access points available",
-        "directions": "Multiple commercial outfitters provide shuttle services."
-      }
+        name: 'Take-out',
+        location: 'Various access points available',
+        directions: 'Multiple commercial outfitters provide shuttle services.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "illinois-river": {
-    "id": "illinois-river",
-    "name": "Illinois River",
-    "overview": {
-      "rating": "Class I-II",
-      "watershedSize": "L",
-      "gradient": "Gentle",
-      "length": "145 miles total, ~65.4 miles navigable in Oklahoma",
-      "season": "Year-round, best spring through fall"
+  'illinois-river': {
+    id: 'illinois-river',
+    name: 'Illinois River',
+    overview: {
+      rating: 'Class I-II',
+      watershedSize: 'L',
+      gradient: 'Gentle',
+      length: '145 miles total, ~65.4 miles navigable in Oklahoma',
+      season: 'Year-round, best spring through fall',
     },
-    "description": "The Illinois starts up in the Boston Mountains near Hogeye, Arkansas, and runs 145 miles west into Oklahoma before it finds Tenkiller Lake. Between those points, it cuts through limestone country - the kind of bluffs that catch afternoon light just right, rolling Ozark hills that haven't changed much in your lifetime or mine.\n\nClass I to II water, mostly. Gentle enough for canoes and rafts, spirited enough to keep you honest. The river sees heavy traffic around Tahlequah - that town built itself on Illinois River dollars - and you'll know it when peak season hits. Crowds change a river's character some. Water quality varies too, section by section, season by season.\n\nBut catch it on a weekday in May or September, put in at Watts and take out wherever suits you along those 65 navigable Oklahoma miles, and you'll see why folks keep coming back. The Oklahoma Scenic Rivers Commission maintains good access, which matters when you're planning a float. Arkansas has its own sections up near the headwaters - Twin Bridges to Siloam Springs runs about eight hours when there's water.",
-    "sections": [
+    description:
+      "The Illinois starts up in the Boston Mountains near Hogeye, Arkansas, and runs 145 miles west into Oklahoma before it finds Tenkiller Lake. Between those points, it cuts through limestone country - the kind of bluffs that catch afternoon light just right, rolling Ozark hills that haven't changed much in your lifetime or mine.\n\nClass I to II water, mostly. Gentle enough for canoes and rafts, spirited enough to keep you honest. The river sees heavy traffic around Tahlequah - that town built itself on Illinois River dollars - and you'll know it when peak season hits. Crowds change a river's character some. Water quality varies too, section by section, season by season.\n\nBut catch it on a weekday in May or September, put in at Watts and take out wherever suits you along those 65 navigable Oklahoma miles, and you'll see why folks keep coming back. The Oklahoma Scenic Rivers Commission maintains good access, which matters when you're planning a float. Arkansas has its own sections up near the headwaters - Twin Bridges to Siloam Springs runs about eight hours when there's water.",
+    sections: [
       {
-        "name": "Arkansas Section",
-        "character": "Arkansas/Oklahoma border region",
-        "notes": "Floated when water is high enough"
+        name: 'Arkansas Section',
+        character: 'Arkansas/Oklahoma border region',
+        notes: 'Floated when water is high enough',
       },
       {
-        "name": "Oklahoma Section",
-        "distance": "65.4 miles navigable"
-      }
+        name: 'Oklahoma Section',
+        distance: '65.4 miles navigable',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Arkansas Access"
+        name: 'Arkansas Access',
       },
       {
-        "name": "Oklahoma Access"
-      }
+        name: 'Oklahoma Access',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Water quality concerns in some sections",
-      "Crowding during peak season, especially near Tahlequah",
-      "Variable water levels",
-      "Recreational use pressure"
+    rapids: [],
+    hazards: [
+      'Water quality concerns in some sections',
+      'Crowding during peak season, especially near Tahlequah',
+      'Variable water levels',
+      'Recreational use pressure',
     ],
-    "tributaries": [],
-    "images": [
+    tributaries: [],
+    images: [
       {
-        "alt": "Illinois River flowing through Oklahoma",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Illinois_River_Oklahoma.jpg/1280px-Illinois_River_Oklahoma.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
-      }
+        alt: 'Illinois River flowing through Oklahoma',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Illinois_River_Oklahoma.jpg/1280px-Illinois_River_Oklahoma.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [
+    sources: [
       {
-        "title": "Illinois River, Oklahoma - Southwest Paddler",
-        "url": "https://southwestpaddler.com/docs/illinois.html"
+        title: 'Illinois River, Oklahoma - Southwest Paddler',
+        url: 'https://southwestpaddler.com/docs/illinois.html',
       },
       {
-        "title": "Illinois Bayou, Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/docs/arkansas12.html"
+        title: 'Illinois Bayou, Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/docs/arkansas12.html',
       },
       {
-        "title": "Map of the Illinois River, Oklahoma - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/IllinoisOKmap.html"
+        title: 'Map of the Illinois River, Oklahoma - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/IllinoisOKmap.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
       },
       {
-        "title": "Arkansas River, Oklahoma - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansasok.html"
-      }
+        title: 'Arkansas River, Oklahoma - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/arkansasok.html',
+      },
     ],
-    "geographicContext": "The Illinois River begins in the Boston Mountains of northwest Arkansas near Hogeye and flows westward into Oklahoma through Cherokee and Adair counties before reaching Lake Tenkiller. The river is part of the Arkansas River watershed system.",
-    "specialDesignation": ""
+    geographicContext:
+      'The Illinois River begins in the Boston Mountains of northwest Arkansas near Hogeye and flows westward into Oklahoma through Cherokee and Adair counties before reaching Lake Tenkiller. The river is part of the Arkansas River watershed system.',
+    specialDesignation: '',
   },
-  "jack-cr": {
-    "id": "jack-cr",
-    "name": "Jack Cr.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'jack-cr': {
+    id: 'jack-cr',
+    name: 'Jack Cr.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Jack Creek runs Class II to III, the sweet spot where you're past paddling in circles but not yet betting your life on your roll. This is learning water - rocks that make you think, current that makes you work, nothing that'll write your obituary if you swim.\n\nGood creek for finding out what you're made of without finding out the hard way.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Jack Creek runs Class II to III, the sweet spot where you're past paddling in circles but not yet betting your life on your roll. This is learning water - rocks that make you think, current that makes you work, nothing that'll write your obituary if you swim.\n\nGood creek for finding out what you're made of without finding out the hard way.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "jordan-cr": {
-    "id": "jordan-cr",
-    "name": "Jordan Cr.",
-    "overview": {
-      "rating": "III+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'jordan-cr': {
+    id: 'jordan-cr',
+    name: 'Jordan Cr.',
+    overview: {
+      rating: 'III+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Jordan Creek comes in at Class III+, which means it expects you to know what you're doing before you point your bow downstream. This is intermediate water with teeth - the kind of creek that stays in your memory whether you styled the line or swam the meat.\n\nNot much written about Jordan, which is sometimes how it goes with Arkansas creeks. The good ones stay quiet until somebody finds them, runs them, and decides whether to talk.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Jordan Creek comes in at Class III+, which means it expects you to know what you're doing before you point your bow downstream. This is intermediate water with teeth - the kind of creek that stays in your memory whether you styled the line or swam the meat.\n\nNot much written about Jordan, which is sometimes how it goes with Arkansas creeks. The good ones stay quiet until somebody finds them, runs them, and decides whether to talk.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "kings-river": {
-    "id": "kings-river",
-    "name": "Kings River",
-    "overview": {
-      "rating": "Class III+ (Upper), Class I-I+ (Lower)",
-      "watershedSize": "L",
-      "gradient": "Variable (steep in upper, gentle in lower)",
-      "length": "93.5 miles total",
-      "season": "Rainfall dependent"
+  'kings-river': {
+    id: 'kings-river',
+    name: 'Kings River',
+    overview: {
+      rating: 'Class III+ (Upper), Class I-I+ (Lower)',
+      watershedSize: 'L',
+      gradient: 'Variable (steep in upper, gentle in lower)',
+      length: '93.5 miles total',
+      season: 'Rainfall dependent',
     },
-    "description": "The Kings River runs 93 miles wearing two completely different personalities. First eleven miles from Dripping Springs to Highway 74, it's Class III+ whitewater that doesn't suffer fools - steep, pushy, technical water with a waterfall at the Natural Area that you'll want to scout. This is the Upper Kings, for paddlers who've earned their stripes elsewhere.\n\nThen at Highway 74, something shifts. The river settles into Class I to I+ for the next 82 miles up into Missouri, through Mark Twain National Forest to Table Rock Lake. This is where families put in at Rockhouse for the eight-mile float to Trigger Gap - gravel bars, swimming holes, interesting rock formations, the kind of day that doesn't require a roll.\n\nThe state calls it an \"Extraordinary Resource Waterbody,\" which is bureaucracy's way of saying they know what they've got. No dams on the Arkansas stretch. Rural land, forested banks. The Kings rises in the Boston Mountains right near where Big Piney, the Hailstone, Mulberry, and Little Piney all start their runs - good company for a creek to keep.\n\nWater quality matters here enough that they wrote restrictions on what you can do to the streambed, what you can build in the basin. The Arkansas Nature Conservancy owns land along the Rockhouse run, which tells you something about the value people place on keeping this one wild.",
-    "sections": [
+    description:
+      "The Kings River runs 93 miles wearing two completely different personalities. First eleven miles from Dripping Springs to Highway 74, it's Class III+ whitewater that doesn't suffer fools - steep, pushy, technical water with a waterfall at the Natural Area that you'll want to scout. This is the Upper Kings, for paddlers who've earned their stripes elsewhere.\n\nThen at Highway 74, something shifts. The river settles into Class I to I+ for the next 82 miles up into Missouri, through Mark Twain National Forest to Table Rock Lake. This is where families put in at Rockhouse for the eight-mile float to Trigger Gap - gravel bars, swimming holes, interesting rock formations, the kind of day that doesn't require a roll.\n\nThe state calls it an \"Extraordinary Resource Waterbody,\" which is bureaucracy's way of saying they know what they've got. No dams on the Arkansas stretch. Rural land, forested banks. The Kings rises in the Boston Mountains right near where Big Piney, the Hailstone, Mulberry, and Little Piney all start their runs - good company for a creek to keep.\n\nWater quality matters here enough that they wrote restrictions on what you can do to the streambed, what you can build in the basin. The Arkansas Nature Conservancy owns land along the Rockhouse run, which tells you something about the value people place on keeping this one wild.",
+    sections: [
       {
-        "name": "Upper Kings River (Dripping Springs to Highway 74)",
-        "distance": "11 miles",
-        "rating": "Class III+",
-        "gradient": "Steep, turbulent",
-        "notes": "For experienced paddlers only"
+        name: 'Upper Kings River (Dripping Springs to Highway 74)',
+        distance: '11 miles',
+        rating: 'Class III+',
+        gradient: 'Steep, turbulent',
+        notes: 'For experienced paddlers only',
       },
       {
-        "name": "Lower Kings River (Highway 74 to Missouri)",
-        "distance": "82.5 miles",
-        "rating": "Class I to I+",
-        "gradient": "Gentle",
-        "character": "Relatively gentle flatwater with occasional Class I rapids",
-        "notes": "Popular for recreational paddling and fishing"
+        name: 'Lower Kings River (Highway 74 to Missouri)',
+        distance: '82.5 miles',
+        rating: 'Class I to I+',
+        gradient: 'Gentle',
+        character: 'Relatively gentle flatwater with occasional Class I rapids',
+        notes: 'Popular for recreational paddling and fishing',
       },
       {
-        "name": "Rockhouse to Trigger Gap",
-        "distance": "8 miles",
-        "rating": "Class I",
-        "notes": "One of the river's most popular floats. Runs through land owned by the Arkansas Nature Conservancy. Features interesting rock formations, gravel bars, and plenty of deep swimming holes."
-      }
+        name: 'Rockhouse to Trigger Gap',
+        distance: '8 miles',
+        rating: 'Class I',
+        notes:
+          "One of the river's most popular floats. Runs through land owned by the Arkansas Nature Conservancy. Features interesting rock formations, gravel bars, and plenty of deep swimming holes.",
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Put-in (Upper Section)",
-        "location": "Dripping Springs",
-        "notes": "Access for Class III+ whitewater section"
+        name: 'Put-in (Upper Section)',
+        location: 'Dripping Springs',
+        notes: 'Access for Class III+ whitewater section',
       },
       {
-        "name": "Highway 74",
-        "location": "Highway 74 crossing",
-        "notes": "Marks transition from whitewater to flatwater sections"
+        name: 'Highway 74',
+        location: 'Highway 74 crossing',
+        notes: 'Marks transition from whitewater to flatwater sections',
       },
       {
-        "name": "Rockhouse",
-        "location": "Popular put-in for lower section",
-        "notes": "Start of the scenic 8-mile run to Trigger Gap"
+        name: 'Rockhouse',
+        location: 'Popular put-in for lower section',
+        notes: 'Start of the scenic 8-mile run to Trigger Gap',
       },
       {
-        "name": "Trigger Gap",
-        "location": "Popular take-out",
-        "notes": "End of the Rockhouse float"
-      }
+        name: 'Trigger Gap',
+        location: 'Popular take-out',
+        notes: 'End of the Rockhouse float',
+      },
     ],
-    "rapids": [
-      "Kings River Natural Area Waterfall"
+    rapids: ['Kings River Natural Area Waterfall'],
+    hazards: [
+      'Upper section (Class III+) requires advanced whitewater skills',
+      'Waterfall in upper section',
+      'Protected watershed - restrictions on development and alterations',
     ],
-    "hazards": [
-      "Upper section (Class III+) requires advanced whitewater skills",
-      "Waterfall in upper section",
-      "Protected watershed - restrictions on development and alterations"
-    ],
-    "tributaries": [],
-    "images": [
+    tributaries: [],
+    images: [
       {
-        "alt": "Kings River Falls within the Kings River Natural Area",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Kings_River_Falls_002.jpg/1280px-Kings_River_Falls_002.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
-      }
+        alt: 'Kings River Falls within the Kings River Natural Area',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Kings_River_Falls_002.jpg/1280px-Kings_River_Falls_002.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [
+    sources: [
       {
-        "title": "Kings River, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/kings3.html"
+        title: 'Kings River, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/kings3.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
       },
       {
-        "title": "Kings River - Wikipedia",
-        "url": "https://en.wikipedia.org/wiki/Kings_River_(Arkansas"
+        title: 'Kings River - Wikipedia',
+        url: 'https://en.wikipedia.org/wiki/Kings_River_(Arkansas',
       },
       {
-        "title": "Kings River Arkansas - Official Site",
-        "url": "https://kingsriverarkansas.com/"
-      }
+        title: 'Kings River Arkansas - Official Site',
+        url: 'https://kingsriverarkansas.com/',
+      },
     ],
-    "geographicContext": "The Kings River forms in the Boston Mountains of northwest Arkansas very close to the headwaters of Big Piney Creek, Hailstone, and Mulberry Rivers, as well as Little Piney Creek and the Upper White River. The river flows northward, eventually entering Missouri and feeding into Table Rock Lake.",
-    "specialDesignation": "**Extraordinary Resource Waterbody** - Designated by the State of Arkansas\n- Restrictions on streambed alterations\n- Restrictions on development in the river basin\n- Enhanced pollution protections"
+    geographicContext:
+      'The Kings River forms in the Boston Mountains of northwest Arkansas very close to the headwaters of Big Piney Creek, Hailstone, and Mulberry Rivers, as well as Little Piney Creek and the Upper White River. The river flows northward, eventually entering Missouri and feeding into Table Rock Lake.',
+    specialDesignation:
+      '**Extraordinary Resource Waterbody** - Designated by the State of Arkansas\n- Restrictions on streambed alterations\n- Restrictions on development in the river basin\n- Enhanced pollution protections',
   },
-  "lee-cr": {
-    "id": "lee-cr",
-    "name": "Lee Cr.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Section 2 (S2) is 1.5 miles",
-      "season": "RAIN"
+  'lee-cr': {
+    id: 'lee-cr',
+    name: 'Lee Cr.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Section 2 (S2) is 1.5 miles',
+      season: 'RAIN',
     },
-    "description": "Lee Creek runs Class II+ most days and sees more boats than just about any northwest Arkansas creek. Popular doesn't always mean best, but Lee's earned its traffic - reliable water, good teaching current, nothing too mean when you're learning to read waves.\n\nSection 2 (S2) is one of the most popular play runs in the area, covering 1.5 miles with fun to be found at almost any runnable level. Named rapids on S2 include Football Field Rapids (a 100-yard long series of ledges), El Horrendo, Surfing Ledges, and Buck-N-Flush (once an infamous stopper hole).\n\nWhat makes Lee matter beyond its own paddling is the gauge. When you're wondering if Blackburn's running, if Clear Creek's up, if Ben Doodle's worth the drive - you check Lee Creek. The gauge at Highway 220 tells the story for half the creeks in Crawford County. That's where Blackburn comes in too, where Section 2 starts.\n\nThe creek's friendly at normal levels. When it climbs past ten feet, a hydraulic forms where Hart Creek feeds in - locals call it the \"Hole-o-death,\" which is darkly practical naming. Past fifteen feet and those Blackburn strainers turn from obstacles into something considerably worse.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Lee Creek runs Class II+ most days and sees more boats than just about any northwest Arkansas creek. Popular doesn't always mean best, but Lee's earned its traffic - reliable water, good teaching current, nothing too mean when you're learning to read waves.\n\nSection 2 (S2) is one of the most popular play runs in the area, covering 1.5 miles with fun to be found at almost any runnable level. Named rapids on S2 include Football Field Rapids (a 100-yard long series of ledges), El Horrendo, Surfing Ledges, and Buck-N-Flush (once an infamous stopper hole).\n\nWhat makes Lee matter beyond its own paddling is the gauge. When you're wondering if Blackburn's running, if Clear Creek's up, if Ben Doodle's worth the drive - you check Lee Creek. The gauge at Highway 220 tells the story for half the creeks in Crawford County. That's where Blackburn comes in too, where Section 2 starts.\n\nThe creek's friendly at normal levels. When it climbs past ten feet, a hydraulic forms where Hart Creek feeds in - locals call it the \"Hole-o-death,\" which is darkly practical naming. Past fifteen feet and those Blackburn strainers turn from obstacles into something considerably worse.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified in source",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified in source',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Highway 220 bridge (common take-out)",
-        "directions": "Highway 220 bridge over Lee Creek."
-      }
+        name: 'Take-out',
+        location: 'Highway 220 bridge (common take-out)',
+        directions: 'Highway 220 bridge over Lee Creek.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "Typical class II+ hazards - rocks that'll pin you, waves that'll flip you",
-      "\"Hole-o-death\" at Hart Creek confluence when the gauge reads 10-12 feet (the name's not decoration)",
-      "Over 15 feet, strainers on Blackburn go from hazardous to lethal"
+      '"Hole-o-death" at Hart Creek confluence when the gauge reads 10-12 feet (the name\'s not decoration)',
+      'Over 15 feet, strainers on Blackburn go from hazardous to lethal',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "left-hand-prong": {
-    "id": "left-hand-prong",
-    "name": "Left Hand Prong",
-    "overview": {
-      "rating": "II-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'left-hand-prong': {
+    id: 'left-hand-prong',
+    name: 'Left Hand Prong',
+    overview: {
+      rating: 'II-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Left Hand Prong comes in where the North Fork of Illinois Bayou splits off, and it runs considerably harder than its parent stream. Class II to IV depending on the section, depending on the water. This is advanced paddling - the kind where you scout more than you boat, where every eddy matters.\n\nWhile Illinois Bayou proper runs friendly enough for beginners, Left Hand Prong asks different questions. The gradient's steeper, the consequences sharper. It's what happens when an Ozark creek decides it's got something to prove.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Left Hand Prong comes in where the North Fork of Illinois Bayou splits off, and it runs considerably harder than its parent stream. Class II to IV depending on the section, depending on the water. This is advanced paddling - the kind where you scout more than you boat, where every eddy matters.\n\nWhile Illinois Bayou proper runs friendly enough for beginners, Left Hand Prong asks different questions. The gradient's steeper, the consequences sharper. It's what happens when an Ozark creek decides it's got something to prove.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Confluence with Illinois Bayou or downstream",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Confluence with Illinois Bayou or downstream',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "little-mill-cr": {
-    "id": "little-mill-cr",
-    "name": "Little Mill Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "120 fpm (first mile at 180 fpm)",
-      "length": "2.75 miles",
-      "season": "Not specified"
+  'little-mill-cr': {
+    id: 'little-mill-cr',
+    name: 'Little Mill Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: '120 fpm (first mile at 180 fpm)',
+      length: '2.75 miles',
+      season: 'Not specified',
     },
-    "description": "Little Mill runs class III to IV over nearly three miles, dropping a hundred and twenty feet to the mile. The first mile's steeper, hitting one-eighty, and you'll feel every bit of it. You've got named drops like Gollum's Hole and Stone Ground to keep you busy, but The Gash is where you'll earn your keep - a class IV pinball game around a mid-stream rock into a sluice that demands you handle your boat. Love Shack Falls marks the biggest drop at six or seven feet. It's a system for folks who know the difference between confident and cocky.\n\nThe tributaries - West Fork and Middle Fork - both come in technical and steep. This is a creek system for paddlers who've put in their years. The Ozarks have a way of hiding water like this in the folds of the hills, waiting for someone skilled enough to find it.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Little Mill runs class III to IV over nearly three miles, dropping a hundred and twenty feet to the mile. The first mile's steeper, hitting one-eighty, and you'll feel every bit of it. You've got named drops like Gollum's Hole and Stone Ground to keep you busy, but The Gash is where you'll earn your keep - a class IV pinball game around a mid-stream rock into a sluice that demands you handle your boat. Love Shack Falls marks the biggest drop at six or seven feet. It's a system for folks who know the difference between confident and cocky.\n\nThe tributaries - West Fork and Middle Fork - both come in technical and steep. This is a creek system for paddlers who've put in their years. The Ozarks have a way of hiding water like this in the folds of the hills, waiting for someone skilled enough to find it.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "little-missouri-r": {
-    "id": "little-missouri-r",
-    "name": "Little Missouri R.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'little-missouri-r': {
+    id: 'little-missouri-r',
+    name: 'Little Missouri R.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Little Missouri runs Class II to III, which puts it right in that learning zone where mistakes teach you something without breaking anything important. River's wide enough to give you options, pushy enough to make you use them.\n\nThis is where novice paddlers become intermediate ones - not because the water's especially hard, but because it asks the right questions at the right volume.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Little Missouri runs Class II to III, which puts it right in that learning zone where mistakes teach you something without breaking anything important. River's wide enough to give you options, pushy enough to make you use them.\n\nThis is where novice paddlers become intermediate ones - not because the water's especially hard, but because it asks the right questions at the right volume.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [
       {
-        "alt": "US 67 Bridge over Little Missouri River",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/US_67_Bridge_over_Little_Missouri_River.JPG/800px-US_67_Bridge_over_Little_Missouri_River.JPG",
-        "caption": "Photo: Historic US 67 Bridge over Little Missouri River, Public Domain, via Wikimedia Commons"
-      }
+        alt: 'US 67 Bridge over Little Missouri River',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/US_67_Bridge_over_Little_Missouri_River.JPG/800px-US_67_Bridge_over_Little_Missouri_River.JPG',
+        caption:
+          'Photo: Historic US 67 Bridge over Little Missouri River, Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "little-mulberry-cr": {
-    "id": "little-mulberry-cr",
-    "name": "Little Mulberry Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'little-mulberry-cr': {
+    id: 'little-mulberry-cr',
+    name: 'Little Mulberry Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Little Mulberry Creek runs Class III to IV with named rapids including Initiator (III), OWS - Ozark Wall Slammer (III+), Fish Ladder (IV), and Plank Rapid (III). Advanced water that expects you to show up with skills already earned.\n\n**IMPORTANT LANDOWNER NOTICE:** A landowner on the creek above Spoke Plant has expressed concern with paddlers boating this stretch, which runs through her property and does not want anyone to boat the creek at this time. Boaters are encouraged to respect the landowner's wishes.\n\nThe silence around Little Mulberry isn't accidental. Some runs stay quiet because the people who paddle them like it that way, and some stay quiet because access depends on respecting the people whose land the water runs through.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Little Mulberry Creek runs Class III to IV with named rapids including Initiator (III), OWS - Ozark Wall Slammer (III+), Fish Ladder (IV), and Plank Rapid (III). Advanced water that expects you to show up with skills already earned.\n\n**IMPORTANT LANDOWNER NOTICE:** A landowner on the creek above Spoke Plant has expressed concern with paddlers boating this stretch, which runs through her property and does not want anyone to boat the creek at this time. Boaters are encouraged to respect the landowner's wishes.\n\nThe silence around Little Mulberry isn't accidental. Some runs stay quiet because the people who paddle them like it that way, and some stay quiet because access depends on respecting the people whose land the water runs through.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "little-piney-cr": {
-    "id": "little-piney-cr",
-    "name": "Little Piney Creek",
-    "overview": {
-      "rating": "Class II-III",
-      "watershedSize": "M",
-      "gradient": "Variable",
-      "length": "~30 miles (estimated)",
-      "season": "Rainfall dependent"
+  'little-piney-cr': {
+    id: 'little-piney-cr',
+    name: 'Little Piney Creek',
+    overview: {
+      rating: 'Class II-III',
+      watershedSize: 'M',
+      gradient: 'Variable',
+      length: '~30 miles (estimated)',
+      season: 'Rainfall dependent',
     },
-    "description": "The Little Piney runs that same creme de menthe green as its big brother, winding through the Boston Mountains with a mind of its own. You'll find yourself dodging willow thickets that are hungry for canoes and picking lines through rocky shoals and boulder gardens. It flows close to the headwaters of the Big Piney and the Kings, good company for a creek to keep. When the water's right, it's a fine run through the heart of the Ozark National Forest.",
-    "sections": [],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Willow thickets",
-      "Rocky shoals",
-      "Boulder gardens",
-      "Water level dependent - may be too low during dry periods"
+    description:
+      "The Little Piney runs that same creme de menthe green as its big brother, winding through the Boston Mountains with a mind of its own. You'll find yourself dodging willow thickets that are hungry for canoes and picking lines through rocky shoals and boulder gardens. It flows close to the headwaters of the Big Piney and the Kings, good company for a creek to keep. When the water's right, it's a fine run through the heart of the Ozark National Forest.",
+    sections: [],
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Willow thickets',
+      'Rocky shoals',
+      'Boulder gardens',
+      'Water level dependent - may be too low during dry periods',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Little Piney Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansas10.html"
+        title: 'Little Piney Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/arkansas10.html',
       },
       {
-        "title": "Big Piney Creek, Arkansas - Southwest Paddler",
-        "url": "https://www.southwestpaddler.com/docs/arkansas4.html"
+        title: 'Big Piney Creek, Arkansas - Southwest Paddler',
+        url: 'https://www.southwestpaddler.com/docs/arkansas4.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
-      }
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
+      },
     ],
-    "geographicContext": "Little Piney Creek is located in the Boston Mountains region of northwest Arkansas, forming in close proximity to several other major whitewater streams. The creek is part of the Arkansas River watershed and shares similar characteristics with its neighbor, Big Piney Creek.",
-    "specialDesignation": ""
+    geographicContext:
+      'Little Piney Creek is located in the Boston Mountains region of northwest Arkansas, forming in close proximity to several other major whitewater streams. The creek is part of the Arkansas River watershed and shares similar characteristics with its neighbor, Big Piney Creek.',
+    specialDesignation: '',
   },
-  "little-piney-creek": {
-    "id": "little-piney-creek",
-    "name": "Little Piney Creek",
-    "overview": {
-      "rating": "Class II-III",
-      "watershedSize": "M",
-      "gradient": "Variable",
-      "length": "~30 miles (estimated)",
-      "season": "Rainfall dependent"
+  'little-piney-creek': {
+    id: 'little-piney-creek',
+    name: 'Little Piney Creek',
+    overview: {
+      rating: 'Class II-III',
+      watershedSize: 'M',
+      gradient: 'Variable',
+      length: '~30 miles (estimated)',
+      season: 'Rainfall dependent',
     },
-    "description": "Little Piney runs that particular shade of green they call creme de menthe - the color of northern Arkansas creeks when the light's right and the limestone's doing its work. The water threads through willow tangles thick enough to catch a canoe and keep it, over rocky shoals where you pick your line or pay for choosing wrong, through boulder gardens that separate confident paddlers from lucky ones.\n\nClass II to III, depending on the section and the rain. The creek rises in the Boston Mountains right alongside Big Piney, the Hailstone, Kings River, Mulberry, and the Upper White - good company for a creek to start with. All that water heading different directions from the same high country, each one carving its own character into the stone.\n\nThose willows earn their reputation. Traditional canoe-catchers, the old-timers call them, which is gentle language for what happens when you lose your angle in a willow jungle at speed. The creek's pretty enough to make you forget to pay attention, technical enough to punish you for it.",
-    "sections": [],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Willow thickets",
-      "Rocky shoals",
-      "Boulder gardens",
-      "Water level dependent - may be too low during dry periods"
+    description:
+      "Little Piney runs that particular shade of green they call creme de menthe - the color of northern Arkansas creeks when the light's right and the limestone's doing its work. The water threads through willow tangles thick enough to catch a canoe and keep it, over rocky shoals where you pick your line or pay for choosing wrong, through boulder gardens that separate confident paddlers from lucky ones.\n\nClass II to III, depending on the section and the rain. The creek rises in the Boston Mountains right alongside Big Piney, the Hailstone, Kings River, Mulberry, and the Upper White - good company for a creek to start with. All that water heading different directions from the same high country, each one carving its own character into the stone.\n\nThose willows earn their reputation. Traditional canoe-catchers, the old-timers call them, which is gentle language for what happens when you lose your angle in a willow jungle at speed. The creek's pretty enough to make you forget to pay attention, technical enough to punish you for it.",
+    sections: [],
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Willow thickets',
+      'Rocky shoals',
+      'Boulder gardens',
+      'Water level dependent - may be too low during dry periods',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Little Piney Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/arkansas10.html"
+        title: 'Little Piney Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/arkansas10.html',
       },
       {
-        "title": "Big Piney Creek, Arkansas - Southwest Paddler",
-        "url": "https://www.southwestpaddler.com/docs/arkansas4.html"
+        title: 'Big Piney Creek, Arkansas - Southwest Paddler',
+        url: 'https://www.southwestpaddler.com/docs/arkansas4.html',
       },
       {
-        "title": "The Rivers of Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/indexAR.html"
-      }
+        title: 'The Rivers of Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/indexAR.html',
+      },
     ],
-    "geographicContext": "Little Piney Creek is located in the Boston Mountains region of northwest Arkansas, forming in close proximity to several other major whitewater streams. The creek is part of the Arkansas River watershed and shares similar characteristics with its neighbor, Big Piney Creek.",
-    "specialDesignation": ""
+    geographicContext:
+      'Little Piney Creek is located in the Boston Mountains region of northwest Arkansas, forming in close proximity to several other major whitewater streams. The creek is part of the Arkansas River watershed and shares similar characteristics with its neighbor, Big Piney Creek.',
+    specialDesignation: '',
   },
-  "little-sugar-creek": {
-    "id": "little-sugar-creek",
-    "name": "Little Sugar Creek",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'little-sugar-creek': {
+    id: 'little-sugar-creek',
+    name: 'Little Sugar Creek',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Little Sugar Creek's one of those Arkansas runs that stays mostly off the written record. Could be it's too small to bother with except in good rain. Could be the people who paddle it prefer keeping quiet.\n\nEither way, you'll want to talk to locals before you make the drive. Some creeks only exist in memory and after thunderstorms.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Little Sugar Creek's one of those Arkansas runs that stays mostly off the written record. Could be it's too small to bother with except in good rain. Could be the people who paddle it prefer keeping quiet.\n\nEither way, you'll want to talk to locals before you make the drive. Some creeks only exist in memory and after thunderstorms.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "long-branch": {
-    "id": "long-branch",
-    "name": "Long Branch",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "285 fpm (450 fpm for last 0.4 miles on Long Branch)",
-      "length": "2 miles on Long Branch + 4.5 miles on EFLB",
-      "season": "Not specified"
+  'long-branch': {
+    id: 'long-branch',
+    name: 'Long Branch',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: '285 fpm (450 fpm for last 0.4 miles on Long Branch)',
+      length: '2 miles on Long Branch + 4.5 miles on EFLB',
+      season: 'Not specified',
     },
-    "description": "Long Branch feeds into the East Fork Little Buffalo running Class III to V, which is expert water by any measure. The gradient tells the story: 285 feet per mile overall, but the last 0.4 miles on Long Branch drops at 450 feet per mile. The last half mile of the creek is essentially one long steep complex rapid.\n\nNamed drops include Duck and Cover, Baby Zwick's, and Switchback. The full run covers 2 miles on Long Branch plus 4.5 miles on EFLB.\n\nThis isn't a creek you stumble onto - it's the kind of tributary you seek out after you've earned the right to paddle it, after you've swum enough easier water to know what serious consequences look like. Expert runs tend to document themselves in stories told around campfires, not in guidebooks. You find Long Branch by knowing someone who knows someone, and you run it because you've proven you can handle what it's offering.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Long Branch feeds into the East Fork Little Buffalo running Class III to V, which is expert water by any measure. The gradient tells the story: 285 feet per mile overall, but the last 0.4 miles on Long Branch drops at 450 feet per mile. The last half mile of the creek is essentially one long steep complex rapid.\n\nNamed drops include Duck and Cover, Baby Zwick's, and Switchback. The full run covers 2 miles on Long Branch plus 4.5 miles on EFLB.\n\nThis isn't a creek you stumble onto - it's the kind of tributary you seek out after you've earned the right to paddle it, after you've swum enough easier water to know what serious consequences look like. Expert runs tend to document themselves in stories told around campfires, not in guidebooks. You find Long Branch by knowing someone who knows someone, and you run it because you've proven you can handle what it's offering.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Confluence with EFLB or downstream",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Confluence with EFLB or downstream',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "long-devils-fork-cr": {
-    "id": "long-devils-fork-cr",
-    "name": "Long Devils Fork Cr.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "FLOOD"
+  'long-devils-fork-cr': {
+    id: 'long-devils-fork-cr',
+    name: 'Long Devils Fork Cr.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'FLOOD',
     },
-    "description": "Near Richland Creek, Long Devils Fork meets up with Big Devils Fork to form Twin Falls, and you'll want to pay attention here. Long Devils Fork features one of the longest rock slides in Arkansas - expect to reach terminal velocity if there's sufficient water.\n\nThe centerpiece is a 16 to 18 foot waterfall at Twin Falls. Run it left of center and try to maintain good speed to launch well into the pool below. Several pitons have occurred due to low-speed runs - this is not a place to hesitate.\n\nOut of twenty-plus runs, folks have found only two or three clean lines down Long Devil's Falls. That tells you something about the kind of water you're dealing with. Depending on what the creek's giving you, you can run Big Devils Fork on the left or take a short carry to the Long Devils Fork side. Either way, you'll earn your supper. This is the kind of run where you scout more than you paddle, and there's no shame in that.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Near Richland Creek, Long Devils Fork meets up with Big Devils Fork to form Twin Falls, and you'll want to pay attention here. Long Devils Fork features one of the longest rock slides in Arkansas - expect to reach terminal velocity if there's sufficient water.\n\nThe centerpiece is a 16 to 18 foot waterfall at Twin Falls. Run it left of center and try to maintain good speed to launch well into the pool below. Several pitons have occurred due to low-speed runs - this is not a place to hesitate.\n\nOut of twenty-plus runs, folks have found only two or three clean lines down Long Devil's Falls. That tells you something about the kind of water you're dealing with. Depending on what the creek's giving you, you can run Big Devils Fork on the left or take a short carry to the Long Devils Fork side. Either way, you'll earn your supper. This is the kind of run where you scout more than you paddle, and there's no shame in that.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information. Near Big Devils Fork area."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information. Near Big Devils Fork area.',
       },
       {
-        "name": "Take-out",
-        "location": "Near Richland Creek confluence / Richland Creek Campground",
-        "directions": "Richland Creek Campground area."
-      }
+        name: 'Take-out',
+        location: 'Near Richland Creek confluence / Richland Creek Campground',
+        directions: 'Richland Creek Campground area.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Twin Falls at confluence with Big Devils Fork",
-      "Class III-V rapids with extremely difficult drops",
-      "Very few clean lines even at ideal levels",
-      "The kind of water that doesn't forgive mistakes"
+    rapids: [],
+    hazards: [
+      'Twin Falls at confluence with Big Devils Fork',
+      'Class III-V rapids with extremely difficult drops',
+      'Very few clean lines even at ideal levels',
+      "The kind of water that doesn't forgive mistakes",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "lower-saline-r": {
-    "id": "lower-saline-r",
-    "name": "Lower Saline R.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'lower-saline-r': {
+    id: 'lower-saline-r',
+    name: 'Lower Saline R.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "This section of the Saline runs easy enough for folks working their way up from flatwater. The class II+ rapids come steady but forgiving, the kind of water that teaches without punishing too hard. You'll get your practice reading currents and picking lines, and by the time you take out, you'll know a little more than when you put in.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "This section of the Saline runs easy enough for folks working their way up from flatwater. The class II+ rapids come steady but forgiving, the kind of water that teaches without punishing too hard. You'll get your practice reading currents and picking lines, and by the time you take out, you'll know a little more than when you put in.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "m-fork-little-mill-cr": {
-    "id": "m-fork-little-mill-cr",
-    "name": "M. Fork Little Mill Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'm-fork-little-mill-cr': {
+    id: 'm-fork-little-mill-cr',
+    name: 'M. Fork Little Mill Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Middle Fork feeds into Little Mill Creek, and it runs with the kind of attitude that demands you know what you're doing. Class III-IV water in a creek this size doesn't give you much room to think things over. You'll want your lines picked before you drop in, and your brace ready when the creek decides to test you.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Middle Fork feeds into Little Mill Creek, and it runs with the kind of attitude that demands you know what you're doing. Class III-IV water in a creek this size doesn't give you much room to think things over. You'll want your lines picked before you drop in, and your brace ready when the creek decides to test you.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Confluence with Little Mill Creek or downstream",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Confluence with Little Mill Creek or downstream',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "m-fork-little-red-r": {
-    "id": "m-fork-little-red-r",
-    "name": "M. Fork Little Red R.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'm-fork-little-red-r': {
+    id: 'm-fork-little-red-r',
+    name: 'M. Fork Little Red R.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Middle Fork of the Little Red runs friendly for folks still learning to read water. Class II+ rapids keep things interesting without asking more than you're ready to give. It's the kind of creek where you can work on your ferries and eddy turns, maybe try that roll you've been practicing in the pool. Good water for building confidence.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Middle Fork of the Little Red runs friendly for folks still learning to read water. Class II+ rapids keep things interesting without asking more than you're ready to give. It's the kind of creek where you can work on your ferries and eddy turns, maybe try that roll you've been practicing in the pool. Good water for building confidence.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "meadow-cr": {
-    "id": "meadow-cr",
-    "name": "Meadow Cr.",
-    "overview": {
-      "rating": "III+",
-      "watershedSize": "",
-      "gradient": "55 fpm",
-      "length": "Not specified",
-      "season": "Not specified"
+  'meadow-cr': {
+    id: 'meadow-cr',
+    name: 'Meadow Cr.',
+    overview: {
+      rating: 'III+',
+      watershedSize: '',
+      gradient: '55 fpm',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Meadow Creek runs with that class III+ bite that keeps you honest, dropping at 55 feet per mile. Named rapids include Squeeze-the-Tick (III), Walk-on-the-Wild-Slide (II-III+), Meadow Creek Falls (III+), and Greener Pastures Ahead (III).\n\nThe Meadow Creek Falls section drops approximately 25-30 feet over 150 yards, with an 8-foot sheer drop that demands your attention. The kind of water that'll let you relax for a stretch, then remind you to pay attention.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Meadow Creek runs with that class III+ bite that keeps you honest, dropping at 55 feet per mile. Named rapids include Squeeze-the-Tick (III), Walk-on-the-Wild-Slide (II-III+), Meadow Creek Falls (III+), and Greener Pastures Ahead (III).\n\nThe Meadow Creek Falls section drops approximately 25-30 feet over 150 yards, with an 8-foot sheer drop that demands your attention. The kind of water that'll let you relax for a stretch, then remind you to pay attention.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "micro-cr": {
-    "id": "micro-cr",
-    "name": "Micro Cr.",
-    "overview": {
-      "rating": "III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'micro-cr': {
+    id: 'micro-cr',
+    name: 'Micro Cr.',
+    overview: {
+      rating: 'III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The name might make you think small, but Micro Creek runs solid class III water. It'll give you what you're looking for if you're comfortable in intermediate whitewater and don't need your hand held. Sometimes the best runs are the ones nobody talks about much.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The name might make you think small, but Micro Creek runs solid class III water. It'll give you what you're looking for if you're comfortable in intermediate whitewater and don't need your hand held. Sometimes the best runs are the ones nobody talks about much.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "mill-cr": {
-    "id": "mill-cr",
-    "name": "Mill Cr.",
-    "overview": {
-      "rating": "II-III+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'mill-cr': {
+    id: 'mill-cr',
+    name: 'Mill Cr.',
+    overview: {
+      rating: 'II-III+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Mill Creek gives you a range to work with, class II water building to III+ as you make your way downstream. The kind of run where you warm up early and earn your stories later. It's good water for a day when you want a little bit of everything without committing to the heavy stuff.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Mill Creek gives you a range to work with, class II water building to III+ as you make your way downstream. The kind of run where you warm up early and earn your stories later. It's good water for a day when you want a little bit of everything without committing to the heavy stuff.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "mormon-cr": {
-    "id": "mormon-cr",
-    "name": "Mormon Cr.",
-    "overview": {
-      "rating": "IV (IV+)",
-      "watershedSize": "",
-      "gradient": "330 fpm (extremely steep)",
-      "length": "1.5 miles",
-      "season": "Not specified"
+  'mormon-cr': {
+    id: 'mormon-cr',
+    name: 'Mormon Cr.',
+    overview: {
+      rating: 'IV (IV+)',
+      watershedSize: '',
+      gradient: '330 fpm (extremely steep)',
+      length: '1.5 miles',
+      season: 'Not specified',
     },
-    "description": "Mormon Creek runs extremely steep at 330 feet per mile over 1.5 miles - class IV pushing to IV+ when it's up. The put-in starts one of the longest slides in the Ozarks at half a mile long. Named rapids include UH (6-8 feet), OH (12-15 feet near vertical), Snake Eyes (IV), Mammer Jammer (20-25 feet class IV+), Sycamore, and Bobsled.\n\nThe biggest challenge for a paddler will be stopping. At this gradient, momentum becomes your constant companion. This is expert water that asks for clean lines and good judgment, the kind of creek where you'll scout more than once and be glad you did. It doesn't advertise much, but the paddlers who know it treat it with respect.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Mormon Creek runs extremely steep at 330 feet per mile over 1.5 miles - class IV pushing to IV+ when it's up. The put-in starts one of the longest slides in the Ozarks at half a mile long. Named rapids include UH (6-8 feet), OH (12-15 feet near vertical), Snake Eyes (IV), Mammer Jammer (20-25 feet class IV+), Sycamore, and Bobsled.\n\nThe biggest challenge for a paddler will be stopping. At this gradient, momentum becomes your constant companion. This is expert water that asks for clean lines and good judgment, the kind of creek where you'll scout more than once and be glad you did. It doesn't advertise much, but the paddlers who know it treat it with respect.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "mulberry-r": {
-    "id": "mulberry-r",
-    "name": "Mulberry River",
-    "overview": {
-      "rating": "Class I-II (Class II+ to III at higher flows)",
-      "watershedSize": "L",
-      "gradient": "11-16 feet per mile (varies by section)",
-      "length": "56 miles total, ~40 miles good floating",
-      "season": "Late fall to June (rainfall dependent)"
+  'mulberry-r': {
+    id: 'mulberry-r',
+    name: 'Mulberry River',
+    overview: {
+      rating: 'Class I-II (Class II+ to III at higher flows)',
+      watershedSize: 'L',
+      gradient: '11-16 feet per mile (varies by section)',
+      length: '56 miles total, ~40 miles good floating',
+      season: 'Late fall to June (rainfall dependent)',
     },
-    "description": "Fifty-six miles down from the Boston Mountains, the Mulberry finds the Arkansas River, running parallel to Big Piney for much of the way. It's narrow water, continuous, the kind that keeps you working one rapid into the next without much time to think about it. Popular doesn't begin to cover it - you'll likely have company on a good flow weekend.\n\nThe action picks up real after Little Mulberry joins in, two miles below Wolf Pen. That's where the creek gets its teeth. At lower flows you'll see mostly class II, but push it to four feet and those rapids start touching class III. Big Al's Twist, Chainsaw Jungle, Jump Start, Whoop and Holler - the names tell you what you're in for. The river twists around curves fast and tight, and you'll need to read ahead because it doesn't slow down to let you think.\n\nPast 2.4 feet, you'd better know what you're doing. At 4.5 and beyond, you'd better know when to stay home.",
-    "sections": [
+    description:
+      "Fifty-six miles down from the Boston Mountains, the Mulberry finds the Arkansas River, running parallel to Big Piney for much of the way. It's narrow water, continuous, the kind that keeps you working one rapid into the next without much time to think about it. Popular doesn't begin to cover it - you'll likely have company on a good flow weekend.\n\nThe action picks up real after Little Mulberry joins in, two miles below Wolf Pen. That's where the creek gets its teeth. At lower flows you'll see mostly class II, but push it to four feet and those rapids start touching class III. Big Al's Twist, Chainsaw Jungle, Jump Start, Whoop and Holler - the names tell you what you're in for. The river twists around curves fast and tight, and you'll need to read ahead because it doesn't slow down to let you think.\n\nPast 2.4 feet, you'd better know what you're doing. At 4.5 and beyond, you'd better know when to stay home.",
+    sections: [
       {
-        "name": "Headwaters to Wolf Pen Campground",
-        "distance": "~15.7 miles",
-        "gradient": "16 fpm (upper half), 12 fpm (lower half)",
-        "notes": "Upper section with steeper gradient"
+        name: 'Headwaters to Wolf Pen Campground',
+        distance: '~15.7 miles',
+        gradient: '16 fpm (upper half), 12 fpm (lower half)',
+        notes: 'Upper section with steeper gradient',
       },
       {
-        "name": "Wolf Pen to High Bank",
-        "distance": "~2 miles below Wolf Pen to confluence with Little Mulberry",
-        "rating": "Class II+",
-        "notes": "The Mulberry is a narrow stream at Wolf Pen. Best action begins after the confluence of the Little Mulberry 2 miles below Wolf Pen. At lower water levels, mostly Class II; at levels around 4 ft or higher, some rapids closer to Class III."
+        name: 'Wolf Pen to High Bank',
+        distance: '~2 miles below Wolf Pen to confluence with Little Mulberry',
+        rating: 'Class II+',
+        notes:
+          'The Mulberry is a narrow stream at Wolf Pen. Best action begins after the confluence of the Little Mulberry 2 miles below Wolf Pen. At lower water levels, mostly Class II; at levels around 4 ft or higher, some rapids closer to Class III.',
       },
       {
-        "name": "High Bank to Campbell",
-        "notes": "Fast and continuous action with rapids including Jump Start, Whoop and Holler and several others as the river twists around one curve after another"
+        name: 'High Bank to Campbell',
+        notes:
+          'Fast and continuous action with rapids including Jump Start, Whoop and Holler and several others as the river twists around one curve after another',
       },
       {
-        "name": "Campbell Section",
-        "distance": "~12.7 miles",
-        "gradient": "11 feet per mile"
-      }
+        name: 'Campbell Section',
+        distance: '~12.7 miles',
+        gradient: '11 feet per mile',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Wolf Pen Recreation Area",
-        "location": "Wolf Pen Campground",
-        "directions": "Near Oark, Arkansas in Ozark National Forest"
+        name: 'Wolf Pen Recreation Area',
+        location: 'Wolf Pen Campground',
+        directions: 'Near Oark, Arkansas in Ozark National Forest',
       },
       {
-        "name": "High Bank Access",
-        "location": "2 miles below Little Mulberry confluence",
-        "notes": "Popular access point"
+        name: 'High Bank Access',
+        location: '2 miles below Little Mulberry confluence',
+        notes: 'Popular access point',
       },
       {
-        "name": "Campbell Access",
-        "notes": "Lower section access"
-      }
+        name: 'Campbell Access',
+        notes: 'Lower section access',
+      },
     ],
-    "rapids": [
+    rapids: [
       "Big Al's Twist",
-      "Chainsaw Jungle",
-      "Jump Start",
-      "Whoop and Holler"
+      'Chainsaw Jungle',
+      'Jump Start',
+      'Whoop and Holler',
     ],
-    "hazards": [
+    hazards: [
       "Narrow channels that don't forgive sloppy lines",
-      "Continuous rapids from Wolf Pen on down - no time to rest and think",
-      "Water rises fast when it rains",
+      'Continuous rapids from Wolf Pen on down - no time to rest and think',
+      'Water rises fast when it rains',
       "Past 2.4 feet, this isn't beginner water",
-      "4.5 feet and beyond, this is dangerous water"
+      '4.5 feet and beyond, this is dangerous water',
     ],
-    "tributaries": [],
-    "images": [
+    tributaries: [],
+    images: [
       {
-        "alt": "Mulberry River flowing through the Ozark National Forest",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mulberry_River_-_Arkansas.jpg/1280px-Mulberry_River_-_Arkansas.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
+        alt: 'Mulberry River flowing through the Ozark National Forest',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mulberry_River_-_Arkansas.jpg/1280px-Mulberry_River_-_Arkansas.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
       },
       {
-        "alt": "Historic Mulberry River Bridge near Pleasant Hill",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Mulberry_River_Bridge.JPG/1280px-Mulberry_River_Bridge.JPG",
-        "caption": "Photo: Public Domain, via Wikimedia Commons. Historic Pratt through truss bridge listed on the National Register of Historic Places."
+        alt: 'Historic Mulberry River Bridge near Pleasant Hill',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Mulberry_River_Bridge.JPG/1280px-Mulberry_River_Bridge.JPG',
+        caption:
+          'Photo: Public Domain, via Wikimedia Commons. Historic Pratt through truss bridge listed on the National Register of Historic Places.',
       },
       {
-        "alt": "Paddling near Ozark, Arkansas",
-        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Paddling_Near_Ozark_Arkansas.jpg/800px-Paddling_Near_Ozark_Arkansas.jpg",
-        "caption": "Photo: Public Domain, via Wikimedia Commons"
-      }
+        alt: 'Paddling near Ozark, Arkansas',
+        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Paddling_Near_Ozark_Arkansas.jpg/800px-Paddling_Near_Ozark_Arkansas.jpg',
+        caption: 'Photo: Public Domain, via Wikimedia Commons',
+      },
     ],
-    "sources": [
+    sources: [
       {
-        "title": "Mulberry River, Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/docs/arkansas7.html"
+        title: 'Mulberry River, Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/docs/arkansas7.html',
       },
       {
-        "title": "Mulberry River - Rivers.gov",
-        "url": "https://rivers.gov/river/mulberry"
+        title: 'Mulberry River - Rivers.gov',
+        url: 'https://rivers.gov/river/mulberry',
       },
       {
-        "title": "Mulberry River - Turner Bend Outfitters",
-        "url": "https://www.turnerbend.com/MulberryRiver.html"
+        title: 'Mulberry River - Turner Bend Outfitters',
+        url: 'https://www.turnerbend.com/MulberryRiver.html',
       },
       {
-        "title": "Ozark-St. Francis National Forest - Mulberry River",
-        "url": "https://www.fs.usda.gov/r08/ozark-stfrancis/recreation/mulberry-river"
-      }
+        title: 'Ozark-St. Francis National Forest - Mulberry River',
+        url: 'https://www.fs.usda.gov/r08/ozark-stfrancis/recreation/mulberry-river',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "mystery-cr": {
-    "id": "mystery-cr",
-    "name": "Mystery Cr.",
-    "overview": {
-      "rating": "IV+ (V)",
-      "watershedSize": "",
-      "gradient": "190 fpm (half mile at 320 fpm)",
-      "length": "9.8 mi (includes 8 miles on EFLB)",
-      "season": "FLOOD"
+  'mystery-cr': {
+    id: 'mystery-cr',
+    name: 'Mystery Cr.',
+    overview: {
+      rating: 'IV+ (V)',
+      watershedSize: '',
+      gradient: '190 fpm (half mile at 320 fpm)',
+      length: '9.8 mi (includes 8 miles on EFLB)',
+      season: 'FLOOD',
     },
-    "description": "They call it Mystery Creek now, but it started as an inside joke - the first descent crew wouldn't tell even close friends the name until the day of the run. November 14, 1993, eight kayakers put in at elevation 1840 and didn't take out until well after dark, hiking roads by flashlight to find their vehicles. These days folks call it Sandy Springs Hollow, after the small hollow at the put-in.\n\nThe gradient tells the story: 190 feet per mile average, with half a mile hitting 320. This is the extreme upper section of the East Fork Little Buffalo, and it rates right up there with the hardest hair runs in the Ozarks. Water levels fall fast on a watershed this tiny - put in early.\n\nThe creek starts with fast slides, then a class III ledge before boulders choke it into something much more serious. At lower water, pins are likely for the next half mile. At higher water, a downed tree becomes life-threatening at this gradient.\n\nThe highlight is Rooster's Two Step - named for the 3-foot step above a 12-foot waterfall, first run by David Bibbs (they called him \"The Rooster\"). The approach is a blind curve left with one potential eddy on the right. If you boat around that corner, hang on tight.\n\nAfter the Rooster, the gradient stays serious and the rocks get big and ugly. Bad sieves at low water mean mandatory portages. Higher water opens things up, but good luck slowing down - a flip here means a serious beating. When the main EFLB stem comes in from the right, you're not done - that creek will be big and brawny at these levels, possibly the wildest part of your day.\n\nIf there's any doubt, put in on the EFLB instead.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "They call it Mystery Creek now, but it started as an inside joke - the first descent crew wouldn't tell even close friends the name until the day of the run. November 14, 1993, eight kayakers put in at elevation 1840 and didn't take out until well after dark, hiking roads by flashlight to find their vehicles. These days folks call it Sandy Springs Hollow, after the small hollow at the put-in.\n\nThe gradient tells the story: 190 feet per mile average, with half a mile hitting 320. This is the extreme upper section of the East Fork Little Buffalo, and it rates right up there with the hardest hair runs in the Ozarks. Water levels fall fast on a watershed this tiny - put in early.\n\nThe creek starts with fast slides, then a class III ledge before boulders choke it into something much more serious. At lower water, pins are likely for the next half mile. At higher water, a downed tree becomes life-threatening at this gradient.\n\nThe highlight is Rooster's Two Step - named for the 3-foot step above a 12-foot waterfall, first run by David Bibbs (they called him \"The Rooster\"). The approach is a blind curve left with one potential eddy on the right. If you boat around that corner, hang on tight.\n\nAfter the Rooster, the gradient stays serious and the rocks get big and ugly. Bad sieves at low water mean mandatory portages. Higher water opens things up, but good luck slowing down - a flip here means a serious beating. When the main EFLB stem comes in from the right, you're not done - that creek will be big and brawny at these levels, possibly the wildest part of your day.\n\nIf there's any doubt, put in on the EFLB instead.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "South of Deer on Hwy 16",
-        "directions": "Turn right just past Deer Church on outskirts of town. After about 2 miles, turn right again on smaller dirt road descending a hill. Go straight to hit creek directly, or turn left and follow road that parallels creek until it ends."
+        name: 'Put-in',
+        location: 'South of Deer on Hwy 16',
+        directions:
+          'Turn right just past Deer Church on outskirts of town. After about 2 miles, turn right again on smaller dirt road descending a hill. Go straight to hit creek directly, or turn left and follow road that parallels creek until it ends.',
       },
       {
-        "name": "Take-out",
-        "location": "EFLB take-out",
-        "directions": "See EFLB description for take-out directions."
-      }
+        name: 'Take-out',
+        location: 'EFLB take-out',
+        directions: 'See EFLB description for take-out directions.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "**Rooster's Two Step** - 3-foot step into 12-foot waterfall with blind approach",
-      "**Extreme gradient** - 190 fpm average, 320 fpm in steepest section",
-      "**Boulder sieves** - Mandatory portages at lower water levels",
-      "**Strainers** - Life-threatening at this gradient",
-      "**Water level drops fast** - Tiny watershed means early put-in required",
-      "**First descent ended after dark** - This run takes longer than you think",
-      "As difficult a steep creek as the Ozarks has to offer"
+      '**Extreme gradient** - 190 fpm average, 320 fpm in steepest section',
+      '**Boulder sieves** - Mandatory portages at lower water levels',
+      '**Strainers** - Life-threatening at this gradient',
+      '**Water level drops fast** - Tiny watershed means early put-in required',
+      '**First descent ended after dark** - This run takes longer than you think',
+      'As difficult a steep creek as the Ozarks has to offer',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "osage-cr": {
-    "id": "osage-cr",
-    "name": "Osage Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "80 fpm (first 2 miles at 130 fpm)",
-      "length": "6 mi",
-      "season": "Not specified"
+  'osage-cr': {
+    id: 'osage-cr',
+    name: 'Osage Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: '80 fpm (first 2 miles at 130 fpm)',
+      length: '6 mi',
+      season: 'Not specified',
     },
-    "description": "A gem of an Ozark creek run, Osage Creek delivers 6 miles of class III-IV whitewater with an average gradient of 80 feet per mile - though the first 2 miles drop at 130 fpm, setting the tone early. This is technical, committing water with named rapids that have earned their reputation through broken paddles, side pins, vertical pins, lost skin, and bruised egos.\n\nThe run features several significant drops: Starting Gun (III) kicks things off with a 7-foot fall. Old Mill Falls follows with an 8-foot plunge over an old dam. Then the creek gets serious with Bottleneck (IV), Howler (IV), and the biggest challenge - Magic Mushroom, also called Moon Landing (IV) - distinguished by a huge mushroom-shaped rock that defines the rapid.\n\nAt really high levels, the combination of tricky entrances and thundering main falls may push certain rapids to class V. This is water for paddlers who've moved past intermediate and are ready for something with teeth. Come ready to scout, come ready to work, and you'll get the kind of day that reminds you why you paddle.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "A gem of an Ozark creek run, Osage Creek delivers 6 miles of class III-IV whitewater with an average gradient of 80 feet per mile - though the first 2 miles drop at 130 fpm, setting the tone early. This is technical, committing water with named rapids that have earned their reputation through broken paddles, side pins, vertical pins, lost skin, and bruised egos.\n\nThe run features several significant drops: Starting Gun (III) kicks things off with a 7-foot fall. Old Mill Falls follows with an 8-foot plunge over an old dam. Then the creek gets serious with Bottleneck (IV), Howler (IV), and the biggest challenge - Magic Mushroom, also called Moon Landing (IV) - distinguished by a huge mushroom-shaped rock that defines the rapid.\n\nAt really high levels, the combination of tricky entrances and thundering main falls may push certain rapids to class V. This is water for paddlers who've moved past intermediate and are ready for something with teeth. Come ready to scout, come ready to work, and you'll get the kind of day that reminds you why you paddle.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Multiple class IV rapids with potential for pins (side pins and vertical pins documented)",
-      "Old Mill Falls: 8-foot plunge over old dam structure",
-      "Magic Mushroom/Moon Landing: Biggest rapid on the run with large rock feature",
-      "At high water, certain rapids may reach class V difficulty",
-      "Technical entrances requiring precise lines",
-      "History of equipment damage and swimmer incidents"
+    rapids: [],
+    hazards: [
+      'Multiple class IV rapids with potential for pins (side pins and vertical pins documented)',
+      'Old Mill Falls: 8-foot plunge over old dam structure',
+      'Magic Mushroom/Moon Landing: Biggest rapid on the run with large rock feature',
+      'At high water, certain rapids may reach class V difficulty',
+      'Technical entrances requiring precise lines',
+      'History of equipment damage and swimmer incidents',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "ozark_creek_summary": {
-    "id": "ozark_creek_summary",
-    "name": "ozark_creek_summary",
-    "overview": {
-      "rating": "",
-      "watershedSize": "",
-      "gradient": "",
-      "length": "",
-      "season": ""
+  ozark_creek_summary: {
+    id: 'ozark_creek_summary',
+    name: 'ozark_creek_summary',
+    overview: {
+      rating: '',
+      watershedSize: '',
+      gradient: '',
+      length: '',
+      season: '',
     },
-    "description": "",
-    "sections": [],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    description: '',
+    sections: [],
+    accessPoints: [],
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "pine-cr-ok": {
-    "id": "pine-cr-ok",
-    "name": "Pine Cr. OK",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'pine-cr-ok': {
+    id: 'pine-cr-ok',
+    name: 'Pine Cr. OK',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "This Pine Creek runs in Oklahoma, not to be confused with any of the Arkansas cousins carrying the same name. The details are scarce, which means you'll want to talk to folks who've run it before you load your boat. Sometimes the best information comes from the parking lot, not the guidebook.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "This Pine Creek runs in Oklahoma, not to be confused with any of the Arkansas cousins carrying the same name. The details are scarce, which means you'll want to talk to folks who've run it before you load your boat. Sometimes the best information comes from the parking lot, not the guidebook.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "possum-walk-cr": {
-    "id": "possum-walk-cr",
-    "name": "Possum Walk Cr.",
-    "overview": {
-      "rating": "IV-V (P)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'possum-walk-cr': {
+    id: 'possum-walk-cr',
+    name: 'Possum Walk Cr.',
+    overview: {
+      rating: 'IV-V (P)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Possum Walk Creek runs class IV-V with portages marked on the card, which tells you everything you need to know about the kind of water waiting here. Some drops you run, some drops you walk around, and knowing which is which separates the smart paddlers from the stories told at memorials. This is expert water that demands humility along with skill.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'Possum Walk Creek runs class IV-V with portages marked on the card, which tells you everything you need to know about the kind of water waiting here. Some drops you run, some drops you walk around, and knowing which is which separates the smart paddlers from the stories told at memorials. This is expert water that demands humility along with skill.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Expert level creek hazards",
-      "Class IV-V rapids",
-      "Portages required"
+    rapids: [],
+    hazards: [
+      'Expert level creek hazards',
+      'Class IV-V rapids',
+      'Portages required',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "rattlesnake-cr": {
-    "id": "rattlesnake-cr",
-    "name": "Rattlesnake Hollow",
-    "overview": {
-      "rating": "IV (V)",
-      "watershedSize": "",
-      "gradient": "400 fpm",
-      "length": "0.6 mi",
-      "season": "Not specified"
+  'rattlesnake-cr': {
+    id: 'rattlesnake-cr',
+    name: 'Rattlesnake Hollow',
+    overview: {
+      rating: 'IV (V)',
+      watershedSize: '',
+      gradient: '400 fpm',
+      length: '0.6 mi',
+      season: 'Not specified',
     },
-    "description": "Rattlesnake Hollow - officially named Rattlesnake Hollow, not Rattlesnake Creek - is a short but intense 0.6-mile park-and-hike run with a gradient of 400 feet per mile. First run in June 2000 by Bill Herring and Trey Marley, this is expert water that can be scouted, run, and shuttled in less than 1.5 hours.\n\nThe highlight and main hazard is a 25-foot sheer plunge into a small 6-foot deep pool. About 100 feet of fast water leads to this massive drop, and after the fall, a rapid starts and doesn't stop for about half a mile. This is class IV-V water where you scout from shore and commit from your boat, and there's no turning back once you've made the choice.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Rattlesnake Hollow - officially named Rattlesnake Hollow, not Rattlesnake Creek - is a short but intense 0.6-mile park-and-hike run with a gradient of 400 feet per mile. First run in June 2000 by Bill Herring and Trey Marley, this is expert water that can be scouted, run, and shuttled in less than 1.5 hours.\n\nThe highlight and main hazard is a 25-foot sheer plunge into a small 6-foot deep pool. About 100 feet of fast water leads to this massive drop, and after the fall, a rapid starts and doesn't stop for about half a mile. This is class IV-V water where you scout from shore and commit from your boat, and there's no turning back once you've made the choice.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "25-foot sheer plunge into small 6-foot deep pool - main hazard and feature",
-      "Sustained half-mile rapid section immediately after the falls",
-      "400 fpm gradient throughout the 0.6-mile run",
-      "Short, intense run requiring precise scouting and commitment",
-      "Pool depth at base of falls is minimal for the height of drop"
+    rapids: [],
+    hazards: [
+      '25-foot sheer plunge into small 6-foot deep pool - main hazard and feature',
+      'Sustained half-mile rapid section immediately after the falls',
+      '400 fpm gradient throughout the 0.6-mile run',
+      'Short, intense run requiring precise scouting and commitment',
+      'Pool depth at base of falls is minimal for the height of drop',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "richland-cr": {
-    "id": "richland-cr",
-    "name": "Richland Creek",
-    "overview": {
-      "rating": "Section 1: III-IV, Section 2: II-III",
-      "watershedSize": "M",
-      "gradient": "Section 1: 55 fpm (some sections approach 80 fpm), Section 2: 20 fpm",
-      "length": "Section 1: 6 mi, Section 2: 10 mi",
-      "season": "Rainfall dependent"
+  'richland-cr': {
+    id: 'richland-cr',
+    name: 'Richland Creek',
+    overview: {
+      rating: 'Section 1: III-IV, Section 2: II-III',
+      watershedSize: 'M',
+      gradient:
+        'Section 1: 55 fpm (some sections approach 80 fpm), Section 2: 20 fpm',
+      length: 'Section 1: 6 mi, Section 2: 10 mi',
+      season: 'Rainfall dependent',
     },
-    "description": "Richland Creek rises north of Highway 16 on Raspberry Mountain, then delivers one of the premier advanced whitewater runs in Arkansas. Don't let the Wild and Scenic designation fool you - Section 1 is serious class III-IV water with a 55 fpm gradient that approaches 80 fpm in places, featuring named rapids that demand respect.\n\nThe upper section (S1, 6 miles) is technical, challenging whitewater. Richland Falls announces itself with a 6-foot drop. Then comes Crack in the Rock (III+) and Knuckle Buster (III+), followed by Upper Screw Up (III). The most dangerous rapid is Lower Screw Up, also called Shaw's Folly (IV), which features a badly undercut rock. Maytag (III) rounds out the named rapids. At higher levels, the water volume and steep gradient can create a very dangerous combination, making for a solid class IV-V run.\n\nSection 2 (10 miles) runs class II-III with a gentler 20 fpm gradient. The lower section and the creek mouth at Woolum offer the scenic wilderness experience - gravel bars that catch the light just right, the ability to paddle upstream to Richland Falls if the water's right, and miles of country that hasn't changed much in a hundred years.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Richland Creek rises north of Highway 16 on Raspberry Mountain, then delivers one of the premier advanced whitewater runs in Arkansas. Don't let the Wild and Scenic designation fool you - Section 1 is serious class III-IV water with a 55 fpm gradient that approaches 80 fpm in places, featuring named rapids that demand respect.\n\nThe upper section (S1, 6 miles) is technical, challenging whitewater. Richland Falls announces itself with a 6-foot drop. Then comes Crack in the Rock (III+) and Knuckle Buster (III+), followed by Upper Screw Up (III). The most dangerous rapid is Lower Screw Up, also called Shaw's Folly (IV), which features a badly undercut rock. Maytag (III) rounds out the named rapids. At higher levels, the water volume and steep gradient can create a very dangerous combination, making for a solid class IV-V run.\n\nSection 2 (10 miles) runs class II-III with a gentler 20 fpm gradient. The lower section and the creek mouth at Woolum offer the scenic wilderness experience - gravel bars that catch the light just right, the ability to paddle upstream to Richland Falls if the water's right, and miles of country that hasn't changed much in a hundred years.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Buffalo River Confluence",
-        "location": "Woolum access on Buffalo River",
-        "notes": "Put-in located opposite mouth of Richland Creek on scenic gravel bar"
-      }
+        name: 'Buffalo River Confluence',
+        location: 'Woolum access on Buffalo River',
+        notes:
+          'Put-in located opposite mouth of Richland Creek on scenic gravel bar',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "Lower Screw Up/Shaw's Folly (IV): Most dangerous rapid with badly undercut rock",
-      "Richland Falls: 6-foot drop requiring precise line",
-      "Crack in the Rock (III+) and Knuckle Buster (III+): Technical rapids demanding attention",
-      "At high water: Volume and steep gradient (approaching 80 fpm in sections) can push run to class IV-V",
-      "Wilderness setting means long distance from help",
-      "Water comes and goes with the rain",
+      'Richland Falls: 6-foot drop requiring precise line',
+      'Crack in the Rock (III+) and Knuckle Buster (III+): Technical rapids demanding attention',
+      'At high water: Volume and steep gradient (approaching 80 fpm in sections) can push run to class IV-V',
+      'Wilderness setting means long distance from help',
+      'Water comes and goes with the rain',
       "Access points are scarce as hen's teeth",
       "Wilderness means wilderness - you're a long way from the truck",
-      "Technical stretches that'll keep you honest"
+      "Technical stretches that'll keep you honest",
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Richland Creek, Arkansas - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo5.html"
+        title: 'Richland Creek, Arkansas - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo5.html',
       },
       {
-        "title": "Middle Buffalo National River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo3.html"
+        title: 'Middle Buffalo National River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo3.html',
       },
       {
-        "title": "Buffalo National River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/buffalo.html"
+        title: 'Buffalo National River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/buffalo.html',
       },
       {
-        "title": "Map of Buffalo National River - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/docs/Buffalomap.html"
-      }
+        title: 'Map of Buffalo National River - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/docs/Buffalomap.html',
+      },
     ],
-    "geographicContext": "Richland Creek rises in northeastern Pope County near Highway 16 and Raspberry Mountain. It flows through the Richland Creek Wilderness Area before joining the Buffalo National River. The creek is located in the same region as Falling Water Creek, another scenic Buffalo tributary.",
-    "specialDesignation": "**Wild and Scenic Tributary** - Protected status as part of Buffalo National River system\n- Part of first National River designation (1972)\n- Protected from dams and impoundments\n- Managed as wilderness area"
+    geographicContext:
+      'Richland Creek rises in northeastern Pope County near Highway 16 and Raspberry Mountain. It flows through the Richland Creek Wilderness Area before joining the Buffalo National River. The creek is located in the same region as Falling Water Creek, another scenic Buffalo tributary.',
+    specialDesignation:
+      '**Wild and Scenic Tributary** - Protected status as part of Buffalo National River system\n- Part of first National River designation (1972)\n- Protected from dams and impoundments\n- Managed as wilderness area',
   },
-  "rock-cr": {
-    "id": "rock-cr",
-    "name": "Rock Cr.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'rock-cr': {
+    id: 'rock-cr',
+    name: 'Rock Cr.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Rock Creek runs class II-III, which makes it good water for paddlers working their way up from beginner moves to something with a little more teeth. You'll find enough whitewater to keep things interesting, but nothing that'll send you home with stories you can't tell your mother.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Rock Creek runs class II-III, which makes it good water for paddlers working their way up from beginner moves to something with a little more teeth. You'll find enough whitewater to keep things interesting, but nothing that'll send you home with stories you can't tell your mother.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "rockport": {
-    "id": "rockport",
-    "name": "Rockport",
-    "overview": {
-      "rating": "II",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  rockport: {
+    id: 'rockport',
+    name: 'Rockport',
+    overview: {
+      rating: 'II',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "This stretch of the Ouachita at Rockport runs easy class II - the kind of water where you learn to read a river without paying too much tuition for your mistakes. Good place to get your bearings before you head downstream to where things get more serious.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'This stretch of the Ouachita at Rockport runs easy class II - the kind of water where you learn to read a river without paying too much tuition for your mistakes. Good place to get your bearings before you head downstream to where things get more serious.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "rogers-private-idaho": {
-    "id": "rogers-private-idaho",
-    "name": "Roger's Private Idaho",
-    "overview": {
-      "rating": "II",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'rogers-private-idaho': {
+    id: 'rogers-private-idaho',
+    name: "Roger's Private Idaho",
+    overview: {
+      rating: 'II',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Class II water that'll ease you into whitewater without dunking you too hard. The name's got a story, no doubt, but it's been lost to time like most good river tales. What's left is a beginner run that does its job without much fuss.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Class II water that'll ease you into whitewater without dunking you too hard. The name's got a story, no doubt, but it's been lost to time like most good river tales. What's left is a beginner run that does its job without much fuss.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "saint-francis-r": {
-    "id": "saint-francis-r",
-    "name": "Saint Francis River (Missouri)",
-    "overview": {
-      "rating": "Class II-IV",
-      "watershedSize": "L",
-      "gradient": "Moderate to steep in whitewater sections",
-      "length": "Multiple sections available",
-      "season": "Winter-Spring; after heavy rain in summer/fall"
+  'saint-francis-r': {
+    id: 'saint-francis-r',
+    name: 'Saint Francis River (Missouri)',
+    overview: {
+      rating: 'Class II-IV',
+      watershedSize: 'L',
+      gradient: 'Moderate to steep in whitewater sections',
+      length: 'Multiple sections available',
+      season: 'Winter-Spring; after heavy rain in summer/fall',
     },
-    "description": "The Saint Francis stands alone as Missouri's only true whitewater river. When the spring rains come, paddlers from St. Louis and all over head for the granite shut-ins between Millstream Gardens and Silver Mines. You'll find legitimate class II and III rapids here - exposed bedrock and igneous rock that creates lines you won't see anywhere else in the state. In flood stage, those ratings climb to IV and V, so pay attention. It's entirely rain-fed, so you check the gauges and go when the river says go. The Missouri Whitewater Association calls this home, and they've been running championships here for nearly sixty years.",
-    "sections": [
+    description:
+      "The Saint Francis stands alone as Missouri's only true whitewater river. When the spring rains come, paddlers from St. Louis and all over head for the granite shut-ins between Millstream Gardens and Silver Mines. You'll find legitimate class II and III rapids here - exposed bedrock and igneous rock that creates lines you won't see anywhere else in the state. In flood stage, those ratings climb to IV and V, so pay attention. It's entirely rain-fed, so you check the gauges and go when the river says go. The Missouri Whitewater Association calls this home, and they've been running championships here for nearly sixty years.",
+    sections: [
       {
-        "name": "Millstream Gardens to Silver Mines",
-        "character": "The classic Missouri whitewater run",
-        "notes": "Put in at Millstream Gardens Conservation Area"
+        name: 'Millstream Gardens to Silver Mines',
+        character: 'The classic Missouri whitewater run',
+        notes: 'Put in at Millstream Gardens Conservation Area',
       },
       {
-        "name": "Silver Mines Area",
-        "character": "Popular gathering spot",
-        "notes": "\"D-Bridge\" parking lot is the meet-up spot"
-      }
+        name: 'Silver Mines Area',
+        character: 'Popular gathering spot',
+        notes: '"D-Bridge" parking lot is the meet-up spot',
+      },
     ],
-    "accessPoints": [
+    accessPoints: [
       {
-        "name": "Put-in: Millstream Gardens Conservation Area",
-        "location": "Upriver from Silver Mines",
-        "directions": "West of Fredericktown off Hwy 72"
+        name: 'Put-in: Millstream Gardens Conservation Area',
+        location: 'Upriver from Silver Mines',
+        directions: 'West of Fredericktown off Hwy 72',
       },
       {
-        "name": "Take-out: Silver Mines Recreation Area",
-        "location": "Mark Twain National Forest",
-        "directions": "East of Ironton off Hwy 72"
-      }
+        name: 'Take-out: Silver Mines Recreation Area',
+        location: 'Mark Twain National Forest',
+        directions: 'East of Ironton off Hwy 72',
+      },
     ],
-    "rapids": [],
-    "hazards": [
+    rapids: [],
+    hazards: [
       "Water levels change rapidly - what's runnable today may be too low tomorrow",
-      "High water increases difficulty significantly",
-      "Cold water in spring - dress for immersion",
-      "Limited bailout in some sections"
+      'High water increases difficulty significantly',
+      'Cold water in spring - dress for immersion',
+      'Limited bailout in some sections',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "St. Francis River Whitewater - St. Louis Outdoor Adventures",
-        "url": "https://stlouisoutdooradventures.com/st-francis-river-whitewater/"
+        title: 'St. Francis River Whitewater - St. Louis Outdoor Adventures',
+        url: 'https://stlouisoutdooradventures.com/st-francis-river-whitewater/',
       },
       {
-        "title": "St. Francis River - Missouri Float Trips",
-        "url": "https://www.floatmissouri.com/plan/missouri-rivers/st-francis-river/"
+        title: 'St. Francis River - Missouri Float Trips',
+        url: 'https://www.floatmissouri.com/plan/missouri-rivers/st-francis-river/',
       },
       {
-        "title": "Missouri Whitewater Association",
-        "url": "https://missouriwhitewater.org/"
+        title: 'Missouri Whitewater Association',
+        url: 'https://missouriwhitewater.org/',
       },
       {
-        "title": "Silver Mines Recreation Area - USFS",
-        "url": "https://www.fs.usda.gov/recarea/mtnf/recreation/scenicdrivinginfo/recarea/?recid=21840"
-      }
+        title: 'Silver Mines Recreation Area - USFS',
+        url: 'https://www.fs.usda.gov/recarea/mtnf/recreation/scenicdrivinginfo/recarea/?recid=21840',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "saline-r": {
-    "id": "saline-r",
-    "name": "Saline R.",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'saline-r': {
+    id: 'saline-r',
+    name: 'Saline R.',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Saline runs class II-III along most of its length, with the lower river mellowing out to a solid II+. It's the kind of water that lets you practice your moves without worrying too much about the consequences. Multiple sections give you options depending on what you're after and how much water's running.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Saline runs class II-III along most of its length, with the lower river mellowing out to a solid II+. It's the kind of water that lets you practice your moves without worrying too much about the consequences. Multiple sections give you options depending on what you're after and how much water's running.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "salt-fork": {
-    "id": "salt-fork",
-    "name": "Salt Fork",
-    "overview": {
-      "rating": "II-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'salt-fork': {
+    id: 'salt-fork',
+    name: 'Salt Fork',
+    overview: {
+      rating: 'II-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Salt Fork runs class II and III when the clouds open up. Like a lot of these smaller creeks, it needs a good rain to wake up, but when it does, it offers a tighter, more personal run than the bigger rivers. You'll find yourself in closer quarters here, reading water that moves fast and leaves less room for error. The details might be scarce, but the water's real enough when you're in it.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Salt Fork runs class II and III when the clouds open up. Like a lot of these smaller creeks, it needs a good rain to wake up, but when it does, it offers a tighter, more personal run than the bigger rivers. You'll find yourself in closer quarters here, reading water that moves fast and leaves less room for error. The details might be scarce, but the water's real enough when you're in it.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "shoal-cr": {
-    "id": "shoal-cr",
-    "name": "Shoal Cr.",
-    "overview": {
-      "rating": "III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'shoal-cr': {
+    id: 'shoal-cr',
+    name: 'Shoal Cr.',
+    overview: {
+      rating: 'III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Shoal Creek runs solid class III water, and somewhere upstream there's an Upper Upper Shoal Creek that bumps up to III+ - whether that's a different fork or just what folks call the headwaters depends on who's talking. Either way, it's legitimate intermediate water that'll test your creek skills without getting into expert territory.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Shoal Creek runs solid class III water, and somewhere upstream there's an Upper Upper Shoal Creek that bumps up to III+ - whether that's a different fork or just what folks call the headwaters depends on who's talking. Either way, it's legitimate intermediate water that'll test your creek skills without getting into expert territory.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "shop-cr": {
-    "id": "shop-cr",
-    "name": "Shop Cr.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'shop-cr': {
+    id: 'shop-cr',
+    name: 'Shop Cr.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Shop Creek runs class III-V, and when other creek descriptions say you need skills \"on par with Beech or Shop Creek,\" you know you're talking about serious water. This is benchmark expert territory in Arkansas - the kind of run that separates folks who think they're ready from folks who actually are. The creek doesn't give much quarter, and it expects you to show up with your A-game and the judgment to know when you've got it.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Shop Creek runs class III-V, and when other creek descriptions say you need skills \"on par with Beech or Shop Creek,\" you know you're talking about serious water. This is benchmark expert territory in Arkansas - the kind of run that separates folks who think they're ready from folks who actually are. The creek doesn't give much quarter, and it expects you to show up with your A-game and the judgment to know when you've got it.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "smith-cr": {
-    "id": "smith-cr",
-    "name": "Smith Cr.",
-    "overview": {
-      "rating": "III-V",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'smith-cr': {
+    id: 'smith-cr',
+    name: 'Smith Cr.',
+    overview: {
+      rating: 'III-V',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Smith Creek carries class III-V water when it's up, and the Highway 21 crossing serves as the visual gauge for half the creeks in Newton County. When Smith Creek's running muddy and high, paddlers know there's water on Adkins Creek and Boen Gulf - it's the bellwether for the whole drainage. That's how these mountains work - you read one creek to know what the others are doing.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Smith Creek carries class III-V water when it's up, and the Highway 21 crossing serves as the visual gauge for half the creeks in Newton County. When Smith Creek's running muddy and high, paddlers know there's water on Adkins Creek and Boen Gulf - it's the bellwether for the whole drainage. That's how these mountains work - you read one creek to know what the others are doing.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Highway 21 crossing is a reference point."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions: 'Highway 21 crossing is a reference point.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "south-fork-little-red-r": {
-    "id": "south-fork-little-red-r",
-    "name": "South Fork Little Red R.",
-    "overview": {
-      "rating": "I-III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'south-fork-little-red-r': {
+    id: 'south-fork-little-red-r',
+    name: 'South Fork Little Red R.',
+    overview: {
+      rating: 'I-III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The South Fork of the Little Red runs from class I to class III, giving you a full spectrum of difficulty on a single stretch. That variety makes it good water for paddlers working their way up - you can start easy and work into the harder stuff as your skills catch up to your ambitions.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'The South Fork of the Little Red runs from class I to class III, giving you a full spectrum of difficulty on a single stretch. That variety makes it good water for paddlers working their way up - you can start easy and work into the harder stuff as your skills catch up to your ambitions.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "south-fourche-lafave-r": {
-    "id": "south-fourche-lafave-r",
-    "name": "South Fourche Lafave R.",
-    "overview": {
-      "rating": "II+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'south-fourche-lafave-r': {
+    id: 'south-fourche-lafave-r',
+    name: 'South Fourche Lafave R.',
+    overview: {
+      rating: 'II+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The South Fourche Lafave carries class II+ water - that plus sign means it's got a little more backbone than straight class II, enough to keep developing paddlers alert but not enough to ruin anybody's day. It's good learning water if you're ready to step up from pure beginner runs.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The South Fourche Lafave carries class II+ water - that plus sign means it's got a little more backbone than straight class II, enough to keep developing paddlers alert but not enough to ruin anybody's day. It's good learning water if you're ready to step up from pure beginner runs.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "spadra-cr": {
-    "id": "spadra-cr",
-    "name": "Spadra Cr.",
-    "overview": {
-      "rating": "III+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'spadra-cr': {
+    id: 'spadra-cr',
+    name: 'Spadra Cr.',
+    overview: {
+      rating: 'III+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Spadra Creek runs right through Clarksville, delivering class III+ water that sits right at the top of the intermediate game. That plus sign isn't for decoration - it means you'll find moves here that demand clean lines and solid boat control. It's technical enough to keep you honest without crossing the line into full-blown expert territory. You'd do well to respect it.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Spadra Creek runs right through Clarksville, delivering class III+ water that sits right at the top of the intermediate game. That plus sign isn't for decoration - it means you'll find moves here that demand clean lines and solid boat control. It's technical enough to keep you honest without crossing the line into full-blown expert territory. You'd do well to respect it.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "spirits-cr": {
-    "id": "spirits-cr",
-    "name": "Spirits Cr.",
-    "overview": {
-      "rating": "III",
-      "watershedSize": "",
-      "gradient": "75 fpm (first mile at 100 fpm)",
-      "length": "4 mi",
-      "season": "FLOOD"
+  'spirits-cr': {
+    id: 'spirits-cr',
+    name: 'Spirits Cr.',
+    overview: {
+      rating: 'III',
+      watershedSize: '',
+      gradient: '75 fpm (first mile at 100 fpm)',
+      length: '4 mi',
+      season: 'FLOOD',
     },
-    "description": "Spirits Creek runs four miles of continuous class II-III in a streambed barely 10 to 15 feet wide. Seventy-five feet per mile gradient, with the first mile hitting a hundred. The kind of creek where the rapids don't stop and neither do you.\n\nThe run starts with First Ledge - a five-foot class III drop you can scout from a trail on river right. Avoid the eddy on the left below this one. The current flows under a potentially hazardous undercut boulder there, and that's not a lesson you want to learn the hard way.\n\nThree miles of non-stop rapids follow, with strainers common enough that a portage or two should be expected. The streambed stays narrow the whole way - not much room for error, not much room for anything except forward.\n\nThen comes The Funnel at the end of the third mile - a 12-foot class III+ drop that's earned its reputation as one of the best drops in the state. It sits just after a two-foot sloping ledge with a river-wide hydraulic. When you see that horizon line, you'll know you've arrived.\n\nSpirits Creek is highly recommended to those with the skills for non-stop rapids. If you can handle tight, continuous class III and read water fast enough to dodge strainers, this one will reward you. If you can't, Hurricane Creek or Salt Fork are a few minutes' drive away.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Spirits Creek runs four miles of continuous class II-III in a streambed barely 10 to 15 feet wide. Seventy-five feet per mile gradient, with the first mile hitting a hundred. The kind of creek where the rapids don't stop and neither do you.\n\nThe run starts with First Ledge - a five-foot class III drop you can scout from a trail on river right. Avoid the eddy on the left below this one. The current flows under a potentially hazardous undercut boulder there, and that's not a lesson you want to learn the hard way.\n\nThree miles of non-stop rapids follow, with strainers common enough that a portage or two should be expected. The streambed stays narrow the whole way - not much room for error, not much room for anything except forward.\n\nThen comes The Funnel at the end of the third mile - a 12-foot class III+ drop that's earned its reputation as one of the best drops in the state. It sits just after a two-foot sloping ledge with a river-wide hydraulic. When you see that horizon line, you'll know you've arrived.\n\nSpirits Creek is highly recommended to those with the skills for non-stop rapids. If you can handle tight, continuous class III and read water fast enough to dodge strainers, this one will reward you. If you can't, Hurricane Creek or Salt Fork are a few minutes' drive away.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Low water bridge near Shores Lake area",
-        "directions": "Take Hwy 215 north from I-40 to Shores Lake. Go south of the lake, cross Hurricane Cr., continue uphill past dam and lake overlook. Turn left (north) at first four-way intersection, drive three miles. Turn right at second four-way intersection, drive a mile to low water bridge."
+        name: 'Put-in',
+        location: 'Low water bridge near Shores Lake area',
+        directions:
+          'Take Hwy 215 north from I-40 to Shores Lake. Go south of the lake, cross Hurricane Cr., continue uphill past dam and lake overlook. Turn left (north) at first four-way intersection, drive three miles. Turn right at second four-way intersection, drive a mile to low water bridge.',
       },
       {
-        "name": "Take-out",
-        "location": "Wooden bridge on Campbell's Cemetery road",
-        "directions": "From put-in, return the way you came, turn left at first four-way (back toward Shores Lake). At next four-way, turn left and drive one mile to wooden bridge over Spirits Creek."
-      }
+        name: 'Take-out',
+        location: "Wooden bridge on Campbell's Cemetery road",
+        directions:
+          'From put-in, return the way you came, turn left at first four-way (back toward Shores Lake). At next four-way, turn left and drive one mile to wooden bridge over Spirits Creek.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "**First Ledge** - 5-foot class III drop with undercut boulder hazard on river left - avoid the left eddy below",
-      "**The Funnel** - 12-foot class III+ drop at end of third mile, one of the best drops in the state",
-      "**Dangerous strainers** - Especially common in third mile, expect portages",
-      "**Extremely narrow streambed** - 10-15 feet wide with continuous rapids",
-      "**Undercut rocks** - Present throughout the run"
+    rapids: [],
+    hazards: [
+      '**First Ledge** - 5-foot class III drop with undercut boulder hazard on river left - avoid the left eddy below',
+      '**The Funnel** - 12-foot class III+ drop at end of third mile, one of the best drops in the state',
+      '**Dangerous strainers** - Especially common in third mile, expect portages',
+      '**Extremely narrow streambed** - 10-15 feet wide with continuous rapids',
+      '**Undercut rocks** - Present throughout the run',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "spring-river": {
-    "id": "spring-river",
-    "name": "Spring River",
-    "overview": {
-      "rating": "Class I-II",
-      "watershedSize": "L",
-      "gradient": "Gentle to moderate",
-      "length": "~60 miles (Arkansas)",
-      "season": "Year-round (spring-fed)"
+  'spring-river': {
+    id: 'spring-river',
+    name: 'Spring River',
+    overview: {
+      rating: 'Class I-II',
+      watershedSize: 'L',
+      gradient: 'Gentle to moderate',
+      length: '~60 miles (Arkansas)',
+      season: 'Year-round (spring-fed)',
     },
-    "description": "The Spring River rises from Mammoth Spring in north-central Arkansas and runs cold and clear through the Ozarks, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The main sections run from Mammoth Spring down through Hardy and Ravenden to the confluence with the Black River near Black Rock, with the South Fork adding its own cold water to the mix near Hardy. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.",
-    "sections": [
+    description:
+      "The Spring River rises from Mammoth Spring in north-central Arkansas and runs cold and clear through the Ozarks, its flow steady year-round while other creeks come and go with the rain. That spring-fed consistency makes it reliable water - you can plan a trip in August or February and know the river'll be there waiting. The main sections run from Mammoth Spring down through Hardy and Ravenden to the confluence with the Black River near Black Rock, with the South Fork adding its own cold water to the mix near Hardy. Class I to II water throughout, gravel bars for camping, bluffs in places where the rock shows through. It's popular for good reason - consistent flows, clear water, and enough miles to choose your own distance.",
+    sections: [
       {
-        "name": "Mammoth Spring to Hardy",
-        "character": "Upper section with spring-fed clarity",
-        "notes": "Popular paddling section, joins South Fork near Hardy"
+        name: 'Mammoth Spring to Hardy',
+        character: 'Upper section with spring-fed clarity',
+        notes: 'Popular paddling section, joins South Fork near Hardy',
       },
       {
-        "name": "Hardy to Ravenden",
-        "character": "Middle section",
-        "notes": "Multiple outfitters in Hardy area"
+        name: 'Hardy to Ravenden',
+        character: 'Middle section',
+        notes: 'Multiple outfitters in Hardy area',
       },
       {
-        "name": "Ravenden to Black Rock",
-        "character": "Lower section",
-        "notes": "Less crowded than upper sections"
+        name: 'Ravenden to Black Rock',
+        character: 'Lower section',
+        notes: 'Less crowded than upper sections',
       },
       {
-        "name": "South Fork of the Spring River",
-        "character": "Major tributary with similar spring-fed characteristics"
-      }
+        name: 'South Fork of the Spring River',
+        character: 'Major tributary with similar spring-fed characteristics',
+      },
     ],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Spring water runs cold even in summer - dress for immersion, not air temperature",
-      "Some sections see releases that can change the character quick",
-      "Strainers and logjams where trees meet current"
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Spring water runs cold even in summer - dress for immersion, not air temperature',
+      'Some sections see releases that can change the character quick',
+      'Strainers and logjams where trees meet current',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Spring River, Arkansas - Southwest Paddler",
-        "url": "http://www.southwestpaddler.com/docs/spring2.html"
+        title: 'Spring River, Arkansas - Southwest Paddler',
+        url: 'http://www.southwestpaddler.com/docs/spring2.html',
       },
       {
-        "title": "South Fork of the Spring River - Southwest Paddler",
-        "url": "http://southwestpaddler.com/docs/spring5.html"
+        title: 'South Fork of the Spring River - Southwest Paddler',
+        url: 'http://southwestpaddler.com/docs/spring5.html',
       },
       {
-        "title": "Encyclopedia of Arkansas - Spring River",
-        "url": "https://encyclopediaofarkansas.net/entries/spring-river-5375/"
-      }
+        title: 'Encyclopedia of Arkansas - Spring River',
+        url: 'https://encyclopediaofarkansas.net/entries/spring-river-5375/',
+      },
     ],
-    "geographicContext": "The Spring River flows entirely within Arkansas, rising from Mammoth Spring (one of the largest springs in the US) in Fulton County and flowing southeast to join the Black River near Black Rock in Lawrence County. The South Fork represents a major tributary with significant spring-fed flows.",
-    "specialDesignation": ""
+    geographicContext:
+      'The Spring River flows entirely within Arkansas, rising from Mammoth Spring (one of the largest springs in the US) in Fulton County and flowing southeast to join the Black River near Black Rock in Lawrence County. The South Fork represents a major tributary with significant spring-fed flows.',
+    specialDesignation: '',
   },
-  "stepp-cr": {
-    "id": "stepp-cr",
-    "name": "Stepp Cr.",
-    "overview": {
-      "rating": "III-IV+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'stepp-cr': {
+    id: 'stepp-cr',
+    name: 'Stepp Cr.',
+    overview: {
+      rating: 'III-IV+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "This one keeps its secrets close. What we know is that Stepp Creek runs hard - class IV pushing into IV+ territory when the water's up. The folks who've been down it don't talk much, just nod when you ask if it's worth the trouble. That ought to tell you something.\n\nYou'll be hunting for beta on this one. The creekboaters who know where it is and when to run it tend to share that knowledge over campfires, not on the internet.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "This one keeps its secrets close. What we know is that Stepp Creek runs hard - class IV pushing into IV+ territory when the water's up. The folks who've been down it don't talk much, just nod when you ask if it's worth the trouble. That ought to tell you something.\n\nYou'll be hunting for beta on this one. The creekboaters who know where it is and when to run it tend to share that knowledge over campfires, not on the internet.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "sugar-cr": {
-    "id": "sugar-cr",
-    "name": "Sugar Cr.",
-    "overview": {
-      "rating": "III",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'sugar-cr': {
+    id: 'sugar-cr',
+    name: 'Sugar Cr.',
+    overview: {
+      rating: 'III',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Sugar Creek runs class III through Pope County, but its real claim to fame is the service it provides to Bear Creek paddlers. When you cross the Highway 123 bridge and see Sugar flowing good, you know Bear Creek upstream is coming in.\n\nIt's what the old-timers call a tell - nature's gauge, written in current and color. Been working that way longer than the USGS has been measuring anything.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Sugar Creek runs class III through Pope County, but its real claim to fame is the service it provides to Bear Creek paddlers. When you cross the Highway 123 bridge and see Sugar flowing good, you know Bear Creek upstream is coming in.\n\nIt's what the old-timers call a tell - nature's gauge, written in current and color. Been working that way longer than the USGS has been measuring anything.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Highway 123 bridge crossing is a reference point."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions: 'Highway 123 bridge crossing is a reference point.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "sulphur-cr": {
-    "id": "sulphur-cr",
-    "name": "Sulphur Cr.",
-    "overview": {
-      "rating": "IV-V+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'sulphur-cr': {
+    id: 'sulphur-cr',
+    name: 'Sulphur Cr.',
+    overview: {
+      rating: 'IV-V+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Sulphur Creek sits near the top of the Arkansas difficulty ladder, running class V and not apologizing for it. This is the kind of water where you measure your crew not by how many boats show up, but by how many you'd trust your life with.\n\nThe information stays scarce because the people who run it stay careful. If you have to ask where it is, you probably shouldn't be there yet.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Sulphur Creek sits near the top of the Arkansas difficulty ladder, running class V and not apologizing for it. This is the kind of water where you measure your crew not by how many boats show up, but by how many you'd trust your life with.\n\nThe information stays scarce because the people who run it stay careful. If you have to ask where it is, you probably shouldn't be there yet.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "tanyard-cr": {
-    "id": "tanyard-cr",
-    "name": "Tanyard Cr.",
-    "overview": {
-      "rating": "III-IV (V)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'tanyard-cr': {
+    id: 'tanyard-cr',
+    name: 'Tanyard Cr.',
+    overview: {
+      rating: 'III-IV (V)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Tanyard Creek runs mostly in the class III-IV range, but that V in parentheses isn't there for decoration. Somewhere in the run there's a drop that'll make you earn it, and you won't know if you're ready until you're looking at it.\n\nThe lack of details in the guidebooks is its own kind of detail. Scout thoroughly and paddle conservatively.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Tanyard Creek runs mostly in the class III-IV range, but that V in parentheses isn't there for decoration. Somewhere in the run there's a drop that'll make you earn it, and you won't know if you're ready until you're looking at it.\n\nThe lack of details in the guidebooks is its own kind of detail. Scout thoroughly and paddle conservatively.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "thomas-cr": {
-    "id": "thomas-cr",
-    "name": "Thomas Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'thomas-cr': {
+    id: 'thomas-cr',
+    name: 'Thomas Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Thomas Creek runs class III-IV through Arkansas hill country, one of those creeks you hear about in passing from someone who heard about it from someone else. The kind of run that stays off most people's radar until the water comes up, then a few boats appear like they were just waiting for the call.\n\nIf you can find it and catch it running, you'll understand why the locals keep it quiet.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Thomas Creek runs class III-IV through Arkansas hill country, one of those creeks you hear about in passing from someone who heard about it from someone else. The kind of run that stays off most people's radar until the water comes up, then a few boats appear like they were just waiting for the call.\n\nIf you can find it and catch it running, you'll understand why the locals keep it quiet.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "trigger-gap": {
-    "id": "trigger-gap",
-    "name": "Trigger Gap",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'trigger-gap': {
+    id: 'trigger-gap',
+    name: 'Trigger Gap',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Trigger Gap is one of those names that shows up on the old creek lists without much else attached to it. Could be a rapid, could be a whole section, could be what the locals called a put-in thirty years ago.\n\nSometimes the mystery is part of the appeal. Sometimes it just means you need to buy somebody a beer and ask questions.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      'Trigger Gap is one of those names that shows up on the old creek lists without much else attached to it. Could be a rapid, could be a whole section, could be what the locals called a put-in thirty years ago.\n\nSometimes the mystery is part of the appeal. Sometimes it just means you need to buy somebody a beer and ask questions.',
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "tulsa-wave": {
-    "id": "tulsa-wave",
-    "name": "Tulsa Wave",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'tulsa-wave': {
+    id: 'tulsa-wave',
+    name: 'Tulsa Wave',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Down in Tulsa where the Arkansas River rolls through, there's a wave that forms up when conditions align. Urban kayaking at its finest - you can surf a standing wave while the city hums along on both banks.\n\nDifferent kind of paddling than the Ozark creeks, but the river doesn't care about state lines or what kind of boat you brought.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Down in Tulsa where the Arkansas River rolls through, there's a wave that forms up when conditions align. Urban kayaking at its finest - you can surf a standing wave while the city hums along on both banks.\n\nDifferent kind of paddling than the Ozark creeks, but the river doesn't care about state lines or what kind of boat you brought.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified (may be playspot only)",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified (may be playspot only)',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "upper-upper-shoal-cr": {
-    "id": "upper-upper-shoal-cr",
-    "name": "Upper Upper Shoal Cr.",
-    "overview": {
-      "rating": "III+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'upper-upper-shoal-cr': {
+    id: 'upper-upper-shoal-cr',
+    name: 'Upper Upper Shoal Cr.',
+    overview: {
+      rating: 'III+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "When regular Shoal Creek isn't quite enough, there's the Upper section. When Upper Shoal isn't quite enough, there's this - the headwaters run nicknamed \"The Shoal Sluice\" by the group that made the first descent in 1979 in open boats. This tells you everything you need to know.\n\nAbsolutely no eddies till near the bottom of the run. Extremely fast, extremely narrow, with high-banked V-shaped sides that turn the creek into nearly a slot in some areas. It's very technical, and you'll find yourself purposefully sliding over rocks to slow yourself down enough to have good control. Only runnable once or twice a year at maximum levels.\n\nIt's like climbing higher up the holler to find where the spring starts, except the spring is shooting you downhill like water through a pipe. More effort to get there, and when you arrive, there's no stopping till you reach the bottom.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "When regular Shoal Creek isn't quite enough, there's the Upper section. When Upper Shoal isn't quite enough, there's this - the headwaters run nicknamed \"The Shoal Sluice\" by the group that made the first descent in 1979 in open boats. This tells you everything you need to know.\n\nAbsolutely no eddies till near the bottom of the run. Extremely fast, extremely narrow, with high-banked V-shaped sides that turn the creek into nearly a slot in some areas. It's very technical, and you'll find yourself purposefully sliding over rocks to slow yourself down enough to have good control. Only runnable once or twice a year at maximum levels.\n\nIt's like climbing higher up the holler to find where the spring starts, except the spring is shooting you downhill like water through a pipe. More effort to get there, and when you arrive, there's no stopping till you reach the bottom.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Shoal Creek confluence or downstream",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Shoal Creek confluence or downstream',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "west-fork-white-river": {
-    "id": "west-fork-white-river",
-    "name": "West Fork White River",
-    "overview": {
-      "rating": "I-II (III)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'west-fork-white-river': {
+    id: 'west-fork-white-river',
+    name: 'West Fork White River',
+    overview: {
+      rating: 'I-II (III)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The West Fork of the White River runs gentle through most of its length - class I-II water that'll teach you to read current without punishing your mistakes too hard. Here and there a class III rapid shows up to keep you honest, but mostly this is water where you can learn the rhythm of moving water.\n\nGood place to figure out whether you like this kind of thing before the creeks start demanding more from you.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The West Fork of the White River runs gentle through most of its length - class I-II water that'll teach you to read current without punishing your mistakes too hard. Here and there a class III rapid shows up to keep you honest, but mostly this is water where you can learn the rhythm of moving water.\n\nGood place to figure out whether you like this kind of thing before the creeks start demanding more from you.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "west-horsehead-cr": {
-    "id": "west-horsehead-cr",
-    "name": "West Horsehead Cr.",
-    "overview": {
-      "rating": "III-IV+",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'west-horsehead-cr': {
+    id: 'west-horsehead-cr',
+    name: 'West Horsehead Cr.',
+    overview: {
+      rating: 'III-IV+',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The West Fork of Horsehead Creek runs hard and fast when it runs at all - class IV pushing into the plus range. This is the meaner sibling of the regular Horsehead run, steeper gradient and less forgiveness built in.\n\nCreek water with an attitude. You'll want solid boat control and a good crew before you point downstream.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The West Fork of Horsehead Creek runs hard and fast when it runs at all - class IV pushing into the plus range. This is the meaner sibling of the regular Horsehead run, steeper gradient and less forgiveness built in.\n\nCreek water with an attitude. You'll want solid boat control and a good crew before you point downstream.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "whistlepost-cr": {
-    "id": "whistlepost-cr",
-    "name": "Whistlepost Cr.",
-    "overview": {
-      "rating": "IV-V (P)",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'whistlepost-cr': {
+    id: 'whistlepost-cr',
+    name: 'Whistlepost Cr.',
+    overview: {
+      rating: 'IV-V (P)',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Whistlepost Creek earned its P rating the hard way - class V water with mandatory portages around whatever the creek decided you weren't going to run. This is commitment paddling, where the walk around a drop is part of the day's plan, not a sign of failure.\n\nThe kind of creek that separates folks who like the idea of hard whitewater from folks who actually run it.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Whistlepost Creek earned its P rating the hard way - class V water with mandatory portages around whatever the creek decided you weren't going to run. This is commitment paddling, where the walk around a drop is part of the day's plan, not a sign of failure.\n\nThe kind of creek that separates folks who like the idea of hard whitewater from folks who actually run it.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [
-      "Whatever makes class V water class V",
+    rapids: [],
+    hazards: [
+      'Whatever makes class V water class V',
       "Drops you'll be carrying around whether you like it or not",
-      "The usual suspects - undercuts, sieves, wood, and gravity with opinions"
+      'The usual suspects - undercuts, sieves, wood, and gravity with opinions',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "white-r-middle-fork": {
-    "id": "white-r-middle-fork",
-    "name": "White R. Middle Fork",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'white-r-middle-fork': {
+    id: 'white-r-middle-fork',
+    name: 'White R. Middle Fork',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "The Middle Fork of the White River cuts through Arkansas hill country, one of three forks that eventually become the main stem. Like a lot of these tributaries, it keeps its character to itself until you're actually on the water.\n\nThe lack of details might mean it hasn't been run much, or it might mean the folks who run it haven't gotten around to writing it down. Either way, you're doing some exploring.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "The Middle Fork of the White River cuts through Arkansas hill country, one of three forks that eventually become the main stem. Like a lot of these tributaries, it keeps its character to itself until you're actually on the water.\n\nThe lack of details might mean it hasn't been run much, or it might mean the folks who run it haven't gotten around to writing it down. Either way, you're doing some exploring.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "white-rock-cr": {
-    "id": "white-rock-cr",
-    "name": "White Rock Cr.",
-    "overview": {
-      "rating": "III-IV",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'white-rock-cr': {
+    id: 'white-rock-cr',
+    name: 'White Rock Cr.',
+    overview: {
+      rating: 'III-IV',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "White Rock Creek runs class III-IV depending on the water level and your definition of either. The name tells you what you'll be looking at - pale limestone showing through clear Ozark water, right up until the gradient kicks in and you're too busy to appreciate geology.\n\nAnother one where the details come from the people who've been there, not from guidebooks. Ask around at the takeout on other creeks and eventually you'll find someone who knows.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "White Rock Creek runs class III-IV depending on the water level and your definition of either. The name tells you what you'll be looking at - pale limestone showing through clear Ozark water, right up until the gradient kicks in and you're too busy to appreciate geology.\n\nAnother one where the details come from the people who've been there, not from guidebooks. Ask around at the takeout on other creeks and eventually you'll find someone who knows.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "wister-wave": {
-    "id": "wister-wave",
-    "name": "Wister Wave",
-    "overview": {
-      "rating": "Not specified",
-      "watershedSize": "",
-      "gradient": "Not specified",
-      "length": "Not specified",
-      "season": "Not specified"
+  'wister-wave': {
+    id: 'wister-wave',
+    name: 'Wister Wave',
+    overview: {
+      rating: 'Not specified',
+      watershedSize: '',
+      gradient: 'Not specified',
+      length: 'Not specified',
+      season: 'Not specified',
     },
-    "description": "Over near Wister in eastern Oklahoma, there's a wave that sets up when the conditions come together right. Probably tied to dam releases or the river's mood, the kind of feature that brings out the playboaters when word spreads that it's on.\n\nDifferent game than the downriver runs, but river features don't care what state they're in or what kind of kayaking you prefer. Water makes waves, and waves make smiles.",
-    "sections": [],
-    "accessPoints": [
+    description:
+      "Over near Wister in eastern Oklahoma, there's a wave that sets up when the conditions come together right. Probably tied to dam releases or the river's mood, the kind of feature that brings out the playboaters when word spreads that it's on.\n\nDifferent game than the downriver runs, but river features don't care what state they're in or what kind of kayaking you prefer. Water makes waves, and waves make smiles.",
+    sections: [],
+    accessPoints: [
       {
-        "name": "Put-in",
-        "location": "Not specified",
-        "directions": "Contact local paddling groups for current access information."
+        name: 'Put-in',
+        location: 'Not specified',
+        directions:
+          'Contact local paddling groups for current access information.',
       },
       {
-        "name": "Take-out",
-        "location": "Not specified (may be playspot only)",
-        "directions": "Contact local paddling groups for current access information."
-      }
+        name: 'Take-out',
+        location: 'Not specified (may be playspot only)',
+        directions:
+          'Contact local paddling groups for current access information.',
+      },
     ],
-    "rapids": [],
-    "hazards": [],
-    "tributaries": [],
-    "images": [],
-    "sources": [],
-    "geographicContext": "",
-    "specialDesignation": ""
+    rapids: [],
+    hazards: [],
+    tributaries: [],
+    images: [],
+    sources: [],
+    geographicContext: '',
+    specialDesignation: '',
   },
-  "woka-whitewater-park": {
-    "id": "woka-whitewater-park",
-    "name": "WOKA Whitewater Park",
-    "overview": {
-      "rating": "PLAY",
-      "watershedSize": "A (Always available)",
-      "gradient": "Constructed features",
-      "length": "1,200 feet",
-      "season": "Year-round (weather permitting)"
+  'woka-whitewater-park': {
+    id: 'woka-whitewater-park',
+    name: 'WOKA Whitewater Park',
+    overview: {
+      rating: 'PLAY',
+      watershedSize: 'A (Always available)',
+      gradient: 'Constructed features',
+      length: '1,200 feet',
+      season: 'Year-round (weather permitting)',
     },
-    "description": "WOKA sits right on the line between Oklahoma and Arkansas, a twelve-hundred-foot channel carved out to give you reliable whitewater when the Illinois River is running. It might be engineered, but don't call it a theme park. You've got eight drops designed to mimic the real thing, creating waves and holes that'll tumble you just the same as a natural river. It's a place to hone your skills or just play, but remember - the current is real, the rocks are real concrete, and the water doesn't care if you paid for parking.",
-    "sections": [],
-    "accessPoints": [],
-    "rapids": [],
-    "hazards": [
-      "Authentic whitewater conditions - not a theme park",
-      "Cold water - Illinois River runs cool",
-      "Natural risks inherent to whitewater",
-      "Expect to swim, especially while learning features"
+    description:
+      "WOKA sits right on the line between Oklahoma and Arkansas, a twelve-hundred-foot channel carved out to give you reliable whitewater when the Illinois River is running. It might be engineered, but don't call it a theme park. You've got eight drops designed to mimic the real thing, creating waves and holes that'll tumble you just the same as a natural river. It's a place to hone your skills or just play, but remember - the current is real, the rocks are real concrete, and the water doesn't care if you paid for parking.",
+    sections: [],
+    accessPoints: [],
+    rapids: [],
+    hazards: [
+      'Authentic whitewater conditions - not a theme park',
+      'Cold water - Illinois River runs cool',
+      'Natural risks inherent to whitewater',
+      'Expect to swim, especially while learning features',
     ],
-    "tributaries": [],
-    "images": [],
-    "sources": [
+    tributaries: [],
+    images: [],
+    sources: [
       {
-        "title": "Visit WOKA",
-        "url": "https://visitwoka.com/"
-      }
+        title: 'Visit WOKA',
+        url: 'https://visitwoka.com/',
+      },
     ],
-    "geographicContext": "",
-    "specialDesignation": ""
-  }
+    geographicContext: '',
+    specialDesignation: '',
+  },
 };
 
 export function getStreamContent(id: string) {

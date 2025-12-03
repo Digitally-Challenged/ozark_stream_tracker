@@ -10,8 +10,7 @@ export class TurnerBendScraper {
   // URL available for future server-side scraping implementation
   // private static readonly SCRAPE_URL = 'https://www.turnerbend.com/WaterLevel.html';
   private static readonly API_URL =
-    import.meta.env.VITE_API_URL ||
-    'http://localhost:3001/api/turner-bend/current';
+    import.meta.env.VITE_API_URL || '/api/turner-bend/current';
   private static readonly CACHE_KEY = 'turner-bend-gauge-data';
   private static readonly CACHE_DURATION = 15 * 60 * 1000; // 15 minutes
 

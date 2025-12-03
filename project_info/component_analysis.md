@@ -34,7 +34,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/components/streams/StreamTable.tsx`
 
 - **Purpose**:
-
   - This component is responsible for rendering a sortable and searchable table of water stream data.
   - It allows users to view a list of streams, search for specific streams by name or gauge name, and sort them by various attributes.
   - It also handles user interaction for selecting a stream to view its details (via the `onStreamClick` prop).
@@ -49,25 +48,21 @@ _(This analysis will be expanded with more components and details as the project
   ```
 
 - **State Management**:
-
   - `sortField: SortField` (useState): Stores the current field by which the table is sorted (e.g., 'name', 'rating'). Initialized to 'name'.
   - `sortDirection: SortDirection` (useState): Stores the current sort direction ('asc' or 'desc'). Initialized to 'asc'.
   - `searchTerm: string` (useState): Stores the current value of the search input field. Initialized to an empty string.
 
 - **Side Effects & Data Fetching**:
-
   - Does not directly perform side effects like API calls.
   - It receives the `streams` data as a prop.
   - Individual rows (`StreamTableRow`) within this table are responsible for fetching their own gauge data via the `useStreamGauge` hook.
 
 - **Key Functions/Logic**:
-
   - `handleSort(field: SortField)`: Toggles the sort direction if the same field is clicked, or sets a new sort field and defaults to 'asc' direction.
   - `filteredStreams`: A memoized or derived array where the input `streams` are filtered based on `searchTerm`. The search is case-insensitive and checks against stream name and gauge name.
   - `sortedStreams`: A memoized or derived array where `filteredStreams` are sorted using the `sortStreams` utility function based on `sortField` and `sortDirection`.
 
 - **Dependencies**:
-
   - **Child Components**:
     - `StreamTableHeader.tsx`: Renders the table header.
     - `StreamTableRow.tsx`: Renders each row in the table.
@@ -91,7 +86,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/App.tsx`
 
 - **Purpose**:
-
   - Serves as the root component of the application.
   - Initializes global providers: `ThemeProvider` (for dark/light mode), `CssBaseline` (MUI style normalization), and `BrowserRouter` (for routing).
   - Defines the main layout structure including `Header`, `Footer`, and the main content area which includes `DashboardSidebar` and the routed content (`DashboardContent`).
@@ -99,25 +93,21 @@ _(This analysis will be expanded with more components and details as the project
   - Manages the visibility state of the `DashboardSidebar`.
 
 - **Props Interface**:
-
   - The `App` component itself does not accept any props.
   - The nested `ErrorFallback` component accepts `{ error: Error }`.
   - The nested `DashboardContent` component does not accept any props.
 
 - **State Management**:
-
   - **`App` component**:
     - `filterOpen: boolean` (useState): Controls the visibility of the `DashboardSidebar`. Initialized to `false`. Toggled by a callback passed to the `Header`.
   - **`DashboardContent` component (defined within `App.tsx`)**:
     - `selectedStream: StreamData | null` (useState): Stores the stream object that the user has clicked on for viewing details. Initialized to `null`. Updated by a callback passed to `StreamTable`.
 
 - **Side Effects & Data Fetching**:
-
   - No direct side effects or data fetching initiated by `App.tsx` itself.
   - `DashboardContent` passes the static `streams` data (imported from `src/data/streamData.ts`) to `StreamTable`. Data fetching for individual stream gauges occurs within `StreamTableRow` (via `useStreamGauge` hook).
 
 - **Key Functions/Logic**:
-
   - **`ErrorFallback` function**: A simple component rendered by `ErrorBoundary` to display a generic error message.
   - **`DashboardContent` function**:
     - Renders the main content area for the `/dashboard` route.
@@ -129,7 +119,6 @@ _(This analysis will be expanded with more components and details as the project
     - Toggles the `filterOpen` state for the `DashboardSidebar`.
 
 - **Dependencies**:
-
   - **Child Components**:
     - `Header` (`src/components/core/Header.tsx`)
     - `Footer` (`src/components/core/Footer.tsx`)
@@ -151,7 +140,6 @@ _(This analysis will be expanded with more components and details as the project
     - `Box`, `Container`, `CssBaseline`.
 
 - **AI Bloat Indicators / Areas for Optimization**:
-
   - **`DashboardContent` Separation**: The `DashboardContent` function is defined within `App.tsx`. For better organization and separation of concerns, it could be extracted into its own file (e.g., `src/pages/DashboardPage.tsx` or `src/components/dashboard/DashboardPage.tsx`). This would make `App.tsx` purely focused on global layout and providers.
   - **Layout Complexity**: The main layout is managed with MUI `Box` components and `sx` props. While functional, if layout needs become more complex, this could be an area to ensure clarity and maintainability. The current flexbox setup seems reasonable for this structure.
   - **Styling**: `bgcolor` in the main `Box` uses a function `(theme) => theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5'`. This is standard for MUI theming. Ensure consistency if other styling approaches (like Tailwind) are used for similar purposes elsewhere.
@@ -167,7 +155,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/components/core/Header.tsx`
 
 - **Purpose**:
-
   - Renders the main application header bar.
   - Displays the application title/logo ("OZARK CREEK FLOW ZONE") and a tagline.
   - Provides user controls for toggling the filter sidebar visibility and switching between dark/light themes.
@@ -182,22 +169,18 @@ _(This analysis will be expanded with more components and details as the project
   ```
 
 - **State Management**:
-
   - Does not manage its own internal state. It relies on props (`filterOpen`) for its visual state related to the filter icon and context (`useColorMode`) for the theme state.
 
 - **Side Effects & Data Fetching**:
-
   - No direct side effects or data fetching.
   - Interacts with `ThemeContext` (via `useColorMode` hook) to get the current theme mode and the function to toggle it.
 
 - **Key Functions/Logic**:
-
   - Uses `useColorMode` hook to access `mode` and `toggleColorMode` from `ThemeContext`.
   - Uses MUI's `useTheme` hook to access the current theme object for styling.
   - The filter icon (`FilterList`) rotates based on the `filterOpen` prop.
 
 - **Dependencies**:
-
   - **Context**:
     - `ThemeContext` (via `useColorMode` hook from `../../context/ThemeContext`).
   - **MUI Components**:
@@ -210,7 +193,6 @@ _(This analysis will be expanded with more components and details as the project
     - `backgroundColor` is hardcoded to `rgb(17, 24, 39)`. This could potentially be a theme color.
 
 - **AI Bloat Indicators / Areas for Optimization**:
-
   - **Icon Libraries**: Uses icons from both `lucide-react` and `@mui/icons-material`. Consolidating to one library could be beneficial.
   - **Hardcoded Colors**: The `backgroundColor` of the `AppBar` is a hardcoded RGB value. It might be better to define this color within the MUI theme palette (e.g., `theme.palette.primary.darker` or a custom palette color) for better consistency and easier theming.
   - **Styling Specificity**: Extensive use of `sx` prop for styling. This is idiomatic for MUI, but if a shift towards more Tailwind CSS usage occurs, these would need refactoring. The current approach is fine within an MUI-centric paradigm.
@@ -225,7 +207,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/components/dashboard/DashboardSidebar.tsx`
 
 - **Purpose**:
-
   - Renders a sidebar, typically used for navigation or filtering, as an MUI `Drawer` component.
   - Currently, it displays a static list of menu items which appear to be placeholder navigation/links rather than actual filter controls.
   - The sidebar is toggleable and slides in from the right.
@@ -241,22 +222,18 @@ _(This analysis will be expanded with more components and details as the project
   ```
 
 - **State Management**:
-
   - Does not manage its own internal state related to its visibility; this is controlled by the `open` prop passed from `App.tsx`.
   - Defines a static `menuItems` array.
 
 - **Side Effects & Data Fetching**:
-
   - No side effects or data fetching.
 
 - **Key Functions/Logic**:
-
   - Renders a list of `menuItems` using `List`, `ListItem`, `ListItemButton`, `ListItemText` from MUI.
   - Includes a close button (`IconButton` with `Close` icon) at the top.
   - The content of the sidebar (`content` variable) is defined and then passed to the `Drawer`.
 
 - **Dependencies**:
-
   - **MUI Components**:
     - `Box`, `Drawer`, `IconButton`, `List`, `ListItem`, `ListItemText`, `ListItemButton`, `Divider`.
   - **Icons**:
@@ -265,7 +242,6 @@ _(This analysis will be expanded with more components and details as the project
     - Uses the `sx` prop extensively for styling, including hardcoded background colors (`rgb(17, 24, 39)`) and border colors.
 
 - **AI Bloat Indicators / Areas for Optimization**:
-
   - **Placeholder Content**: The `menuItems` are currently static and seem like placeholders (e.g., "Learn More", "Contact", "Buy us a coffee!"). For a "stream tracker," this sidebar would ideally contain filter controls for stream properties (e.g., rating, size, current level). This is more of a feature completeness issue than bloat.
   - **Hardcoded Colors**: Similar to `Header.tsx`, the `backgroundColor` and `borderColor` are hardcoded. These should be derived from the theme for consistency.
   - **Styling Approach**: Heavy reliance on `sx` prop. This is consistent with MUI usage.
@@ -282,7 +258,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/components/streams/StreamDetail.tsx`
 
 - **Purpose**:
-
   - Displays a detailed view of a selected stream within an MUI `Dialog` component.
   - Shows information like flow rate, temperature, status, last update time, and water quality metrics if available.
   - The dialog is modal and can be closed by the user.
@@ -298,15 +273,12 @@ _(This analysis will be expanded with more components and details as the project
   ```
 
 - **State Management**:
-
   - Does not manage its own internal state. Its visibility and the data it displays are controlled by props passed from `DashboardContent` (defined in `App.tsx`).
 
 - **Side Effects & Data Fetching**:
-
   - No direct side effects or data fetching. It relies on the `stream` prop which should contain all necessary data, including data potentially fetched by `useStreamGauge` at a higher level or within `StreamTableRow`.
 
 - **Key Functions/Logic**:
-
   - `formatDate(dateString?: string)`: A helper function to format date strings using `date-fns`. Handles undefined or invalid dates gracefully.
   - Conditional rendering: If `!stream` prop is null, the component returns `null`.
   - Displays various stream properties using MUI `Grid` for layout and `Typography` for text.
@@ -314,7 +286,6 @@ _(This analysis will be expanded with more components and details as the project
   - Water quality information is displayed conditionally if `stream.waterQuality` exists.
 
 - **Dependencies**:
-
   - **Types**:
     - `StreamData` (from `../../types/stream`).
   - **Libraries**:
@@ -328,7 +299,6 @@ _(This analysis will be expanded with more components and details as the project
     - `PaperProps` on `Dialog` is used to set `bgcolor` and remove `backgroundImage`.
 
 - **AI Bloat Indicators / Areas for Optimization**:
-
   - **Data Presentation**: The component is straightforward in its presentation. If more complex data or visualizations were needed (e.g., charts for historical data), this component would need significant changes.
   - **Styling**: Consistent use of `sx` prop and theme variables. The `DialogActions` button has specific `bgcolor` and hover `bgcolor` from the theme palette, which is good practice.
   - **Readability**: The layout using `Grid` is clear. Each piece of information is presented with an icon and label.
@@ -344,7 +314,6 @@ _(This analysis will be expanded with more components and details as the project
 - **Location**: `src/components/streams/StreamInfoTooltip.tsx`
 
 - **Purpose**:
-
   - Provides the content for tooltips displayed within the `StreamTableRow` component.
   - Dynamically renders information based on the `type` of data (size, correlation, level, rating) and its `value`.
   - For 'level' type, it can also display a trend icon and textual description.
@@ -360,15 +329,12 @@ _(This analysis will be expanded with more components and details as the project
   ```
 
 - **State Management**:
-
   - Does not manage its own internal state. All display logic is derived from its props.
 
 - **Side Effects & Data Fetching**:
-
   - No side effects or data fetching.
 
 - **Key Functions/Logic**:
-
   - `renderTrendIcon()`: Returns an appropriate trend icon (`ArrowUp`, `ArrowDown`, `Minus` from `lucide-react`) based on the `trend` prop.
   - `renderLevelContent()`: Renders detailed information for stream level, including name, color indicator, description, and trend. It maps `value` (like 'X', 'L') to keys in `levelDefinitions`.
   - `renderSizeContent()`: Renders detailed information for stream size (width, watershed, rain rate, window, description).
@@ -377,7 +343,6 @@ _(This analysis will be expanded with more components and details as the project
   - A `switch` statement selects which `render...Content` function to call based on the `type` prop.
 
 - **Dependencies**:
-
   - **Types**:
     - `LevelTrend` (from `../../types/stream`).
     - `sizeDefinitions`, `correlationDefinitions` (type-only import for `keyof typeof`) from `../../types/streamDefinitions`.
@@ -391,7 +356,6 @@ _(This analysis will be expanded with more components and details as the project
     - Uses MUI's `sx` prop for layout and styling, referencing `theme.palette` for colors.
 
 - **AI Bloat Indicators / Areas for Optimization**:
-
   - **Complexity**: The component has several distinct rendering functions based on `type`. While this makes the component versatile, it also increases its internal complexity. If more types were added, it could become unwieldy. For the current number of types, it is manageable.
   - **`levelKey` Mapping in `renderLevelContent`**: The mapping `value === 'X' ? 'tooLow' : ...` is a bit verbose. This could potentially be simplified if the `value` prop for 'level' directly matched keys in `levelDefinitions`, or if a more direct lookup object was used. However, this is a minor point.
   - **Type Safety of `value` prop**: The `value` prop is `string`. For `size` and `correlation` types, it's cast `as keyof typeof sizeDefinitions` or `correlationDefinitions`. While this works, ensuring the passed `value` is always valid for the given `type` relies on the calling component (`StreamTableRow`). Using more specific union types for `value` based on `type` could enhance type safety, but might complicate the `InfoTooltipProps` interface.

@@ -1,6 +1,7 @@
 # Falls Br.
 
 ## Overview
+
 **Rating:** III-V
 **TDCR:** Not listed
 **Gradient:** 150 fpm (300+ fpm max in first mile)
@@ -9,6 +10,7 @@
 **Topo Quads:** Not specified
 
 ## Description
+
 Falls Branch runs class III to V, which is to say it runs hard when it runs at all. First descent came April 22, 1996, and after that first run they started calling it "Dead Falls Branch" on account of all the downed trees. That ought to tell you something about what you're getting into.
 
 Nine miles total, four of them on Falls Branch proper, and that first mile will get your attention quick - three hundred feet per mile or better, water coming downhill like it's got somewhere to be. The gradient settles to one-fifty for the remainder, which sounds reasonable until you're in it.
@@ -20,14 +22,17 @@ Not many folks run this one. Probably for good reason.
 ## Access Points
 
 ### Put-in
+
 **Location:** Not specified
 **Directions:** Contact local paddling groups for current access information.
 
 ### Take-out
+
 **Location:** Not specified
 **Directions:** Contact local paddling groups for current access information.
 
 ## Hazards
+
 - **Nate's Falls** - 10-12 foot drop with undercut boulders. Scout carefully.
 - **Extreme gradient** - First mile hits 300+ fpm. Remainder averages 150 fpm.
 - **Downed trees** - Called "Dead Falls Branch" after first descent due to many trees in creek
@@ -36,11 +41,13 @@ Not many folks run this one. Probably for good reason.
 - Everything you'd expect from water running this hard. Plus what you don't.
 
 ## Gauge Information
+
 Contact local paddling community for gauge information.
 
 ## Images
 
-*No publicly available images found for this creek.*
+_No publicly available images found for this creek._
 
 ## Sources
+
 - https://www.ozarkpages.com/whitewater/AR.html

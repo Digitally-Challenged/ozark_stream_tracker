@@ -52,13 +52,13 @@ GET https://waterservices.usgs.gov/nwis/iv/
 
 ### Files
 
-| Action | File |
-|--------|------|
-| Create | `src/context/GaugeDataContext.tsx` |
-| Create | `src/hooks/useGaugeReading.ts` |
-| Modify | `src/App.tsx` - wrap with GaugeDataProvider |
-| Modify | `src/components/streams/StreamTableRow.tsx` - use new hook |
-| Deprecate | Per-row fetching in `src/hooks/useStreamGauge.ts` |
+| Action    | File                                                       |
+| --------- | ---------------------------------------------------------- |
+| Create    | `src/context/GaugeDataContext.tsx`                         |
+| Create    | `src/hooks/useGaugeReading.ts`                             |
+| Modify    | `src/App.tsx` - wrap with GaugeDataProvider                |
+| Modify    | `src/components/streams/StreamTableRow.tsx` - use new hook |
+| Deprecate | Per-row fetching in `src/hooks/useStreamGauge.ts`          |
 
 ### Result
 
@@ -108,9 +108,9 @@ Group streams by water level condition with collapsible sections.
 
 ### Files
 
-| Action | File |
-|--------|------|
-| Create | `src/components/streams/StreamGroup.tsx` |
+| Action | File                                           |
+| ------ | ---------------------------------------------- |
+| Create | `src/components/streams/StreamGroup.tsx`       |
 | Create | `src/components/streams/StreamGroupHeader.tsx` |
 | Modify | `src/pages/DashboardPage.tsx` - grouping logic |
 
@@ -149,6 +149,7 @@ Dual view modes with smart responsive defaults.
 ### Table View (default on desktop, ≥ 768px)
 
 Current table layout, enhanced:
+
 - Stronger visual treatment for condition column
 - More prominent trend arrows
 - Zebra striping for readability
@@ -167,12 +168,12 @@ Current table layout, enhanced:
 
 ### Files
 
-| Action | File |
-|--------|------|
-| Create | `src/components/streams/StreamCard.tsx` |
+| Action | File                                        |
+| ------ | ------------------------------------------- |
+| Create | `src/components/streams/StreamCard.tsx`     |
 | Create | `src/components/streams/StreamCardGrid.tsx` |
-| Create | `src/components/streams/ViewToggle.tsx` |
-| Create | `src/hooks/useViewPreference.ts` |
+| Create | `src/components/streams/ViewToggle.tsx`     |
+| Create | `src/hooks/useViewPreference.ts`            |
 
 ---
 
@@ -203,14 +204,14 @@ App.tsx
 
 ### State Management
 
-| State | Location | Persistence |
-|-------|----------|-------------|
-| Gauge readings | `GaugeDataContext` | Memory (refetched) |
-| View mode | `useViewPreference` | localStorage |
-| Filters (rating/size) | `App.tsx` props | None |
-| Search term | `DashboardPage` | None |
-| Group collapse | `StreamGroup` local | None |
-| Sort field/direction | `StreamGroup` local | None |
+| State                 | Location            | Persistence        |
+| --------------------- | ------------------- | ------------------ |
+| Gauge readings        | `GaugeDataContext`  | Memory (refetched) |
+| View mode             | `useViewPreference` | localStorage       |
+| Filters (rating/size) | `App.tsx` props     | None               |
+| Search term           | `DashboardPage`     | None               |
+| Group collapse        | `StreamGroup` local | None               |
+| Sort field/direction  | `StreamGroup` local | None               |
 
 ---
 
@@ -231,12 +232,12 @@ App.tsx
 
 ### Error Strategy
 
-| Scenario | Behavior |
-|----------|----------|
-| USGS batch fails entirely | Error banner with retry button |
-| Individual gauge fails | That gauge's streams show "Unavailable" |
-| Turner Bend fails | Independent, doesn't affect USGS streams |
-| Network offline | Show cached data if available, "Offline" indicator |
+| Scenario                  | Behavior                                           |
+| ------------------------- | -------------------------------------------------- |
+| USGS batch fails entirely | Error banner with retry button                     |
+| Individual gauge fails    | That gauge's streams show "Unavailable"            |
+| Turner Bend fails         | Independent, doesn't affect USGS streams           |
+| Network offline           | Show cached data if available, "Offline" indicator |
 
 ### Refresh Behavior
 

@@ -37,7 +37,7 @@ describe('Turner Bend Water Level Parser', () => {
     it('should extract 2.2 from "12-03-20252.2\'" but currently extracts 20252.2', () => {
       // This is the actual text pattern from the live Turner Bend website
       // where the year and level get concatenated without whitespace
-      const buggyPageText = '12-03-20252.2\'';
+      const buggyPageText = "12-03-20252.2'";
 
       const result = parseWaterLevel(buggyPageText);
 
@@ -64,7 +64,7 @@ describe('Turner Bend Water Level Parser', () => {
 
   describe('Expected behavior after fix', () => {
     it('should parse normal format with space: "12-03-2025  2.2\'"', () => {
-      const pageText = '12-03-2025  2.2\'';
+      const pageText = "12-03-2025  2.2'";
       const result = parseWaterLevel(pageText);
       expect(result).toBe(2.2);
     });
@@ -81,14 +81,14 @@ describe('Turner Bend Water Level Parser', () => {
       expect(result).toBe(3.5);
     });
 
-    it('should parse low water levels like 0.8\'', () => {
-      const pageText = '0.8\'';
+    it("should parse low water levels like 0.8'", () => {
+      const pageText = "0.8'";
       const result = parseWaterLevel(pageText);
       expect(result).toBe(0.8);
     });
 
-    it('should parse high water levels like 12.5\'', () => {
-      const pageText = '12.5\'';
+    it("should parse high water levels like 12.5'", () => {
+      const pageText = "12.5'";
       const result = parseWaterLevel(pageText);
       expect(result).toBe(12.5);
     });
@@ -111,7 +111,7 @@ describe('Turner Bend Water Level Parser', () => {
       expect(result).toBe(2.2);
     });
 
-    it('should handle integer water levels like 5\'', () => {
+    it("should handle integer water levels like 5'", () => {
       // Some rivers might have whole-number readings
       const pageText = "12-03-20255'";
       const result = parseWaterLevel(pageText);
@@ -120,13 +120,13 @@ describe('Turner Bend Water Level Parser', () => {
       expect(result).toBeNull();
     });
 
-    it('should handle very low water levels like 0.1\'', () => {
+    it("should handle very low water levels like 0.1'", () => {
       const pageText = "12-03-20250.1'";
       const result = parseWaterLevel(pageText);
       expect(result).toBe(0.1);
     });
 
-    it('should handle high water levels like 15.5\'', () => {
+    it("should handle high water levels like 15.5'", () => {
       const pageText = "12-03-202515.5'";
       const result = parseWaterLevel(pageText);
       expect(result).toBe(15.5);

@@ -12,17 +12,19 @@ class TurnerBendScraperService {
 
   async scrapeWaterLevel() {
     try {
-      console.log(`[${new Date().toISOString()}] Starting Turner Bend scrape...`);
-      
+      console.log(
+        `[${new Date().toISOString()}] Starting Turner Bend scrape...`
+      );
+
       const response = await axios.get(this.url, {
         timeout: 10000,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (compatible; OzarkStreamTracker/1.0)'
-        }
+          'User-Agent': 'Mozilla/5.0 (compatible; OzarkStreamTracker/1.0)',
+        },
       });
 
       const $ = cheerio.load(response.data);
-      
+
       // Parse the water level from Turner Bend website (REAL DATA ONLY)
       let waterLevel = null;
       let date = new Date().toISOString();
@@ -30,8 +32,11 @@ class TurnerBendScraperService {
 
       // Get the full page text for parsing
       const pageText = $('body').text();
-      console.log('Turner Bend page content preview:', pageText.substring(0, 500));
-      
+      console.log(
+        'Turner Bend page content preview:',
+        pageText.substring(0, 500)
+      );
+
       // Look for water level patterns like "0.8'" or "2.5 feet"
       // FIXED: Handles date-level concatenation (e.g., "12-03-20252.2'" -> 2.2)
       // Pattern breakdown:
@@ -43,13 +48,20 @@ class TurnerBendScraperService {
         /\d{1,2}-\d{1,2}-\d{4}\s*(\d{1,2}\.\d+)\s*['"]|(?<!\d)(\d{1,2}\.\d+)\s*['"]|Level:\s*(\d+\.?\d*)|Water\s*Level:\s*(\d+\.?\d*)/i
       );
       if (levelMatch) {
-        const parsed = parseFloat(levelMatch[1] || levelMatch[2] || levelMatch[3] || levelMatch[4]);
+        const parsed = parseFloat(
+          levelMatch[1] || levelMatch[2] || levelMatch[3] || levelMatch[4]
+        );
         if (!isNaN(parsed) && parsed >= 0) {
           waterLevel = parsed;
-          console.log('Found water level:', waterLevel, 'from match:', levelMatch[0]);
+          console.log(
+            'Found water level:',
+            waterLevel,
+            'from match:',
+            levelMatch[0]
+          );
         }
       }
-      
+
       // Look for date information in format like "9-17-2025"
       const dateMatch = pageText.match(/(\d{1,2}[-\/]\d{1,2}[-\/]\d{2,4})/);
       if (dateMatch) {
@@ -63,7 +75,7 @@ class TurnerBendScraperService {
           console.warn('Date parsing failed:', e.message);
         }
       }
-      
+
       // Look for descriptive text about conditions
       if (pageText.toLowerCase().includes('dry weather')) {
         description = 'Dry weather conditions';
@@ -74,7 +86,9 @@ class TurnerBendScraperService {
       }
 
       if (!waterLevel) {
-        throw new Error('Could not find water level in HTML - check website structure');
+        throw new Error(
+          'Could not find water level in HTML - check website structure'
+        );
       }
 
       const data = {
@@ -84,16 +98,19 @@ class TurnerBendScraperService {
         dateTime: date,
         source: 'Turner Bend Landing',
         lastUpdated: date,
-        description
+        description,
       };
 
       // Save to file
       await this.saveData(data);
-      
+
       console.log(`[${new Date().toISOString()}] Scrape successful:`, data);
       return data;
     } catch (error) {
-      console.error(`[${new Date().toISOString()}] Scrape failed:`, error.message);
+      console.error(
+        `[${new Date().toISOString()}] Scrape failed:`,
+        error.message
+      );
       throw error;
     }
   }
@@ -103,21 +120,28 @@ class TurnerBendScraperService {
       const history = await this.loadHistory();
       history.push({
         ...data,
-        scrapedAt: new Date().toISOString()
+        scrapedAt: new Date().toISOString(),
       });
-      
+
       // Keep only last 30 days of data
       const thirtyDaysAgo = new Date();
       thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-      
-      const filteredHistory = history.filter(entry => 
-        new Date(entry.scrapedAt) > thirtyDaysAgo
+
+      const filteredHistory = history.filter(
+        (entry) => new Date(entry.scrapedAt) > thirtyDaysAgo
       );
 
-      await fs.writeFile(this.dataFile, JSON.stringify({
-        current: data,
-        history: filteredHistory
-      }, null, 2));
+      await fs.writeFile(
+        this.dataFile,
+        JSON.stringify(
+          {
+            current: data,
+            history: filteredHistory,
+          },
+          null,
+          2
+        )
+      );
     } catch (error) {
       console.error('Error saving data:', error);
     }
@@ -160,7 +184,7 @@ class TurnerBendScraperService {
 // Express API endpoint setup
 function setupAPI(app, scrapeLimiter = null) {
   const scraper = new TurnerBendScraperService();
-  
+
   app.get('/api/turner-bend/current', async (req, res) => {
     try {
       const data = await scraper.getCurrentData();
@@ -175,8 +199,11 @@ function setupAPI(app, scrapeLimiter = null) {
       console.error('Turner Bend API error:', error);
       res.status(500).json({
         error: 'Failed to get Turner Bend data',
-        message: process.env.NODE_ENV === 'development' ? error.message : 'An internal error occurred',
-        timestamp: new Date().toISOString()
+        message:
+          process.env.NODE_ENV === 'development'
+            ? error.message
+            : 'An internal error occurred',
+        timestamp: new Date().toISOString(),
       });
     }
   });
@@ -191,15 +218,18 @@ function setupAPI(app, scrapeLimiter = null) {
       console.error('Turner Bend scrape error:', error);
       res.status(500).json({
         error: 'Failed to scrape Turner Bend data',
-        message: process.env.NODE_ENV === 'development' ? error.message : 'An internal error occurred',
-        timestamp: new Date().toISOString()
+        message:
+          process.env.NODE_ENV === 'development'
+            ? error.message
+            : 'An internal error occurred',
+        timestamp: new Date().toISOString(),
       });
     }
   });
 
   // Start the scheduler
   scraper.startScheduler();
-  
+
   console.log('Turner Bend API endpoints configured');
 }
 

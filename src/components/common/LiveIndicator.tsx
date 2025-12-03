@@ -27,7 +27,10 @@ interface LiveIndicatorProps {
   lastUpdated?: Date | null;
 }
 
-export function LiveIndicator({ isLive = true, lastUpdated }: LiveIndicatorProps) {
+export function LiveIndicator({
+  isLive = true,
+  lastUpdated,
+}: LiveIndicatorProps) {
   return (
     <Box
       sx={{
@@ -77,7 +80,11 @@ export function LiveIndicator({ isLive = true, lastUpdated }: LiveIndicatorProps
             ml: 0.5,
           }}
         >
-          • {lastUpdated.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          •{' '}
+          {lastUpdated.toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          })}
         </Typography>
       )}
     </Box>

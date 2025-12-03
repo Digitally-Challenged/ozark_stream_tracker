@@ -47,12 +47,18 @@ const pulse = keyframes`
   }
 `;
 
-const statusToLevelKey = (status: LevelStatus): 'tooLow' | 'low' | 'optimal' | 'high' => {
+const statusToLevelKey = (
+  status: LevelStatus
+): 'tooLow' | 'low' | 'optimal' | 'high' => {
   switch (status) {
-    case LevelStatus.TooLow: return 'tooLow';
-    case LevelStatus.Low: return 'low';
-    case LevelStatus.Optimal: return 'optimal';
-    case LevelStatus.High: return 'high';
+    case LevelStatus.TooLow:
+      return 'tooLow';
+    case LevelStatus.Low:
+      return 'low';
+    case LevelStatus.Optimal:
+      return 'optimal';
+    case LevelStatus.High:
+      return 'high';
   }
 };
 

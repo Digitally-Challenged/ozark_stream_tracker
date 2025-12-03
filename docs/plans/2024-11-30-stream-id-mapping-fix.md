@@ -13,6 +13,7 @@
 ## Problem Summary
 
 Current `getStreamIdFromName()` in `src/utils/streamIds.ts` uses aggressive fuzzy matching:
+
 - `includes()` causes "Rock Cr." to match "gutter-rock-cr"
 - First-word matching causes "Sugar Cr." to match "little-sugar-creek"
 - 5 streams have no content, 9+ have incorrect duplicate mappings
@@ -22,6 +23,7 @@ Current `getStreamIdFromName()` in `src/utils/streamIds.ts` uses aggressive fuzz
 ### Task 1: Create Explicit Stream Name to ID Mapping
 
 **Files:**
+
 - Modify: `src/utils/streamIds.ts`
 
 **Step 1: Replace fuzzy matching with explicit mapping table**
@@ -126,7 +128,7 @@ const STREAM_NAME_TO_ID: Record<string, string> = {
   'Wister Wave': 'wister-wave',
 
   // EFLB special case
-  'EFLB': 'eflb',
+  EFLB: 'eflb',
 };
 
 // Validate mappings on module load (development only)
@@ -134,7 +136,9 @@ if (import.meta.env.DEV) {
   const allIds = new Set(getAllStreamIds());
   for (const [name, id] of Object.entries(STREAM_NAME_TO_ID)) {
     if (!allIds.has(id)) {
-      console.warn(`[streamIds] Invalid mapping: "${name}" -> "${id}" (content ID not found)`);
+      console.warn(
+        `[streamIds] Invalid mapping: "${name}" -> "${id}" (content ID not found)`
+      );
     }
   }
 }
@@ -169,6 +173,7 @@ git commit -m "fix: replace fuzzy stream ID matching with explicit lookup table
 ### Task 2: Add Missing Content Marker for Unlinked Streams
 
 **Files:**
+
 - Modify: `src/components/streams/StreamTableRow.tsx:74-97`
 
 **Step 1: Update stream name cell to show visual indicator when no content exists**
@@ -263,6 +268,7 @@ instead of appearing as broken links."
 ### Task 3: Unify Status Badge Colors
 
 **Files:**
+
 - Modify: `src/components/stream-page/StreamHeader.tsx:29-42`
 
 **Step 1: Replace hardcoded hex colors with MUI theme tokens**
@@ -289,7 +295,10 @@ function getStatusColor(status: string): string {
 Replace with:
 
 ```typescript
-function getStatusColor(status: string, theme: ReturnType<typeof useTheme>): string {
+function getStatusColor(
+  status: string,
+  theme: ReturnType<typeof useTheme>
+): string {
   switch (status) {
     case 'X':
       return theme.palette.error.main;
@@ -308,11 +317,13 @@ function getStatusColor(status: string, theme: ReturnType<typeof useTheme>): str
 **Step 2: Update the function call (line 160)**
 
 Find:
+
 ```typescript
 bgcolor: getStatusColor(status),
 ```
 
 Replace with:
+
 ```typescript
 bgcolor: getStatusColor(status, theme),
 ```
@@ -343,6 +354,7 @@ Run: `npm run dev`
 **Step 2: Test fixed mappings**
 
 Navigate to dashboard and verify:
+
 - [ ] "Rock Cr." shows no link (not linked to gutter-rock-cr)
 - [ ] "Sugar Cr." shows no link (not linked to little-sugar-creek)
 - [ ] "Gutter Rock Cr." links to correct page
@@ -365,6 +377,7 @@ git commit -m "chore: verify UI audit fixes complete"
 ## Streams Without Content (Future Work)
 
 These 5 streams need markdown content files created:
+
 1. Caddo R.
 2. Camp Cr.
 3. Dragover (Ouachita R.)
