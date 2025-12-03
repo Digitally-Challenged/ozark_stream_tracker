@@ -100,5 +100,6 @@ _Photo: Public Domain, via Wikimedia Commons_
 
 - [Mulberry River, Arkansas - Southwest Paddler](http://www.southwestpaddler.com/docs/arkansas7.html)
 - [Mulberry River - Rivers.gov](https://rivers.gov/river/mulberry)
+- [Turner Bend Outfitters - Water Levels & Info](https://www.turnerbend.com/)
 - [Mulberry River - Turner Bend Outfitters](https://www.turnerbend.com/MulberryRiver.html)
 - [Ozark-St. Francis National Forest - Mulberry River](https://www.fs.usda.gov/r08/ozark-stfrancis/recreation/mulberry-river)

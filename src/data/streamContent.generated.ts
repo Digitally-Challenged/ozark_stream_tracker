@@ -124,7 +124,7 @@ export const streamContent: StreamContentMap = {
     id: 'bear-cr',
     name: 'Bear Cr.',
     overview: {
-      rating: 'III-V*',
+      rating: 'III-V\\*',
       watershedSize: '',
       gradient: '185 fpm average',
       length: '4 miles',
@@ -258,7 +258,7 @@ export const streamContent: StreamContentMap = {
     id: 'big-devils-fork-cr',
     name: 'Big Devils Fork Cr.',
     overview: {
-      rating: 'III-V*',
+      rating: 'III-V\\*',
       watershedSize: '',
       gradient: '190 fpm (not counting Richland)',
       length: '2.4 miles plus 1.5 miles on Richland',
@@ -477,7 +477,7 @@ export const streamContent: StreamContentMap = {
     id: 'boss-hollow',
     name: 'Boss Hollow',
     overview: {
-      rating: 'IV-V*',
+      rating: 'IV-V\\*',
       watershedSize: '',
       gradient: '200 fpm',
       length: '4 miles (2 miles on Boss Hollow, 2 miles on Buck Branch)',
@@ -619,56 +619,7 @@ export const streamContent: StreamContentMap = {
       'Weather in the canyon can turn before you see it coming',
     ],
     tributaries: [],
-    images: [
-      {
-        alt: 'Roark Bluff in winter along the Buffalo River',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG/1280px-Roark_Bluff_in_Winter_%28d1904d5e-2b03-46e1-bd96-6192ee7a2dc3%29.JPG',
-        caption:
-          'Roark Bluff in winter - one of the most iconic landmarks on the Buffalo River, stretching nearly three-quarters of a mile. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Steel Creek Overlook panorama view',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Buffalo_national_river_steel_creek_overlook.jpg/1280px-Buffalo_national_river_steel_creek_overlook.jpg',
-        caption:
-          'Panoramic view from Steel Creek Overlook showing Roark Bluff and the Buffalo River canyon, 450 feet below. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Canoe at Roark Bluff',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG/1280px-The_front_of_a_canoe_with_the_murky_Buffalo_River_and_glimmering_Roark_Bluff_ahead_%28a2ed5c7c-c01c-4ea5-bb11-ed0b3bd5fe3c%29.JPG',
-        caption:
-          'Paddling toward Roark Bluff on the Buffalo River. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Misty bluff along the Buffalo River',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Misty_Bluff_along_the_Buffalo_River.jpg/1280px-Misty_Bluff_along_the_Buffalo_River.jpg',
-        caption:
-          'Atmospheric view of limestone bluffs rising through morning mist along the Buffalo River. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Buffalo River at Pruitt Landing',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Buffalo_River_Pruitt_Landing.JPG/1280px-Buffalo_River_Pruitt_Landing.JPG',
-        caption:
-          'Pruitt Landing - a popular put-in point showing classic Buffalo River scenery with gravel bars and towering bluffs. Photo: Chris Light, CC BY-SA 3.0, via Wikimedia Commons',
-      },
-      {
-        alt: 'Paddlers in the Lower Buffalo Wilderness',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG/1280px-Boaters_paddle_through_the_Lower_Buffalo_Wilderness_in_the_summertime%2C_surrounded_by_dense_forest_on_both_of_the_river%27s_banks_%281e27b0b6-d53f-46f5-af0f-b372d72cd99e%29.JPG',
-        caption:
-          'Boaters paddle through the Lower Buffalo Wilderness surrounded by dense Ozark forest. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Aerial view of Buffalo River at Highway 65',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg/1280px-Aerial_view_of_Buffalo_River_at_Highway_65_bridge_%28fd6c3e06-7ccf-40c1-92e6-ef2fae5ba9bb%29.jpg',
-        caption:
-          'Aerial view showing the Buffalo River winding through the Ozark Mountains at the Highway 65 crossing. Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Canoeing in fall on Buffalo River',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg/1280px-Canoeing_in_the_fall_%2848e52654-1d5d-40ec-ba4e-ff00c50ebcf0%29.jpg',
-        caption:
-          'Fall paddling on the Buffalo River with autumn colors reflecting in the water. Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [
       {
         title: 'Buffalo National River, Arkansas - Southwest Paddler',
@@ -706,7 +657,7 @@ export const streamContent: StreamContentMap = {
     geographicContext:
       'The Buffalo River watershed includes some of the most scenic Ozark terrain, with connections to the headwaters of other major streams. The Hailstone (Upper Upper Buffalo) forms in the Boston Mountains very close to the headwaters of Kings River, Big Piney Creek, Mulberry River, Little Piney Creek and the Upper White River.',
     specialDesignation:
-      '**First National River** - Designated March 1, 1972\n- Protected from dams and impoundments\n- Managed by National Park Service\n- Undammed for entire length\n- Multiple tributaries also protected as Wild and Scenic',
+      '**First National River** - Designated March 1, 1972\n\n- Protected from dams and impoundments\n- Managed by National Park Service\n- Undammed for entire length\n- Multiple tributaries also protected as Wild and Scenic',
   },
   'caddo-r': {
     id: 'caddo-r',
@@ -963,23 +914,7 @@ export const streamContent: StreamContentMap = {
       'Water levels can change rapidly',
     ],
     tributaries: [],
-    images: [
-      {
-        alt: 'Cossatot River flowing through the Ouachita Mountains',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Cossatot_River_Arkansas.jpg/1280px-Cossatot_River_Arkansas.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Cossatot River at Cossatot River State Park-Natural Area',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Cossatot_River_004.jpg/1280px-Cossatot_River_004.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Scenic view of Cossatot State Park',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Cossatot_State_Park_003.jpg/1280px-Cossatot_State_Park_003.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [],
     geographicContext: '',
     specialDesignation: '',
@@ -1082,7 +1017,7 @@ export const streamContent: StreamContentMap = {
     id: 'e-fk-white-r',
     name: 'East Fork White R.',
     overview: {
-      rating: 'II*',
+      rating: 'II\\*',
       watershedSize: '',
       gradient: 'Less than 20 fpm',
       length: '1.75 miles',
@@ -1728,7 +1663,7 @@ export const streamContent: StreamContentMap = {
       },
       {
         title: 'Hurricane Creek - Wikipedia',
-        url: 'https://en.wikipedia.org/wiki/Hurricane_Creek_(Arkansas',
+        url: '<https://en.wikipedia.org/wiki/Hurricane_Creek_(Arkansas',
       },
     ],
     geographicContext:
@@ -1843,13 +1778,7 @@ export const streamContent: StreamContentMap = {
       'Recreational use pressure',
     ],
     tributaries: [],
-    images: [
-      {
-        alt: 'Illinois River flowing through Oklahoma',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Illinois_River_Oklahoma.jpg/1280px-Illinois_River_Oklahoma.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [
       {
         title: 'Illinois River, Oklahoma - Southwest Paddler',
@@ -2011,13 +1940,7 @@ export const streamContent: StreamContentMap = {
       'Protected watershed - restrictions on development and alterations',
     ],
     tributaries: [],
-    images: [
-      {
-        alt: 'Kings River Falls within the Kings River Natural Area',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Kings_River_Falls_002.jpg/1280px-Kings_River_Falls_002.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [
       {
         title: 'Kings River, Arkansas - Southwest Paddler',
@@ -2029,7 +1952,7 @@ export const streamContent: StreamContentMap = {
       },
       {
         title: 'Kings River - Wikipedia',
-        url: 'https://en.wikipedia.org/wiki/Kings_River_(Arkansas',
+        url: '<https://en.wikipedia.org/wiki/Kings_River_(Arkansas',
       },
       {
         title: 'Kings River Arkansas - Official Site',
@@ -2039,7 +1962,7 @@ export const streamContent: StreamContentMap = {
     geographicContext:
       'The Kings River forms in the Boston Mountains of northwest Arkansas very close to the headwaters of Big Piney Creek, Hailstone, and Mulberry Rivers, as well as Little Piney Creek and the Upper White River. The river flows northward, eventually entering Missouri and feeding into Table Rock Lake.',
     specialDesignation:
-      '**Extraordinary Resource Waterbody** - Designated by the State of Arkansas\n- Restrictions on streambed alterations\n- Restrictions on development in the river basin\n- Enhanced pollution protections',
+      '**Extraordinary Resource Waterbody** - Designated by the State of Arkansas\n\n- Restrictions on streambed alterations\n- Restrictions on development in the river basin\n- Enhanced pollution protections',
   },
   'lee-cr': {
     id: 'lee-cr',
@@ -2179,14 +2102,7 @@ export const streamContent: StreamContentMap = {
     rapids: [],
     hazards: [],
     tributaries: [],
-    images: [
-      {
-        alt: 'US 67 Bridge over Little Missouri River',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/US_67_Bridge_over_Little_Missouri_River.JPG/800px-US_67_Bridge_over_Little_Missouri_River.JPG',
-        caption:
-          'Photo: Historic US 67 Bridge over Little Missouri River, Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [],
     geographicContext: '',
     specialDesignation: '',
@@ -2729,24 +2645,7 @@ export const streamContent: StreamContentMap = {
       '4.5 feet and beyond, this is dangerous water',
     ],
     tributaries: [],
-    images: [
-      {
-        alt: 'Mulberry River flowing through the Ozark National Forest',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Mulberry_River_-_Arkansas.jpg/1280px-Mulberry_River_-_Arkansas.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-      {
-        alt: 'Historic Mulberry River Bridge near Pleasant Hill',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Mulberry_River_Bridge.JPG/1280px-Mulberry_River_Bridge.JPG',
-        caption:
-          'Photo: Public Domain, via Wikimedia Commons. Historic Pratt through truss bridge listed on the National Register of Historic Places.',
-      },
-      {
-        alt: 'Paddling near Ozark, Arkansas',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Paddling_Near_Ozark_Arkansas.jpg/800px-Paddling_Near_Ozark_Arkansas.jpg',
-        caption: 'Photo: Public Domain, via Wikimedia Commons',
-      },
-    ],
+    images: [],
     sources: [
       {
         title: 'Mulberry River, Arkansas - Southwest Paddler',
@@ -2755,6 +2654,10 @@ export const streamContent: StreamContentMap = {
       {
         title: 'Mulberry River - Rivers.gov',
         url: 'https://rivers.gov/river/mulberry',
+      },
+      {
+        title: 'Turner Bend Outfitters - Water Levels & Info',
+        url: 'https://www.turnerbend.com/',
       },
       {
         title: 'Mulberry River - Turner Bend Outfitters',
@@ -3045,7 +2948,7 @@ export const streamContent: StreamContentMap = {
     geographicContext:
       'Richland Creek rises in northeastern Pope County near Highway 16 and Raspberry Mountain. It flows through the Richland Creek Wilderness Area before joining the Buffalo National River. The creek is located in the same region as Falling Water Creek, another scenic Buffalo tributary.',
     specialDesignation:
-      '**Wild and Scenic Tributary** - Protected status as part of Buffalo National River system\n- Part of first National River designation (1972)\n- Protected from dams and impoundments\n- Managed as wilderness area',
+      '**Wild and Scenic Tributary** - Protected status as part of Buffalo National River system\n\n- Part of first National River designation (1972)\n- Protected from dams and impoundments\n- Managed as wilderness area',
   },
   'rock-cr': {
     id: 'rock-cr',
