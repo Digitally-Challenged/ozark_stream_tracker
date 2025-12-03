@@ -2656,12 +2656,8 @@ export const streamContent: StreamContentMap = {
         url: 'https://rivers.gov/river/mulberry',
       },
       {
-        title: 'Turner Bend Outfitters - Water Levels & Info',
+        title: 'Turner Bend Outfitters',
         url: 'https://www.turnerbend.com/',
-      },
-      {
-        title: 'Mulberry River - Turner Bend Outfitters',
-        url: 'https://www.turnerbend.com/MulberryRiver.html',
       },
       {
         title: 'Ozark-St. Francis National Forest - Mulberry River',
