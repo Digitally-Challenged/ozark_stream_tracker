@@ -8,7 +8,7 @@
 **Season:** Winter-Spring; after heavy rain in summer/fall
 
 ## Description
-The Saint Francis River is Missouri's only true whitewater river, drawing paddlers from St. Louis and beyond when spring rains bring the water up. The Millstream Gardens to Silver Mines section is the classic run - exposed granite and igneous rock create legitimate Class II-III rapids (up to IV-V in flood stage) unlike anything else in the state. The river is fed entirely by runoff, so timing matters - check gauges and be ready to go when the window opens. The Missouri Whitewater Association calls this home, and their annual Missouri Whitewater Championships in March has been running for nearly 60 years.
+The Saint Francis stands alone as Missouri's only true whitewater river. When the spring rains come, paddlers from St. Louis and all over head for the granite shut-ins between Millstream Gardens and Silver Mines. You'll find legitimate class II and III rapids here - exposed bedrock and igneous rock that creates lines you won't see anywhere else in the state. In flood stage, those ratings climb to IV and V, so pay attention. It's entirely rain-fed, so you check the gauges and go when the river says go. The Missouri Whitewater Association calls this home, and they've been running championships here for nearly sixty years.
 
 ## Sections
 

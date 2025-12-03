@@ -3,13 +3,15 @@
 ## Overview
 **Rating:** III+
 **TDCR:** Not listed
-**Gradient:** Not specified
+**Gradient:** 55 fpm
 **Length:** Not specified
 **Season:** Not specified
 **Topo Quads:** Not specified
 
 ## Description
-Meadow Creek runs with that class III+ bite that keeps you honest. The kind of water that'll let you relax for a stretch, then remind you to pay attention. Not much gets written down about this one, which means you'll be learning it fresh. Sometimes that's the best way.
+Meadow Creek runs with that class III+ bite that keeps you honest, dropping at 55 feet per mile. Named rapids include Squeeze-the-Tick (III), Walk-on-the-Wild-Slide (II-III+), Meadow Creek Falls (III+), and Greener Pastures Ahead (III).
+
+The Meadow Creek Falls section drops approximately 25-30 feet over 150 yards, with an 8-foot sheer drop that demands your attention. The kind of water that'll let you relax for a stretch, then remind you to pay attention.
 
 ## Access Points
 

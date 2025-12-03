@@ -51,8 +51,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             main: '#4caf50',
           },
           background: {
-            default: mode === 'dark' ? '#121212' : '#f5f5f5',
-            paper: mode === 'dark' ? '#1e1e1e' : '#ffffff',
+            default: mode === 'dark' ? '#1a1a1a' : '#f5f5f5',
+            paper: mode === 'dark' ? '#2a2a2a' : '#ffffff',
           },
           text: {
             primary: mode === 'dark' ? '#ffffff' : '#000000',
@@ -70,7 +70,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
               },
               head: {
                 fontWeight: 600,
-                backgroundColor: mode === 'dark' ? '#272727' : '#f5f5f5',
+                backgroundColor: mode === 'dark' ? '#383838' : '#f5f5f5',
               },
             },
           },

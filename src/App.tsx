@@ -35,7 +35,7 @@ function App() {
               flexDirection: 'column',
               minHeight: '100vh',
               bgcolor: (theme) =>
-                theme.palette.mode === 'dark' ? '#121212' : '#f5f5f5',
+                theme.palette.mode === 'dark' ? '#1a1a1a' : '#f5f5f5',
             }}
           >
             <ErrorBoundary FallbackComponent={ErrorFallback}>

@@ -3,15 +3,19 @@
 ## Overview
 **Rating:** II to III+
 **TDCR:** Not listed
-**Gradient:** Not specified
-**Length:** Not specified
+**Gradient:** 40 fpm
+**Length:** 14 miles
 **Season:** Not specified
 **Topo Quads:** Newton County
 
 ## Description
-Hailstone's what you get after the hard work's done. Folks running Adkins Creek or Boen Gulf, they finish up tight and technical, then they get Hailstone as the victory lap down to the Buffalo. Class II to III+ depending on where you are and how much water's pushing through.
+Hailstone Creek might be the ultimate Arkansas wilderness run - fourteen miles of class II to III+ water through country that doesn't see many boats. This isn't a victory lap. This is a full-day expedition that'll take six hours or more to complete, a proper wilderness paddle where you're committed once you put in.
 
-Most everybody pulls out at the Highway 21 bridge, right where Hailstone meets the Buffalo. Good a place as any to call it a day.
+The creek reads steady enough through most of its length, forty feet per mile gradient keeping you honest but not overwhelming. Then about halfway down you'll find what makes this run memorable: an undercut cave on the left bank where a significant portion of the river just disappears. Water gets pulled into that darkness like it's got business down there. At high water, that cave could be a killer.
+
+There's been close calls. Boaters swept toward that hole, stuck on debris, fighting to get clear. The kind of thing that reminds you why wilderness runs require respect. This isn't Adkins Creek or Boen Gulf where you can walk out if things go wrong. Out here, you're in it till you're done.
+
+Most everybody pulls out at the Highway 21 bridge, right where Hailstone meets the Buffalo. Fourteen miles, six hours, one serious hazard to avoid. That's Hailstone Creek.
 
 ## Access Points
 
@@ -24,7 +28,10 @@ Most everybody pulls out at the Highway 21 bridge, right where Hailstone meets t
 **Directions:** Highway 21 bridge - standard Hailstone take-out.
 
 ## Hazards
-Class II to III+ rapids depending on section and water level.
+- **Undercut cave** - Approximately halfway down, left bank. Significant portion of river disappears into cave. Boaters have been swept toward cave and stuck on debris. At high water this is potentially fatal.
+- Class II to III+ rapids throughout 14-mile run
+- Wilderness location - 6+ hour commitment with limited bailout options
+- Remote area - rescue access extremely limited
 
 ## Gauge Information
 Buffalo River gauges at Ponca and Buffalo Tower provide indication. Several feet over low water bridge at Ponca required for Hailstone to have good water.

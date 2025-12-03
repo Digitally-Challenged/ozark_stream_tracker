@@ -4,12 +4,14 @@
 **Rating:** II+
 **TDCR:** Not listed
 **Gradient:** Not specified
-**Length:** Not specified
+**Length:** Section 2 (S2) is 1.5 miles
 **Season:** RAIN
 **Topo Quads:** Crawford County
 
 ## Description
 Lee Creek runs Class II+ most days and sees more boats than just about any northwest Arkansas creek. Popular doesn't always mean best, but Lee's earned its traffic - reliable water, good teaching current, nothing too mean when you're learning to read waves.
+
+Section 2 (S2) is one of the most popular play runs in the area, covering 1.5 miles with fun to be found at almost any runnable level. Named rapids on S2 include Football Field Rapids (a 100-yard long series of ledges), El Horrendo, Surfing Ledges, and Buck-N-Flush (once an infamous stopper hole).
 
 What makes Lee matter beyond its own paddling is the gauge. When you're wondering if Blackburn's running, if Clear Creek's up, if Ben Doodle's worth the drive - you check Lee Creek. The gauge at Highway 220 tells the story for half the creeks in Crawford County. That's where Blackburn comes in too, where Section 2 starts.
 

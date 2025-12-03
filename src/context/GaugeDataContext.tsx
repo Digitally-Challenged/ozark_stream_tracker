@@ -14,6 +14,7 @@ import { TurnerBendScraper } from '../services/turnerBendScraper';
 
 interface GaugeData {
   reading: GaugeReading | null;
+  previousReading: GaugeReading | null;
   loading: boolean;
   error: Error | null;
 }
@@ -57,9 +58,9 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
     const gaugeIds = getUniqueGaugeIds();
 
     try {
-      // Batch fetch USGS gauges
+      // Batch fetch USGS gauges with period=PT4H for trend calculation
       const response = await fetch(
-        `${API_CONFIG.USGS_BASE_URL}?format=json&sites=${gaugeIds.join(',')}&parameterCd=${API_CONFIG.GAUGE_HEIGHT_PARAMETER}`,
+        `${API_CONFIG.USGS_BASE_URL}?format=json&sites=${gaugeIds.join(',')}&parameterCd=${API_CONFIG.GAUGE_HEIGHT_PARAMETER}&period=PT4H`,
         {
           headers: { Accept: 'application/json' },
           signal: AbortSignal.timeout(API_CONFIG.REQUEST_TIMEOUT_MS),
@@ -82,14 +83,30 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
             }>;
           };
           const siteCode = typedSeries.sourceInfo?.siteCode?.[0]?.value;
-          if (siteCode && typedSeries.values?.[0]?.value?.[0]) {
-            const latestValue = typedSeries.values[0].value[0];
+          const values = typedSeries.values?.[0]?.value;
+
+          if (siteCode && values && values.length > 0) {
+            // Values are returned oldest first, so last element is most recent
+            const latestValue = values[values.length - 1];
+            // Use oldest reading for trend comparison (gives ~4 hour window)
+            const previousValue = values.length > 1 ? values[0] : null;
+
+            // Debug first few gauges
+            if (newGauges.size < 3) {
+              console.log(`GAUGE ${siteCode}: ${values.length} values, current=${latestValue.value}, previous=${previousValue?.value}`);
+            }
+
             newGauges.set(siteCode, {
               reading: {
                 value: parseFloat(latestValue.value || '0'),
                 timestamp: latestValue.dateTime,
                 dateTime: latestValue.dateTime,
               },
+              previousReading: previousValue ? {
+                value: parseFloat(previousValue.value || '0'),
+                timestamp: previousValue.dateTime,
+                dateTime: previousValue.dateTime,
+              } : null,
               loading: false,
               error: null,
             });
@@ -102,6 +119,7 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
         if (!newGauges.has(id)) {
           newGauges.set(id, {
             reading: null,
+            previousReading: null,
             loading: false,
             error: new Error('No data available'),
           });
@@ -115,23 +133,26 @@ export function GaugeDataProvider({ children }: GaugeDataProviderProps) {
       gaugeIds.forEach((id) => {
         newGauges.set(id, {
           reading: null,
+          previousReading: null,
           loading: false,
           error: err instanceof Error ? err : new Error('Failed to fetch'),
         });
       });
     }
 
-    // Fetch Turner Bend separately
+    // Fetch Turner Bend separately (no historical data available for trend)
     try {
       const turnerBendReading = await TurnerBendScraper.fetchGaugeData();
       newGauges.set('TURNER_BEND', {
         reading: turnerBendReading,
+        previousReading: null, // Turner Bend scraper doesn't provide historical data
         loading: false,
         error: turnerBendReading ? null : new Error('Turner Bend unavailable'),
       });
     } catch (err) {
       newGauges.set('TURNER_BEND', {
         reading: null,
+        previousReading: null,
         loading: false,
         error:
           err instanceof Error ? err : new Error('Turner Bend fetch failed'),

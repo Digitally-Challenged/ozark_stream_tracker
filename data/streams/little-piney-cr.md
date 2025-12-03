@@ -8,7 +8,7 @@
 **Season:** Rainfall dependent
 
 ## Description
-Little Piney Creek is characterized by creme de menthe colored water often found on northern Arkansas waterways, flowing through willow jungles, rocky shoals and boulder garden rapids. The creek is listed as a tributary of the Arkansas River system and flows through the Ozark National Forest region. Little Piney Creek forms in the Boston Mountains of northwest Arkansas very close to the headwaters of Big Piney Creek, Hailstone (Upper Upper Buffalo), Kings River, and Mulberry River, as well as the Upper White River.
+The Little Piney runs that same creme de menthe green as its big brother, winding through the Boston Mountains with a mind of its own. You'll find yourself dodging willow thickets that are hungry for canoes and picking lines through rocky shoals and boulder gardens. It flows close to the headwaters of the Big Piney and the Kings, good company for a creek to keep. When the water's right, it's a fine run through the heart of the Ozark National Forest.
 
 ## Geographic Context
 Little Piney Creek is located in the Boston Mountains region of northwest Arkansas, forming in close proximity to several other major whitewater streams. The creek is part of the Arkansas River watershed and shares similar characteristics with its neighbor, Big Piney Creek.

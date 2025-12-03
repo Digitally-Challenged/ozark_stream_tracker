@@ -9,7 +9,7 @@
 **Topo Quads:** Not specified
 
 ## Description
-Spadra Creek runs class III+, putting it on the upper end of intermediate water. That plus sign matters - it means the creek's got moves that'll challenge solid paddlers without quite crossing over into expert territory. The kind of water where clean lines count.
+Spadra Creek runs right through Clarksville, delivering class III+ water that sits right at the top of the intermediate game. That plus sign isn't for decoration - it means you'll find moves here that demand clean lines and solid boat control. It's technical enough to keep you honest without crossing the line into full-blown expert territory. You'd do well to respect it.
 
 ## Access Points
 

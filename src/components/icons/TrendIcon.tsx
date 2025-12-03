@@ -3,7 +3,7 @@ import {
   TrendingUp,
   TrendingDown,
   Remove,
-  HorizontalRule,
+  TrendingFlat,
 } from '@mui/icons-material';
 import { LevelTrend } from '../../types/stream';
 
@@ -52,10 +52,10 @@ export function TrendIcon({ trend, size = 'medium' }: TrendIconProps) {
         );
       case LevelTrend.Holding:
         return (
-          <HorizontalRule
+          <TrendingFlat
             sx={{
               fontSize: iconSize,
-              color: 'warning.main',
+              color: 'info.main',
             }}
           />
         );

@@ -1,5 +1,5 @@
 import { Box, Typography, Paper, Grid, useTheme, Tooltip } from '@mui/material';
-import { WaterDrop, Waves, Terrain, AccessTime } from '@mui/icons-material';
+import { WaterDrop, AccessTime } from '@mui/icons-material';
 import { keyframes } from '@mui/system';
 import { LiveTime } from '../common/LiveTime';
 
@@ -14,9 +14,6 @@ const fadeInUp = keyframes`
   }
 `;
 
-// Pulse animation available for future use
-// const pulseIcon = keyframes`...`;
-
 export function DashboardHeader() {
   const theme = useTheme();
 
@@ -27,20 +24,6 @@ export function DashboardHeader() {
       icon: WaterDrop,
       color: theme.palette.primary.main,
       tooltip: 'Total number of whitewater runs',
-    },
-    {
-      label: 'Beginner Runs',
-      value: '87',
-      icon: Waves,
-      color: theme.palette.success.main,
-      tooltip: 'Class I-II runs',
-    },
-    {
-      label: 'Advanced Runs',
-      value: '40',
-      icon: Terrain,
-      color: theme.palette.warning.main,
-      tooltip: 'Class IV-V runs',
     },
     {
       label: 'Last Updated',
@@ -55,7 +38,7 @@ export function DashboardHeader() {
     <Box sx={{ mb: 4 }}>
       <Grid container spacing={3}>
         {statsData.map((stat, index) => (
-          <Grid item xs={12} sm={6} md={3} key={stat.label}>
+          <Grid item xs={12} sm={6} key={stat.label}>
             <Tooltip title={stat.tooltip} arrow>
               <Box>
                 <Paper

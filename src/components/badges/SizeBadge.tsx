@@ -19,56 +19,56 @@ const sizeInfo = {
   XS: {
     label: 'Extra Small',
     icon: WaterDrop,
-    color: '#e3f2fd',
+    color: '#64b5f6',
     description:
       'XS: < 20ft wide, < 1 sq mi watershed, 1.5 in/hr rain rate, 3-6 hr window to "too low"',
   },
   VS: {
     label: 'Very Small',
     icon: Opacity,
-    color: '#bbdefb',
+    color: '#42a5f5',
     description:
       'VS: 20-30ft wide, 1-4 sq mi watershed, 1.0 in/hr rain rate, 6-12 hr window to "too low"',
   },
   S: {
     label: 'Small',
     icon: Water,
-    color: '#90caf9',
+    color: '#2196f3',
     description:
       'S: 30-40ft wide, 4-10 sq mi watershed, 0.75 in/hr rain rate, 1 day window to "too low"',
   },
   M: {
     label: 'Medium',
     icon: Waves,
-    color: '#64b5f6',
+    color: '#1e88e5',
     description:
       'M: 40-75ft wide, 10-25 sq mi watershed, 0.5 in/hr rain rate, 1-2 day window to "too low"',
   },
   L: {
     label: 'Large',
     icon: Pool,
-    color: '#42a5f5',
+    color: '#1976d2',
     description:
       'L: > 75ft wide, > 25 sq mi watershed, 0.2 in/hr rain rate, 2-5 day window to "too low"',
   },
   H: {
     label: 'Huge',
     icon: Tsunami,
-    color: '#2196f3',
+    color: '#1565c0',
     description:
       'H: > 150ft wide, > 75 sq mi watershed, 0.1 in/hr rain rate, 5+ day window to "too low"',
   },
   DC: {
     label: 'Dam Controlled',
     icon: Pool,
-    color: '#1e88e5',
+    color: '#0d47a1',
     description:
       'DC: Dam Controlled - Check Release Schedule! Flow depends on dam operations, not rainfall.',
   },
   A: {
     label: 'Always Runnable',
     icon: Waves,
-    color: '#1976d2',
+    color: '#0d47a1',
     description:
       'A: Always Runs - Consistent flow year-round, typically spring-fed or large watershed',
   },

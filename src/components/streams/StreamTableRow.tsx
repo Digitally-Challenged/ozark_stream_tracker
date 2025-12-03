@@ -243,25 +243,5 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
   );
 };
 
-// Memoize the component to prevent unnecessary re-renders
-// Only re-render if stream data or onClick handler changes
-export const StreamTableRow = memo(
-  StreamTableRowComponent,
-  (prevProps, nextProps) => {
-    // Custom comparison function for deep equality check
-    return (
-      prevProps.stream.name === nextProps.stream.name &&
-      prevProps.stream.rating === nextProps.stream.rating &&
-      prevProps.stream.size === nextProps.stream.size &&
-      prevProps.stream.quality === nextProps.stream.quality &&
-      prevProps.stream.gauge?.id === nextProps.stream.gauge?.id &&
-      prevProps.stream.targetLevels.tooLow ===
-        nextProps.stream.targetLevels.tooLow &&
-      prevProps.stream.targetLevels.optimal ===
-        nextProps.stream.targetLevels.optimal &&
-      prevProps.stream.targetLevels.high ===
-        nextProps.stream.targetLevels.high &&
-      prevProps.onClick === nextProps.onClick
-    );
-  }
-);
+// Export without custom memo - useGaugeReading hook handles context updates
+export const StreamTableRow = memo(StreamTableRowComponent);

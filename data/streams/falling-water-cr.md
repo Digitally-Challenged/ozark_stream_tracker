@@ -1,16 +1,18 @@
 # Falling Water Creek
 
 ## Overview
-**Rating:** Class III-IV
+**Rating:** Class III
 **Watershed Size:** S
-**Gradient:** Steep
-**Length:** ~11 miles
+**Gradient:** 60+ fpm
+**Length:** 6 miles
 **Season:** Rainfall dependent (expert level creek)
 
 ## Description
-Falling Water comes off the north slope of Raspberry Mountain near Highway 16, running eleven miles through country that'll make you understand why folks built a wilderness area next door. Technical water, steep country, the kind of run where you better know what you're doing before you put in.
+Falling Water comes off the north slope of Raspberry Mountain near Highway 16, running six miles through country that'll make you understand why folks built a wilderness area next door. Class III water in a narrow streambed that drops better than sixty feet per mile. Technical, steep, the kind of run where you better know what you're doing before you put in.
 
-The creek drops over its namesake falls a few miles east of Ben Hur - big pool below, nice swimming hole when the weather's warm and you're not trying to paddle through it. This is Ozark whitewater done proper: forested canyon walls, waterfalls catching light, water reading like a book you better know how to translate.
+The creek drops over its namesake falls a few miles east of Ben Hur - ten-foot sheer drop, big pool below, nice swimming hole when the weather's warm and you're not trying to paddle through it. At high water those rapids come fast in that narrow channel, few eddies to speak of, just continuous class III reading like a book you better know how to translate.
+
+This is Ozark whitewater done proper: forested canyon walls, waterfalls catching light, water that doesn't give you much time to think between moves.
 
 ## Features
 
@@ -30,7 +32,7 @@ The creek drops over its namesake falls a few miles east of Ben Hur - big pool b
 
 ### Take-out
 **Location:** Richland Creek confluence
-**Notes:** ~11 miles downstream from headwaters
+**Notes:** 6 miles downstream from headwaters
 
 ## Scenery
 - Ozark wilderness character
@@ -40,9 +42,10 @@ The creek drops over its namesake falls a few miles east of Ben Hur - big pool b
 - Richland Creek Wilderness Area nearby
 
 ## Hazards
-- **Class III-IV difficulty** - Don't bring beginners
-- Waterfall (you'll likely be walking around it)
-- Steep gradient
+- **Class III difficulty** - Don't bring beginners
+- **Falling Water Falls** - 10-foot sheer drop
+- **Narrow streambed** - Few eddies at high water, continuous rapids
+- **Steep gradient** - 60+ fpm keeps you moving
 - Remote wilderness location - help's a long way off
 - Very water level dependent - needs a good rain
 - Limited rescue access

@@ -1,14 +1,18 @@
 # Richland Creek
 
 ## Overview
-**Rating:** Class II-III (estimated)
+**Rating:** Section 1: III-IV, Section 2: II-III
 **Watershed Size:** M
-**Gradient:** Variable, includes waterfalls
-**Length:** ~20 miles (estimated)
+**Gradient:** Section 1: 55 fpm (some sections approach 80 fpm), Section 2: 20 fpm
+**Length:** Section 1: 6 mi, Section 2: 10 mi
 **Season:** Rainfall dependent
 
 ## Description
-Richland Creek rises north of Highway 16 on Raspberry Mountain, then spills down through one of the prettiest wilderness stretches in the Buffalo country. The creek earned its Wild and Scenic designation honest - you'll find gravel bars that catch the light just right, waterfalls that echo through the hollows, and miles of country that hasn't changed much in a hundred years. The put-in at Woolum sits across from the creek mouth on a gravel bar that might be the finest piece of river real estate on the entire Buffalo. You can paddle upstream from there to Richland Falls if the water's right. Some paddlers spend a full day just exploring the wilderness area north of Falling Water Falls, counting waterfalls like other folks count miles.
+Richland Creek rises north of Highway 16 on Raspberry Mountain, then delivers one of the premier advanced whitewater runs in Arkansas. Don't let the Wild and Scenic designation fool you - Section 1 is serious class III-IV water with a 55 fpm gradient that approaches 80 fpm in places, featuring named rapids that demand respect.
+
+The upper section (S1, 6 miles) is technical, challenging whitewater. Richland Falls announces itself with a 6-foot drop. Then comes Crack in the Rock (III+) and Knuckle Buster (III+), followed by Upper Screw Up (III). The most dangerous rapid is Lower Screw Up, also called Shaw's Folly (IV), which features a badly undercut rock. Maytag (III) rounds out the named rapids. At higher levels, the water volume and steep gradient can create a very dangerous combination, making for a solid class IV-V run.
+
+Section 2 (10 miles) runs class II-III with a gentler 20 fpm gradient. The lower section and the creek mouth at Woolum offer the scenic wilderness experience - gravel bars that catch the light just right, the ability to paddle upstream to Richland Falls if the water's right, and miles of country that hasn't changed much in a hundred years.
 
 ## Features
 
@@ -41,9 +45,17 @@ Richland Creek rises north of Highway 16 on Raspberry Mountain, then spills down
 Richland Creek rises in northeastern Pope County near Highway 16 and Raspberry Mountain. It flows through the Richland Creek Wilderness Area before joining the Buffalo National River. The creek is located in the same region as Falling Water Creek, another scenic Buffalo tributary.
 
 ## Hazards
-- Wilderness means wilderness - you're a long way from the truck in places
-- Access points are scarce as hen's teeth
+Section 1 (Class III-IV):
+- Lower Screw Up/Shaw's Folly (IV): Most dangerous rapid with badly undercut rock
+- Richland Falls: 6-foot drop requiring precise line
+- Crack in the Rock (III+) and Knuckle Buster (III+): Technical rapids demanding attention
+- At high water: Volume and steep gradient (approaching 80 fpm in sections) can push run to class IV-V
+- Wilderness setting means long distance from help
 - Water comes and goes with the rain
+
+Section 2 (Class II-III):
+- Access points are scarce as hen's teeth
+- Wilderness means wilderness - you're a long way from the truck
 - Technical stretches that'll keep you honest
 
 ## Related Streams

@@ -9,7 +9,7 @@
 **Topo Quads:** Not specified
 
 ## Description
-Salt Fork carries class II-III water when it's running, which is the important part - creeks like this need rain to come alive. The details have faded from the record, but the water's still there when conditions line up right.
+The Salt Fork runs class II and III when the clouds open up. Like a lot of these smaller creeks, it needs a good rain to wake up, but when it does, it offers a tighter, more personal run than the bigger rivers. You'll find yourself in closer quarters here, reading water that moves fast and leaves less room for error. The details might be scarce, but the water's real enough when you're in it.
 
 ## Access Points
 

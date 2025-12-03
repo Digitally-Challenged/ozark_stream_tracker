@@ -8,7 +8,7 @@
 **Season:** Rain-dependent
 
 ## Description
-Ellis Creek is a steep tributary in the Baron Fork watershed of northwest Arkansas, offering a challenging Class III-IV run when rain brings it up. Like most creeks this size, it rises fast after storms and drops quickly, so timing is everything. Technical moves, tight lines, and the usual hazards of steep creeks in the Ozarks.
+You'll find Ellis Creek feeding the Baron Fork, a steep run that needs a good rain to show its teeth. It's class III to IV water, rising and falling with the storm. Like most creeks this size, timing is everything - you catch it right, and you've got technical lines and tight moves. You catch it wrong, and you're hiking. Watch for wood; these small drainages love to collect timber.
 
 ## Sections
 

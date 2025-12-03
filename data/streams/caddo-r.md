@@ -8,7 +8,7 @@
 **Season:** March-June best; year-round possible
 
 ## Description
-The Caddo River winds through the Ouachita Mountains from Black Springs to DeGray Lake, offering some of the best family-friendly floating in Arkansas. This pool-and-drop river is gentle enough for novice paddlers yet with enough Class I and II rapids along the way to keep it exciting. Clear water, gravel bars for lunch stops, and views ranging from rocky outcrops to forested hillsides make it a classic Ouachita float. The river is ideal for all levels of floating experience.
+The Caddo winds its way through the Ouachitas from Black Springs down to DeGray, and you'll find it's some of the best floating water in the state. It's got a pool-and-drop rhythm that treats you right - gentle enough for the family but with enough class I and II ripples to keep you awake. The water runs clear over gravel bars perfect for a lunch stop, with rocky outcrops and green hillsides watching you pass. It's an honest river for honest paddling.
 
 ## Sections
 

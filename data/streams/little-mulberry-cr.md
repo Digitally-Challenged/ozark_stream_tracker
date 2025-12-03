@@ -9,9 +9,11 @@
 **Topo Quads:** Not specified
 
 ## Description
-Little Mulberry Creek runs Class III to IV, advanced water that expects you to show up with skills already earned. Not much gets written about creeks like this - they're there if you know where to look, gone if you don't have the water.
+Little Mulberry Creek runs Class III to IV with named rapids including Initiator (III), OWS - Ozark Wall Slammer (III+), Fish Ladder (IV), and Plank Rapid (III). Advanced water that expects you to show up with skills already earned.
 
-The silence around Little Mulberry isn't accidental. Some runs stay quiet because the people who paddle them like it that way.
+**IMPORTANT LANDOWNER NOTICE:** A landowner on the creek above Spoke Plant has expressed concern with paddlers boating this stretch, which runs through her property and does not want anyone to boat the creek at this time. Boaters are encouraged to respect the landowner's wishes.
+
+The silence around Little Mulberry isn't accidental. Some runs stay quiet because the people who paddle them like it that way, and some stay quiet because access depends on respecting the people whose land the water runs through.
 
 ## Access Points
 

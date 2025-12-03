@@ -8,7 +8,7 @@
 **Season:** Year-round (weather permitting)
 
 ## Description
-WOKA - Waters of Oklahoma and Arkansas - is a purpose-built whitewater park in Watts, Oklahoma, just across the state line from Siloam Springs, Arkansas. The 1,200-foot long, 100-foot wide side channel of the Illinois River features eight engineered drop features designed for kayakers, surfers, and tubers of all abilities. Unlike theme park wave pools, WOKA offers authentic river conditions with real current and natural consequences. The park emphasizes that this is genuine whitewater - expect to get wet, tired, and maybe a little scraped up.
+WOKA sits right on the line between Oklahoma and Arkansas, a twelve-hundred-foot channel carved out to give you reliable whitewater when the Illinois River is running. It might be engineered, but don't call it a theme park. You've got eight drops designed to mimic the real thing, creating waves and holes that'll tumble you just the same as a natural river. It's a place to hone your skills or just play, but remember - the current is real, the rocks are real concrete, and the water doesn't care if you paid for parking.
 
 ## Features
 

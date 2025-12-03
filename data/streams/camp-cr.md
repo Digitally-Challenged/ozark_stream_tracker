@@ -8,7 +8,7 @@
 **Season:** Rain-dependent
 
 ## Description
-Camp Creek is a steep tributary in the Little Missouri River watershed, offering expert paddlers a challenging Class IV+ run when conditions align. This small creek requires recent rainfall and rises and falls quickly. Not for the faint of heart - tight drops, technical moves, and the commitment level that comes with a remote steep creek in the Ouachitas.
+Camp Creek don't run often, but when the Little Missouri's up and the rain's falling right, this steep tributary comes alive. You're looking at class IV+ water that asks a lot of you - tight drops, technical moves, and the kind of commitment you only find in the deep Ouachitas. It rises fast and drops faster, so you better be at the put-in when the window opens. This ain't for the faint of heart.
 
 ## Sections
 

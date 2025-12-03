@@ -64,6 +64,21 @@ function GaugeDisplay({ streamData }: { streamData: StreamData }) {
 
   if (!reading?.value) return null;
 
+  const getTrendLabel = (t: LevelTrend) => {
+    switch (t) {
+      case LevelTrend.Rising:
+        return 'Rising';
+      case LevelTrend.Falling:
+        return 'Falling';
+      case LevelTrend.Holding:
+        return 'Holding';
+      default:
+        return null;
+    }
+  };
+
+  const trendLabel = getTrendLabel(trend);
+
   return (
     <Box
       sx={{
@@ -80,16 +95,12 @@ function GaugeDisplay({ streamData }: { streamData: StreamData }) {
         <Typography variant="h5" sx={{ fontWeight: 600 }}>
           {reading.value.toFixed(2)} ft
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-          <TrendIcon trend={trend} />
-          <Typography variant="body2">
-            {trend === LevelTrend.Rising
-              ? 'Rising'
-              : trend === LevelTrend.Falling
-                ? 'Falling'
-                : 'Holding'}
-          </Typography>
-        </Box>
+        {trend !== LevelTrend.None && trendLabel && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <TrendIcon trend={trend} />
+            <Typography variant="body2">{trendLabel}</Typography>
+          </Box>
+        )}
       </Box>
       {status && (
         <Chip
