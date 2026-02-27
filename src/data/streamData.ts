@@ -1292,7 +1292,7 @@ export const streams: StreamData[] = [
     },
     quality: 'A',
     targetLevels: {
-      tooLow: 2.99,
+      tooLow: 2.75,
       optimal: 3.5,
       high: 4.0,
     },

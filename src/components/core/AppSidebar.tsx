@@ -9,16 +9,7 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
-import {
-  Close,
-  Favorite,
-  Coffee,
-  AttachMoney,
-  Payment,
-  Info,
-  Email,
-  Map,
-} from '@mui/icons-material';
+import { Close, Favorite } from '@mui/icons-material';
 
 interface AppSidebarProps {
   open: boolean;
@@ -27,19 +18,19 @@ interface AppSidebarProps {
 
 export function AppSidebar({ open, onClose }: AppSidebarProps) {
   const menuItems = [
-    { text: 'Learn More', icon: <Info />, href: '#' },
+    { text: 'Learn More', href: '#', disabled: true },
     {
       text: 'Contact',
-      icon: <Email />,
       href: 'mailto:contact@ozarkstreamtracker.com',
-    }, // Placeholder
-    { text: 'Trail Finder', icon: <Map />, href: '#' },
+      disabled: false,
+    },
+    { text: 'Trail Finder', href: '#', disabled: true },
   ];
 
   const donationItems = [
-    { text: 'Buy us a coffee!', icon: <Coffee />, href: '#' },
-    { text: 'Venmo', icon: <AttachMoney />, href: '#' },
-    { text: 'PayPal', icon: <Payment />, href: '#' },
+    { text: 'Buy us a coffee!', href: '#', disabled: true },
+    { text: 'Venmo', href: '#', disabled: true },
+    { text: 'PayPal', href: '#', disabled: true },
   ];
 
   return (
@@ -51,13 +42,13 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
       PaperProps={{
         sx: {
           width: 280,
-          backgroundColor: '#1a1a1a', // Match dark theme or screenshot
-          color: 'white',
+          backgroundColor: 'background.default',
+          color: 'text.primary',
         },
       }}
     >
       <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton onClick={onClose} sx={{ color: 'white' }}>
+        <IconButton onClick={onClose} sx={{ color: 'text.primary' }}>
           <Close />
         </IconButton>
       </Box>
@@ -67,8 +58,9 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
           <ListItem key={item.text} disablePadding>
             <ListItemButton
               component="a"
-              href={item.href}
-              onClick={onClose}
+              href={item.disabled ? undefined : item.href}
+              disabled={item.disabled}
+              onClick={item.disabled ? undefined : onClose}
               sx={{ py: 1.5 }}
             >
               <ListItemText
@@ -82,12 +74,15 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
 
       <Box sx={{ px: 2, py: 2 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-          <Favorite sx={{ color: 'white', fontSize: 20 }} />
-          <Typography variant="h6" sx={{ color: 'white', fontSize: '1.1rem' }}>
-            the app?
+          <Favorite sx={{ color: 'text.primary', fontSize: 20 }} />
+          <Typography
+            variant="h6"
+            sx={{ color: 'text.primary', fontSize: '1.1rem' }}
+          >
+            Love the app?
           </Typography>
         </Box>
-        <Divider sx={{ bgcolor: 'rgba(255,255,255,0.2)' }} />
+        <Divider sx={{ bgcolor: 'divider' }} />
       </Box>
 
       <List>
@@ -95,10 +90,11 @@ export function AppSidebar({ open, onClose }: AppSidebarProps) {
           <ListItem key={item.text} disablePadding>
             <ListItemButton
               component="a"
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={onClose}
+              href={item.disabled ? undefined : item.href}
+              target={item.disabled ? undefined : '_blank'}
+              rel={item.disabled ? undefined : 'noopener noreferrer'}
+              disabled={item.disabled}
+              onClick={item.disabled ? undefined : onClose}
               sx={{ py: 1.5 }}
             >
               <ListItemText
