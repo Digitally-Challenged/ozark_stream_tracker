@@ -6,6 +6,7 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["netlify/functions/**"]
+  node_version = "20"
 
 [functions."turner-bend"]
   external_node_modules = ["axios", "cheerio"]
@@ -23,7 +24,7 @@
   status = 200
 
 [build.environment]
-  NODE_VERSION = "18"
+  NODE_VERSION = "20"
 
 [[headers]]
   for = "/*"
