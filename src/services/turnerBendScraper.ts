@@ -2,7 +2,7 @@ import { GaugeReading } from '../types/stream';
 
 interface TurnerBendData {
   level: number;
-  date: string;
+  timestamp: string;
   description?: string;
 }
 
@@ -57,8 +57,8 @@ export class TurnerBendScraper {
     return {
       value: data.level,
       unit: 'ft',
-      dateTime: data.date,
-      timestamp: data.date,
+      dateTime: data.timestamp,
+      timestamp: data.timestamp,
       qualifiers: data.description ? [data.description] : [],
     };
   }
