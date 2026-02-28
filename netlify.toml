@@ -6,10 +6,9 @@
 [functions]
   node_bundler = "esbuild"
   included_files = ["netlify/functions/**"]
-  node_version = "20"
 
 [functions."turner-bend"]
-  external_node_modules = ["axios", "cheerio"]
+  external_node_modules = ["cheerio"]
 
 # Redirect API calls to Netlify Functions
 [[redirects]]

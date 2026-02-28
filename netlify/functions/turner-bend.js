@@ -1,4 +1,4 @@
-const axios = require('axios');
+const https = require('https');
 const cheerio = require('cheerio');
 
 // In-memory cache for Netlify Functions (persists across warm invocations)
@@ -6,17 +6,35 @@ let cachedData = null;
 let cacheTimestamp = 0;
 const CACHE_DURATION_MS = 15 * 60 * 1000; // 15 minutes
 
+function fetchHtml(url) {
+  return new Promise((resolve, reject) => {
+    const req = https.get(
+      url,
+      {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (compatible; OzarkStreamTracker/1.0)',
+        },
+        timeout: 10000,
+      },
+      (res) => {
+        let data = '';
+        res.on('data', (chunk) => (data += chunk));
+        res.on('end', () => resolve(data));
+      }
+    );
+    req.on('error', reject);
+    req.on('timeout', () => {
+      req.destroy();
+      reject(new Error('Request timed out'));
+    });
+  });
+}
+
 async function scrapeWaterLevel() {
   const url = 'https://www.turnerbend.com/WaterLevel.html';
 
-  const response = await axios.get(url, {
-    timeout: 10000,
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (compatible; OzarkStreamTracker/1.0)',
-    },
-  });
-
-  const $ = cheerio.load(response.data);
+  const html = await fetchHtml(url);
+  const $ = cheerio.load(html);
   const pageText = $('body').text();
 
   let waterLevel = null;
