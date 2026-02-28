@@ -26,7 +26,7 @@ cd server && npm run dev                   # With nodemon auto-reload
 ### Data Flow
 
 1. **USGS Gauges**: Frontend fetches directly from `waterservices.usgs.gov/nwis/iv/` API
-2. **Turner Bend**: Custom gauge scraped via backend (`server/`) to avoid CORS, cached 15 minutes
+2. **Turner Bend**: Custom gauge scraped via Netlify Function (`netlify/functions/turner-bend.js`) to avoid CORS, cached 15 minutes in-memory (warm invocations only)
 
 ### Component Architecture
 
@@ -95,7 +95,8 @@ src/components/
 - `src/constants/index.ts`: API URLs, refresh intervals, level thresholds
 - `src/utils/streamLevels.ts`: Level/trend calculation logic
 - `src/utils/streamIds.ts`: Explicit stream name to content ID mapping
-- `server/turnerBendScraper.js`: Backend scraper for Turner Bend gauge
+- `server/turnerBendScraper.js`: Local dev scraper for Turner Bend gauge (Express server)
+- `netlify/functions/turner-bend.js`: Production Netlify Function scraper for Turner Bend gauge
 
 ### Storage Strategy
 
@@ -114,9 +115,10 @@ src/components/
 
 **Build Pipeline:**
 
-1. `npm run build` executes two steps:
+1. `npm run build` executes three steps:
    - `npm run parse-streams` (scripts/parse-streams.ts) → generates `src/data/streamContent.generated.ts`
    - `vite build` with code splitting (react-vendor, mui-vendor, date-vendor chunks)
+   - `cd netlify/functions && npm install` → installs function dependencies (cheerio) during Netlify build
 
 **TypeScript:** Strict mode enabled with `noUnusedLocals` and `noUnusedParameters`
 
@@ -126,31 +128,34 @@ src/components/
 - Level freshness: 1.5h (very fresh), 3h (fresh), 10h (recent)
 - Change threshold: 0.1ft for trend detection
 
-## Backend Server
+## Backend / Netlify Functions
 
-The Turner Bend scraper is a separate Express server (`server/`) that:
+Turner Bend scraping runs as a **Netlify Function** in production (`netlify/functions/turner-bend.js`):
 
-1. Scrapes Turner Bend's website (CORS-free alternative to client-side)
-2. Caches data locally with 30-day rolling history
-3. Refreshes every 4 hours via cron schedule
+- Scrapes `https://www.turnerbend.com/WaterLevel.html` using built-in Node.js `https` + cheerio
+- In-memory cache: 15 minutes (not persistent across cold starts)
+- Bundled via esbuild; only cheerio declared as `external_node_modules` (built-in `https` needs no bundling)
+- Dependencies managed in `netlify/functions/package.json` (installed during Netlify build)
 
-**API Endpoints:**
+**API Endpoints (via Netlify redirect):**
+
+- `GET /api/turner-bend/current` → `/.netlify/functions/turner-bend` - Get latest water level (cached)
+- `POST /api/turner-bend/scrape` → `/.netlify/functions/turner-bend` - Force immediate re-scrape
+
+**Local Development (Express server):**
+
+The `server/` directory contains a standalone Express server for local dev:
 
 - `GET /api/turner-bend/current` - Get latest water level (cached)
 - `POST /api/turner-bend/scrape` - Force immediate scrape
 - `GET /health` - Health check
-
-**Data Storage:**
-
-- Cached in `server/turner-bend-data.json`
-- 30-day rolling window, auto-regenerates on scrape
+- Caches data in `server/turner-bend-data.json` with 30-day rolling history; refreshes every 4 hours via cron
 
 **Known Limitations:**
 
 - Scraping relies on regex patterns - breaks if Turner Bend website HTML changes
-- No retry logic for failed scrapes - depends on 4-hour refresh cycle
-- CORS origins hardcoded in `server.js` - update for new deployment domains
+- Netlify Function cache is in-memory only - cold starts re-fetch immediately
 
 ## Frontend/Backend Split
 
-The frontend is a Vite SPA deployed to Netlify. The backend is a minimal Express server that scrapes Turner Bend's website to get water levels not available via USGS. These are separate deployments - the frontend can run without the backend (Turner Bend will show errors).
+The frontend is a Vite SPA deployed to Netlify. In production, the Turner Bend scraper runs as a **Netlify Function** co-deployed with the frontend - no separate server process needed. The `server/` Express server is used for local development only. The frontend can run without the backend (Turner Bend will show errors).
