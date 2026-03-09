@@ -1,6 +1,7 @@
 // src/components/common/LiquidFillBar.tsx
 import { Box, Typography, keyframes, Tooltip } from '@mui/material';
 import { LevelStatus } from '../../types/stream';
+import { STATUS_GRADIENT_COLORS } from '../../utils/streamLevels';
 
 const wave = keyframes`
   0% { transform: translateX(0) translateZ(0) scaleY(1); }
@@ -22,16 +23,6 @@ interface LiquidFillBarProps {
   height?: number;
 }
 
-const STATUS_COLORS: Record<
-  LevelStatus,
-  { primary: string; secondary: string }
-> = {
-  [LevelStatus.Optimal]: { primary: '#2e7d32', secondary: '#4caf50' },
-  [LevelStatus.Low]: { primary: '#ed6c02', secondary: '#ff9800' },
-  [LevelStatus.High]: { primary: '#0288d1', secondary: '#03a9f4' },
-  [LevelStatus.TooLow]: { primary: '#d32f2f', secondary: '#f44336' },
-};
-
 export function LiquidFillBar({
   currentValue,
   minValue,
@@ -40,7 +31,7 @@ export function LiquidFillBar({
   showLabel = true,
   height = 60,
 }: LiquidFillBarProps) {
-  const colors = STATUS_COLORS[status];
+  const colors = STATUS_GRADIENT_COLORS[status];
 
   // Calculate fill percentage (clamped between 0 and 100)
   const range = maxValue - minValue;

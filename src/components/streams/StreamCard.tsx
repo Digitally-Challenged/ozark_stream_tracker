@@ -12,6 +12,7 @@ import {
 import { StreamData, LevelStatus, LevelTrend } from '../../types/stream';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
+import { STATUS_HEX_COLORS } from '../../utils/streamLevels';
 import { RatingBadge } from '../badges/RatingBadge';
 import { SizeBadge } from '../badges/SizeBadge';
 import { StreamConditionIcon } from '../icons/StreamConditionIcon';
@@ -24,13 +25,6 @@ interface StreamCardProps {
   onClick: (stream: StreamData) => void;
 }
 
-const STATUS_COLORS: Record<LevelStatus, string> = {
-  [LevelStatus.Optimal]: '#2e7d32',
-  [LevelStatus.Low]: '#ed6c02',
-  [LevelStatus.High]: '#0288d1',
-  [LevelStatus.TooLow]: '#d32f2f',
-};
-
 export const StreamCard = memo(
   function StreamCard({ stream, onClick }: StreamCardProps) {
     const { currentLevel, reading, loading, error } = useGaugeReading(
@@ -41,7 +35,7 @@ export const StreamCard = memo(
     const theme = useTheme();
 
     const statusColor = currentLevel?.status
-      ? STATUS_COLORS[currentLevel.status]
+      ? STATUS_HEX_COLORS[currentLevel.status]
       : theme.palette.grey[500];
 
     return (

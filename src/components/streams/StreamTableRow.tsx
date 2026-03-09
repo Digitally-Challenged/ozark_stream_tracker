@@ -13,7 +13,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { StreamData, LevelTrend } from '../../types/stream';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
-import { getReadingFreshnessColor } from '../../utils/streamLevels';
+import {
+  getReadingFreshnessColor,
+  getLevelStatusColor,
+} from '../../utils/streamLevels';
 import { getStreamIdFromName } from '../../utils/streamIds';
 import InfoTooltip from './StreamInfoTooltip';
 import { format } from 'date-fns';
@@ -34,24 +37,6 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
   );
   const relativeTime = useRelativeTime(reading?.timestamp);
   const theme = useTheme();
-
-  const getLevelColor = (status: string | undefined) => {
-    if (!status) return undefined;
-
-    const alpha = theme.palette.mode === 'dark' ? '0.3' : '0.2';
-    switch (status) {
-      case 'X':
-        return `rgba(211, 47, 47, ${alpha})`; // Too Low
-      case 'L':
-        return `rgba(237, 108, 2, ${alpha})`; // Low
-      case 'O':
-        return `rgba(46, 125, 50, ${alpha})`; // Optimal
-      case 'H':
-        return `rgba(2, 136, 209, ${alpha})`; // High
-      default:
-        return undefined;
-    }
-  };
 
   const timeFreshnessColor = reading?.timestamp
     ? getReadingFreshnessColor(reading.timestamp, theme)
@@ -203,7 +188,9 @@ const StreamTableRowComponent = ({ stream, onClick }: StreamTableRowProps) => {
       {/* Current Level */}
       <TableCell
         sx={{
-          bgcolor: getLevelColor(currentLevel?.status),
+          bgcolor: currentLevel?.status
+            ? getLevelStatusColor(currentLevel.status, theme)
+            : undefined,
           transition: 'background-color 0.2s ease',
         }}
       >

@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest';
-import { determineTrend } from '../../src/utils/streamLevels';
-import { LevelTrend, GaugeReading } from '../../src/types/stream';
+import {
+  determineTrend,
+  STATUS_HEX_COLORS,
+  STATUS_GRADIENT_COLORS,
+} from '../../src/utils/streamLevels';
+import { LevelStatus, LevelTrend, GaugeReading } from '../../src/types/stream';
 import { STREAM_LEVELS } from '../../src/constants';
 
 describe('determineTrend', () => {
@@ -75,5 +79,27 @@ describe('determineTrend', () => {
     const trend = determineTrend(current, previous);
 
     expect(trend).toBe(LevelTrend.Holding);
+  });
+});
+
+describe('STATUS_HEX_COLORS', () => {
+  it('maps all LevelStatus values to hex colors', () => {
+    expect(STATUS_HEX_COLORS[LevelStatus.TooLow]).toBe('#d32f2f');
+    expect(STATUS_HEX_COLORS[LevelStatus.Low]).toBe('#ed6c02');
+    expect(STATUS_HEX_COLORS[LevelStatus.Optimal]).toBe('#2e7d32');
+    expect(STATUS_HEX_COLORS[LevelStatus.High]).toBe('#0288d1');
+  });
+});
+
+describe('STATUS_GRADIENT_COLORS', () => {
+  it('maps all LevelStatus values to primary/secondary pairs', () => {
+    expect(STATUS_GRADIENT_COLORS[LevelStatus.Optimal]).toEqual({
+      primary: '#2e7d32',
+      secondary: '#4caf50',
+    });
+    expect(STATUS_GRADIENT_COLORS[LevelStatus.TooLow]).toEqual({
+      primary: '#d32f2f',
+      secondary: '#f44336',
+    });
   });
 });

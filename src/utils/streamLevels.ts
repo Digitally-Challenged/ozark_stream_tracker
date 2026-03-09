@@ -9,6 +9,25 @@ import { differenceInHours } from 'date-fns';
 import { STREAM_LEVELS } from '../constants';
 import { Theme } from '@mui/material/styles';
 
+/** Canonical hex colors for each level status — use throughout UI */
+export const STATUS_HEX_COLORS: Record<LevelStatus, string> = {
+  [LevelStatus.TooLow]: '#d32f2f',
+  [LevelStatus.Low]: '#ed6c02',
+  [LevelStatus.Optimal]: '#2e7d32',
+  [LevelStatus.High]: '#0288d1',
+};
+
+/** Primary/secondary gradient pairs for liquid fill bars */
+export const STATUS_GRADIENT_COLORS: Record<
+  LevelStatus,
+  { primary: string; secondary: string }
+> = {
+  [LevelStatus.TooLow]: { primary: '#d32f2f', secondary: '#f44336' },
+  [LevelStatus.Low]: { primary: '#ed6c02', secondary: '#ff9800' },
+  [LevelStatus.Optimal]: { primary: '#2e7d32', secondary: '#4caf50' },
+  [LevelStatus.High]: { primary: '#0288d1', secondary: '#03a9f4' },
+};
+
 export const determineLevel = (
   reading: number,
   targetLevels: TargetLevels
