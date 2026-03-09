@@ -15,14 +15,12 @@ import {
   ThermostatOutlined,
   AccessTimeOutlined,
   ShowChartOutlined,
-  TrendingUp,
-  TrendingDown,
-  HorizontalRule,
   OpenInNew,
   WarningAmber,
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { StreamData, LevelTrend } from '../../types/stream';
+import { getTrendInfo as getTrendInfoUtil } from '../../utils/trendUtils';
 import { format, isValid } from 'date-fns';
 import { useGaugeReading } from '../../hooks/useGaugeReading';
 import { useRelativeTime } from '../../hooks/useRelativeTime';
@@ -55,31 +53,20 @@ function StreamDetailContent({
   const content = streamId ? streamContent[streamId] : null;
 
   const getTrendInfo = () => {
-    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None) {
+    if (!currentLevel?.trend || currentLevel.trend === LevelTrend.None)
       return null;
-    }
-    switch (currentLevel.trend) {
-      case LevelTrend.Rising:
-        return {
-          icon: TrendingUp,
-          label: 'Rising',
-          color: theme.palette.success.main,
-        };
-      case LevelTrend.Falling:
-        return {
-          icon: TrendingDown,
-          label: 'Falling',
-          color: theme.palette.error.main,
-        };
-      case LevelTrend.Holding:
-        return {
-          icon: HorizontalRule,
-          label: 'Stable',
-          color: theme.palette.warning.main,
-        };
-      default:
-        return null;
-    }
+    const info = getTrendInfoUtil(currentLevel.trend);
+    if (!info) return null;
+    return {
+      icon: info.icon,
+      label: info.label,
+      color:
+        info.muiColor === 'success.main'
+          ? theme.palette.success.main
+          : info.muiColor === 'error.main'
+            ? theme.palette.error.main
+            : theme.palette.warning.main,
+    };
   };
 
   const trendInfo = getTrendInfo();
