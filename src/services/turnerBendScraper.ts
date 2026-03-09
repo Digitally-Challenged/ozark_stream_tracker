@@ -7,8 +7,6 @@ interface TurnerBendData {
 }
 
 export class TurnerBendScraper {
-  // URL available for future server-side scraping implementation
-  // private static readonly SCRAPE_URL = 'https://www.turnerbend.com/WaterLevel.html';
   private static readonly API_URL =
     import.meta.env.VITE_API_URL || '/api/turner-bend/current';
   private static readonly CACHE_KEY = 'turner-bend-gauge-data';
@@ -91,14 +89,5 @@ export class TurnerBendScraper {
     } catch (error) {
       console.error('Error caching Turner Bend data:', error);
     }
-  }
-
-  // Server-side scraping function (for future backend implementation)
-  static async scrapeFromServer(): Promise<TurnerBendData | null> {
-    // This would be implemented on a backend service
-    // to avoid CORS issues and properly parse HTML
-    throw new Error(
-      'Server-side scraping not implemented. Use a backend service.'
-    );
   }
 }
