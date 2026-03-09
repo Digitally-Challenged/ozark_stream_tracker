@@ -95,6 +95,7 @@ export function StreamTable({
       >
         <TextField
           placeholder="Search streams by name..."
+          aria-label="Search streams"
           variant="outlined"
           size="small"
           fullWidth

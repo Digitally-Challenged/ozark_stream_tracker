@@ -213,6 +213,7 @@ export function StreamConditionIcon({
   return (
     <Tooltip title={tooltipContent} arrow placement="top">
       <Box
+        aria-label={`Stream condition: ${levelInfo.name}`}
         sx={{
           display: 'inline-flex',
           alignItems: 'center',
