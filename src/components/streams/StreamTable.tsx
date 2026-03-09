@@ -15,6 +15,7 @@ import { StreamTableHeader } from './StreamTableHeader';
 import { StreamTableRow } from './StreamTableRow';
 import { SortDirection, SortField } from '../../types/table';
 import { sortStreams } from '../../utils/sorting';
+import { filterByRatingAndSize } from '../../utils/filterStreams';
 
 interface StreamTableProps {
   streams: StreamData[];
@@ -48,28 +49,21 @@ export function StreamTable({
 
   // Memoize filtered streams calculation
   const filteredStreams = useMemo(() => {
-    return streams.filter((stream) => {
-      if (
-        selectedRatings.length > 0 &&
-        !selectedRatings.includes(stream.rating)
-      ) {
-        return false;
-      }
+    const ratingAndSizeFiltered = filterByRatingAndSize(
+      streams,
+      selectedRatings,
+      selectedSizes
+    );
 
-      if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
-        return false;
-      }
+    if (!searchTerm) return ratingAndSizeFiltered;
 
-      if (searchTerm) {
-        const searchLower = searchTerm.toLowerCase();
-        return (
-          stream.name.toLowerCase().includes(searchLower) ||
-          (stream.gauge?.name &&
-            stream.gauge.name.toLowerCase().includes(searchLower))
-        );
-      }
-      return true;
-    });
+    const searchLower = searchTerm.toLowerCase();
+    return ratingAndSizeFiltered.filter(
+      (stream) =>
+        stream.name.toLowerCase().includes(searchLower) ||
+        (stream.gauge?.name &&
+          stream.gauge.name.toLowerCase().includes(searchLower))
+    );
   }, [streams, selectedRatings, selectedSizes, searchTerm]);
 
   // Memoize sorted streams calculation

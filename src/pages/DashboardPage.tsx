@@ -16,6 +16,7 @@ import { useAllStreamStatuses } from '../hooks/useStreamStatus';
 import { useViewPreference } from '../hooks/useViewPreference';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
 import { groupStreamsByStatus, GROUP_ORDER } from '../utils/streamGrouping';
+import { filterByRatingAndSize } from '../utils/filterStreams';
 
 interface DashboardPageProps {
   selectedRatings: string[];
@@ -39,18 +40,7 @@ export function DashboardPage({
 
   // Filter streams first
   const filteredStreams = useMemo(() => {
-    return streams.filter((stream) => {
-      if (
-        selectedRatings.length > 0 &&
-        !selectedRatings.includes(stream.rating)
-      ) {
-        return false;
-      }
-      if (selectedSizes.length > 0 && !selectedSizes.includes(stream.size)) {
-        return false;
-      }
-      return true;
-    });
+    return filterByRatingAndSize(streams, selectedRatings, selectedSizes);
   }, [selectedRatings, selectedSizes]);
 
   // Group filtered streams by status
