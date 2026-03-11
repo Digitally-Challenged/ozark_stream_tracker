@@ -3,12 +3,12 @@ const QPE_BASE =
 const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutes
 const FETCH_TIMEOUT_MS = 5000;
 
-// Layer IDs for precipitation periods
+// Layer IDs for precipitation periods (Image layers in rfc_qpe MapServer)
 const LAYER_IDS = {
-  last24h: 17,
-  last48h: 23,
-  last72h: 29,
-  last7d: 35,
+  last24h: 28,
+  last48h: 36,
+  last72h: 40,
+  last7d: 56,
 } as const;
 
 export interface PrecipTotals {
@@ -47,12 +47,15 @@ function setCache(gaugeId: string, data: PrecipTotals): void {
   }
 }
 
-function parsePixelValue(value: string): number | null {
-  if (!value || value === 'NoData' || value === 'Null') return null;
-  const match = value.match(/Pixel Value:\s*([\d.]+)/);
-  if (!match) return null;
-  const num = parseFloat(match[1]);
-  return isNaN(num) ? null : num;
+function parsePixelValue(
+  result: { value: string; attributes?: Record<string, string> } | undefined
+): number | null {
+  if (!result) return null;
+  // Image layers return data in attributes['Service Pixel Value']
+  const raw = result.attributes?.['Service Pixel Value'] ?? result.value ?? '';
+  if (!raw || raw === 'NoData' || raw === 'Null' || raw === 'N/A') return null;
+  const num = parseFloat(raw);
+  return isNaN(num) || num < 0 ? null : num;
 }
 
 export async function fetchPrecipTotals(
@@ -88,6 +91,7 @@ export async function fetchPrecipTotals(
       layers: `visible:${layerList}`,
       mapExtent: extent,
       imageDisplay: '600,550,96',
+      tolerance: '1',
       returnGeometry: 'false',
       f: 'json',
     });
@@ -99,22 +103,28 @@ export async function fetchPrecipTotals(
     if (!res.ok) return empty;
 
     const data = await res.json();
-    const results: Array<{ layerId: number; value: string }> =
-      data.results ?? [];
+    const results: Array<{
+      layerId: number;
+      value: string;
+      attributes?: Record<string, string>;
+    }> = data.results ?? [];
 
-    const byLayer = new Map<number, string>();
+    const byLayer = new Map<
+      number,
+      { value: string; attributes?: Record<string, string> }
+    >();
     for (const r of results) {
-      byLayer.set(r.layerId, r.value);
+      byLayer.set(r.layerId, r);
     }
 
     const totals: PrecipTotals = {
       gaugeId,
       lat,
       lng,
-      last24h: parsePixelValue(byLayer.get(LAYER_IDS.last24h) ?? ''),
-      last48h: parsePixelValue(byLayer.get(LAYER_IDS.last48h) ?? ''),
-      last72h: parsePixelValue(byLayer.get(LAYER_IDS.last72h) ?? ''),
-      last7d: parsePixelValue(byLayer.get(LAYER_IDS.last7d) ?? ''),
+      last24h: parsePixelValue(byLayer.get(LAYER_IDS.last24h)),
+      last48h: parsePixelValue(byLayer.get(LAYER_IDS.last48h)),
+      last72h: parsePixelValue(byLayer.get(LAYER_IDS.last72h)),
+      last7d: parsePixelValue(byLayer.get(LAYER_IDS.last7d)),
     };
 
     setCache(gaugeId, totals);

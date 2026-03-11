@@ -20,10 +20,30 @@ Object.defineProperty(global, 'localStorage', { value: localStorageMock });
 
 const MOCK_IDENTIFY_RESPONSE = {
   results: [
-    { layerId: 17, layerName: 'Last 24 Hours', value: 'Pixel Value: 1.23' },
-    { layerId: 23, layerName: 'Last 48 Hours', value: 'Pixel Value: 2.85' },
-    { layerId: 29, layerName: 'Last 72 Hours', value: 'Pixel Value: 3.12' },
-    { layerId: 35, layerName: 'Last 7 Days', value: 'Pixel Value: 4.50' },
+    {
+      layerId: 28,
+      layerName: 'Image',
+      value: '',
+      attributes: { 'Service Pixel Value': '1.23' },
+    },
+    {
+      layerId: 36,
+      layerName: 'Image',
+      value: '',
+      attributes: { 'Service Pixel Value': '2.85' },
+    },
+    {
+      layerId: 40,
+      layerName: 'Image',
+      value: '',
+      attributes: { 'Service Pixel Value': '3.12' },
+    },
+    {
+      layerId: 56,
+      layerName: 'Image',
+      value: '',
+      attributes: { 'Service Pixel Value': '4.50' },
+    },
   ],
 };
 
@@ -64,7 +84,12 @@ describe('fetchPrecipTotals', () => {
       json: () =>
         Promise.resolve({
           results: [
-            { layerId: 17, layerName: 'Last 24 Hours', value: 'NoData' },
+            {
+              layerId: 28,
+              layerName: 'Image',
+              value: '',
+              attributes: { 'Service Pixel Value': 'NoData' },
+            },
           ],
         }),
     });
