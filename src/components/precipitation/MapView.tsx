@@ -10,7 +10,8 @@ import { getWatershedMarkerColor } from '../../utils/watershedGrouping';
 import { GAUGE_LOCATIONS } from '../../data/gaugeLocations';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 import { determineLevel } from '../../utils/streamLevels';
-import { LevelStatus } from '../../types/stream';
+import { LevelStatus, GaugeReading } from '../../types/stream';
+import { useWatershedIntelligence } from '../../hooks/useWatershedIntelligence';
 
 const IEM_TILE_URL =
   'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/{layer}/{z}/{x}/{y}.png';
@@ -40,6 +41,53 @@ const BASE_TILES = {
 
 const OZARK_CENTER: [number, number] = [35.5, -93.5];
 const DEFAULT_ZOOM = 8;
+
+function WatershedMarker({
+  marker,
+  gaugeData,
+}: {
+  marker: {
+    gaugeId: string;
+    lat: number;
+    lng: number;
+    color: string;
+    watershed: Watershed;
+  };
+  gaugeData:
+    | { reading: GaugeReading | null; previousReading: GaugeReading | null }
+    | undefined;
+}) {
+  const { forecast, precip, loading } = useWatershedIntelligence(
+    marker.gaugeId,
+    marker.lat,
+    marker.lng
+  );
+
+  return (
+    <CircleMarker
+      center={[marker.lat, marker.lng]}
+      radius={12}
+      pathOptions={{
+        fillColor: marker.color,
+        color: '#fff',
+        weight: 2.5,
+        fillOpacity: 0.9,
+        className: 'watershed-marker',
+      }}
+    >
+      <Popup>
+        <WatershedPopup
+          watershed={marker.watershed}
+          reading={gaugeData?.reading ?? null}
+          previousReading={gaugeData?.previousReading ?? null}
+          forecast={forecast}
+          precip={precip}
+          intelligenceLoading={loading}
+        />
+      </Popup>
+    </CircleMarker>
+  );
+}
 
 interface MapViewProps {
   watersheds: Map<string, Watershed>;
@@ -136,26 +184,11 @@ export function MapView({
         {markers.map((marker) => {
           const gaugeData = gauges.get(marker.gaugeId);
           return (
-            <CircleMarker
+            <WatershedMarker
               key={marker.gaugeId}
-              center={[marker.lat, marker.lng]}
-              radius={12}
-              pathOptions={{
-                fillColor: marker.color,
-                color: '#fff',
-                weight: 2.5,
-                fillOpacity: 0.9,
-                className: 'watershed-marker',
-              }}
-            >
-              <Popup>
-                <WatershedPopup
-                  watershed={marker.watershed}
-                  reading={gaugeData?.reading ?? null}
-                  previousReading={gaugeData?.previousReading ?? null}
-                />
-              </Popup>
-            </CircleMarker>
+              marker={marker}
+              gaugeData={gaugeData}
+            />
           );
         })}
       </MapContainer>

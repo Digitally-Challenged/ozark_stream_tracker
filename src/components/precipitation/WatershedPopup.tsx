@@ -1,16 +1,23 @@
-import { Box, Typography, Chip } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Box, Typography, Chip, Skeleton } from '@mui/material';
+import { WaterDrop, TrendingUp } from '@mui/icons-material';
+import { Link, useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 import { Watershed } from '../../utils/watershedGrouping';
 import { GaugeReading, LevelStatus, LevelTrend } from '../../types/stream';
 import { determineLevel, determineTrend } from '../../utils/streamLevels';
 import { STATUS_HEX_COLORS } from '../../utils/streamLevels';
 import { getStreamIdFromName } from '../../utils/streamIds';
 import { getTrendLabel } from '../../utils/trendUtils';
+import { NwsForecast } from '../../services/nwsForecastService';
+import { PrecipTotals } from '../../services/precipQueryService';
 
 interface WatershedPopupProps {
   watershed: Watershed;
   reading: GaugeReading | null;
   previousReading: GaugeReading | null;
+  forecast?: NwsForecast | null;
+  precip?: PrecipTotals | null;
+  intelligenceLoading?: boolean;
 }
 
 const STATUS_LABELS: Record<LevelStatus, string> = {
@@ -30,7 +37,11 @@ export function WatershedPopup({
   watershed,
   reading,
   previousReading,
+  forecast,
+  precip,
+  intelligenceLoading,
 }: WatershedPopupProps) {
+  const navigate = useNavigate();
   const trend =
     reading && previousReading
       ? determineTrend(reading, previousReading)
@@ -93,6 +104,62 @@ export function WatershedPopup({
         >
           Awaiting data...
         </Typography>
+      )}
+
+      {precip && (precip.last24h !== null || precip.last48h !== null) && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            mb: 0.5,
+            py: 0.5,
+            px: 0.75,
+            borderRadius: 1,
+            background: 'rgba(48, 207, 208, 0.06)',
+          }}
+        >
+          <WaterDrop sx={{ fontSize: 14, color: '#30cfd0' }} />
+          <Typography
+            variant="caption"
+            sx={{ fontWeight: 600, fontSize: '0.7rem' }}
+          >
+            {precip.last24h !== null && `${precip.last24h.toFixed(1)} in (24h)`}
+            {precip.last24h !== null && precip.last48h !== null && ' \u00b7 '}
+            {precip.last48h !== null && `${precip.last48h.toFixed(1)} in (48h)`}
+          </Typography>
+        </Box>
+      )}
+      {intelligenceLoading && !precip && (
+        <Skeleton
+          variant="rectangular"
+          height={24}
+          sx={{ borderRadius: 1, mb: 0.5 }}
+        />
+      )}
+
+      {forecast?.peakForecast && (
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            mb: 0.75,
+            py: 0.5,
+            px: 0.75,
+            borderRadius: 1,
+            background: 'rgba(76, 175, 80, 0.06)',
+          }}
+        >
+          <TrendingUp sx={{ fontSize: 14, color: '#4caf50' }} />
+          <Typography
+            variant="caption"
+            sx={{ fontWeight: 600, fontSize: '0.7rem' }}
+          >
+            {'\u2192'} {forecast.peakForecast.stage.toFixed(1)} ft by{' '}
+            {format(new Date(forecast.peakForecast.time), 'EEE')}
+          </Typography>
+        </Box>
       )}
 
       <Box
@@ -166,6 +233,33 @@ export function WatershedPopup({
             </Box>
           );
         })}
+      </Box>
+
+      <Box
+        onClick={() =>
+          navigate(`/precipitation/watershed/${watershed.gauge.id}`)
+        }
+        sx={{
+          mt: 1,
+          pt: 0.75,
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          cursor: 'pointer',
+          textAlign: 'center',
+          '&:hover': { color: '#30cfd0' },
+          transition: 'color 0.2s',
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{
+            fontWeight: 600,
+            fontSize: '0.7rem',
+            letterSpacing: '0.03em',
+          }}
+        >
+          View Watershed Forecast {'\u2192'}
+        </Typography>
       </Box>
     </Box>
   );
