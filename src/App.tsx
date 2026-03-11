@@ -1,8 +1,6 @@
-import { useState } from 'react';
 import { Box, CssBaseline } from '@mui/material';
 import { Header } from './components/core/Header';
 import { Footer } from './components/core/Footer';
-import { DashboardSidebar } from './components/dashboard/DashboardSidebar';
 import { ThemeProvider } from './context/ThemeContext';
 import { GaugeDataProvider } from './context/GaugeDataContext';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -21,10 +19,6 @@ function ErrorFallback({ error }: { error: Error }) {
 }
 
 function App() {
-  const [filterOpen, setFilterOpen] = useState(false);
-  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-
   return (
     <GaugeDataProvider>
       <ThemeProvider>
@@ -40,28 +34,14 @@ function App() {
             }}
           >
             <ErrorBoundary FallbackComponent={ErrorFallback}>
-              <Header
-                onFilterClick={() => setFilterOpen(!filterOpen)}
-                filterOpen={filterOpen}
-                activeFilterCount={
-                  selectedRatings.length + selectedSizes.length
-                }
-              />
+              <Header />
               <Box sx={{ display: 'flex', flex: 1 }}>
                 <Routes>
                   <Route
                     path="/"
                     element={<Navigate to="/dashboard" replace />}
                   />
-                  <Route
-                    path="/dashboard"
-                    element={
-                      <DashboardPage
-                        selectedRatings={selectedRatings}
-                        selectedSizes={selectedSizes}
-                      />
-                    }
-                  />
+                  <Route path="/dashboard" element={<DashboardPage />} />
                   <Route
                     path="/stream/:streamId"
                     element={<StreamPageLazy />}
@@ -72,14 +52,6 @@ function App() {
                   />
                 </Routes>
               </Box>
-              <DashboardSidebar
-                open={filterOpen}
-                onClose={() => setFilterOpen(false)}
-                selectedRatings={selectedRatings}
-                setSelectedRatings={setSelectedRatings}
-                selectedSizes={selectedSizes}
-                setSelectedSizes={setSelectedSizes}
-              />
               <Footer />
             </ErrorBoundary>
           </Box>

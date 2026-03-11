@@ -31,7 +31,7 @@ export function LiveTime({
     return () => clearInterval(timer);
   }, [updateInterval]);
 
-  const timeFormat = showSeconds ? 'HH:mm:ss' : 'HH:mm';
+  const timeFormat = showSeconds ? 'h:mm:ss a' : 'h:mm a';
   const fullFormat = showSeconds ? 'PPpp' : 'PPp';
 
   return (

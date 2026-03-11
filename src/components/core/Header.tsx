@@ -7,28 +7,21 @@ import {
   Box,
   keyframes,
   alpha,
-  Badge,
+  ButtonBase,
 } from '@mui/material';
 import {
   Kayaking,
-  FilterList,
   DarkModeOutlined,
   LightModeOutlined,
   Waves,
   Refresh,
   Cloud,
+  Dashboard,
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useColorMode } from '../../context/ThemeContext';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 import { waterGradients } from '../../theme/waterTheme';
-import { LiveIndicator } from '../common/LiveIndicator';
-
-interface HeaderProps {
-  onFilterClick: () => void;
-  filterOpen: boolean;
-  activeFilterCount?: number;
-}
 
 const float = keyframes`
   0%, 100% { transform: translateY(0) rotate(0deg); }
@@ -46,11 +39,7 @@ const spin = keyframes`
   to { transform: rotate(360deg); }
 `;
 
-export function Header({
-  onFilterClick,
-  filterOpen,
-  activeFilterCount = 0,
-}: HeaderProps) {
+export function Header() {
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
   const { refresh, isLoading } = useGaugeDataContext();
@@ -94,12 +83,28 @@ export function Header({
         },
       }}
     >
-      <Toolbar sx={{ justifyContent: 'space-between' }}>
-        <Box
+      <Toolbar
+        sx={{
+          justifyContent: 'space-between',
+          gap: { xs: 1, sm: 2 },
+          px: { xs: 1, sm: 2 },
+        }}
+      >
+        {/* Logo + App Name */}
+        <ButtonBase
+          onClick={() => navigate('/dashboard')}
+          disableRipple
           sx={{
             display: 'flex',
             alignItems: 'center',
-            gap: 2,
+            gap: 1.5,
+            borderRadius: 1,
+            px: 1,
+            py: 0.5,
+            flexShrink: 0,
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            },
           }}
         >
           <Box
@@ -109,11 +114,6 @@ export function Header({
               alignItems: 'center',
               position: 'relative',
               animation: `${float} 4s ease-in-out infinite`,
-              '&:hover': {
-                animation: 'none',
-                transform: 'scale(1.1)',
-                transition: 'transform 0.3s ease',
-              },
             }}
           >
             <Kayaking sx={{ fontSize: 32 }} />
@@ -132,58 +132,104 @@ export function Header({
             variant="h6"
             sx={{
               color: 'white',
-              letterSpacing: '0.2em',
+              letterSpacing: '0.15em',
               fontWeight: 300,
+              display: { xs: 'none', sm: 'block' },
+              whiteSpace: 'nowrap',
             }}
           >
             OZARK CREEK FLOW ZONE
           </Typography>
+        </ButtonBase>
+
+        {/* Center: Tagline */}
+        <Box
+          sx={{
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+          }}
+        >
+          <Typography
+            sx={{
+              color: 'rgba(255, 255, 255, 0.9)',
+              letterSpacing: '0.1em',
+              fontSize: '1rem',
+            }}
+          >
+            KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
+          </Typography>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+        {/* Actions */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+          {/* Nav Icons */}
           <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
-              alignItems: 'center',
-              gap: 2,
+              display: 'flex',
+              gap: 0.25,
+              backgroundColor: 'rgba(255, 255, 255, 0.06)',
+              borderRadius: 2,
+              p: 0.375,
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              mr: 0.5,
             }}
           >
-            <LiveIndicator isLive={!isLoading} lastUpdated={null} />
-            <Typography
+            <IconButton
+              onClick={() => navigate('/dashboard')}
+              aria-label="dashboard"
+              size="small"
               sx={{
-                color: 'rgba(255, 255, 255, 0.9)',
-                letterSpacing: '0.1em',
-                fontSize: '1rem',
+                color: !onPrecipMap ? 'white' : 'rgba(255, 255, 255, 0.45)',
+                backgroundColor: !onPrecipMap
+                  ? 'rgba(255, 255, 255, 0.12)'
+                  : 'transparent',
+                borderRadius: 1.5,
+                transition: 'all 0.25s ease',
+                ...(!onPrecipMap && {
+                  boxShadow: '0 0 10px rgba(48, 207, 208, 0.2)',
+                }),
+                '&:hover': {
+                  color: 'white',
+                  backgroundColor: !onPrecipMap
+                    ? 'rgba(255, 255, 255, 0.15)'
+                    : 'rgba(255, 255, 255, 0.08)',
+                },
               }}
             >
-              KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
-            </Typography>
+              <Dashboard sx={{ fontSize: 20 }} />
+            </IconButton>
+            <IconButton
+              onClick={() => navigate('/precipitation')}
+              aria-label="precipitation map"
+              size="small"
+              sx={{
+                color: onPrecipMap ? 'white' : 'rgba(255, 255, 255, 0.45)',
+                backgroundColor: onPrecipMap
+                  ? 'rgba(255, 255, 255, 0.12)'
+                  : 'transparent',
+                borderRadius: 1.5,
+                transition: 'all 0.25s ease',
+                ...(onPrecipMap && {
+                  boxShadow: '0 0 10px rgba(48, 207, 208, 0.2)',
+                }),
+                '&:hover': {
+                  color: 'white',
+                  backgroundColor: onPrecipMap
+                    ? 'rgba(255, 255, 255, 0.15)'
+                    : 'rgba(255, 255, 255, 0.08)',
+                },
+              }}
+            >
+              <Cloud sx={{ fontSize: 20 }} />
+            </IconButton>
           </Box>
-
-          <IconButton
-            onClick={() =>
-              navigate(onPrecipMap ? '/dashboard' : '/precipitation')
-            }
-            aria-label="precipitation map"
-            sx={{
-              color: onPrecipMap ? theme.palette.primary.light : 'white',
-              minWidth: 48,
-              minHeight: 48,
-              '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              },
-            }}
-          >
-            <Cloud />
-          </IconButton>
 
           <IconButton
             onClick={refresh}
             disabled={isLoading}
+            aria-label="refresh data"
             sx={{
               color: 'white',
-              minWidth: 48,
-              minHeight: 48,
               '&:hover': {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },
@@ -191,48 +237,19 @@ export function Header({
                 color: 'rgba(255, 255, 255, 0.5)',
               },
             }}
-            aria-label="refresh data"
           >
             <Refresh
               sx={{
+                fontSize: 20,
                 animation: isLoading ? `${spin} 1s linear infinite` : 'none',
               }}
             />
           </IconButton>
 
-          <Badge
-            badgeContent={activeFilterCount}
-            color="primary"
-            sx={{
-              '& .MuiBadge-badge': {
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-              },
-            }}
-          >
-            <IconButton
-              onClick={onFilterClick}
-              sx={{
-                color: 'white',
-                minWidth: 48,
-                minHeight: 48,
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                },
-                transform: filterOpen ? 'rotate(180deg)' : 'none',
-                transition: 'transform 0.3s ease',
-              }}
-            >
-              <FilterList />
-            </IconButton>
-          </Badge>
-
           <IconButton
             onClick={toggleColorMode}
             sx={{
               color: 'white',
-              minWidth: 48,
-              minHeight: 48,
               '&:hover': {
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },
