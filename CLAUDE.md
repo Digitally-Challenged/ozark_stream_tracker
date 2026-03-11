@@ -28,6 +28,8 @@ cd server && npm run dev                   # With nodemon auto-reload
 1. **USGS Gauges**: Frontend fetches directly from `waterservices.usgs.gov/nwis/iv/` API
 2. **Turner Bend**: Custom gauge scraped via Netlify Function (`netlify/functions/turner-bend.js`) to avoid CORS, cached 15 minutes in-memory (warm invocations only)
 3. **Precipitation Data**: IEM MRMS tile overlays for radar/accumulated precipitation, WPC QPF forecast images, and NWS observed precipitation images — all fetched directly, no API keys required
+4. **NWS River Forecasts**: Client-side fetch from `api.water.noaa.gov/nwps/v1/gauges/{id}/stageflow` — 5-day stage/flow forecasts + flood categories. ~30% gauge coverage (others return 404). Cached 1 hour in localStorage.
+5. **NOAA QPE Rainfall**: Client-side identify requests to `mapservices.weather.noaa.gov/raster/rest/services/obs/rfc_qpe/MapServer/identify` — observed precipitation totals (24h, 48h, 72h, 7d) at gauge coordinates. Cached 30 minutes in localStorage.
 
 ### Component Architecture
 
@@ -47,19 +49,21 @@ src/components/
 ├── common/       # LiveTime, utilities
 ├── core/         # Header, Footer
 │   └── Header.tsx   # App header with navigation tabs (Dashboard/Precipitation), logo, refresh/filter/theme buttons
-├── dashboard/    # DashboardHeader, DashboardSidebar
+├── dashboard/    # DashboardHeader (LiveTime + LiveIndicator), DashboardSidebar (rating/size filters)
 ├── effects/      # GlassCard visual effects
 ├── icons/        # StreamConditionIcon, TrendIcon
 ├── precipitation/ # Precipitation map components
 │   ├── MapView.tsx         # Leaflet map with tile layers and watershed markers
 │   ├── ForecastPanel.tsx   # QPF forecast + observed precipitation sidebar
 │   ├── LayerControl.tsx    # Tile layer toggle (MUI ToggleButtonGroup)
-│   └── WatershedPopup.tsx  # Marker popup content
+│   ├── WatershedPopup.tsx  # Marker popup with rainfall/forecast rows and detail link
+│   ├── WeatherSummaryBar.tsx # Aggregate rain/rising counts above map
+│   └── StageChart.tsx      # Inline SVG stage forecast chart (no chart library)
 ├── stream-page/  # Stream detail page components
-└── streams/      # StreamCard, StreamTable, StreamGroup, etc.
+└── streams/      # StreamCard, StreamTable, StreamGroup, StreamGroupHeader (collapsible status sections)
 ```
 
-**Pages:** `src/pages/DashboardPage.tsx`, `src/pages/StreamPage.tsx`, `src/pages/PrecipitationMap.tsx` (lazy-loaded via `PrecipitationMapLazy.tsx`)
+**Pages:** `src/pages/DashboardPage.tsx`, `src/pages/StreamPage.tsx`, `src/pages/PrecipitationMap.tsx` (lazy-loaded via `PrecipitationMapLazy.tsx`), `src/pages/WatershedDetailPage.tsx` (lazy-loaded via `WatershedDetailLazy.tsx`, route: `/precipitation/watershed/:gaugeId`)
 
 **State Pattern:**
 
@@ -84,6 +88,7 @@ src/components/
 | `useStreamStatus` | Memoized status lookup |
 | `useRelativeTime` | Dynamic "5 minutes ago" strings |
 | `useViewPreference` | Table/card toggle with responsive defaults |
+| `useWatershedIntelligence` | Fetches NWS forecast + NOAA QPE precip in parallel, used by WatershedPopup and WatershedDetailPage |
 
 **Gauge Hook** (`src/hooks/useStreamGauge.ts`):
 
@@ -103,9 +108,9 @@ src/components/
 
 **Filtering System:**
 
-- State managed in `App.tsx`, passed down via props
+- State managed in `DashboardPage.tsx` (local component state)
 - Sidebar drawer (`DashboardSidebar`) controls rating/size filters (only visible on dashboard)
-- Stream table filters in `DashboardPage`
+- Filter logic shared via `filterByRatingAndSize()` utility from `src/utils/filterStreams.ts`
 
 **Routing:**
 
@@ -136,11 +141,39 @@ src/components/
 
 **Watershed Markers:** Streams grouped by shared `gauge.id` via `groupStreamsByWatershed()` utility. Each marker colored by highest-priority status among watershed streams (priority: High > Optimal > Low > TooLow). Coordinates sourced from `GAUGE_LOCATIONS` (exported from `src/data/gaugeLocations.ts` — hardcoded USGS Site Web Service data). Neutral gray (#9e9e9e) for missing gauge data.
 
-**Navigation:** Header includes navigation tabs (Dashboard and Precipitation) positioned center-header in a glassmorphic container. Each tab uses `ButtonBase` with react-router's `useNavigate()` for routing. Active tab determined via `useLocation().pathname === '/precipitation'` check. Dashboard tab shows `<Dashboard />` icon, Precipitation tab shows `<Cloud />` icon. Active tab has elevated background (`rgba(255, 255, 255, 0.12)`), cyan glow box-shadow, and increased font weight. Tabs are responsive: icons always visible, text labels hidden on mobile (< sm breakpoint). Logo is also clickable, navigates to `/dashboard` on click.
+**Navigation:** Header includes navigation icons (Dashboard and Precipitation) positioned in a glassmorphic container (right side, before action buttons). Each icon is an `IconButton` with react-router's `useNavigate()` for routing. Active icon determined via `useLocation().pathname` check (`!onPrecipMap` for Dashboard, `onPrecipMap` for Precipitation). Dashboard icon: `<Dashboard />`, Precipitation icon: `<Cloud />`. Active state: white color, elevated background (`rgba(255, 255, 255, 0.12)`), cyan glow box-shadow (`0 0 10px rgba(48, 207, 208, 0.2)`). Inactive state: 45% opacity, transparent background. Logo is also clickable, navigates to `/dashboard` on click.
 
 **Known Edge Cases:** Tile loading failures handled gracefully by Leaflet (blank tiles). WPC/NWS image failures trigger fallback UI with "View on source site" link. Missing gauge data shows neutral gray markers with "Loading..." in popups.
 
 **Implementation Status:** Fully implemented as of commit `a527c86` (2026-03-11). Includes complete component suite (MapView, LayerControl, ForecastPanel, WatershedPopup), routing integration, watershed grouping utilities, unit tests, and vite config for code-splitting map vendor chunk.
+
+**Precipitation Query Service** (`src/services/precipQueryService.ts`):
+
+- **Purpose**: Query point-specific precipitation totals from NOAA RFC QPE (Quantitative Precipitation Estimation) MapServer
+- **API**: `mapservices.weather.noaa.gov/raster/rest/services/obs/rfc_qpe/MapServer/identify` (ArcGIS REST identify endpoint)
+- **Layer IDs**: `{ last24h: 17, last48h: 23, last72h: 29, last7d: 35 }` (multi-day accumulated rainfall rasters)
+- **Request Format**: Point geometry (lat/lng in EPSG:4326), queries all 4 layers in single HTTP call, includes mapExtent + imageDisplay params for identify service
+- **Response Parsing**: Extracts "Pixel Value: X.XX" from layer results, handles "NoData"/"Null" gracefully (returns null)
+- **Caching**: localStorage with 30-minute TTL (key: `precip-{gaugeId}`, stores `PrecipTotals` object with timestamp)
+- **Error Handling**: Returns empty `PrecipTotals` (all nulls) on fetch failure or timeout (5s abort signal)
+- **Interface**: `PrecipTotals { gaugeId, lat, lng, last24h, last48h, last72h, last7d }` (all values in inches or null)
+- **Use Case**: Powers Watershed Intelligence — rainfall context in popups, summary bar, and detail page
+- **Testing**: Unit tests in `tests/unit/precipQueryService.test.ts` — validates parsing, caching, NoData handling, error fallback
+
+**NWS Forecast Service** (`src/services/nwsForecastService.ts`):
+
+- **Purpose**: Fetch river stage forecasts and flood categories from NWS NWPS API
+- **API**: `api.water.noaa.gov/nwps/v1/gauges/{gaugeId}/stageflow` (observed + 5-day forecast) and root gauge endpoint for flood categories
+- **Coverage**: ~30% of gauges (others return 404, gracefully handled as null)
+- **Caching**: localStorage with 1-hour TTL (key: `nws-forecast-{gaugeId}`)
+- **Interface**: `NwsForecast { gaugeId, data: NwsForecastPoint[], peakForecast, floodCategories }`
+- **Testing**: `tests/unit/nwsForecastService.test.ts` — parsing, 404 handling, cache TTL
+
+**Watershed Intelligence** (scan → preview → deep dive):
+
+- **WeatherSummaryBar**: Glassmorphic strip above the precipitation map showing aggregate counts: watersheds with rain (24h) and gauges forecast rising. Fetched via staggered batch (100ms delay per gauge) in PrecipitationMap page.
+- **Enhanced WatershedPopup**: Shows rainfall row (24h/48h inches) and forecast row (peak stage by day) in addition to existing gauge reading/trend/stream list. Includes "View Watershed Forecast →" link.
+- **WatershedDetailPage** (`/precipitation/watershed/:gaugeId`): Full subpage with stat cards (stage, trend, status), inline SVG stage forecast chart (StageChart.tsx), rainfall totals (24h/48h/72h/7d), stream list with optimal ranges, and flood stages bar. Lazy-loaded.
 
 ### Important Files
 
@@ -154,6 +187,9 @@ src/components/
 - `src/utils/watershedGrouping.ts`: Watershed utilities — `groupStreamsByWatershed()` groups streams by shared gauge ID into `Map<string, Watershed>`, `getWatershedMarkerColor(statuses: LevelStatus[])` returns highest-priority status color (High > Optimal > Low > TooLow) for precipitation map markers, returns neutral gray (#9e9e9e) for empty array
 - `src/utils/streamIds.ts`: Explicit stream name to content ID mapping
 - `src/services/turnerBendScraper.ts`: Frontend `TurnerBendScraper` class — calls `/api/turner-bend/current`, 15-min localStorage cache, 5s fetch timeout via `AbortSignal.timeout`
+- `src/components/common/LiveTime.tsx`: Real-time clock component — displays current time with 12h format + AM/PM, updates every second (configurable via `updateInterval` prop), shows full timestamp on hover via MUI Tooltip
+- `src/services/precipQueryService.ts`: NOAA QPE point-query service — fetches rainfall totals (24h/48h/72h/7d) from RFC MapServer identify endpoint, 30min localStorage cache, returns `PrecipTotals` interface with null fallback for NoData
+- `src/services/nwsForecastService.ts`: NWS NWPS forecast service — fetches river stage forecasts + flood categories, 1hr localStorage cache, returns `NwsForecast` or null (404 for uncovered gauges)
 - `server/turnerBendScraper.js`: Local dev scraper for Turner Bend gauge (Express server)
 - `netlify/functions/turner-bend.js`: Production Netlify Function scraper for Turner Bend gauge
 
@@ -165,6 +201,8 @@ src/components/
 - `ozark-stream-tracker-view-mode`: Table vs cards preference
 - `gauge-reading-history`: 24-hour rolling gauge history for trends
 - `turner-bend-gauge-data`: 15-minute client-side cache for Turner Bend
+- `nws-forecast-{gaugeId}`: 1-hour cache for NWS river forecasts
+- `precip-{gaugeId}`: 30-minute cache for NOAA QPE precipitation totals
 
 ### Environment Variables
 
@@ -247,4 +285,18 @@ The frontend is a Vite SPA deployed to Netlify. In production, the Turner Bend s
 - **Data Integration**: Real-time gauge readings from GaugeDataContext, watershed grouping via `groupStreamsByWatershed()`, marker colors via `getWatershedMarkerColor()` with priority-based status selection
 - **Styling Patterns**: MUI sx prop with theme-aware colors, gradient backgrounds for active states (`linear-gradient(135deg, #30cfd0, #330867)`), glow box-shadows on selected elements, hover effects with subtle alpha backgrounds
 - **Error Handling**: Image loading fallbacks with `<CloudOff />` icon and external links to source sites (WPC, NWS) for precipitation images
+
+**Recent Refactoring: App/Header Component Cleanup (commits 6a65f0a, b4fbd72)**
+
+- **State Management**: Moved filter state (selectedRatings, selectedSizes) from App.tsx to DashboardPage.tsx — filters are page-specific, not global
+- **Header Navigation**: Refactored from tabs to icon buttons — Dashboard and Precipitation icons in glassmorphic container, active state with glow effect
+- **Component Simplification**: App.tsx now only handles routing and global providers (Theme, GaugeData) — no UI state or filter props passing
+- **Time Format**: LiveTime component changed from 24h (`HH:mm`) to 12h (`h:mm a`) format with AM/PM for better readability
+
+**Recent Changes: UI Cleanup and Precipitation Service (commits 32d7a82, d49ad4a)**
+
+- **DashboardHeader Simplification**: Removed "93 Runs" counter and swapped order to "Updated [LiveTime] [LiveIndicator]" — cleaner right-aligned layout
+- **StreamGroupHeader Simplification**: Removed stream count chips from collapsible status section headers — reduces visual noise, keeps focus on status labels and emojis
+- **Precipitation Query Service**: Implemented `precipQueryService.ts` with NOAA RFC QPE MapServer integration — fetches 24h/48h/72h/7d rainfall totals at point locations (lat/lng), localStorage caching (30min TTL), handles NoData gracefully
+- **Testing**: Added comprehensive unit tests for precipQueryService — validates identify response parsing, cache behavior, NoData handling, error fallback
 <!-- END AUTO-MANAGED -->
