@@ -1,5 +1,4 @@
 import { Box, Typography, useTheme } from '@mui/material';
-import { WaterDrop } from '@mui/icons-material';
 import { LiveTime } from '../common/LiveTime';
 import { LiveIndicator } from '../common/LiveIndicator';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
@@ -12,22 +11,12 @@ export function DashboardHeader() {
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         alignItems: 'center',
         mb: 1.5,
       }}
     >
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <WaterDrop sx={{ fontSize: 18, color: theme.palette.primary.main }} />
-        <Typography
-          variant="body2"
-          sx={{ fontWeight: 600, color: theme.palette.text.primary }}
-        >
-          93 Runs
-        </Typography>
-      </Box>
       <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-        <LiveIndicator isLive={!isLoading} lastUpdated={null} />
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
           <Typography
             variant="caption"
@@ -41,6 +30,7 @@ export function DashboardHeader() {
             color="textSecondary"
           />
         </Box>
+        <LiveIndicator isLive={!isLoading} lastUpdated={null} />
       </Box>
     </Box>
   );

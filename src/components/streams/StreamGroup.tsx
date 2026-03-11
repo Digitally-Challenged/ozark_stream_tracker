@@ -37,7 +37,6 @@ export function StreamGroup({
     <Box sx={{ mb: 3 }}>
       <StreamGroupHeader
         status={status}
-        count={streams.length}
         expanded={expanded}
         onToggle={handleToggle}
       />

@@ -1,11 +1,10 @@
 // src/components/streams/StreamGroupHeader.tsx
-import { Box, Typography, IconButton, Chip, useTheme } from '@mui/material';
+import { Box, Typography, IconButton, useTheme } from '@mui/material';
 import { ExpandMore, ExpandLess } from '@mui/icons-material';
 import { LevelStatus } from '../../types/stream';
 
 interface StreamGroupHeaderProps {
   status: LevelStatus;
-  count: number;
   expanded: boolean;
   onToggle: () => void;
 }
@@ -38,7 +37,6 @@ const STATUS_CONFIG: Record<
 
 export function StreamGroupHeader({
   status,
-  count,
   expanded,
   onToggle,
 }: StreamGroupHeaderProps) {
@@ -76,15 +74,6 @@ export function StreamGroupHeader({
         <Typography variant="subtitle1" fontWeight="medium">
           {config.label}
         </Typography>
-        <Chip
-          label={count}
-          size="small"
-          sx={{
-            bgcolor: config.color,
-            color: 'white',
-            fontWeight: 'bold',
-          }}
-        />
       </Box>
       <IconButton size="small">
         {expanded ? <ExpandLess /> : <ExpandMore />}
