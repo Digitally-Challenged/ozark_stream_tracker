@@ -9,6 +9,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { StreamPageLazy } from './pages/StreamPageLazy';
+import { PrecipitationMapLazy } from './pages/PrecipitationMapLazy';
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -64,6 +65,10 @@ function App() {
                   <Route
                     path="/stream/:streamId"
                     element={<StreamPageLazy />}
+                  />
+                  <Route
+                    path="/precipitation"
+                    element={<PrecipitationMapLazy />}
                   />
                 </Routes>
               </Box>

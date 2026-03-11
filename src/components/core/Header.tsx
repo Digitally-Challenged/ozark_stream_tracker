@@ -16,7 +16,9 @@ import {
   LightModeOutlined,
   Waves,
   Refresh,
+  Cloud,
 } from '@mui/icons-material';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useColorMode } from '../../context/ThemeContext';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 import { waterGradients } from '../../theme/waterTheme';
@@ -52,6 +54,9 @@ export function Header({
   const { mode, toggleColorMode } = useColorMode();
   const theme = useTheme();
   const { refresh, isLoading } = useGaugeDataContext();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const onPrecipMap = location.pathname === '/precipitation';
 
   return (
     <AppBar
@@ -154,6 +159,23 @@ export function Header({
               KNOW FLOWS. CHASE RAPIDS. LIVE LARGE.
             </Typography>
           </Box>
+
+          <IconButton
+            onClick={() =>
+              navigate(onPrecipMap ? '/dashboard' : '/precipitation')
+            }
+            aria-label="precipitation map"
+            sx={{
+              color: onPrecipMap ? theme.palette.primary.light : 'white',
+              minWidth: 48,
+              minHeight: 48,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+            }}
+          >
+            <Cloud />
+          </IconButton>
 
           <IconButton
             onClick={refresh}
