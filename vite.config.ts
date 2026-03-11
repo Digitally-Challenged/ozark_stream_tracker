@@ -17,6 +17,7 @@ export default defineConfig({
             '@emotion/styled',
           ],
           'date-vendor': ['date-fns'],
+          'map-vendor': ['leaflet', 'react-leaflet'],
         },
       },
     },
