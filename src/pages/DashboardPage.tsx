@@ -5,8 +5,12 @@ import {
   CircularProgress,
   Alert,
   Typography,
+  IconButton,
+  Badge,
 } from '@mui/material';
+import { FilterList } from '@mui/icons-material';
 import { DashboardHeader } from '../components/dashboard/DashboardHeader';
+import { DashboardSidebar } from '../components/dashboard/DashboardSidebar';
 import { StreamGroup } from '../components/streams/StreamGroup';
 import { StreamDetail } from '../components/streams/StreamDetail';
 import { ViewToggle } from '../components/streams/ViewToggle';
@@ -18,16 +22,11 @@ import { useGaugeDataContext } from '../context/GaugeDataContext';
 import { groupStreamsByStatus, GROUP_ORDER } from '../utils/streamGrouping';
 import { filterByRatingAndSize } from '../utils/filterStreams';
 
-interface DashboardPageProps {
-  selectedRatings: string[];
-  selectedSizes: string[];
-}
-
-export function DashboardPage({
-  selectedRatings,
-  selectedSizes,
-}: DashboardPageProps) {
+export function DashboardPage() {
   const [selectedStream, setSelectedStream] = useState<StreamData | null>(null);
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [selectedRatings, setSelectedRatings] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const handleStreamClick = useCallback((stream: StreamData) => {
     setSelectedStream(stream);
   }, []);
@@ -36,14 +35,13 @@ export function DashboardPage({
   }, []);
   const streamStatuses = useAllStreamStatuses(streams);
   const { viewMode, setViewMode } = useViewPreference();
-  const { isLoading, lastUpdated, error: gaugeError } = useGaugeDataContext();
+  const { isLoading, error: gaugeError } = useGaugeDataContext();
+  const activeFilterCount = selectedRatings.length + selectedSizes.length;
 
-  // Filter streams first
   const filteredStreams = useMemo(() => {
     return filterByRatingAndSize(streams, selectedRatings, selectedSizes);
   }, [selectedRatings, selectedSizes]);
 
-  // Group filtered streams by status
   const groupedStreams = useMemo(() => {
     return groupStreamsByStatus(filteredStreams, (stream) =>
       streamStatuses.get(stream.name)
@@ -62,7 +60,29 @@ export function DashboardPage({
         }}
       >
         <DashboardHeader />
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 2,
+          }}
+        >
+          <Badge badgeContent={activeFilterCount} color="primary">
+            <IconButton
+              onClick={() => setFilterOpen(!filterOpen)}
+              size="small"
+              sx={{
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 1.5,
+                transform: filterOpen ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.3s ease',
+              }}
+            >
+              <FilterList sx={{ fontSize: 20 }} />
+            </IconButton>
+          </Badge>
           <ViewToggle viewMode={viewMode} onChange={setViewMode} />
         </Box>
 
@@ -86,16 +106,6 @@ export function DashboardPage({
           </Alert>
         )}
 
-        {lastUpdated && (
-          <Typography
-            variant="caption"
-            color="text.secondary"
-            sx={{ mb: 2, display: 'block' }}
-          >
-            Data as of {lastUpdated.toLocaleTimeString()}
-          </Typography>
-        )}
-
         {GROUP_ORDER.map((status) => (
           <StreamGroup
             key={status}
@@ -113,6 +123,14 @@ export function DashboardPage({
         stream={selectedStream}
         open={selectedStream !== null}
         onClose={handleCloseDetail}
+      />
+      <DashboardSidebar
+        open={filterOpen}
+        onClose={() => setFilterOpen(false)}
+        selectedRatings={selectedRatings}
+        setSelectedRatings={setSelectedRatings}
+        selectedSizes={selectedSizes}
+        setSelectedSizes={setSelectedSizes}
       />
     </Box>
   );
