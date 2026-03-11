@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { DashboardPage } from './pages/DashboardPage';
 import { StreamPageLazy } from './pages/StreamPageLazy';
 import { PrecipitationMapLazy } from './pages/PrecipitationMapLazy';
+import { WatershedDetailLazy } from './pages/WatershedDetailLazy';
 
 function ErrorFallback({ error }: { error: Error }) {
   return (
@@ -49,6 +50,10 @@ function App() {
                   <Route
                     path="/precipitation"
                     element={<PrecipitationMapLazy />}
+                  />
+                  <Route
+                    path="/precipitation/watershed/:gaugeId"
+                    element={<WatershedDetailLazy />}
                   />
                 </Routes>
               </Box>
