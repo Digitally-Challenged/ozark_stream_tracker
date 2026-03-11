@@ -20,6 +20,12 @@ const STATUS_LABELS: Record<LevelStatus, string> = {
   [LevelStatus.High]: 'High',
 };
 
+const TREND_COLORS: Partial<Record<LevelTrend, string>> = {
+  [LevelTrend.Rising]: '#4caf50',
+  [LevelTrend.Falling]: '#f44336',
+  [LevelTrend.Holding]: '#ff9800',
+};
+
 export function WatershedPopup({
   watershed,
   reading,
@@ -30,24 +36,72 @@ export function WatershedPopup({
       ? determineTrend(reading, previousReading)
       : LevelTrend.None;
   const trendLabel = getTrendLabel(trend);
+  const trendColor = TREND_COLORS[trend];
 
   return (
-    <Box sx={{ minWidth: 200, maxWidth: 280 }}>
-      <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5 }}>
+    <Box sx={{ minWidth: 220, maxWidth: 300 }}>
+      <Typography
+        variant="subtitle2"
+        sx={{
+          fontWeight: 700,
+          mb: 0.25,
+          fontSize: '0.85rem',
+          lineHeight: 1.3,
+        }}
+      >
         {watershed.gauge.name}
       </Typography>
+      <Box
+        sx={{
+          height: 2,
+          width: 40,
+          borderRadius: 1,
+          background: 'linear-gradient(90deg, #30cfd0, #330867)',
+          mb: 1,
+        }}
+      />
 
       {reading ? (
-        <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
-          {reading.value} ft{trendLabel ? ` (${trendLabel})` : ''}
-        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.75, mb: 1 }}>
+          <Typography
+            variant="body1"
+            sx={{ fontWeight: 700, fontSize: '1rem' }}
+          >
+            {reading.value} ft
+          </Typography>
+          {trendLabel && (
+            <Typography
+              variant="caption"
+              sx={{
+                fontWeight: 600,
+                color: trendColor,
+                fontSize: '0.7rem',
+              }}
+            >
+              {trendLabel}
+            </Typography>
+          )}
+        </Box>
       ) : (
-        <Typography variant="body2" sx={{ mb: 1, color: 'text.disabled' }}>
-          Loading...
+        <Typography
+          variant="body2"
+          sx={{
+            mb: 1,
+            color: 'text.disabled',
+            fontStyle: 'italic',
+          }}
+        >
+          Awaiting data...
         </Typography>
       )}
 
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0.25,
+        }}
+      >
         {watershed.streams.map((stream) => {
           const status = reading
             ? determineLevel(reading.value, stream.targetLevels)
@@ -61,6 +115,13 @@ export function WatershedPopup({
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
+                py: 0.5,
+                px: 0.75,
+                borderRadius: 1,
+                transition: 'background 0.2s',
+                '&:hover': {
+                  background: 'rgba(48, 207, 208, 0.08)',
+                },
               }}
             >
               {streamId ? (
@@ -69,13 +130,23 @@ export function WatershedPopup({
                   style={{
                     color: 'inherit',
                     textDecoration: 'none',
-                    fontSize: '0.8rem',
+                    fontSize: '0.78rem',
+                    fontWeight: 500,
+                    transition: 'color 0.2s',
                   }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.color = '#30cfd0')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.color = 'inherit')
+                  }
                 >
                   {stream.name}
                 </Link>
               ) : (
-                <Typography variant="caption">{stream.name}</Typography>
+                <Typography variant="caption" sx={{ fontWeight: 500 }}>
+                  {stream.name}
+                </Typography>
               )}
               {status && (
                 <Chip
@@ -83,9 +154,12 @@ export function WatershedPopup({
                   size="small"
                   sx={{
                     height: 20,
-                    fontSize: '0.65rem',
+                    fontSize: '0.6rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.03em',
                     bgcolor: STATUS_HEX_COLORS[status],
                     color: '#fff',
+                    boxShadow: `0 0 8px ${STATUS_HEX_COLORS[status]}66`,
                   }}
                 />
               )}

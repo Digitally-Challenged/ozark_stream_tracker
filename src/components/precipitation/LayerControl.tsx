@@ -1,5 +1,7 @@
-import { ToggleButtonGroup, ToggleButton, Paper } from '@mui/material';
+import { ToggleButtonGroup, ToggleButton, Box, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { Radar, WaterDrop } from '@mui/icons-material';
+import { glassmorphism } from '../../theme/waterTheme';
 
 export type PrecipLayer = 'radar' | '24h' | '48h' | '72h';
 
@@ -9,15 +11,20 @@ interface LayerControlProps {
 }
 
 export function LayerControl({ activeLayer, onChange }: LayerControlProps) {
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+  const glass = isDark ? glassmorphism.dark : glassmorphism.light;
+
   return (
-    <Paper
-      elevation={3}
+    <Box
       sx={{
         position: 'absolute',
         bottom: 16,
         left: 16,
         zIndex: 1000,
         borderRadius: 2,
+        ...glass,
+        p: 0.5,
       }}
     >
       <ToggleButtonGroup
@@ -28,6 +35,30 @@ export function LayerControl({ activeLayer, onChange }: LayerControlProps) {
         }}
         size="small"
         aria-label="precipitation layer"
+        sx={{
+          '& .MuiToggleButton-root': {
+            border: 'none',
+            borderRadius: '8px !important',
+            px: 1.5,
+            py: 0.75,
+            fontSize: '0.8rem',
+            fontWeight: 600,
+            letterSpacing: '0.02em',
+            color: isDark ? alpha('#fff', 0.7) : alpha('#000', 0.6),
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            '&:hover': {
+              background: isDark ? alpha('#fff', 0.1) : alpha('#000', 0.05),
+            },
+            '&.Mui-selected': {
+              background: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+              color: '#fff',
+              boxShadow: '0 0 12px rgba(48, 207, 208, 0.4)',
+              '&:hover': {
+                background: 'linear-gradient(135deg, #30cfd0 0%, #330867 100%)',
+              },
+            },
+          },
+        }}
       >
         <ToggleButton value="radar" aria-label="live radar">
           <Radar sx={{ mr: 0.5, fontSize: 18 }} />
@@ -44,6 +75,6 @@ export function LayerControl({ activeLayer, onChange }: LayerControlProps) {
           72h
         </ToggleButton>
       </ToggleButtonGroup>
-    </Paper>
+    </Box>
   );
 }
