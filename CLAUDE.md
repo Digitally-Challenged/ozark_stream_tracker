@@ -126,7 +126,7 @@ src/components/
 
 **Data Sources:**
 
-- **IEM MRMS tiles** (Iowa Environmental Mesonet): Z/X/Y tile service at `mesonet.agron.iastate.edu/cache/tile.py/1.0.0/{layer}/{z}/{x}/{y}.png`. Layer IDs: `nexrad-n0q-900913` (radar), `q2-p24h` (24h), `q2-p48h` (48h), `q2-p72h` (72h). Opacity: 0.6.
+- **IEM MRMS tiles** (Iowa Environmental Mesonet): Z/X/Y tile service at `mesonet.agron.iastate.edu/cache/tile.py/1.0.0/{layer}/{z}/{x}/{y}.png`. Layer IDs: `nexrad-n0q-900913` (radar), `q2-p24h` (24h), `q2-p48h` (48h), `q2-p72h` (72h). Opacity: 0.4.
 - **WPC QPF images** (Weather Prediction Center): Static GIF forecast images (Day 1-3) from `wpc.ncep.noaa.gov/qpf/fill_94qwbg.gif` (Day 1), `fill_98qwbg.gif` (Day 2), `fill_99qwbg.gif` (Day 3)
 - **WPC observed images** (Daily Precipitation): Date-stamped GIF images at `wpc.ncep.noaa.gov/qpf/obsmaps/usa-dlyprcp-{yyyymmdd}_sm_wbg.gif` showing daily precipitation totals for Today, Yesterday, and 2 Days Ago (computed via `getObservedUrl(daysAgo)` helper using `date.setDate(date.getDate() - daysAgo)`)
 
@@ -323,4 +323,14 @@ The frontend is a Vite SPA deployed to Netlify. In production, the Turner Bend s
 **Recent Fix: Dark Mode Text Contrast (commit 44213c1)**
 
 - **WatershedPopup Dark Mode**: Fixed text visibility in WatershedPopup on dark glassmorphic backgrounds — added theme-aware text color computation (textPrimary, textSecondary, textMuted, textDisabled) using `useTheme()` hook, adjusted background opacity for rainfall/forecast highlight boxes (darker in dark mode for better contrast), ensures all typography elements have explicit colors for readability
+
+**Recent Adjustment: Precipitation Layer Opacity (MapView.tsx)**
+
+- **Tile Layer Opacity Reduction**: Reduced IEM MRMS precipitation tile overlay opacity from 0.6 to 0.4 — makes precipitation radar/accumulation overlays more subtle and improves visibility of base map features and watershed markers
+
+**Recent Refactoring: WatershedPopup Theme Handling (WatershedPopup.tsx)**
+
+- **Simplified Theme Approach**: Removed `useTheme()` hook dependency in favor of prop-based color computation — calculates text colors (textPrimary, textSecondary, textMuted, textDisabled) and border colors directly from `isDark` boolean prop passed from MapView parent
+- **Performance**: Eliminates theme context subscription in each popup instance — WatershedMarker component already has theme awareness, passes `isDark` to WatershedPopup to avoid redundant hook calls
+- **Consistency**: Theme state determined once at MapView level (`useTheme()`) and propagated to all markers — prevents potential inconsistencies from multiple theme hook calls during render
 <!-- END AUTO-MANAGED -->

@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, Skeleton, useTheme } from '@mui/material';
+import { Box, Typography, Chip, Skeleton } from '@mui/material';
 import { WaterDrop, TrendingUp } from '@mui/icons-material';
 import { Link, useNavigate } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -18,6 +18,7 @@ interface WatershedPopupProps {
   forecast?: NwsForecast | null;
   precip?: PrecipTotals | null;
   intelligenceLoading?: boolean;
+  isDark?: boolean;
 }
 
 const STATUS_LABELS: Record<LevelStatus, string> = {
@@ -40,10 +41,9 @@ export function WatershedPopup({
   forecast,
   precip,
   intelligenceLoading,
+  isDark = true,
 }: WatershedPopupProps) {
   const navigate = useNavigate();
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
   const textPrimary = isDark ? '#fff' : '#1a1a2e';
   const textSecondary = isDark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.75)';
   const textMuted = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)';

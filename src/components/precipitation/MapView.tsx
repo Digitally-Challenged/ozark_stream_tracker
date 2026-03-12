@@ -45,6 +45,7 @@ const DEFAULT_ZOOM = 8;
 function WatershedMarker({
   marker,
   gaugeData,
+  isDark,
 }: {
   marker: {
     gaugeId: string;
@@ -56,6 +57,7 @@ function WatershedMarker({
   gaugeData:
     | { reading: GaugeReading | null; previousReading: GaugeReading | null }
     | undefined;
+  isDark: boolean;
 }) {
   const { forecast, precip, loading } = useWatershedIntelligence(
     marker.gaugeId,
@@ -83,6 +85,7 @@ function WatershedMarker({
           forecast={forecast}
           precip={precip}
           intelligenceLoading={loading}
+          isDark={isDark}
         />
       </Popup>
     </CircleMarker>
@@ -178,7 +181,7 @@ export function MapView({
           key={activeLayer}
           url={tileUrl}
           attribution={LAYER_ATTR}
-          opacity={0.6}
+          opacity={0.4}
         />
 
         {markers.map((marker) => {
@@ -188,6 +191,7 @@ export function MapView({
               key={marker.gaugeId}
               marker={marker}
               gaugeData={gaugeData}
+              isDark={isDark}
             />
           );
         })}
