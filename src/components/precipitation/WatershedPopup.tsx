@@ -50,7 +50,7 @@ export function WatershedPopup({
   const trendColor = TREND_COLORS[trend];
 
   return (
-    <Box sx={{ minWidth: 220, maxWidth: 300 }}>
+    <Box sx={{ minWidth: 220, maxWidth: 300, color: '#fff' }}>
       <Typography
         variant="subtitle2"
         sx={{
@@ -58,6 +58,7 @@ export function WatershedPopup({
           mb: 0.25,
           fontSize: '0.85rem',
           lineHeight: 1.3,
+          color: '#fff',
         }}
       >
         {watershed.gauge.name}
@@ -76,7 +77,7 @@ export function WatershedPopup({
         <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.75, mb: 1 }}>
           <Typography
             variant="body1"
-            sx={{ fontWeight: 700, fontSize: '1rem' }}
+            sx={{ fontWeight: 700, fontSize: '1rem', color: '#fff' }}
           >
             {reading.value} ft
           </Typography>
@@ -98,7 +99,7 @@ export function WatershedPopup({
           variant="body2"
           sx={{
             mb: 1,
-            color: 'text.disabled',
+            color: 'rgba(255,255,255,0.4)',
             fontStyle: 'italic',
           }}
         >
@@ -122,7 +123,11 @@ export function WatershedPopup({
           <WaterDrop sx={{ fontSize: 14, color: '#30cfd0' }} />
           <Typography
             variant="caption"
-            sx={{ fontWeight: 600, fontSize: '0.7rem' }}
+            sx={{
+              fontWeight: 600,
+              fontSize: '0.7rem',
+              color: 'rgba(255,255,255,0.9)',
+            }}
           >
             {precip.last24h !== null && `${precip.last24h.toFixed(1)} in (24h)`}
             {precip.last24h !== null && precip.last48h !== null && ' \u00b7 '}
@@ -154,7 +159,11 @@ export function WatershedPopup({
           <TrendingUp sx={{ fontSize: 14, color: '#4caf50' }} />
           <Typography
             variant="caption"
-            sx={{ fontWeight: 600, fontSize: '0.7rem' }}
+            sx={{
+              fontWeight: 600,
+              fontSize: '0.7rem',
+              color: 'rgba(255,255,255,0.9)',
+            }}
           >
             {'\u2192'} {forecast.peakForecast.stage.toFixed(1)} ft by{' '}
             {format(new Date(forecast.peakForecast.time), 'EEE')}
@@ -195,7 +204,7 @@ export function WatershedPopup({
                 <Link
                   to={`/stream/${streamId}`}
                   style={{
-                    color: 'inherit',
+                    color: 'rgba(255,255,255,0.9)',
                     textDecoration: 'none',
                     fontSize: '0.78rem',
                     fontWeight: 500,
@@ -205,13 +214,16 @@ export function WatershedPopup({
                     (e.currentTarget.style.color = '#30cfd0')
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = 'inherit')
+                    (e.currentTarget.style.color = 'rgba(255,255,255,0.9)')
                   }
                 >
                   {stream.name}
                 </Link>
               ) : (
-                <Typography variant="caption" sx={{ fontWeight: 500 }}>
+                <Typography
+                  variant="caption"
+                  sx={{ fontWeight: 500, color: 'rgba(255,255,255,0.9)' }}
+                >
                   {stream.name}
                 </Typography>
               )}
@@ -242,8 +254,7 @@ export function WatershedPopup({
         sx={{
           mt: 1,
           pt: 0.75,
-          borderTop: '1px solid',
-          borderColor: 'divider',
+          borderTop: '1px solid rgba(255,255,255,0.15)',
           cursor: 'pointer',
           textAlign: 'center',
           '&:hover': { color: '#30cfd0' },
@@ -256,6 +267,7 @@ export function WatershedPopup({
             fontWeight: 600,
             fontSize: '0.7rem',
             letterSpacing: '0.03em',
+            color: 'rgba(255,255,255,0.7)',
           }}
         >
           View Watershed Forecast {'\u2192'}
