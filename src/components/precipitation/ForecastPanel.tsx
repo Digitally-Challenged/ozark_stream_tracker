@@ -28,18 +28,19 @@ const QPF_IMAGES = [
   },
 ];
 
-function getObservedUrl(period: string): string {
-  const now = new Date();
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  return `https://water.weather.gov/precip/downloads/${yyyy}/${mm}/${dd}/nws_precip_${period}_observed.png`;
+function getObservedUrl(daysAgo: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - daysAgo);
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  return `https://www.wpc.ncep.noaa.gov/qpf/obsmaps/usa-dlyprcp-${yyyy}${mm}${dd}_sm_wbg.gif`;
 }
 
-const OBSERVED_IMAGES = [
-  { label: '1 Day', period: 'last24hrs' },
-  { label: '2 Day', period: 'last48hrs' },
-  { label: '7 Day', period: 'last7days' },
+const OBSERVED_TABS = [
+  { label: 'Today', daysAgo: 0 },
+  { label: 'Yesterday', daysAgo: 1 },
+  { label: '2 Days Ago', daysAgo: 2 },
 ];
 
 function ImageWithFallback({
@@ -243,14 +244,14 @@ export function ForecastPanel() {
                 },
               }}
             >
-              {OBSERVED_IMAGES.map((img, i) => (
-                <Tab key={img.label} label={img.label} value={i} />
+              {OBSERVED_TABS.map((tab, i) => (
+                <Tab key={tab.label} label={tab.label} value={i} />
               ))}
             </Tabs>
             <ImageWithFallback
-              src={getObservedUrl(OBSERVED_IMAGES[observedPeriod].period)}
-              alt={`Observed precipitation ${OBSERVED_IMAGES[observedPeriod].label}`}
-              fallbackUrl="https://water.weather.gov/precip/"
+              src={getObservedUrl(OBSERVED_TABS[observedPeriod].daysAgo)}
+              alt={`Observed precipitation ${OBSERVED_TABS[observedPeriod].label}`}
+              fallbackUrl="https://www.wpc.ncep.noaa.gov/qpf/obsmaps/obsprecip.php"
               fallbackLabel="Observed precipitation image unavailable"
             />
             <Typography
@@ -264,7 +265,7 @@ export function ForecastPanel() {
                 fontStyle: 'italic',
               }}
             >
-              Source: NWS Advanced Hydrologic Prediction Service
+              Source: NOAA Weather Prediction Center
             </Typography>
           </>
         )}
