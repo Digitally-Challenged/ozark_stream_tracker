@@ -155,9 +155,9 @@ src/components/
 
 - **Purpose**: Query point-specific precipitation totals from NOAA RFC QPE (Quantitative Precipitation Estimation) MapServer
 - **API**: `mapservices.weather.noaa.gov/raster/rest/services/obs/rfc_qpe/MapServer/identify` (ArcGIS REST identify endpoint)
-- **Layer IDs**: `{ last24h: 17, last48h: 23, last72h: 29, last7d: 35 }` (multi-day accumulated rainfall rasters)
-- **Request Format**: Point geometry (lat/lng in EPSG:4326), queries all 4 layers in single HTTP call, includes mapExtent + imageDisplay params for identify service
-- **Response Parsing**: Extracts "Pixel Value: X.XX" from layer results, handles "NoData"/"Null" gracefully (returns null)
+- **Layer IDs**: `{ last24h: 28, last48h: 36, last72h: 40, last7d: 56 }` (Image layers in rfc_qpe MapServer — multi-day accumulated rainfall rasters)
+- **Request Format**: Point geometry (lat/lng in EPSG:4326), queries all 4 layers in single HTTP call, includes `mapExtent`, `imageDisplay`, and `tolerance: '1'` params for identify service
+- **Response Parsing**: Extracts pixel values from `attributes['Service Pixel Value']` field (Image layer format), handles "NoData"/"Null"/"N/A" gracefully (returns null), rejects negative values
 - **Caching**: localStorage with 30-minute TTL (key: `precip-{gaugeId}`, stores `PrecipTotals` object with timestamp)
 - **Error Handling**: Returns empty `PrecipTotals` (all nulls) on fetch failure or timeout (5s abort signal)
 - **Interface**: `PrecipTotals { gaugeId, lat, lng, last24h, last48h, last72h, last7d }` (all values in inches or null)
@@ -313,10 +313,10 @@ The frontend is a Vite SPA deployed to Netlify. In production, the Turner Bend s
 - **Batched Intelligence Fetching**: PrecipitationMap fetches intelligence data for all watersheds on mount using staggered requests (100ms delay per gauge) to avoid API rate limits. Stores in Maps passed to WeatherSummaryBar.
 - **Routing Integration**: Added `/precipitation/watershed/:gaugeId` route to App.tsx with WatershedDetailLazy component. Markers clickable via popup link or direct URL navigation.
 
-**Recent Changes: UI Cleanup and Precipitation Service (commits 32d7a82, d49ad4a)**
+**Recent Changes: UI Cleanup and Precipitation Service (commits 32d7a82, d49ad4a, 4d4ca72)**
 
 - **DashboardHeader Simplification**: Removed "93 Runs" counter and swapped order to "Updated [LiveTime] [LiveIndicator]" — cleaner right-aligned layout
 - **StreamGroupHeader Simplification**: Removed stream count chips from collapsible status section headers — reduces visual noise, keeps focus on status labels and emojis
-- **Precipitation Query Service**: Implemented `precipQueryService.ts` with NOAA RFC QPE MapServer integration — fetches 24h/48h/72h/7d rainfall totals at point locations (lat/lng), localStorage caching (30min TTL), handles NoData gracefully
-- **Testing**: Added comprehensive unit tests for precipQueryService — validates identify response parsing, cache behavior, NoData handling, error fallback
+- **Precipitation Query Service**: Implemented `precipQueryService.ts` with NOAA RFC QPE MapServer integration — fetches 24h/48h/72h/7d rainfall totals at point locations (lat/lng), localStorage caching (30min TTL), handles NoData gracefully. Fixed layer IDs (28, 36, 40, 56 for Image layers), added `tolerance: '1'` param, updated parsing to extract from `attributes['Service Pixel Value']` instead of regex on value field
+- **Testing**: Added comprehensive unit tests for precipQueryService — validates identify response parsing with Image layer format (attributes object), cache behavior, NoData handling, error fallback
 <!-- END AUTO-MANAGED -->
