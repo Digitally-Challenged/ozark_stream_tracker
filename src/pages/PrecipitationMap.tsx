@@ -134,7 +134,6 @@ export default function PrecipitationMap() {
           onRefresh={refreshIntelligence}
           onHighlightRainy={handleHighlightRainy}
           onHighlightRising={handleHighlightRising}
-          highlightActive={highlightedGauges !== null}
         />
         <Box sx={{ flex: 1 }}>
           <MapView
@@ -186,7 +185,6 @@ export default function PrecipitationMap() {
         onRefresh={refreshIntelligence}
         onHighlightRainy={handleHighlightRainy}
         onHighlightRising={handleHighlightRising}
-        highlightActive={highlightedGauges !== null}
       />
       <Box sx={{ flex: 1, display: 'flex' }}>
         <Box sx={{ flex: 1 }}>

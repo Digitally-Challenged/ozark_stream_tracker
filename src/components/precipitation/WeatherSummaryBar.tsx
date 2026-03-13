@@ -20,7 +20,6 @@ interface WeatherSummaryBarProps {
   onRefresh?: () => void;
   onHighlightRainy?: () => void;
   onHighlightRising?: () => void;
-  highlightActive?: boolean;
 }
 
 export function WeatherSummaryBar({
