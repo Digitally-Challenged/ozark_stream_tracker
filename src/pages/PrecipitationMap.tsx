@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Box, useMediaQuery, useTheme, Fab } from '@mui/material';
 import { Cloud } from '@mui/icons-material';
 import 'leaflet/dist/leaflet.css';
@@ -26,6 +26,8 @@ export default function PrecipitationMap() {
   );
   const [intelligenceLoading, setIntelligenceLoading] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [lastFetched, setLastFetched] = useState<Date | null>(null);
+  const [refreshKey, setRefreshKey] = useState(0);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -55,12 +57,25 @@ export default function PrecipitationMap() {
         // Stagger requests to avoid hammering APIs
         await new Promise((r) => setTimeout(r, 100));
       }
-      if (!cancelled) setIntelligenceLoading(false);
+      if (!cancelled) {
+        setIntelligenceLoading(false);
+        setLastFetched(new Date());
+      }
     })();
 
     return () => {
       cancelled = true;
     };
+  }, [watersheds, refreshKey]);
+
+  const refreshIntelligence = useCallback(() => {
+    for (const [gaugeId] of watersheds) {
+      localStorage.removeItem(`nws-forecast-${gaugeId}`);
+      localStorage.removeItem(`precip-${gaugeId}`);
+    }
+    setPrecipData(new Map());
+    setForecastData(new Map());
+    setRefreshKey((k) => k + 1);
   }, [watersheds]);
 
   if (isMobile) {
@@ -77,6 +92,8 @@ export default function PrecipitationMap() {
           precipData={precipData}
           forecastData={forecastData}
           loading={intelligenceLoading}
+          lastFetched={lastFetched}
+          onRefresh={refreshIntelligence}
         />
         <Box sx={{ flex: 1 }}>
           <MapView
@@ -123,6 +140,8 @@ export default function PrecipitationMap() {
         precipData={precipData}
         forecastData={forecastData}
         loading={intelligenceLoading}
+        lastFetched={lastFetched}
+        onRefresh={refreshIntelligence}
       />
       <Box sx={{ flex: 1, display: 'flex' }}>
         <Box sx={{ flex: 1 }}>
