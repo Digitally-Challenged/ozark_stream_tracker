@@ -54,6 +54,7 @@ function WatershedMarker({
   forecast,
   precip,
   intelligenceLoading,
+  highlightedGauges,
 }: {
   marker: {
     gaugeId: string;
@@ -69,6 +70,7 @@ function WatershedMarker({
   forecast: NwsForecast | null;
   precip: PrecipTotals | null;
   intelligenceLoading: boolean;
+  highlightedGauges?: Set<string> | null;
 }) {
   return (
     <CircleMarker
@@ -78,7 +80,10 @@ function WatershedMarker({
         fillColor: marker.color,
         color: '#fff',
         weight: 2.5,
-        fillOpacity: 0.9,
+        fillOpacity:
+          highlightedGauges && !highlightedGauges.has(marker.gaugeId)
+            ? 0.25
+            : 0.9,
         className: 'watershed-marker',
       }}
     >
@@ -104,6 +109,7 @@ interface MapViewProps {
   precipData: Map<string, PrecipTotals>;
   forecastData: Map<string, NwsForecast>;
   intelligenceLoading: boolean;
+  highlightedGauges?: Set<string> | null;
 }
 
 export function MapView({
@@ -113,6 +119,7 @@ export function MapView({
   precipData,
   forecastData,
   intelligenceLoading,
+  highlightedGauges,
 }: MapViewProps) {
   const { gauges } = useGaugeDataContext();
   const theme = useTheme();
@@ -215,6 +222,7 @@ export function MapView({
               forecast={forecastData.get(marker.gaugeId) ?? null}
               precip={precipData.get(marker.gaugeId) ?? null}
               intelligenceLoading={intelligenceLoading}
+              highlightedGauges={highlightedGauges}
             />
           );
         })}

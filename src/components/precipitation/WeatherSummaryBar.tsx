@@ -18,6 +18,9 @@ interface WeatherSummaryBarProps {
   loading: boolean;
   lastFetched: Date | null;
   onRefresh?: () => void;
+  onHighlightRainy?: () => void;
+  onHighlightRising?: () => void;
+  highlightActive?: boolean;
 }
 
 export function WeatherSummaryBar({
@@ -26,6 +29,8 @@ export function WeatherSummaryBar({
   loading,
   lastFetched,
   onRefresh,
+  onHighlightRainy,
+  onHighlightRising,
 }: WeatherSummaryBarProps) {
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
@@ -80,7 +85,22 @@ export function WeatherSummaryBar({
           </Typography>
         )}
         {rainyCount > 0 && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+          <Box
+            onClick={onHighlightRainy}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.75,
+              cursor: onHighlightRainy ? 'pointer' : 'default',
+              px: 1,
+              py: 0.25,
+              borderRadius: 1,
+              transition: 'background 0.2s',
+              '&:hover': onHighlightRainy
+                ? { bgcolor: alpha('#30cfd0', 0.1) }
+                : {},
+            }}
+          >
             <WaterDrop sx={{ fontSize: 16, color: '#30cfd0' }} />
             <Typography
               variant="caption"
@@ -91,7 +111,22 @@ export function WeatherSummaryBar({
           </Box>
         )}
         {risingCount > 0 && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
+          <Box
+            onClick={onHighlightRising}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.75,
+              cursor: onHighlightRising ? 'pointer' : 'default',
+              px: 1,
+              py: 0.25,
+              borderRadius: 1,
+              transition: 'background 0.2s',
+              '&:hover': onHighlightRising
+                ? { bgcolor: alpha('#4caf50', 0.1) }
+                : {},
+            }}
+          >
             <TrendingUp sx={{ fontSize: 16, color: '#4caf50' }} />
             <Typography
               variant="caption"

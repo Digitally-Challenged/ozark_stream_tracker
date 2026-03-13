@@ -28,6 +28,8 @@ export default function PrecipitationMap() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [lastFetched, setLastFetched] = useState<Date | null>(null);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [highlightedGauges, setHighlightedGauges] =
+    useState<Set<string> | null>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -78,6 +80,42 @@ export default function PrecipitationMap() {
     setRefreshKey((k) => k + 1);
   }, [watersheds]);
 
+  const rainyGaugeIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const [gaugeId, p] of precipData) {
+      if (p.last24h !== null && p.last24h > 0.1) ids.add(gaugeId);
+    }
+    return ids;
+  }, [precipData]);
+
+  const risingGaugeIds = useMemo(() => {
+    const ids = new Set<string>();
+    for (const [gaugeId, f] of forecastData) {
+      if (f.data && f.data.length >= 2) {
+        const last = f.data[f.data.length - 1];
+        const first = f.data[0];
+        if (last.stage > first.stage + 0.1) ids.add(gaugeId);
+      }
+    }
+    return ids;
+  }, [forecastData]);
+
+  const handleHighlightRainy = () => {
+    setHighlightedGauges((prev) =>
+      prev && [...prev].every((id) => rainyGaugeIds.has(id))
+        ? null
+        : rainyGaugeIds
+    );
+  };
+
+  const handleHighlightRising = () => {
+    setHighlightedGauges((prev) =>
+      prev && [...prev].every((id) => risingGaugeIds.has(id))
+        ? null
+        : risingGaugeIds
+    );
+  };
+
   if (isMobile) {
     return (
       <Box
@@ -94,6 +132,9 @@ export default function PrecipitationMap() {
           loading={intelligenceLoading}
           lastFetched={lastFetched}
           onRefresh={refreshIntelligence}
+          onHighlightRainy={handleHighlightRainy}
+          onHighlightRising={handleHighlightRising}
+          highlightActive={highlightedGauges !== null}
         />
         <Box sx={{ flex: 1 }}>
           <MapView
@@ -103,6 +144,7 @@ export default function PrecipitationMap() {
             precipData={precipData}
             forecastData={forecastData}
             intelligenceLoading={intelligenceLoading}
+            highlightedGauges={highlightedGauges}
           />
         </Box>
         <Fab
@@ -142,6 +184,9 @@ export default function PrecipitationMap() {
         loading={intelligenceLoading}
         lastFetched={lastFetched}
         onRefresh={refreshIntelligence}
+        onHighlightRainy={handleHighlightRainy}
+        onHighlightRising={handleHighlightRising}
+        highlightActive={highlightedGauges !== null}
       />
       <Box sx={{ flex: 1, display: 'flex' }}>
         <Box sx={{ flex: 1 }}>
@@ -152,6 +197,7 @@ export default function PrecipitationMap() {
             precipData={precipData}
             forecastData={forecastData}
             intelligenceLoading={intelligenceLoading}
+            highlightedGauges={highlightedGauges}
           />
         </Box>
         <Box sx={{ width: 350, flexShrink: 0 }}>
