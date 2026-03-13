@@ -4,6 +4,7 @@ import { alpha } from '@mui/material/styles';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import type { PrecipLayer } from './LayerControl';
 import { LayerControl } from './LayerControl';
+import { PrecipLegend } from './PrecipLegend';
 import { WatershedPopup } from './WatershedPopup';
 import { Watershed } from '../../utils/watershedGrouping';
 import { getWatershedMarkerColor } from '../../utils/watershedGrouping';
@@ -220,6 +221,7 @@ export function MapView({
       </MapContainer>
 
       <LayerControl activeLayer={activeLayer} onChange={onLayerChange} />
+      <PrecipLegend activeLayer={activeLayer} />
     </Box>
   );
 }
