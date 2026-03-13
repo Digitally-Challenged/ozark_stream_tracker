@@ -55,9 +55,7 @@ export function StageChart({
 
   const now = Date.now();
   const pathPoints = data.map((d, i) => `${x(times[i])},${y(d.stage)}`);
-  const observedIdx = data.findIndex(
-    (d) => new Date(d.validTime).getTime() > now
-  );
+  const observedIdx = times.findIndex((t) => t > now);
   const splitIdx = observedIdx === -1 ? data.length : observedIdx;
 
   const observedPath = pathPoints.slice(0, splitIdx + 1).join(' L');

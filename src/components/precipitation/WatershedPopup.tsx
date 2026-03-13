@@ -4,8 +4,12 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Watershed } from '../../utils/watershedGrouping';
 import { GaugeReading, LevelTrend } from '../../types/stream';
-import { determineLevel, determineTrend } from '../../utils/streamLevels';
-import { STATUS_HEX_COLORS, STATUS_LABELS } from '../../utils/streamLevels';
+import {
+  determineLevel,
+  determineTrend,
+  STATUS_HEX_COLORS,
+  STATUS_LABELS,
+} from '../../utils/streamLevels';
 import { getStreamIdFromName } from '../../utils/streamIds';
 import { getTrendLabel } from '../../utils/trendUtils';
 import { NwsForecast } from '../../services/nwsForecastService';

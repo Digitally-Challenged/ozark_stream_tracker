@@ -112,7 +112,7 @@ exports.handler = async (event, context) => {
   const headers = {
     'Access-Control-Allow-Origin':
       process.env.URL || 'https://ozarkcreekflowzone.com',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json',
   };
