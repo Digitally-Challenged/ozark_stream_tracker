@@ -165,13 +165,24 @@ export function ForecastPanel() {
           borderBottom: `1px solid ${alpha(theme.palette.divider, 0.3)}`,
         }}
       >
-        <Tab label="Forecast (QPF)" value="qpf" />
+        <Tab label="Forecast" value="qpf" />
         <Tab label="Observed" value="observed" />
       </Tabs>
 
       <Box sx={{ flex: 1, overflow: 'auto', p: 2 }}>
         {tab === 'qpf' && (
           <>
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'block',
+                mb: 1,
+                color: 'text.secondary',
+                fontSize: '0.7rem',
+              }}
+            >
+              Expected rainfall accumulation (inches)
+            </Typography>
             <Tabs
               value={qpfDay}
               onChange={(_, v) => setQpfDay(v)}
@@ -254,6 +265,26 @@ export function ForecastPanel() {
               fallbackUrl="https://www.wpc.ncep.noaa.gov/qpf/obsmaps/obsprecip.php"
               fallbackLabel="Observed precipitation image unavailable"
             />
+            <Typography
+              variant="caption"
+              sx={{
+                display: 'block',
+                mt: 0.5,
+                textAlign: 'center',
+                color: 'text.secondary',
+                fontSize: '0.7rem',
+              }}
+            >
+              {(() => {
+                const d = new Date();
+                d.setDate(d.getDate() - OBSERVED_TABS[observedPeriod].daysAgo);
+                return d.toLocaleDateString('en-US', {
+                  weekday: 'short',
+                  month: 'short',
+                  day: 'numeric',
+                });
+              })()}
+            </Typography>
             <Typography
               variant="caption"
               sx={{
