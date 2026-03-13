@@ -1,8 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Box, useMediaQuery, useTheme } from '@mui/material';
+import { Box, useMediaQuery, useTheme, Fab } from '@mui/material';
+import { Cloud } from '@mui/icons-material';
 import 'leaflet/dist/leaflet.css';
 import { MapView } from '../components/precipitation/MapView';
 import { ForecastPanel } from '../components/precipitation/ForecastPanel';
+import { ForecastDrawer } from '../components/precipitation/ForecastDrawer';
 import { WeatherSummaryBar } from '../components/precipitation/WeatherSummaryBar';
 import { groupStreamsByWatershed } from '../utils/watershedGrouping';
 import { streams } from '../data/streamData';
@@ -23,6 +25,7 @@ export default function PrecipitationMap() {
     new Map()
   );
   const [intelligenceLoading, setIntelligenceLoading] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -62,13 +65,20 @@ export default function PrecipitationMap() {
 
   if (isMobile) {
     return (
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'relative',
+        }}
+      >
         <WeatherSummaryBar
           precipData={precipData}
           forecastData={forecastData}
           loading={intelligenceLoading}
         />
-        <Box sx={{ height: '60vh' }}>
+        <Box sx={{ flex: 1 }}>
           <MapView
             watersheds={watersheds}
             activeLayer={activeLayer}
@@ -78,9 +88,31 @@ export default function PrecipitationMap() {
             intelligenceLoading={intelligenceLoading}
           />
         </Box>
-        <Box sx={{ flex: 1, minHeight: 300 }}>
-          <ForecastPanel />
-        </Box>
+        <Fab
+          size="small"
+          onClick={() => setDrawerOpen(true)}
+          aria-label="open forecast"
+          sx={{
+            position: 'absolute',
+            bottom: 16,
+            right: 16,
+            zIndex: 1000,
+            background: 'linear-gradient(135deg, #30cfd0, #330867)',
+            color: '#fff',
+            boxShadow: '0 4px 14px rgba(48, 207, 208, 0.4)',
+            '&:hover': {
+              background: 'linear-gradient(135deg, #30cfd0, #330867)',
+              boxShadow: '0 6px 20px rgba(48, 207, 208, 0.5)',
+            },
+          }}
+        >
+          <Cloud />
+        </Fab>
+        <ForecastDrawer
+          open={drawerOpen}
+          onOpen={() => setDrawerOpen(true)}
+          onClose={() => setDrawerOpen(false)}
+        />
       </Box>
     );
   }
