@@ -33,6 +33,7 @@
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "no-referrer-when-downgrade"
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://*.basemaps.cartocdn.com https://mesonet.agron.iastate.edu https://www.wpc.ncep.noaa.gov https://unpkg.com; connect-src 'self' https://waterservices.usgs.gov https://api.water.noaa.gov https://mapservices.weather.noaa.gov https://mesonet.agron.iastate.edu"
 
 [[headers]]
   for = "/assets/*"

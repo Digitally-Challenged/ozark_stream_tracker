@@ -54,9 +54,7 @@ export function StageChart({
       (CHART_H - PAD.top - PAD.bottom);
 
   const now = Date.now();
-  const pathPoints = data.map(
-    (d) => `${x(new Date(d.validTime).getTime())},${y(d.stage)}`
-  );
+  const pathPoints = data.map((d, i) => `${x(times[i])},${y(d.stage)}`);
   const observedIdx = data.findIndex(
     (d) => new Date(d.validTime).getTime() > now
   );

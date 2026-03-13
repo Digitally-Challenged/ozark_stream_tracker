@@ -11,7 +11,8 @@ import { GAUGE_LOCATIONS } from '../../data/gaugeLocations';
 import { useGaugeDataContext } from '../../context/GaugeDataContext';
 import { determineLevel } from '../../utils/streamLevels';
 import { LevelStatus, GaugeReading } from '../../types/stream';
-import { useWatershedIntelligence } from '../../hooks/useWatershedIntelligence';
+import { NwsForecast } from '../../services/nwsForecastService';
+import { PrecipTotals } from '../../services/precipQueryService';
 
 const IEM_TILE_URL =
   'https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/{layer}/{z}/{x}/{y}.png';
@@ -26,16 +27,19 @@ const LAYER_IDS: Record<PrecipLayer, string> = {
 const LAYER_ATTR =
   'Weather data &copy; <a href="https://mesonet.agron.iastate.edu/">Iowa Environmental Mesonet</a>';
 
+const CARTO_ATTR =
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>';
+
 const BASE_TILES = {
   light: {
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    base: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png',
+    labels:
+      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_only_labels/{z}/{x}/{y}{r}.png',
   },
   dark: {
-    url: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    base: 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
+    labels:
+      'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
   },
 };
 
@@ -46,6 +50,9 @@ function WatershedMarker({
   marker,
   gaugeData,
   isDark,
+  forecast,
+  precip,
+  intelligenceLoading,
 }: {
   marker: {
     gaugeId: string;
@@ -58,13 +65,10 @@ function WatershedMarker({
     | { reading: GaugeReading | null; previousReading: GaugeReading | null }
     | undefined;
   isDark: boolean;
+  forecast: NwsForecast | null;
+  precip: PrecipTotals | null;
+  intelligenceLoading: boolean;
 }) {
-  const { forecast, precip, loading } = useWatershedIntelligence(
-    marker.gaugeId,
-    marker.lat,
-    marker.lng
-  );
-
   return (
     <CircleMarker
       center={[marker.lat, marker.lng]}
@@ -84,7 +88,7 @@ function WatershedMarker({
           previousReading={gaugeData?.previousReading ?? null}
           forecast={forecast}
           precip={precip}
-          intelligenceLoading={loading}
+          intelligenceLoading={intelligenceLoading}
           isDark={isDark}
         />
       </Popup>
@@ -96,17 +100,23 @@ interface MapViewProps {
   watersheds: Map<string, Watershed>;
   activeLayer: PrecipLayer;
   onLayerChange: (layer: PrecipLayer) => void;
+  precipData: Map<string, PrecipTotals>;
+  forecastData: Map<string, NwsForecast>;
+  intelligenceLoading: boolean;
 }
 
 export function MapView({
   watersheds,
   activeLayer,
   onLayerChange,
+  precipData,
+  forecastData,
+  intelligenceLoading,
 }: MapViewProps) {
   const { gauges } = useGaugeDataContext();
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
-  const baseTile = isDark ? BASE_TILES.dark : BASE_TILES.light;
+  const tiles = isDark ? BASE_TILES.dark : BASE_TILES.light;
 
   const markers = useMemo(() => {
     const result: Array<{
@@ -171,17 +181,26 @@ export function MapView({
         style={{ width: '100%', height: '100%' }}
         zoomControl={true}
       >
+        {/* Layer 1: Base map without labels */}
         <TileLayer
-          key={isDark ? 'dark' : 'light'}
-          url={baseTile.url}
-          attribution={baseTile.attribution}
+          key={isDark ? 'dark-base' : 'light-base'}
+          url={tiles.base}
+          attribution={CARTO_ATTR}
         />
 
+        {/* Layer 2: Precipitation overlay */}
         <TileLayer
           key={activeLayer}
           url={tileUrl}
           attribution={LAYER_ATTR}
-          opacity={0.4}
+          opacity={0.35}
+        />
+
+        {/* Layer 3: Labels on top so they're never obscured */}
+        <TileLayer
+          key={isDark ? 'dark-labels' : 'light-labels'}
+          url={tiles.labels}
+          zIndex={650}
         />
 
         {markers.map((marker) => {
@@ -192,6 +211,9 @@ export function MapView({
               marker={marker}
               gaugeData={gaugeData}
               isDark={isDark}
+              forecast={forecastData.get(marker.gaugeId) ?? null}
+              precip={precipData.get(marker.gaugeId) ?? null}
+              intelligenceLoading={intelligenceLoading}
             />
           );
         })}

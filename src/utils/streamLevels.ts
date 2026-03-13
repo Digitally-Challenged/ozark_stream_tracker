@@ -28,6 +28,14 @@ export const STATUS_GRADIENT_COLORS: Record<
   [LevelStatus.High]: { primary: '#0288d1', secondary: '#03a9f4' },
 };
 
+/** Human-readable labels for each level status */
+export const STATUS_LABELS: Record<LevelStatus, string> = {
+  [LevelStatus.TooLow]: 'Too Low',
+  [LevelStatus.Low]: 'Low',
+  [LevelStatus.Optimal]: 'Optimal',
+  [LevelStatus.High]: 'High',
+};
+
 export const determineLevel = (
   reading: number,
   targetLevels: TargetLevels

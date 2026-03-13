@@ -20,17 +20,11 @@ import {
   determineLevel,
   determineTrend,
   STATUS_HEX_COLORS,
+  STATUS_LABELS,
 } from '../utils/streamLevels';
 import { LevelStatus, LevelTrend } from '../types/stream';
 import { getTrendLabel, getTrendMuiColor } from '../utils/trendUtils';
 import { getStreamIdFromName } from '../utils/streamIds';
-
-const STATUS_LABELS: Record<LevelStatus, string> = {
-  [LevelStatus.TooLow]: 'Too Low',
-  [LevelStatus.Low]: 'Low',
-  [LevelStatus.Optimal]: 'Optimal',
-  [LevelStatus.High]: 'High',
-};
 
 export default function WatershedDetailPage() {
   const { gaugeId } = useParams<{ gaugeId: string }>();

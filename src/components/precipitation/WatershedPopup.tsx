@@ -1,11 +1,11 @@
 import { Box, Typography, Chip, Skeleton } from '@mui/material';
 import { WaterDrop, TrendingUp } from '@mui/icons-material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import { Watershed } from '../../utils/watershedGrouping';
-import { GaugeReading, LevelStatus, LevelTrend } from '../../types/stream';
+import { GaugeReading, LevelTrend } from '../../types/stream';
 import { determineLevel, determineTrend } from '../../utils/streamLevels';
-import { STATUS_HEX_COLORS } from '../../utils/streamLevels';
+import { STATUS_HEX_COLORS, STATUS_LABELS } from '../../utils/streamLevels';
 import { getStreamIdFromName } from '../../utils/streamIds';
 import { getTrendLabel } from '../../utils/trendUtils';
 import { NwsForecast } from '../../services/nwsForecastService';
@@ -20,13 +20,6 @@ interface WatershedPopupProps {
   intelligenceLoading?: boolean;
   isDark?: boolean;
 }
-
-const STATUS_LABELS: Record<LevelStatus, string> = {
-  [LevelStatus.TooLow]: 'Too Low',
-  [LevelStatus.Low]: 'Low',
-  [LevelStatus.Optimal]: 'Optimal',
-  [LevelStatus.High]: 'High',
-};
 
 const TREND_COLORS: Partial<Record<LevelTrend, string>> = {
   [LevelTrend.Rising]: '#4caf50',
@@ -43,7 +36,6 @@ export function WatershedPopup({
   intelligenceLoading,
   isDark = true,
 }: WatershedPopupProps) {
-  const navigate = useNavigate();
   const textPrimary = isDark ? '#fff' : '#1a1a2e';
   const textSecondary = isDark ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.75)';
   const textMuted = isDark ? 'rgba(255,255,255,0.7)' : 'rgba(0,0,0,0.5)';
@@ -258,17 +250,15 @@ export function WatershedPopup({
         })}
       </Box>
 
-      <Box
-        onClick={() =>
-          navigate(`/precipitation/watershed/${watershed.gauge.id}`)
-        }
-        sx={{
-          mt: 1,
-          pt: 0.75,
+      <Link
+        to={`/precipitation/watershed/${watershed.gauge.id}`}
+        style={{
+          display: 'block',
+          marginTop: 8,
+          paddingTop: 6,
           borderTop: `1px solid ${borderColor}`,
-          cursor: 'pointer',
           textAlign: 'center',
-          '&:hover': { color: '#30cfd0' },
+          textDecoration: 'none',
           transition: 'color 0.2s',
         }}
       >
@@ -279,11 +269,12 @@ export function WatershedPopup({
             fontSize: '0.7rem',
             letterSpacing: '0.03em',
             color: textMuted,
+            '&:hover': { color: '#30cfd0' },
           }}
         >
           View Watershed Forecast {'\u2192'}
         </Typography>
-      </Box>
+      </Link>
     </Box>
   );
 }

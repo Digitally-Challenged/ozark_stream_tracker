@@ -73,6 +73,9 @@ export default function PrecipitationMap() {
             watersheds={watersheds}
             activeLayer={activeLayer}
             onLayerChange={setActiveLayer}
+            precipData={precipData}
+            forecastData={forecastData}
+            intelligenceLoading={intelligenceLoading}
           />
         </Box>
         <Box sx={{ flex: 1, minHeight: 300 }}>
@@ -95,6 +98,9 @@ export default function PrecipitationMap() {
             watersheds={watersheds}
             activeLayer={activeLayer}
             onLayerChange={setActiveLayer}
+            precipData={precipData}
+            forecastData={forecastData}
+            intelligenceLoading={intelligenceLoading}
           />
         </Box>
         <Box sx={{ width: 350, flexShrink: 0 }}>

@@ -110,7 +110,8 @@ async function getCurrentData(forceScrape = false) {
 
 exports.handler = async (event, context) => {
   const headers = {
-    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Origin':
+      process.env.URL || 'https://ozarkcreekflowzone.com',
     'Access-Control-Allow-Headers': 'Content-Type',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Content-Type': 'application/json',
@@ -139,8 +140,17 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // POST /scrape - force fresh scrape
+    // POST /scrape - force fresh scrape (requires auth)
     if (event.httpMethod === 'POST' && path === '/scrape') {
+      const authHeader = event.headers?.authorization || '';
+      const expected = process.env.SCRAPE_TOKEN;
+      if (!expected || authHeader !== `Bearer ${expected}`) {
+        return {
+          statusCode: 401,
+          headers,
+          body: JSON.stringify({ error: 'Unauthorized' }),
+        };
+      }
       const data = await getCurrentData(true);
       return {
         statusCode: 200,
@@ -161,7 +171,6 @@ exports.handler = async (event, context) => {
       headers,
       body: JSON.stringify({
         error: 'Failed to get Turner Bend data',
-        message: error.message,
         timestamp: new Date().toISOString(),
       }),
     };

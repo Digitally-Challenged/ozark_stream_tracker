@@ -54,6 +54,9 @@ export async function fetchNwsForecast(
   const cached = getCached(gaugeId);
   if (cached) return cached;
 
+  // Validate gauge ID format (7-15 digit USGS identifiers)
+  if (!/^\d{7,15}$/.test(gaugeId)) return null;
+
   try {
     const stageRes = await fetch(`${NWS_BASE}/${gaugeId}/stageflow`, {
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
