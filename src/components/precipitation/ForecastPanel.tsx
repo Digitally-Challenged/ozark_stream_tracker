@@ -124,7 +124,7 @@ function ImageWithFallback({
 export function ForecastPanel() {
   const [tab, setTab] = useState<ForecastTab>('qpf');
   const [qpfDay, setQpfDay] = useState(0);
-  const [observedPeriod, setObservedPeriod] = useState(0);
+  const [observedPeriod, setObservedPeriod] = useState(1);
   const theme = useTheme();
   const isDark = theme.palette.mode === 'dark';
   const glass = isDark ? glassmorphism.dark : glassmorphism.light;
@@ -263,7 +263,11 @@ export function ForecastPanel() {
               src={getObservedUrl(OBSERVED_TABS[observedPeriod].daysAgo)}
               alt={`Observed precipitation ${OBSERVED_TABS[observedPeriod].label}`}
               fallbackUrl="https://www.wpc.ncep.noaa.gov/qpf/obsmaps/obsprecip.php"
-              fallbackLabel="Observed precipitation image unavailable"
+              fallbackLabel={
+                OBSERVED_TABS[observedPeriod].daysAgo === 0
+                  ? "Today's observation not yet published"
+                  : 'Observed precipitation image unavailable'
+              }
             />
             <Typography
               variant="caption"
