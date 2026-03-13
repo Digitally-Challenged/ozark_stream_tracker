@@ -31,7 +31,7 @@ export function Footer() {
               },
             }}
           >
-            Mountain Stream Tracker
+            Ozark Creek Flow Zone
           </Link>{' '}
           {new Date().getFullYear()}
         </Typography>
