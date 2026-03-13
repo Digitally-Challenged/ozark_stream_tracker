@@ -1,4 +1,10 @@
-import { ToggleButtonGroup, ToggleButton, Box, useTheme } from '@mui/material';
+import {
+  ToggleButtonGroup,
+  ToggleButton,
+  Box,
+  Tooltip,
+  useTheme,
+} from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import { Radar, WaterDrop } from '@mui/icons-material';
 import { glassmorphism } from '../../theme/waterTheme';
@@ -60,20 +66,40 @@ export function LayerControl({ activeLayer, onChange }: LayerControlProps) {
           },
         }}
       >
-        <ToggleButton value="radar" aria-label="live radar">
-          <Radar sx={{ mr: 0.5, fontSize: 18 }} />
-          Radar
-        </ToggleButton>
-        <ToggleButton value="24h" aria-label="24 hour precipitation">
-          <WaterDrop sx={{ mr: 0.5, fontSize: 18 }} />
-          24h
-        </ToggleButton>
-        <ToggleButton value="48h" aria-label="48 hour precipitation">
-          48h
-        </ToggleButton>
-        <ToggleButton value="72h" aria-label="72 hour precipitation">
-          72h
-        </ToggleButton>
+        <Tooltip title="Live NEXRAD radar" placement="top" arrow>
+          <ToggleButton value="radar" aria-label="live radar">
+            <Radar sx={{ mr: 0.5, fontSize: 18 }} />
+            Radar
+          </ToggleButton>
+        </Tooltip>
+        <Tooltip
+          title="Accumulated rainfall — last 24 hours"
+          placement="top"
+          arrow
+        >
+          <ToggleButton value="24h" aria-label="24 hour precipitation">
+            <WaterDrop sx={{ mr: 0.5, fontSize: 18 }} />
+            24h
+          </ToggleButton>
+        </Tooltip>
+        <Tooltip
+          title="Accumulated rainfall — last 48 hours"
+          placement="top"
+          arrow
+        >
+          <ToggleButton value="48h" aria-label="48 hour precipitation">
+            48h
+          </ToggleButton>
+        </Tooltip>
+        <Tooltip
+          title="Accumulated rainfall — last 72 hours"
+          placement="top"
+          arrow
+        >
+          <ToggleButton value="72h" aria-label="72 hour precipitation">
+            72h
+          </ToggleButton>
+        </Tooltip>
       </ToggleButtonGroup>
     </Box>
   );
