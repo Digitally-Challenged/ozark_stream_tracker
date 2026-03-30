@@ -11,6 +11,7 @@ import { ArrowBack, WaterDrop } from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
 import { GlassCard } from '../components/effects/GlassCard';
 import { StageChart } from '../components/precipitation/StageChart';
+import { ForecastTable } from '../components/precipitation/ForecastTable';
 import { LevelRangeBar } from '../components/precipitation/LevelRangeBar';
 import { useWatershedIntelligence } from '../hooks/useWatershedIntelligence';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
@@ -204,6 +205,19 @@ export default function WatershedDetailPage() {
             data={forecast.data}
             floodCategories={forecast.floodCategories}
             currentStage={reading?.value}
+          />
+        </GlassCard>
+      )}
+
+      {/* Day-by-Day Forecast */}
+      {forecast && forecast.data.length >= 2 && watershed && (
+        <GlassCard hover={false} sx={{ p: 2, mb: 3 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
+            Day-by-Day Forecast
+          </Typography>
+          <ForecastTable
+            forecastData={forecast.data}
+            streams={watershed.streams}
           />
         </GlassCard>
       )}
