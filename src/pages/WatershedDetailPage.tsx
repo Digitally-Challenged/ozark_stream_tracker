@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import {
   Box,
@@ -28,6 +28,11 @@ import {
 import { LevelStatus, LevelTrend } from '../types/stream';
 import { getTrendLabel, getTrendMuiColor } from '../utils/trendUtils';
 import { getStreamIdFromName } from '../utils/streamIds';
+import { WeatherForecast } from '../components/precipitation/WeatherForecast';
+import {
+  fetchWeatherForecast,
+  WeatherForecastData,
+} from '../services/nwsWeatherService';
 
 export default function WatershedDetailPage() {
   const { gaugeId } = useParams<{ gaugeId: string }>();
@@ -45,6 +50,19 @@ export default function WatershedDetailPage() {
 
   const watersheds = useMemo(() => groupStreamsByWatershed(streams), []);
   const watershed = gaugeId ? watersheds.get(gaugeId) : undefined;
+
+  const [weather, setWeather] = useState<WeatherForecastData | null>(null);
+
+  useEffect(() => {
+    if (!location) return;
+    let cancelled = false;
+    fetchWeatherForecast(location.lat, location.lng).then((data) => {
+      if (!cancelled) setWeather(data);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [location]);
 
   const trend =
     reading && previousReading
@@ -229,6 +247,16 @@ export default function WatershedDetailPage() {
               streamName={stream.name}
             />
           ))}
+        </GlassCard>
+      )}
+
+      {/* 5-Day Weather Forecast */}
+      {weather && weather.periods.length > 0 && (
+        <GlassCard hover={false} sx={{ p: 2, mb: 3 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
+            5-Day Rain Forecast
+          </Typography>
+          <WeatherForecast periods={weather.periods} />
         </GlassCard>
       )}
 
