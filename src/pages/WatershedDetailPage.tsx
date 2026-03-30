@@ -11,6 +11,7 @@ import { ArrowBack, WaterDrop } from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
 import { GlassCard } from '../components/effects/GlassCard';
 import { StageChart } from '../components/precipitation/StageChart';
+import { LevelRangeBar } from '../components/precipitation/LevelRangeBar';
 import { useWatershedIntelligence } from '../hooks/useWatershedIntelligence';
 import { useGaugeDataContext } from '../context/GaugeDataContext';
 import { GAUGE_LOCATIONS } from '../data/gaugeLocations';
@@ -175,6 +176,23 @@ export default function WatershedDetailPage() {
           )}
         </GlassCard>
       </Box>
+
+      {/* Level Range Bars */}
+      {watershed && (
+        <GlassCard hover={false} sx={{ p: 2, mb: 3 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
+            Current Level vs Target Ranges
+          </Typography>
+          {watershed.streams.map((stream) => (
+            <LevelRangeBar
+              key={stream.name}
+              currentStage={reading?.value ?? null}
+              targetLevels={stream.targetLevels}
+              streamName={stream.name}
+            />
+          ))}
+        </GlassCard>
+      )}
 
       {/* Stage Forecast Chart */}
       {forecast && forecast.data.length >= 2 && (
