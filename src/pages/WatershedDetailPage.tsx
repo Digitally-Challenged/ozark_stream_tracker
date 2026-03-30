@@ -6,8 +6,9 @@ import {
   Chip,
   CircularProgress,
   IconButton,
+  Link as MuiLink,
 } from '@mui/material';
-import { ArrowBack, WaterDrop } from '@mui/icons-material';
+import { ArrowBack, WaterDrop, OpenInNew } from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
 import { GlassCard } from '../components/effects/GlassCard';
 import { StageChart } from '../components/precipitation/StageChart';
@@ -86,6 +87,42 @@ export default function WatershedDetailPage() {
         <Typography variant="h5" sx={{ fontWeight: 700 }}>
           {location?.name ?? gaugeId}
         </Typography>
+      </Box>
+
+      {/* External links */}
+      <Box sx={{ display: 'flex', gap: 2, mb: 2, ml: 5 }}>
+        <MuiLink
+          href={`https://waterdata.usgs.gov/nwis/uv/?site_no=${gaugeId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            fontSize: '0.7rem',
+            color: 'text.secondary',
+            textDecoration: 'none',
+            '&:hover': { color: 'primary.main' },
+          }}
+        >
+          USGS Gauge <OpenInNew sx={{ fontSize: 12 }} />
+        </MuiLink>
+        <MuiLink
+          href={`https://water.weather.gov/ahps2/hydrograph.php?gage=${gaugeId?.toLowerCase()}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0.5,
+            fontSize: '0.7rem',
+            color: 'text.secondary',
+            textDecoration: 'none',
+            '&:hover': { color: 'primary.main' },
+          }}
+        >
+          NWS Forecast <OpenInNew sx={{ fontSize: 12 }} />
+        </MuiLink>
       </Box>
 
       {loading && !forecast && !precip && (
