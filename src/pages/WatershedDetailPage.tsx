@@ -33,6 +33,8 @@ import {
   fetchWeatherForecast,
   WeatherForecastData,
 } from '../services/nwsWeatherService';
+import { FloatOutlook } from '../components/precipitation/FloatOutlook';
+import { computeStreamOutlook } from '../utils/floatOutlook';
 
 export default function WatershedDetailPage() {
   const { gaugeId } = useParams<{ gaugeId: string }>();
@@ -63,6 +65,18 @@ export default function WatershedDetailPage() {
       cancelled = true;
     };
   }, [location]);
+
+  const floatOutlooks = useMemo(() => {
+    if (!watershed || !weather?.periods.length) return [];
+    return watershed.streams.map((stream) =>
+      computeStreamOutlook(
+        stream.name,
+        reading?.value ?? null,
+        stream.targetLevels,
+        weather.periods
+      )
+    );
+  }, [watershed, weather, reading]);
 
   const trend =
     reading && previousReading
@@ -257,6 +271,16 @@ export default function WatershedDetailPage() {
             5-Day Rain Forecast
           </Typography>
           <WeatherForecast periods={weather.periods} />
+        </GlassCard>
+      )}
+
+      {/* Float Outlook */}
+      {floatOutlooks.length > 0 && (
+        <GlassCard hover={false} sx={{ p: 2, mb: 3 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>
+            Float Outlook
+          </Typography>
+          <FloatOutlook outlooks={floatOutlooks} />
         </GlassCard>
       )}
 
