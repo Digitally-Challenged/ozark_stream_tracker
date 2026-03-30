@@ -70,7 +70,7 @@ async function getForecastUrl(
       `https://api.weather.gov/points/${lat.toFixed(4)},${lng.toFixed(4)}`,
       {
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        headers: { 'User-Agent': 'OzarkCreekFlowZone/1.0' },
+        headers: { Accept: 'application/geo+json' },
       }
     );
     if (!res.ok) return null;
