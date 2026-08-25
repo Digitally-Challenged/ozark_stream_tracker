@@ -62,3 +62,30 @@ def lag_correlation(m: pd.DataFrame, max_lag: int = 12, n_boot: int = 1000, seed
 
 def response_lag(lc: pd.DataFrame) -> int:
     return int(lc.loc[lc["r"].idxmax(), "lag"])
+
+
+def daily_lag_correlation(precip: pd.DataFrame, dv_q: pd.DataFrame,
+                          max_lag_days: int = 60) -> pd.DataFrame:
+    """Cross-correlation at DAILY resolution, precip → log flow.
+
+    Phase 8 (review.md item 10). The monthly lag-1 maximum is the coarsest bin
+    that captures a fast onset plus a long tail; it is not a transit time. At
+    daily resolution the correlation peaks within days of the rain and decays
+    monotonically, with no local maximum near 30 days. Day-of-year climatology
+    is removed from both series first, as in the monthly analysis.
+    """
+    p = precip.assign(date=pd.to_datetime(precip["date"])).set_index("date")["pcpn_in"].astype("float64")
+    q = dv_q.assign(date=pd.to_datetime(dv_q["date"])).set_index("date")["value"].astype("float64")
+    idx = pd.date_range(min(p.index.min(), q.index.min()), max(p.index.max(), q.index.max()), freq="D")
+    p, q = p.reindex(idx), q.reindex(idx)
+    lq = np.log(q.where(q > 0))
+    doy = idx.dayofyear
+    p_a = p - p.groupby(doy).transform("mean")
+    q_a = lq - lq.groupby(doy).transform("mean")
+    rows = []
+    for lag in range(max_lag_days + 1):
+        x = p_a.shift(lag)
+        ok = x.notna() & q_a.notna()
+        r = float(np.corrcoef(x[ok], q_a[ok])[0, 1]) if ok.sum() >= 365 else float("nan")
+        rows.append({"lag_days": lag, "r": r, "n": int(ok.sum())})
+    return pd.DataFrame(rows)
