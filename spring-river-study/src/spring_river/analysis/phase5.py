@@ -79,8 +79,9 @@ def _lp3_table(
     tbl.to_parquet(TABLES_DIR / f"phase5_lp3_{slug}.parquet")
     lines += [
         f"### {label} (n={fit.n}, WY {int(peaks['wy'].min())}–{int(peaks['wy'].max())}, "
-        f"station skew {fit.station_skew:.2f}, weighted skew {fit.weighted_skew:.2f}, "
-        f"low outliers dropped {fit.n_dropped} below {fit.low_outlier_threshold_cfs:.0f} cfs)",
+        f"station skew {fit.station_skew:.2f}, weighted skew {fit.weighted_skew:.2f}; "
+        f"low outliers flagged below {fit.low_outlier_threshold_cfs:.0f} cfs: {fit.n_low_outliers_flagged} "
+        "(retained; no B17B conditional-probability adjustment applied))",
         "",
         tbl.round({"q_cfs": 0, "q_lo": 0, "q_hi": 0}).to_markdown(index=False),
         "",
@@ -119,12 +120,29 @@ def _stationarity_verdict(imb_trend: TrendResult, pre: pd.DataFrame, post: pd.Da
     ]
 
 
-def _q6_lines(hardy_pk: pd.DataFrame, stage: pd.DataFrame, crests: pd.DataFrame) -> list[str]:
+def _major_events(hardy_pk: pd.DataFrame, stage: pd.DataFrame) -> pd.Series:
+    """≥16 ft event dates: annual-peak file before SPLIT_WY, declustered daily-max stage after."""
     major_pre = hardy_pk[(hardy_pk["wy"] < SPLIT_WY) & (hardy_pk["gage_ht_ft"] >= MAJOR_FLOOD_FT)]["date"]
     major_post = pot_events(stage, MAJOR_FLOOD_FT)["peak_date"].dt.normalize()
-    majors = pd.concat([major_pre, major_post]).sort_values().reset_index(drop=True)
+    return pd.concat([major_pre, major_post]).sort_values().reset_index(drop=True)
+
+
+def _q6_line(label: str, ev: pd.Series) -> tuple[str, dict | None]:
+    try:
+        r = interarrival_test(ev)
+    except ValueError as exc:
+        return f"- {label}: not testable ({exc})", None
+    return (
+        f"- {label}: n={r['n_events']}, mean gap {r['mean_gap_yr']:.2f} yr, median {r['median_gap_yr']:.2f}, "
+        f"CV {r['cv']:.2f}; KS vs exponential {r['ks_stat']:.2f}, bootstrap p={r['p_boot']:.3f}",
+        r,
+    )
+
+
+def _q6_lines(hardy_pk: pd.DataFrame, stage_variants: dict[str, pd.DataFrame], crests: pd.DataFrame) -> list[str]:
     hist = crests[crests["stage_ft"] >= HISTORIC_CREST_FT]["date"].dt.normalize()
-    majors_hist = pd.concat([hist, majors]).sort_values().reset_index(drop=True)
+    majors = _major_events(hardy_pk, stage_variants["all"])
+    majors_appr = _major_events(hardy_pk, stage_variants["approved"])
     lines = [
         f"## Q6 inter-arrival of ≥{MAJOR_FLOOD_FT:.0f} ft events",
         "",
@@ -132,16 +150,17 @@ def _q6_lines(hardy_pk: pd.DataFrame, stage: pd.DataFrame, crests: pd.DataFrame)
         + ", ".join(d.strftime("%Y-%m-%d") for d in majors),
         "",
     ]
-    for label, ev in (("2002–present", majors), ("with 1982 crest", majors_hist)):
-        try:
-            r = interarrival_test(ev)
-        except ValueError as exc:
-            lines.append(f"- {label}: not testable ({exc})")
-            continue
-        lines.append(
-            f"- {label}: n={r['n_events']}, mean gap {r['mean_gap_yr']:.2f} yr, median {r['median_gap_yr']:.2f}, "
-            f"CV {r['cv']:.2f}; KS vs exponential {r['ks_stat']:.2f}, bootstrap p={r['p_boot']:.3f}"
-        )
+    results: dict[str, dict | None] = {}
+    for label, ev in (("2002–present", majors), ("with 1982 crest", pd.concat([hist, majors]))):
+        line, results[label] = _q6_line(label, ev.sort_values().reset_index(drop=True))
+        lines.append(line)
+    lines += ["", "Sensitivity (approved-only stage days for the post-2008 events):", ""]
+    for label, ev in (("2002–present", majors_appr), ("with 1982 crest", pd.concat([hist, majors_appr]))):
+        line, r_appr = _q6_line(f"{label} (approved-only)", ev.sort_values().reset_index(drop=True))
+        lines.append(line)
+        r_all = results[label]
+        if r_all is not None and r_appr is not None and (r_all["p_boot"] < 0.05) != (r_appr["p_boot"] < 0.05):
+            lines.append(f"- **CHANGED**: Q6 {label} bootstrap p crosses 0.05 between all and approved-only data.")
     lines += [
         "",
         "A bootstrap p well above 0.05 means the gaps are consistent with a memoryless (Poisson) process — "
@@ -163,13 +182,43 @@ def _q7_lines(hardy_pk: pd.DataFrame) -> list[str]:
         f"## Q7 quiet year (<{QUIET_FT:.0f} ft peak) after a ≥{MAJOR_FLOOD_FT:.0f} ft year",
         "",
         f"- P(quiet | prior major) = {q7.rate_after_major:.2f} vs base rate {q7.base_rate:.2f}; "
-        f"difference {q7.diff:+.2f} (bootstrap 95% CI {q7.diff_lo:+.2f} to {q7.diff_hi:+.2f}); "
+        f"difference {q7.diff:+.2f} (Clopper-Pearson exact 95% bounds on the conditional rate minus the base rate: "
+        f"{q7.diff_lo:+.2f} to {q7.diff_hi:+.2f}); "
         f"permutation p={q7.p:.3f}; n_major={q7.n_major}, n_years={q7.n_years}",
         "",
         f"Water years with a missing annual peak count as neither major nor quiet. "
         f"With n_major={q7.n_major} the test has little power; the CI is the honest statement.",
         "",
     ]
+
+
+def _complete_wys(stage: pd.DataFrame, wys: list[int]) -> list[int]:
+    """Water years whose daily-max stage series has a row on/after Sep 30 of that WY."""
+    last = stage["date"].max()
+    return [y for y in wys if last >= pd.Timestamp(year=y, month=9, day=30)]
+
+
+def _pot_line(variant: str, h: float, c: pd.Series, dt: dict, r: TrendResult, complete: list[int]) -> str:
+    return (
+        f"- ≥{h:.0f} ft ({variant}): {int(c.loc[complete].sum())} events over complete WY {complete[0]}–{complete[-1]} "
+        f"(n={len(complete)}); mean {dt['mean']:.2f}/yr; dispersion {dt['dispersion']:.2f} (p={dt['p']:.3f}); "
+        f"count trend {fmt_trend(r, 'events')}"
+    )
+
+
+def _pot_changed(h: float, all_s: tuple, appr_s: tuple) -> list[str]:
+    dt_a, r_a, _ = all_s
+    dt_b, r_b, _ = appr_s
+    reasons = []
+    if (r_a.slope > 0) != (r_b.slope > 0):
+        reasons.append("Sen slope sign")
+    if _ci_excludes_zero(r_a) != _ci_excludes_zero(r_b):
+        reasons.append("trend CI includes zero")
+    if (dt_a["p"] < 0.05) != (dt_b["p"] < 0.05):
+        reasons.append("dispersion p crosses 0.05")
+    if not reasons:
+        return []
+    return [f"- **CHANGED**: ≥{h:.0f} ft POT conclusion differs between all and approved-only data ({'; '.join(reasons)})."]
 
 
 def _freq_figure(hardy_tbl: pd.DataFrame, imb_tbl: pd.DataFrame, imb_pk: pd.DataFrame) -> None:
@@ -183,7 +232,7 @@ def _freq_figure(hardy_tbl: pd.DataFrame, imb_tbl: pd.DataFrame, imb_pk: pd.Data
     ax.set_ylabel("peak flow (cfs)")
     ax.legend()
     ax.set_title(
-        "LP3 frequency curves, 5–95% bootstrap\n"
+        "LP3 frequency curves, nonparametric bootstrap (resampled peaks), 5–95%\n"
         f"source: USGS annual peaks {SITE_HARDY} (WY 2002–2025), {SITE_IMBODEN} "
         f"(WY {int(imb_pk['wy'].min())}–{int(imb_pk['wy'].max())}); peaks file is approved data",
         fontsize=9,
@@ -220,11 +269,11 @@ def main() -> None:
     lines = [
         f"# Phase 5 — floods (Q2, Q6, Q7, Q8) — generated {date.today().isoformat()}",
         "",
-        "## Q8 LP3 flood frequency (5–95% bootstrap CI)",
+        "## Q8 LP3 flood frequency (nonparametric bootstrap, 5–95%)",
         "",
         f"Regional skew {REGIONAL_SKEW} (approximate, see config); the 'station skew only' block is the sensitivity case. "
-        "LP3 by method of moments with B17-weighted skew and a Grubbs-Beck low-outlier screen; parametric-bootstrap CIs "
-        "(2000 resamples). Not EMA.",
+        "LP3 by method of moments with B17-weighted skew; the Grubbs-Beck low-outlier screen flags but does not drop "
+        "(all peaks retained in the fit); nonparametric bootstrap (resampled peaks), 5–95%, 2000 resamples. Not EMA.",
         "",
     ]
     hardy_tbl, fit_h = _lp3_table("Hardy", hardy_pk, lines, REGIONAL_SKEW)
@@ -291,32 +340,47 @@ def main() -> None:
     # POT (Hardy daily max stage, WY 2008+)
     lines += ["## Partial-duration series (Hardy daily max IV stage, 7-day declustering)", ""]
     wys = sorted(set(water_year(stage["date"])))
+    stage_variants = approval_variants(stage)
     counts: dict[tuple[str, float], pd.Series] = {}
-    for variant, st in approval_variants(stage).items():
+    pot_stats: dict[tuple[str, float], tuple[dict, TrendResult, list[int]]] = {}
+    for variant, st in stage_variants.items():
+        complete = _complete_wys(st, wys)
         for h in POT_THRESHOLDS_FT:
             c = annual_counts(pot_events(st, h), wys)
             counts[(variant, h)] = c
-            if variant == "all":
-                dt = dispersion_test(c)
-                r = trend_test(c.to_numpy(dtype="float64"), np.array(wys, dtype="float64"))
-                lines.append(
-                    f"- ≥{h:.0f} ft: {int(c.sum())} events over WY {wys[0]}–{wys[-1]}; mean {dt['mean']:.2f}/yr; "
-                    f"dispersion {dt['dispersion']:.2f} (p={dt['p']:.3f}); count trend {fmt_trend(r, 'events')}"
-                )
+            cc = c.loc[complete]
+            pot_stats[(variant, h)] = (
+                dispersion_test(cc),
+                trend_test(cc.to_numpy(dtype="float64"), np.array(complete, dtype="float64")),
+                complete,
+            )
+    for h in POT_THRESHOLDS_FT:
+        lines.append(_pot_line("all", h, counts[("all", h)], *pot_stats[("all", h)]))
+    partial = [y for y in wys if y not in pot_stats[("all", POT_THRESHOLDS_FT[0])][2]]
+    lines += [
+        "",
+        f"Partial WY {', '.join(str(y) for y in partial) or 'none'} (stage through {stage['date'].max().date()}; "
+        "excluded from the dispersion and trend tests above) counts: "
+        + ", ".join(f"≥{int(h)} ft {int(counts[('all', h)].loc[partial].sum())}" for h in POT_THRESHOLDS_FT),
+        "",
+        "Sensitivity (approved-only days; complete WYs of the approved series):",
+        "",
+    ]
+    for h in POT_THRESHOLDS_FT:
+        lines.append(_pot_line("approved-only", h, counts[("approved", h)], *pot_stats[("approved", h)]))
+        lines += _pot_changed(h, pot_stats[("all", h)], pot_stats[("approved", h)])
     pot_tbl = pd.DataFrame({f"ge_{int(h)}ft_{v}": c for (v, h), c in counts.items()})
     pot_tbl.to_parquet(TABLES_DIR / "phase5_pot_counts.parquet")
     lines += [
         "",
-        f"Dispersion index = variance/mean of annual counts (1 under Poisson; >1 clustered). "
-        f"WY {wys[-1]} is partial (stage through {stage['date'].max().date()}). "
-        "Sensitivity (approved-only days) totals: "
-        + ", ".join(f"≥{int(h)} ft {int(c.sum())}" for (v, h), c in counts.items() if v == "approved"),
+        "Dispersion index = variance/mean of annual counts (1 under Poisson; >1 clustered). "
+        "A water year is complete when the daily-max stage series has a row on/after its Sep 30.",
         "",
         pot_tbl.to_markdown(),
         "",
     ]
 
-    lines += _q6_lines(hardy_pk, stage, crests)
+    lines += _q6_lines(hardy_pk, stage_variants, crests)
     lines += _q7_lines(hardy_pk)
 
     # antecedent conditions before >=14 ft

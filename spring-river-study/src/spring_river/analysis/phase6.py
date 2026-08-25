@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from spring_river.analysis.common import caption, write_report
+from spring_river.analysis.common import approval_variants, caption, write_report
 from spring_river.climate.coupling import lag_correlation, monthly_series, response_lag
 from spring_river.climate.intensity import INDEX_COLUMNS, annual_indices, index_trends
 from spring_river.config import DOCS_DIR, FIGURES_DIR, PARAM_DISCHARGE, SITE_MAMMOTH, START_DATE, TABLES_DIR
@@ -55,7 +55,8 @@ def _trend_section(label: str, idx: pd.DataFrame, tr: pd.DataFrame, span: str) -
     sig = tr[tr["significant_bh"]]
     verdict = ("no index passes BH at q=0.05" if sig.empty
                else "BH-significant: " + ", ".join(f"{r['index']} ({r['slope_per_decade']:+.3g}/decade, "
-                                                    f"95% CI {r['lo']:.3g} to {r['hi']:.3g})" for _, r in sig.iterrows()))
+                                                    f"95% CI {r['lo']:.3g} to {r['hi']:.3g}, n={int(r['n'])} years)"
+                                                    for _, r in sig.iterrows()))
     return [f"## {label}: index trends (Sen slope per decade, 95% CI; BH-adjusted p across {len(INDEX_COLUMNS)} indices)", "",
             f"- series span (non-missing days): {span}",
             f"- index years {int(valid['year'].min())}–{int(valid['year'].max())}; years passing 90% coverage: {len(valid)}",
@@ -71,16 +72,41 @@ def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame) ->
             f"- {COOP_SID} years failing 90% coverage (excluded from its trend tests): {', '.join(map(str, failed))}. "
             "The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is "
             "low power, not evidence against the basin trend.",
+            "- `recharge_in` is NaN for the first year of every series by construction: its coverage gate is judged against "
+            "the full Sep (year-1)–Feb (year) calendar season, and no series holds the September before its first January. "
+            "Its n is therefore one less than the other indices for the same series.",
             "- PRISM basin values are a 4 km grid mean over a ~60 × 60 km box around West Plains; station gaps enter "
             "PRISM only indirectly through its interpolation. Treat the basin trends as the Q3 headline and the station tests as a consistency check.", ""]
 
 
-def _indices_figure(idx: pd.DataFrame, label: str, path) -> None:
+def _lag_line(label: str, lc: pd.DataFrame) -> tuple[int, float, float, str]:
+    best = response_lag(lc)
+    row = lc.loc[lc["lag"] == best].iloc[0]
+    return best, float(row["r_lo"]), float(row["r_hi"]), (
+        f"- response lag ({label}): {best} months, r={row['r']:.2f} "
+        f"(95% CI {row['r_lo']:.2f} to {row['r_hi']:.2f}), n={int(row['n'])} months")
+
+
+def _lag_sensitivity(lc_all: pd.DataFrame, lc_appr: pd.DataFrame) -> list[str]:
+    lag_a, lo_a, hi_a, line_a = _lag_line("all data", lc_all)
+    lag_p, lo_p, hi_p, line_p = _lag_line("approved-only flow", lc_appr)
+    overlap = lo_a <= hi_p and lo_p <= hi_a
+    lines = ["### Sensitivity: all vs approved-only Mammoth flow", "", line_a, line_p]
+    if lag_a != lag_p or not overlap:
+        lines.append("- **CHANGED**: response lag or r CI differs between all and approved-only flow.")
+    else:
+        lines.append("- unchanged: same response lag and overlapping r CIs.")
+    return lines + [""]
+
+
+def _indices_figure(idx: pd.DataFrame, label: str, span: str, path) -> None:
     fig, axes = plt.subplots(3, 1, figsize=(11, 9), sharex=True)
     axes[0].bar(idx["year"], idx["total_in"]); axes[0].set_ylabel("annual total (in)")
     axes[1].plot(idx["year"], idx["days_ge_1"], marker="o"); axes[1].set_ylabel("days ≥ 1 in")
     axes[2].plot(idx["year"], idx["max1_in"], marker="o"); axes[2].set_ylabel("max 1-day (in)"); axes[2].set_xlabel("year")
-    fig.suptitle(f"Q3 indices — {label} (West Plains COOP); source: RCC-ACIS; years <90% coverage omitted", fontsize=9)
+    fig.suptitle(f"Q3 indices — {label} (West Plains COOP); source: RCC-ACIS StnData; period {span}; "
+                 "years with <90% daily coverage omitted; approval: N/A — station precip carries no approval flag",
+                 fontsize=9)
     fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig(path, dpi=150); plt.close(fig)
 
 
@@ -124,26 +150,24 @@ def main() -> None:
     pd.concat(trends.values()).to_parquet(TABLES_DIR / "phase6_index_trends.parquet")
     lines += _divergence_note(trends, pd.read_parquet(TABLES_DIR / f"phase6_indices_{COOP_SID}.parquet"))
 
-    m = monthly_series(basin, mammoth)
     t0 = time.perf_counter()
-    lc = lag_correlation(m, n_boot=N_BOOT)
+    lcs = {k: lag_correlation(monthly_series(basin, v), n_boot=N_BOOT) for k, v in approval_variants(mammoth).items()}
     lag_secs = time.perf_counter() - t0
-    lc.to_parquet(TABLES_DIR / "phase6_lag_correlation.parquet")
-    best = response_lag(lc)
-    best_row = lc.loc[lc["lag"] == best].iloc[0]
+    lc = lcs["all"]
+    pd.concat([v.assign(variant=k) for k, v in lcs.items()]).to_parquet(TABLES_DIR / "phase6_lag_correlation.parquet")
     lines += ["## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)", "",
               f"Monthly anomalies (climatology removed; log flow), lags 0–{int(lc['lag'].max())} months, "
-              f"{N_BOOT} 12-month block-bootstrap resamples for the CI ({lag_secs:.0f} s).", "",
+              f"{N_BOOT} 12-month block-bootstrap resamples for the CI (both variants, {lag_secs:.0f} s). Table: all data.", "",
               lc.round(3).to_markdown(index=False), "",
-              f"- response lag (max r): {best} months, r={best_row['r']:.2f} "
-              f"(95% CI {best_row['r_lo']:.2f} to {best_row['r_hi']:.2f}), n={int(best_row['n'])} months", ""]
+              _lag_line("max r", lc)[3], ""]
+    lines += _lag_sensitivity(lc, lcs["approved"])
 
     idx = pd.read_parquet(TABLES_DIR / f"phase6_indices_{COOP_SID}.parquet")
-    _indices_figure(idx, COOP_SID, FIGURES_DIR / "phase6_indices.png")
+    _indices_figure(idx, COOP_SID, coop_span, FIGURES_DIR / "phase6_indices.png")
     _lag_figure(lc, mammoth, FIGURES_DIR / "phase6_lag_correlation.png")
     lines += ["![indices](../reports/figures/phase6_indices.png)", "",
-              f"Figure: annual total, days ≥ 1 in, and max 1-day precip at {COOP_SID}; source RCC-ACIS StnData, {coop_span}; "
-              "years failing 90% coverage omitted.", "",
+              f"Figure: annual total, days ≥ 1 in, and max 1-day precip at {COOP_SID}; source RCC-ACIS StnData; period {coop_span}; "
+              "years with <90% daily coverage omitted; approval N/A — station precip carries no approval flag.", "",
               "![lag](../reports/figures/phase6_lag_correlation.png)", "",
               f"Figure: {caption(f'USGS DV {SITE_MAMMOTH} + PRISM 30 km basin mean', mammoth)}.", "",
               "## Limitations", "",
@@ -151,7 +175,8 @@ def main() -> None:
               f"- COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the "
               f"{COOP_SID} trend window matches KUNO/basin rather than extending it.",
               f"- {COOP_SID} has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.",
-              "- Precip series carry no approval flag; the all/approved-only rule does not apply here. "
+              "- Precip series carry no approval flag; the all/approved-only rule does not apply to the index trends. "
+              "It does apply to the coupling (Mammoth flow carries flags) and is reported above. "
               f"Mammoth flow used in coupling: {caption(f'USGS DV {SITE_MAMMOTH}', mammoth)}.",
               "- Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year "
               "serial correlation but not dependence across block boundaries, so it is mildly optimistic."]

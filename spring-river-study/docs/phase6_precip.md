@@ -14,64 +14,65 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+
 
 | index       |   n |   slope_per_decade |     lo |    hi |     z |     p |   p_bh | significant_bh   |
 |:------------|----:|-------------------:|-------:|------:|------:|------:|-------:|:-----------------|
-| total_in    |  34 |              0.758 | -1.66  | 3.5   | 0.741 | 0.459 |  0.742 | False            |
-| recharge_in |  31 |              0.65  | -1.193 | 2.569 | 0.85  | 0.395 |  0.742 | False            |
-| growing_in  |  34 |              0.9   | -0.681 | 2.683 | 1.097 | 0.273 |  0.742 | False            |
-| days_ge_0p5 |  34 |              0.75  | -0.789 | 2.143 | 0.954 | 0.34  |  0.742 | False            |
-| days_ge_1   |  34 |              0     | -0.769 | 1.25  | 0.374 | 0.709 |  0.787 | False            |
-| days_ge_2   |  34 |              0     | -0.476 | 0.465 | 0     | 1     |  1     | False            |
-| max1_in     |  34 |              0.2   | -0.097 | 0.494 | 1.187 | 0.235 |  0.742 | False            |
-| max3_in     |  34 |              0.508 |  0.075 | 0.91  | 2.462 | 0.014 |  0.138 | False            |
-| top5_frac   |  34 |              0.002 | -0.006 | 0.011 | 0.563 | 0.573 |  0.742 | False            |
-| sdii_in     |  34 |              0.004 | -0.013 | 0.019 | 0.534 | 0.594 |  0.742 | False            |
+| total_in    |  34 |              0.758 | -1.667 | 3.5   | 0.741 | 0.459 |  0.801 | False            |
+| recharge_in |  30 |              0.233 | -1.58  | 1.869 | 0.357 | 0.721 |  0.801 | False            |
+| growing_in  |  34 |              0.9   | -0.767 | 2.683 | 1.097 | 0.273 |  0.801 | False            |
+| days_ge_0p5 |  34 |              0.75  | -0.789 | 2.083 | 0.954 | 0.34  |  0.801 | False            |
+| days_ge_1   |  34 |             -0     | -0.769 | 1.212 | 0.374 | 0.709 |  0.801 | False            |
+| days_ge_2   |  34 |             -0     | -0.476 | 0.455 | 0     | 1     |  1     | False            |
+| max1_in     |  34 |              0.2   | -0.1   | 0.494 | 1.187 | 0.235 |  0.801 | False            |
+| max3_in     |  34 |              0.508 |  0.072 | 0.91  | 2.491 | 0.013 |  0.127 | False            |
+| top5_frac   |  34 |              0.002 | -0.006 | 0.011 | 0.563 | 0.573 |  0.801 | False            |
+| sdii_in     |  34 |              0.004 | -0.013 | 0.019 | 0.534 | 0.594 |  0.801 | False            |
 
 ## KUNO: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
 
 - series span (non-missing days): 1998-04-01–2026-08-23
 - index years 1999–2025; years passing 90% coverage: 27
-- BH-significant: sdii_in (+0.0634/decade, 95% CI 0.0337 to 0.09)
+- BH-significant: sdii_in (+0.0634/decade, 95% CI 0.033 to 0.09, n=27 years)
 
 | index       |   n |   slope_per_decade |     lo |     hi |      z |     p |   p_bh | significant_bh   |
 |:------------|----:|-------------------:|-------:|-------:|-------:|------:|-------:|:-----------------|
-| total_in    |  27 |              4.279 | -0.539 | 10.261 |  1.709 | 0.087 |  0.218 | False            |
-| recharge_in |  27 |              1.533 | -0.527 |  3.347 |  1.751 | 0.08  |  0.218 | False            |
-| growing_in  |  27 |              3.4   | -1.017 |  7.131 |  1.584 | 0.113 |  0.226 | False            |
-| days_ge_0p5 |  27 |              3.333 |  0     |  7.5   |  1.861 | 0.063 |  0.218 | False            |
-| days_ge_1   |  27 |              1.429 | -0.769 |  3.158 |  1.3   | 0.194 |  0.277 | False            |
-| days_ge_2   |  27 |              0.455 |  0     |  1.333 |  1.414 | 0.157 |  0.262 | False            |
-| max1_in     |  27 |              0.25  | -0.2   |  0.75  |  1.209 | 0.227 |  0.283 | False            |
-| max3_in     |  27 |              0.4   | -0.55  |  1.438 |  0.709 | 0.478 |  0.532 | False            |
+| total_in    |  27 |              4.279 | -0.557 | 10.261 |  1.709 | 0.087 |  0.226 | False            |
+| recharge_in |  27 |              1.518 | -0.596 |  3.347 |  1.626 | 0.104 |  0.226 | False            |
+| growing_in  |  27 |              3.4   | -1.075 |  7.131 |  1.584 | 0.113 |  0.226 | False            |
+| days_ge_0p5 |  27 |              3.333 | -0     |  7.5   |  1.861 | 0.063 |  0.226 | False            |
+| days_ge_1   |  27 |              1.429 | -0.769 |  3.077 |  1.3   | 0.194 |  0.277 | False            |
+| days_ge_2   |  27 |              0.455 | -0     |  1.25  |  1.414 | 0.157 |  0.262 | False            |
+| max1_in     |  27 |              0.25  | -0.21  |  0.75  |  1.209 | 0.227 |  0.283 | False            |
+| max3_in     |  27 |              0.4   | -0.562 |  1.437 |  0.709 | 0.478 |  0.532 | False            |
 | top5_frac   |  27 |             -0.003 | -0.024 |  0.019 | -0.208 | 0.835 |  0.835 | False            |
-| sdii_in     |  27 |              0.063 |  0.034 |  0.09  |  3.377 | 0.001 |  0.007 | True             |
+| sdii_in     |  27 |              0.063 |  0.033 |  0.09  |  3.377 | 0.001 |  0.007 | True             |
 
 ## basin: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
 
 - series span (non-missing days): 1981-01-01–2026-08-23
 - index years 1981–2025; years passing 90% coverage: 45
-- BH-significant: total_in (+2.41/decade, 95% CI 0.355 to 4.48), growing_in (+2.32/decade, 95% CI 0.898 to 3.76), days_ge_0p5 (+2.5/decade, 95% CI 1.11 to 4.29), days_ge_1 (+1.45/decade, 95% CI 0.714 to 2.26), days_ge_2 (+0.27/decade, 95% CI 0 to 0.588), max1_in (+0.28/decade, 95% CI 0.0967 to 0.529), max3_in (+0.283/decade, 95% CI 0.0432 to 0.653), top5_frac (+0.00756/decade, 95% CI 0.000256 to 0.0149), sdii_in (+0.0347/decade, 95% CI 0.0222 to 0.0488)
+- BH-significant: total_in (+2.41/decade, 95% CI 0.355 to 4.46, n=45 years), growing_in (+2.32/decade, 95% CI 0.898 to 3.73, n=45 years), days_ge_0p5 (+2.5/decade, 95% CI 1.11 to 4.29, n=45 years), days_ge_1 (+1.45/decade, 95% CI 0.714 to 2.26, n=45 years), days_ge_2 (+0.27/decade, 95% CI -0 to 0.588, n=45 years), max1_in (+0.28/decade, 95% CI 0.0967 to 0.528, n=45 years), max3_in (+0.283/decade, 95% CI 0.0432 to 0.652, n=45 years), top5_frac (+0.00756/decade, 95% CI 0.000256 to 0.0149, n=45 years), sdii_in (+0.0347/decade, 95% CI 0.0222 to 0.0486, n=45 years)
 
-| index       |   n |   slope_per_decade |     lo |    hi |     z |     p |   p_bh | significant_bh   |
-|:------------|----:|-------------------:|-------:|------:|------:|------:|-------:|:-----------------|
-| total_in    |  45 |              2.409 |  0.355 | 4.483 | 2.279 | 0.023 |  0.028 | True             |
-| recharge_in |  45 |              0.249 | -1.034 | 1.484 | 0.323 | 0.747 |  0.747 | False            |
-| growing_in  |  45 |              2.316 |  0.898 | 3.758 | 3.121 | 0.002 |  0.005 | True             |
-| days_ge_0p5 |  45 |              2.5   |  1.111 | 4.286 | 3.326 | 0.001 |  0.003 | True             |
-| days_ge_1   |  45 |              1.446 |  0.714 | 2.258 | 3.332 | 0.001 |  0.003 | True             |
-| days_ge_2   |  45 |              0.27  |  0     | 0.588 | 2.305 | 0.021 |  0.028 | True             |
-| max1_in     |  45 |              0.28  |  0.097 | 0.529 | 2.886 | 0.004 |  0.008 | True             |
-| max3_in     |  45 |              0.283 |  0.043 | 0.653 | 2.299 | 0.022 |  0.028 | True             |
-| top5_frac   |  45 |              0.008 |  0     | 0.015 | 2.025 | 0.043 |  0.048 | True             |
-| sdii_in     |  45 |              0.035 |  0.022 | 0.049 | 4.471 | 0     |  0     | True             |
+| index       |   n |   slope_per_decade |     lo |    hi |      z |     p |   p_bh | significant_bh   |
+|:------------|----:|-------------------:|-------:|------:|-------:|------:|-------:|:-----------------|
+| total_in    |  45 |              2.409 |  0.355 | 4.463 |  2.279 | 0.023 |  0.028 | True             |
+| recharge_in |  44 |             -0.018 | -1.267 | 1.189 | -0.071 | 0.944 |  0.944 | False            |
+| growing_in  |  45 |              2.316 |  0.898 | 3.729 |  3.121 | 0.002 |  0.005 | True             |
+| days_ge_0p5 |  45 |              2.5   |  1.111 | 4.286 |  3.326 | 0.001 |  0.003 | True             |
+| days_ge_1   |  45 |              1.446 |  0.714 | 2.258 |  3.332 | 0.001 |  0.003 | True             |
+| days_ge_2   |  45 |              0.27  | -0     | 0.588 |  2.305 | 0.021 |  0.028 | True             |
+| max1_in     |  45 |              0.28  |  0.097 | 0.528 |  2.886 | 0.004 |  0.008 | True             |
+| max3_in     |  45 |              0.283 |  0.043 | 0.652 |  2.299 | 0.022 |  0.028 | True             |
+| top5_frac   |  45 |              0.008 |  0     | 0.015 |  2.025 | 0.043 |  0.048 | True             |
+| sdii_in     |  45 |              0.035 |  0.022 | 0.049 |  4.471 | 0     |  0     | True             |
 
 ## Station vs basin: reading the divergence
 
 - BH-significant indices per series: USC00238880 0/10, KUNO 1/10, basin 9/10.
 - USC00238880 years failing 90% coverage (excluded from its trend tests): 1997, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021. The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is low power, not evidence against the basin trend.
+- `recharge_in` is NaN for the first year of every series by construction: its coverage gate is judged against the full Sep (year-1)–Feb (year) calendar season, and no series holds the September before its first January. Its n is therefore one less than the other indices for the same series.
 - PRISM basin values are a 4 km grid mean over a ~60 × 60 km box around West Plains; station gaps enter PRISM only indirectly through its interpolation. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
-Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-month block-bootstrap resamples for the CI (0 s).
+Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-month block-bootstrap resamples for the CI (both variants, 1 s). Table: all data.
 
 |   lag |      r |   r_lo |   r_hi |   n |
 |------:|-------:|-------:|-------:|----:|
@@ -91,9 +92,15 @@ Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-m
 
 - response lag (max r): 1 months, r=0.46 (95% CI 0.42 to 0.53), n=545 months
 
+### Sensitivity: all vs approved-only Mammoth flow
+
+- response lag (all data): 1 months, r=0.46 (95% CI 0.42 to 0.53), n=545 months
+- response lag (approved-only flow): 1 months, r=0.47 (95% CI 0.42 to 0.53), n=541 months
+- unchanged: same response lag and overlapping r CIs.
+
 ![indices](../reports/figures/phase6_indices.png)
 
-Figure: annual total, days ≥ 1 in, and max 1-day precip at USC00238880; source RCC-ACIS StnData, 1981-01-01–2026-08-24; years failing 90% coverage omitted.
+Figure: annual total, days ≥ 1 in, and max 1-day precip at USC00238880; source RCC-ACIS StnData; period 1981-01-01–2026-08-24; years with <90% daily coverage omitted; approval N/A — station precip carries no approval flag.
 
 ![lag](../reports/figures/phase6_lag_correlation.png)
 
@@ -104,5 +111,5 @@ Figure: source: USGS DV 07069190 + PRISM 30 km basin mean; period 1981-02-25–2
 - Station indices are point measurements; basin indices are a 4 km grid mean (smoother extremes by construction).
 - COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the USC00238880 trend window matches KUNO/basin rather than extending it.
 - USC00238880 has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.
-- Precip series carry no approval flag; the all/approved-only rule does not apply here. Mammoth flow used in coupling: source: USGS DV 07069190; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
+- Precip series carry no approval flag; the all/approved-only rule does not apply to the index trends. It does apply to the coupling (Mammoth flow carries flags) and is reported above. Mammoth flow used in coupling: source: USGS DV 07069190; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
 - Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year serial correlation but not dependence across block boundaries, so it is mildly optimistic.

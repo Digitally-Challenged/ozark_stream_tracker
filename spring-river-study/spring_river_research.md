@@ -61,16 +61,17 @@ systematic series. Imboden's 1915+ peaks are the defensible long series.
 - Stage↔flow at Hardy from annual-peak pairs (log-log, R²=0.99). USGS rating shifts still unobtained → Q5/Q8 provisional.
 - Precip station agreement re-tested monthly (r=0.86), resolving the qa_report daily-r=0.42 item as an observation-time artifact.
 - Lag-correlation bootstrap resamples 12-month blocks of already-lagged pairs (fixed 2026-08-25 after review).
+- Codex adversarial review (NEEDS-CHANGES, 9 blocking) folded in the same day — see `docs/review_phase4-6.md`. Material effects: Q1 predictors made strictly antecedent (Hardy residual trend lost significance); LP3 keeps low outliers by default (Imboden 100-yr 161k → 145k cfs); basin recharge-season precip trend flipped sign to ~0 once the coverage gate was corrected.
 
 ### Headline results vs. working hypotheses
 
 | Q | Hypothesis | Result |
 |---|---|---|
-| Q1 | Drought-driven, not structural | Supported. Mammoth residual trend +0.0017 log-cfs/yr (CI −0.0019 to 0.0047, n=43). Hardy min7 *rising* (+0.021/yr, CI 0.009–0.034, n=24). |
+| Q1 | Drought-driven, not structural | Supported (post-review, antecedent predictors). Mammoth residual trend −0.0021 log-cfs/yr (CI −0.0050 to +0.0006, n=42); Hardy residual +0.008 (CI −0.001 to 0.019, n=24). Hardy raw min7 *rises* (+0.023/yr, CI 0.007–0.036) but trailing-365-day precip explains it (R²=0.48). |
 | Q2 | Magnitude up, frequency flat | Not detectable. Imboden peaks +0.0011 log10-cfs/yr (CI −0.0012 to 0.0041, n=89); pre/post-2008 10-yr quantile CIs overlap. |
-| Q3 | Weak/inconclusive | Basin (PRISM): 9/10 indices up (total +2.4 in/decade, CI 0.4–4.5). Station tests low-power (COOP coverage gaps). |
-| Q4 | Floods reduce recharge | **Refuted.** Post-flood base flow +21% (Mammoth, CI 9–34) and +29% (Hardy, CI 13–45), n=6. |
-| Q5 | Partly a rating artifact | Supported. Stage at 1000 cfs −0.019 ft/yr (CI −0.021 to −0.015, n=19); gradual, not step-wise at floods. |
+| Q3 | Weak/inconclusive | Basin (PRISM): 9/10 indices up (total +2.4 in/decade, CI 0.4–4.5, n=45); recharge-season total flat (−0.02, CI −1.3 to 1.2, n=44). Station tests low-power (COOP coverage gaps). |
+| Q4 | Floods reduce recharge | **Not supported — opposite sign.** 6-month post-flood base flow +28% (Mammoth, CI 20–42, 15 unique controls) and +23% (Hardy, CI 13–35, 11 controls), n=6; matched on precip + antecedent base flow, 30-day recession skip. Descriptive, not causal. |
+| Q5 | Partly a rating artifact | Supported. Stage at 1000 cfs −0.019 ft/yr (CI −0.021 to −0.016, n=19; local log-linear fit), 400 cfs −0.008 (CI −0.013 to −0.005); ±1-yr event shifts −0.18 to +0.02 ft — gradual drift dominates. |
 | Q6 | Modal, not periodic | Consistent with memoryless: CV 1.01, bootstrap p=0.47, n=7. |
-| Q7 | Pattern, n=2 | No support; P(quiet\|major)=0 vs base 0.08, n_major=5. |
+| Q7 | Pattern, n=2 | No support; P(quiet\|major)=0 vs base 0.08 (Clopper-Pearson diff −0.08 to +0.44), n_major=5. |
 | Q8 | 10 ft≈annual; 16≈4 yr; 22+≈15–25 | 10 ft 1.4 yr; 16 ft 4.5 (empirical 4.0); 20 ft 12.5; 23 ft ~29 yr (n=24 → wide). |
