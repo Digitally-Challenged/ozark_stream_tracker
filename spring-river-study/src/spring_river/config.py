@@ -5,6 +5,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 SITE_HARDY = "07069305"
 SITE_IMBODEN = "07069500"
+SITE_MAMMOTH = "07069190"  # Mammoth Spring vent gauge; DV discharge 1981-02-25->present
 NWS_GAUGE = "HDYA4"
 PARAM_DISCHARGE = "00060"  # cfs
 PARAM_STAGE = "00065"      # ft

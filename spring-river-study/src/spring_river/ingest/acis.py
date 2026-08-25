@@ -22,9 +22,17 @@ def _parse_stndata(payload: dict) -> pd.DataFrame:
         return _empty_stndata_frame()
     df = pd.DataFrame(rows, columns=["date", "pcpn_in"])
     df["date"] = pd.to_datetime(df["date"])
-    df["pcpn_in"] = (
-        df["pcpn_in"].replace({"T": "0.0", "M": None}).astype("float64")
+    # ACIS values can carry a trailing single-letter flag appended to the numeric
+    # string (e.g. "0.42A" = accumulated); "T" (trace) and "M" (missing) are
+    # flag-only sentinels with no numeric part, and "S" (subsequent, i.e. value
+    # revised/withheld) can also appear alone. Handle the flag-only sentinels
+    # first, then strip any trailing alpha flag from the rest before coercion.
+    raw = df["pcpn_in"].astype(str).str.strip()
+    special = raw.replace({"T": "0.0", "M": None, "S": None})
+    stripped = special.where(
+        special.isna(), special.str.replace(r"[A-Za-z]+$", "", regex=True).str.strip()
     )
+    df["pcpn_in"] = pd.to_numeric(stripped, errors="coerce").astype("float64")
     return df
 
 
