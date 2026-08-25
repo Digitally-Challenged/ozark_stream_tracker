@@ -40,3 +40,17 @@ def test_refresh_true_refetches(raw_dir):
         "demo", lambda: pd.DataFrame({"x": [1, 2, 3]}), meta={}, refresh=True
     )
     assert len(df) == 3
+
+
+def test_fetch_fn_exception_leaves_no_artifacts(raw_dir):
+    """When fetch_fn raises, no parquet or .tmp file is left in raw_dir."""
+
+    def boom():
+        raise ValueError("Network error")
+
+    with pytest.raises(ValueError, match="Network error"):
+        cache.fetch_cached("demo", boom, meta={})
+
+    # Verify no files were left behind
+    assert not (raw_dir / "demo.parquet").exists()
+    assert not (raw_dir / "demo.parquet.tmp").exists()

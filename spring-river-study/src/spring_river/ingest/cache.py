@@ -1,5 +1,6 @@
 """Raw-data cache: every API pull lands in data/raw with request metadata."""
 import json
+import os
 from datetime import datetime, timezone
 from typing import Callable
 
@@ -20,7 +21,11 @@ def fetch_cached(
         return pd.read_parquet(parquet_path)
 
     df = fetch_fn()
-    df.to_parquet(parquet_path)
+    # Atomic write: temp file → replace, so truncated file never appears as cache
+    tmp_path = parquet_path.with_suffix(".parquet.tmp")
+    df.to_parquet(tmp_path)
+    os.replace(tmp_path, parquet_path)
+
     record = dict(meta)
     record["fetched_at"] = datetime.now(timezone.utc).isoformat()
     record["rows"] = int(len(df))
