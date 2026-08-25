@@ -1,3 +1,4 @@
+import pytest
 import pandas as pd
 
 from spring_river.hydro.wateryear import min7, water_year
@@ -45,3 +46,19 @@ def test_min7_nan_when_gap_at_minimum():
     # min over complete windows only; the NaN window must not silently win
     out = min7(df)
     assert out.loc[2020] >= 50.0  # computed from complete windows only
+
+
+def test_daily_max_stage_tz_aware_raises():
+    from spring_river.hydro.wateryear import daily_max_stage
+
+    iv = pd.DataFrame(
+        {
+            "datetime": pd.to_datetime(
+                ["2020-01-01 00:15", "2020-01-01 12:00"]
+            ).tz_localize("US/Central"),
+            "value": [4.0, 9.5],
+            "approved": [True, False],
+        }
+    )
+    with pytest.raises(ValueError, match="datetime must be tz-naive"):
+        daily_max_stage(iv)

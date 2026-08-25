@@ -1,4 +1,7 @@
+import math
+
 import numpy as np
+import pytest
 
 from spring_river.hydro.baseflow import bfi, eckhardt
 
@@ -22,3 +25,25 @@ def test_bfi_between_0_and_1():
     rng = np.random.default_rng(7)
     q = np.exp(rng.normal(5, 1, size=500))
     assert 0 < bfi(q) < 1
+
+
+def test_eckhardt_empty_input():
+    b = eckhardt(np.array([]))
+    assert len(b) == 0
+
+
+def test_bfi_empty_input():
+    result = bfi(np.array([]))
+    assert math.isnan(result)
+
+
+def test_bfi_all_zero():
+    q = np.zeros(10)
+    result = bfi(q)
+    assert math.isnan(result)
+
+
+def test_eckhardt_nan_raises():
+    q = np.array([100.0, 200.0, float("nan"), 150.0])
+    with pytest.raises(ValueError, match="q contains NaN"):
+        eckhardt(q)

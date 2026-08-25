@@ -22,7 +22,13 @@ def min7(df: pd.DataFrame) -> pd.Series:
 
 def daily_max_stage(iv: pd.DataFrame) -> pd.DataFrame:
     """Daily max of instantaneous stage; a day is 'approved' only if all its
-    readings are. Hardy has no USGS daily-stage product, so this stands in."""
+    readings are. Hardy has no USGS daily-stage product, so this stands in.
+
+    Input datetime must be tz-naive local time (US/Central, as produced by usgs.get_iv).
+    Raises ValueError if datetime is tz-aware.
+    """
+    if iv["datetime"].dt.tz is not None:
+        raise ValueError("datetime must be tz-naive local time")
     day = iv["datetime"].dt.normalize()
     out = (
         iv.groupby(day)
