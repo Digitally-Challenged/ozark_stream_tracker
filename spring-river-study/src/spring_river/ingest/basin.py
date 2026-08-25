@@ -44,8 +44,6 @@ def cell_mask(lats: np.ndarray, lons: np.ndarray, poly: Polygon) -> np.ndarray:
     return shapely.contains_xy(poly, lon_grid, lat_grid)
 
 
-from spring_river.ingest import aorc, prism  # noqa: E402  (after the geometry helpers; aorc imports basin's geometry)
-
 LABELS = {
     "aorc": "NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon "
             "(~349 mi²), daily totals 24 h ending 12 UTC",
@@ -62,6 +60,10 @@ def get_basin_pcpn(
     start: str, end: str, source: str = BASIN_PRECIP_SOURCE, refresh: bool = False
 ) -> pd.DataFrame:
     """Daily basin-mean precip (`date`, `pcpn_in`) for the chosen source."""
+    # Local import: aorc and prism both import this module's geometry helpers, so a
+    # top-level import here would be a cycle resolved only by statement position.
+    from spring_river.ingest import aorc, prism
+
     if source not in BASIN_SOURCES:
         raise ValueError(f"source {source!r} not in {BASIN_SOURCES}")
     if source == "aorc":

@@ -342,7 +342,7 @@ def _postflood_section(
         f"recession limb). Controls: the 3 non-flood years (no ≥{MAJOR_FLOOD_FT:.0f} ft event within ±1 yr) closest in "
         f"standardized distance on same-calendar post-window precip AND antecedent base flow "
         f"(mean over the {PRE_STATE_DAYS} days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the "
-        "antecedent match.",
+        "antecedent match; precip windows with < 90 % day coverage are NaN and drop out of the match distance.",
         "",
     ]
     fig, axes = plt.subplots(1, len(series), figsize=(11, 4), sharey=True)
@@ -418,8 +418,9 @@ def main() -> None:
         "",
         "Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly "
         "antecedent to each water year's own min7 window: `p_trailing_in` = basin precip over the 365 days ending the "
-        "day before that WY's min7 end date; `p_trailing_prev_in` = the 365 days before that; `oni_trailing` = mean "
-        "ONI over the 6 months ending the month before the min7 end date. (The earlier fixed Sep–Feb recharge total "
+        "day before that WY's 7-day min7 window STARTS (its end date minus 7 days); `p_trailing_prev_in` = the 365 "
+        "days before that; `oni_trailing` = mean ONI over the 6 center-months ending in the month before that same "
+        "window-start day (end date minus 7 days). (The earlier fixed Sep–Feb recharge total "
         "leaked precipitation that fell after most years' min7.) Precip predictors require ≥90% day coverage; ONI ≥4 "
         "of 6 months. Incomplete water years are excluded from the fit.",
         "",

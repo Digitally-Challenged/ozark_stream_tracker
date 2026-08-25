@@ -672,7 +672,7 @@ Limitation: AORC is a 1 km gridded analysis blending Stage IV/MRMS radar (2002+)
 
 ## What changed with the polygon and AORC
 
-The first edition averaged PRISM over a 30 km buffer around West Plains. This edition uses the MoDNR recharge polygon and AORC; @tbl-sources repeats every precipitation-dependent result under all three basin series (same code, all-data variant). AORC and PRISM annual totals over the polygon agree (r = `{python} g(agree['value'], 3)`, ratio PRISM/AORC = `{python} g(ratio['value'], 3)`, n = `{python} int(agree['n'])` years).
+The first edition averaged PRISM over a 30 km buffer around West Plains. This edition uses the MoDNR recharge polygon and AORC; @tbl-sources repeats four precipitation-dependent results under all three basin series (same code, all-data variant): Q1 attribution, Q4 post-flood base flow, the Q3 intensity indices, and the precipitation→spring coupling. The annual ledger's `precip_recharge_in` and Phase 5's antecedent-conditions table run on the default source only. AORC and PRISM annual totals over the polygon agree (r = `{python} g(agree['value'], 3)`, ratio PRISM/AORC = `{python} g(ratio['value'], 3)`, n = `{python} int(agree['n'])` years).
 
 ```{python}
 #| label: tbl-sources
@@ -819,7 +819,7 @@ Methods
 - Q4 n = `{python} pf_n['hardy']` events; the bootstrap CI excludes matching uncertainty and control-year reuse (descriptive, not causal). BFImax is fixed rather than fitted; no linear-reservoir attribution.
 - Q6 spectral check not run (n = `{python} int(q6_main['n'])` events; not informative). Q7 has n_major = `{python} q7_nmaj`.
 - Lag-correlation block bootstrap is mildly optimistic across block boundaries.
-- Review overrules (docs/review_phase4-6.md): complete-WY selection uses the series end date only (no interior year-long stage gaps exist); Q4 precipitation windows have no coverage gate (basin series are complete).
+- Review overrules (docs/review_phase4-6.md): complete-WY selection uses the series end date only (no interior year-long stage gaps exist). Q4 precipitation windows now carry a coverage gate — a window with under 90 % of its calendar days observed is NaN and drops out of the match distance (AORC has documented missing days, so the first edition's "basin series are complete" no longer holds).
 - Seasonality (§6.1): Hardy POT event dates are the day of the declustered daily-max IV stage; the Rayleigh test is of uniformity only (a bimodal spring/autumn pattern can give low R without being uniform); Imboden annual peaks in NWIS begin WY 1937, so the 1930s row is partial and earlier decades are absent; per-decade tests at n ≤ 11 are low power.
 - Recession (§6.1): k depends on the min-peak (Hardy 10,000 cfs; Mammoth 488 cfs, the 90 % quantile of its DV) and 3-day skip choices; a single-exponential fit ignores multi-store behaviour; the k trend treats each event as a sample although events cluster within wet years, so n overstates independence; master curves are unweighted medians truncated at the last day reached by ≥ 3 runs, and the late IQR band rests on few long runs.
 

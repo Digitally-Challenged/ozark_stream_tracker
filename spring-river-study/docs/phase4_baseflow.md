@@ -6,7 +6,7 @@ Every trend line reports Sen slope, 95% CI, MK z/p and n; every analysis is repe
 
 Basin precip: NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC [aorc], 1981-01-01–2026-01-01; ONI: CPC, 1950-01-01–2026-06-01.
 
-Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly antecedent to each water year's own min7 window: `p_trailing_in` = basin precip over the 365 days ending the day before that WY's min7 end date; `p_trailing_prev_in` = the 365 days before that; `oni_trailing` = mean ONI over the 6 months ending the month before the min7 end date. (The earlier fixed Sep–Feb recharge total leaked precipitation that fell after most years' min7.) Precip predictors require ≥90% day coverage; ONI ≥4 of 6 months. Incomplete water years are excluded from the fit.
+Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly antecedent to each water year's own min7 window: `p_trailing_in` = basin precip over the 365 days ending the day before that WY's 7-day min7 window STARTS (its end date minus 7 days); `p_trailing_prev_in` = the 365 days before that; `oni_trailing` = mean ONI over the 6 center-months ending in the month before that same window-start day (end date minus 7 days). (The earlier fixed Sep–Feb recharge total leaked precipitation that fell after most years' min7.) Precip predictors require ≥90% day coverage; ONI ≥4 of 6 months. Incomplete water years are excluded from the fit.
 
 ### Mammoth
 
@@ -160,7 +160,7 @@ Flow percentile → stage (Hardy DV discharge percentiles; median stage of recen
 
 ## Q4 post-flood base flow vs matched non-flood years
 
-Post window: 6 months of Eckhardt base flow starting 30 days after the event (past the recession limb). Controls: the 3 non-flood years (no ≥16 ft event within ±1 yr) closest in standardized distance on same-calendar post-window precip AND antecedent base flow (mean over the 90 days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the antecedent match.
+Post window: 6 months of Eckhardt base flow starting 30 days after the event (past the recession limb). Controls: the 3 non-flood years (no ≥16 ft event within ±1 yr) closest in standardized distance on same-calendar post-window precip AND antecedent base flow (mean over the 90 days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the antecedent match; precip windows with < 90 % day coverage are NaN and drop out of the match distance.
 
 ### Mammoth
 

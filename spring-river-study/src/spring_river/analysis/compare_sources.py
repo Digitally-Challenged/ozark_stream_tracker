@@ -32,6 +32,8 @@ from spring_river.ingest import basin as basin_mod, oni, usgs
 
 Q3_INDICES = ("total_in", "recharge_in", "max1_in", "sdii_in")
 N_BOOT = 1000
+# Calendar days a year must carry in both series before its total enters the agreement stats.
+MIN_DAYS_FOR_ANNUAL = 360
 
 
 def _row(source: str, block: str, metric: str, value: float, lo: float = np.nan, hi: float = np.nan, n: int | None = None) -> dict:
@@ -89,7 +91,7 @@ def agreement_rows(a_name: str, a: pd.DataFrame, b_name: str, b: pd.DataFrame) -
     j = a.merge(b, on="date", suffixes=("_a", "_b")).dropna()
     ya = j.set_index("date")["pcpn_in_a"].resample("YS").agg(["sum", "count"])
     yb = j.set_index("date")["pcpn_in_b"].resample("YS").agg(["sum", "count"])
-    full = (ya["count"] >= 360) & (yb["count"] >= 360)
+    full = (ya["count"] >= MIN_DAYS_FOR_ANNUAL) & (yb["count"] >= MIN_DAYS_FOR_ANNUAL)
     ya, yb = ya.loc[full, "sum"], yb.loc[full, "sum"]
     src = f"{a_name} vs {b_name}"
     return [
@@ -122,19 +124,32 @@ def to_markdown_table(df: pd.DataFrame) -> str:
     return wide.reset_index().to_markdown(index=False)
 
 
+def _span(b: pd.DataFrame) -> tuple[pd.Timestamp, pd.Timestamp]:
+    """First and last date carrying a non-missing `pcpn_in` value."""
+    d = pd.to_datetime(b.loc[b["pcpn_in"].notna(), "date"])
+    return d.min(), d.max()
+
+
 def _figure(basins: dict[str, pd.DataFrame]) -> None:
     fig, ax = plt.subplots(figsize=(10, 4))
     for s, b in basins.items():
-        a = b.set_index("date")["pcpn_in"].resample("YS").sum(min_count=360)
+        a = b.set_index("date")["pcpn_in"].resample("YS").sum(min_count=MIN_DAYS_FOR_ANNUAL)
         ax.plot(a.index.year, a.values, marker="o", ms=3, label=s)
-    ax.set_ylabel("calendar-year total (in)"); ax.set_xlabel("year"); ax.legend()
-    ax.set_title("Basin precipitation by source; period 1981–present; no approval flag applies", fontsize=9)
-    fig.tight_layout(); fig.savefig(FIGURES_DIR / "precip_sources_annual.png", dpi=150); plt.close(fig)
+    ax.set_ylabel("calendar-year total (in)")
+    ax.set_xlabel("year")
+    ax.legend()
+    spans = "; ".join(f"{s} {first:%Y-%m-%d}–{last:%Y-%m-%d}" for s, (first, last) in
+                      ((s, _span(b)) for s, b in basins.items()))
+    ax.set_title(f"Basin precipitation by source; {spans}; no approval flag applies", fontsize=9)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "precip_sources_annual.png", dpi=150)
+    plt.close(fig)
 
 
 def main() -> None:
     end = date.today().isoformat()
-    TABLES_DIR.mkdir(parents=True, exist_ok=True); FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    TABLES_DIR.mkdir(parents=True, exist_ok=True)
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     oni_df = oni.get_oni()
     series = {"mammoth": usgs.get_dv(SITE_MAMMOTH, PARAM_DISCHARGE, START_DATE, end),
               "hardy": usgs.get_dv(SITE_HARDY, PARAM_DISCHARGE, START_DATE, end)}
@@ -150,7 +165,7 @@ def main() -> None:
     _figure(basins)
     lines = [f"# Basin precipitation source comparison — generated {date.today().isoformat()}", "",
              f"Default source for this edition: `{BASIN_PRECIP_SOURCE}`. Sources:", ""]
-    lines += [f"- `{s}`: {basin_mod.basin_label(s)} ({b['date'].min().date()}–{b['date'].max().date()})" for s, b in basins.items()]
+    lines += [f"- `{s}`: {basin_mod.basin_label(s)} ({_span(b)[0].date()}–{_span(b)[1].date()})" for s, b in basins.items()]
     lines += ["", "Same code paths as Phases 4 and 6 (all-data variant). Q1 = OLS p_trailing coefficient, R², residual Sen trend; "
               "Q4 = mean 6-month post-flood base-flow difference vs matched controls; Q3 = Sen slope per decade with BH flag; "
               "coupling = monthly anomaly lag correlation with block-bootstrap CI.", "",

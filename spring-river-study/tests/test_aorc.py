@@ -94,6 +94,61 @@ def test_get_basin_pcpn_clamps_to_latest_available_year(raw_dir, monkeypatch):
     assert calls == [2019, 2020]
 
 
+def _fake_year_writer(calls: list[int]):
+    """get_basin_hourly stand-in that also lays down the cache parquet the clamp looks for."""
+
+    def fake_year(year: int, refresh: bool = False) -> pd.DataFrame:
+        calls.append(year)
+        df = _hourly(f"{year}-12-31 13:00", 24, value=25.4)
+        df.to_parquet(cache.RAW_DIR / f"aorc_basin_hourly_{year}.parquet")
+        return df
+
+    return fake_year
+
+
+def test_get_basin_pcpn_skips_s3_listing_when_all_years_cached(raw_dir, monkeypatch):
+    calls: list[int] = []
+    fake_year = _fake_year_writer(calls)
+    for y in (2019, 2020):
+        fake_year(y)
+    calls.clear()
+
+    def refuse_listing() -> tuple[int, ...]:
+        raise AssertionError("listed")
+
+    monkeypatch.setattr(aorc, "available_years", refuse_listing)
+    monkeypatch.setattr(aorc, "get_basin_hourly", fake_year)
+    out = aorc.get_basin_pcpn("2019-01-01", "2020-12-31")
+    assert calls == [2019, 2020]
+    assert out["date"].tolist() == [pd.Timestamp("2020-01-01")]
+
+
+def test_get_basin_pcpn_warns_and_clamps_to_newest_cached_when_listing_fails(raw_dir, monkeypatch):
+    calls: list[int] = []
+    fake_year = _fake_year_writer(calls)
+    fake_year(2019)  # 2020 is deliberately absent, so the clamp must try the listing
+    calls.clear()
+
+    def offline_listing() -> tuple[int, ...]:
+        raise OSError("no network")
+
+    monkeypatch.setattr(aorc, "available_years", offline_listing)
+    monkeypatch.setattr(aorc, "get_basin_hourly", fake_year)
+    with pytest.warns(UserWarning, match="newest cached year 2019"):
+        aorc.get_basin_pcpn("2019-01-01", "2020-12-31")
+    assert calls == [2019]
+
+
+def test_get_basin_pcpn_reraises_when_listing_fails_with_no_cache(raw_dir, monkeypatch):
+    def offline_listing() -> tuple[int, ...]:
+        raise OSError("no network")
+
+    monkeypatch.setattr(aorc, "available_years", offline_listing)
+    monkeypatch.setattr(aorc, "get_basin_hourly", _fake_year_writer([]))
+    with pytest.raises(OSError, match="no network"):
+        aorc.get_basin_pcpn("2019-01-01", "2020-12-31")
+
+
 def test_fetch_year_raises_when_no_hours_in_bbox(monkeypatch):
     from spring_river.config import RECHARGE_POLYGON_PATH
     from spring_river.ingest.basin import load_recharge_polygon

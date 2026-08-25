@@ -7,6 +7,14 @@ Two basin definitions (second edition, 2026-08-25):
 - polygon=None: legacy bbox around a `buffer_km` circle centred on West
   Plains, MO (cache `prism_basin_pcpn_{buffer_km}km`); kept for comparison.
 PRISM daily values are the 24 h ending 12 UTC.
+
+The basin mean is unweighted over the cell centres inside the polygon; over the
+polygon's 0.33° latitude span the cos-latitude area bias between the northern
+and southern cells is under 0.5 %, so area weighting would not move the mean.
+
+Caches are keyed by geometry only, not by date range: a request with a different
+`[start, end]` returns whatever range the cache already holds. Pass `refresh=True`
+deliberately to re-pull a widened span.
 """
 import math
 

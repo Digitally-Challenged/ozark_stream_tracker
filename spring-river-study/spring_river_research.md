@@ -125,8 +125,11 @@ prism_polygon: daily r 0.955, annual-total r 0.966, ratio PRISM/AORC 1.01 (n = 4
 
 Interpretation: the precipitation coefficient tightened at Mammoth exactly as `docs/precip_sources.md`
 predicted — the p_trailing coefficient rose from 0.013 to 0.0156 log-cfs/in and OLS R² from 0.446 to
-0.577 once the basin was the traced recharge area rather than a 30 km circle three times its size and
-offset north-west. Coupling did not move (lag 1 month, r 0.45 on every source). Two conclusions did
+0.577. The table splits that gain between the two changes. Geometry alone (the same PRISM product moved
+from the 30 km buffer onto the traced recharge polygon) accounts for the smaller half: 0.013 → 0.0139
+log-cfs/in and R² 0.446 → 0.519. The product change (PRISM → AORC on that same polygon) supplies the
+rest: 0.0139 → 0.0156 and R² 0.519 → 0.577. So the traced basin and the 1 km hourly analysis each
+contribute, with the finer grid contributing slightly more of the R² gain than the geometry does. Coupling did not move (lag 1 month, r 0.45 on every source). Two conclusions did
 change. **Q3: the annual-total trend lost BH significance on both polygon series** (aorc +0.96 in/decade,
 CI −1.25 to 3.12; prism_polygon +2.01, CI −0.06 to 4.20) — the first edition's significant +2.4 in/decade
 was a property of the buffer, so the thesis becomes "more intense but not detectably wetter"; the

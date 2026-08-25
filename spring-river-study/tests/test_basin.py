@@ -1,8 +1,13 @@
+import subprocess
+import sys
+
 import numpy as np
+import pandas as pd
 import pytest
 from shapely.geometry import Polygon
 
 from spring_river.config import RECHARGE_POLYGON_PATH
+from spring_river.ingest import aorc, basin, prism
 from spring_river.ingest.basin import cell_mask, load_recharge_polygon, polygon_bbox
 
 
@@ -39,16 +44,17 @@ def test_cell_mask_area_roughly_349_sq_mi():
     assert 850 < km2 < 990
 
 
-import pandas as pd
-
-from spring_river.ingest import basin
+def test_basin_and_aorc_import_first_without_cycle():
+    """Either module must import cleanly as the first spring_river import in a fresh interpreter."""
+    for mod in ("spring_river.ingest.basin", "spring_river.ingest.aorc"):
+        subprocess.run([sys.executable, "-c", f"import {mod}"], check=True)
 
 
 def test_get_basin_pcpn_dispatches_by_source(monkeypatch):
     seen = []
     df = pd.DataFrame({"date": pd.to_datetime(["2020-01-01"]), "pcpn_in": [0.1]})
-    monkeypatch.setattr(basin.aorc, "get_basin_pcpn", lambda s, e, refresh=False: (seen.append("aorc"), df)[1])
-    monkeypatch.setattr(basin.prism, "get_basin_pcpn",
+    monkeypatch.setattr(aorc, "get_basin_pcpn", lambda s, e, refresh=False: (seen.append("aorc"), df)[1])
+    monkeypatch.setattr(prism, "get_basin_pcpn",
                         lambda s, e, polygon=None, refresh=False, **kw: (seen.append("polygon" if polygon is not None else "buffer"), df)[1])
     for src in ("aorc", "prism_polygon", "prism_buffer"):
         out = basin.get_basin_pcpn("2020-01-01", "2020-12-31", source=src)

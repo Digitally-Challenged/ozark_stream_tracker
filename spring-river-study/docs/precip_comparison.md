@@ -2,9 +2,9 @@
 
 Default source for this edition: `aorc`. Sources:
 
-- `aorc`: NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC (1981-01-01–2026-01-01)
-- `prism_polygon`: PRISM 4 km daily basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²) (1981-01-01–2026-08-25)
-- `prism_buffer`: PRISM 4 km daily mean over the legacy 30 km West Plains buffer bbox (first edition) (1981-01-01–2026-08-24)
+- `aorc`: NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC (1981-01-02–2025-12-31)
+- `prism_polygon`: PRISM 4 km daily basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²) (1981-01-01–2026-08-23)
+- `prism_buffer`: PRISM 4 km daily mean over the legacy 30 km West Plains buffer bbox (first edition) (1981-01-01–2026-08-23)
 
 Same code paths as Phases 4 and 6 (all-data variant). Q1 = OLS p_trailing coefficient, R², residual Sen trend; Q4 = mean 6-month post-flood base-flow difference vs matched controls; Q3 = Sen slope per decade with BH flag; coupling = monthly anomaly lag correlation with block-bootstrap CI.
 
