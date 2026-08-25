@@ -10,6 +10,7 @@ from datetime import date
 import pandas as pd
 
 from spring_river.config import (
+    ALTON_SID,
     PARAM_DISCHARGE,
     PARAM_STAGE,
     SITE_HARDY,
@@ -17,11 +18,13 @@ from spring_river.config import (
     SITE_MAMMOTH,
     START_DATE,
 )
-from spring_river.ingest import acis, nwps, prism, usgs
+from spring_river.ingest import acis, aorc, basin, nwps, prism, usgs
 
-# Decisions from docs/data_inventory.md (Task 7):
-# - Primary precip = KUNO (West Plains ASOS); secondary = USC00238880 (West Plains COOP).
-PRECIP_SIDS = ["KUNO", "USC00238880"]
+# Decisions from docs/data_inventory.md (Task 7) + docs/precip_sources.md (2026-08-25):
+# - Primary precip = KUNO (West Plains ASOS); secondary = USC00238880 (West Plains COOP);
+#   Alton COOP (1940→, eastern edge of the recharge polygon) appended for the second edition.
+#   Positions 0 and 1 are load-bearing (ledger, phase6) — append only.
+PRECIP_SIDS = ["KUNO", "USC00238880", ALTON_SID]
 # - IV stage (parm 00065) confirmed available at Hardy from 2007-10-01 onward.
 IV_START = "2007-10-01"
 
@@ -70,8 +73,13 @@ def main() -> None:
         df = acis.get_station_pcpn(sid, START_DATE, end)
         print(f"acis {sid}: {len(df)} rows")
 
-    df = prism.get_basin_pcpn(START_DATE, end)
-    print(f"prism basin: {len(df)} rows")
+    poly = basin.load_recharge_polygon()
+    for label, df in (
+        ("aorc", aorc.get_basin_pcpn(START_DATE, end)),
+        ("prism_polygon", prism.get_basin_pcpn(START_DATE, end, polygon=poly)),
+        ("prism_buffer", prism.get_basin_pcpn(START_DATE, end)),
+    ):
+        print(f"basin precip [{label}]: {len(df)} rows, {int(df['pcpn_in'].isna().sum())} NaN days")
 
     cats = nwps.flood_categories(nwps.get_gauge_info())
     print(f"nwps flood categories: {cats}")

@@ -167,6 +167,11 @@
   precipitation regime analysis back before 1998 and for cross-checking KUNO. (DORA 3SE,
   MO COOP, `1948-08-01`→`2026-08-11`, is a viable third candidate if a second
   cross-check station is needed later.)
+- **USC00230127 Alton, MO COOP** (added 2026-08-25, second edition): daily precip 1940→, active;
+  sits on the eastern edge of the MoDNR recharge polygon. Pulled 1981-01-01→ (cache
+  `acis_pcpn_USC00230127`); rows / NaN fraction recorded in the meta file. Used in Phase 6 as a
+  third station series; not used for `precip_cal_in` (that column stays on USC00238880 for
+  continuity).
 - [x] Mammoth Spring discharge series available: **yes — and long.** Period-of-record
   evidence pulled directly on both surfaced gauges: **07069190 "Mammoth Spring at
   Mammoth Spring"** (the spring vent itself, site_tp_cd `SP`) has DV discharge (parm
