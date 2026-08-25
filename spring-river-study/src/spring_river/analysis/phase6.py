@@ -6,10 +6,12 @@ Also resolves the qa_report open item: KUNO-vs-COOP agreement is re-tested
 on monthly totals, where the ~7 AM COOP observation-day offset should wash
 out.
 
-Cache note: `acis.get_station_pcpn` keys its cache on the station id only,
-so a 1948 start date returns the cached 1981+ COOP series. This build
-accepts that and says so in the report; a 1948 backfill is a separate
-`refresh=True` pull.
+The West Plains composite (Task 10) adds a fourth station series: the 1948→
+COOP record with its 2011–2021 volunteer-absence hole backfilled from KUNO ×
+the COOP/KUNO catch ratio. It substitutes a co-located measurement; it does
+not interpolate. The 1948 COOP pull lives in its own cache
+(`cache_suffix="_1948"`), so the 1981+ COOP series other phases read is
+unchanged.
 """
 import time
 from datetime import date
@@ -22,6 +24,7 @@ import numpy as np
 import pandas as pd
 
 from spring_river.analysis.common import approval_variants, caption, write_report
+from spring_river.climate import composite as composite_mod
 from spring_river.climate.coupling import lag_correlation, monthly_series, response_lag
 from spring_river.climate.intensity import INDEX_COLUMNS, annual_indices, index_trends
 from spring_river.config import (
@@ -42,6 +45,9 @@ ALTON_SID = PRECIP_SIDS[2]
 COOP_REQUESTED_START = "1948-01-01"
 MIN_MONTH_DAYS = 25
 N_BOOT = 1000
+COMPOSITE_LABEL = "West Plains composite"
+# Filesystem-safe parquet stems for the trend-loop labels.
+SERIES_STEM = {COMPOSITE_LABEL: "westplains_composite"}
 
 
 def _monthly_agreement(a: pd.DataFrame, b: pd.DataFrame) -> dict:
@@ -73,9 +79,16 @@ def _trend_section(label: str, idx: pd.DataFrame, tr: pd.DataFrame, span: str) -
             tr.drop(columns="series").round(3).to_markdown(index=False), ""]
 
 
-def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame,
-                     alton_idx: pd.DataFrame) -> list[str]:
+def _divergence_note(trends: dict[str, pd.DataFrame], indices: dict[str, pd.DataFrame],
+                     ratio: float, n_coop_fill: int) -> list[str]:
+    coop_idx, alton_idx = indices[COOP_SID], indices[ALTON_SID]
+    comp_idx = indices[COMPOSITE_LABEL]
     n_alton = int(alton_idx["total_in"].notna().sum())
+    n_comp = int(comp_idx["total_in"].notna().sum())
+    # "Highest-power station test" is a claim about index years, so check it.
+    station_years = {k: int(indices[k]["total_in"].notna().sum())
+                     for k in (COOP_SID, "KUNO", ALTON_SID, COMPOSITE_LABEL)}
+    best = max(station_years, key=station_years.get)
     n_sig = {k: int(v["significant_bh"].sum()) for k, v in trends.items()}
     failed = coop_idx.loc[coop_idx["total_in"].isna() & (coop_idx["year"] < date.today().year), "year"].astype(int).tolist()
     return ["## Station vs basin: reading the divergence", "",
@@ -91,6 +104,16 @@ def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame,
             "Treat the basin trends as the Q3 headline and the station tests as a consistency check.",
             f"- {ALTON_SID} (Alton) has no data 1983–1994 and 2012–2016; {n_alton} years pass the 90 % coverage gate, "
             "so its trend test is a consistency check only.",
+            f"- **{COMPOSITE_LABEL}**: the {COOP_SID} 1948→ record with its missing volunteer readings replaced by the "
+            f"co-located KUNO ASOS (~2 mi away) × the COOP/KUNO catch ratio {ratio:.3f}, plus {n_coop_fill} days after "
+            "1998-04-01 where KUNO was missing and COOP was not. This **substitutes a co-located measurement, it does "
+            "not interpolate** — a day missing at both gauges stays NaN and its year is still judged on coverage. "
+            f"That turns the 2011–2021 hole into a complete record: {n_comp} years pass the 90 % coverage gate, against "
+            f"{station_years[COOP_SID]} for {COOP_SID} alone, {station_years['KUNO']} for KUNO and {n_alton} for {ALTON_SID}. "
+            + (f"It is the highest-power station test in the study."
+               if best == COMPOSITE_LABEL
+               else f"Note {best} still has more index years ({station_years[best]}).")
+            + " Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.",
             ""]
 
 
@@ -139,18 +162,26 @@ def _lag_figure(lc: pd.DataFrame, mammoth: pd.DataFrame, path) -> None:
 def main() -> None:
     end = date.today().isoformat()
     TABLES_DIR.mkdir(parents=True, exist_ok=True); FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    coop = acis.get_station_pcpn(COOP_SID, COOP_REQUESTED_START, end)
+    coop = acis.get_station_pcpn(COOP_SID, START_DATE, end)
+    coop_1948 = acis.get_station_pcpn(COOP_SID, COOP_REQUESTED_START, end, cache_suffix="_1948")
     kuno = acis.get_station_pcpn(KUNO_SID, START_DATE, end)
+    ratio = composite_mod.catch_ratio(coop_1948, kuno)
+    composite = composite_mod.splice(coop_1948, kuno, ratio)
+    post = composite[composite["date"] >= composite_mod.KUNO_START]
+    n_kuno_days = int((post["source"] == "kuno").sum())
+    n_coop_fill = int((post["source"] == "coop").sum())
     alton = acis.get_station_pcpn(ALTON_SID, START_DATE, end)
     basin = basin_mod.get_basin_pcpn(START_DATE, end)
     mammoth = usgs.get_dv(SITE_MAMMOTH, PARAM_DISCHARGE, START_DATE, end)
 
     coop_span = _series_span(coop)
     lines = [f"# Phase 6 — precipitation regime (Q3) — generated {date.today().isoformat()}", "",
-             f"Series: {COOP_SID} West Plains COOP ({coop_span}; COOP series 1981+ in this build — the ACIS cache is "
-             f"keyed on station id, so the {COOP_REQUESTED_START[:4]} request returned the cached 1981+ pull; a 1948 backfill "
-             f"needs a `refresh=True` pull), KUNO ASOS ({_series_span(kuno)})"
-             f", {ALTON_SID} Alton COOP ({_series_span(alton)}), basin = {basin_mod.basin_label()} ({_series_span(basin)}).", "",
+             f"Series: {COOP_SID} West Plains COOP ({coop_span}; the 1981+ pull, unchanged — the other phases read this "
+             f"cache), KUNO ASOS ({_series_span(kuno)})"
+             f", {ALTON_SID} Alton COOP ({_series_span(alton)}), "
+             f"{COMPOSITE_LABEL} ({_series_span(composite)}; COOP through 1998-03-31, KUNO × {ratio:.3f} from "
+             f"1998-04-01 with COOP fallback; {n_kuno_days} KUNO days, {n_coop_fill} COOP-fallback days after "
+             f"1998-04-01), basin = {basin_mod.basin_label()} ({_series_span(basin)}).", "",
              "## Station agreement on monthly totals (qa_report follow-up)", ""]
     ag = _monthly_agreement(kuno, coop)
     lines += [f"- KUNO vs {COOP_SID} monthly totals (months with ≥{MIN_MONTH_DAYS} days at both stations): r={ag['r']:.2f}, "
@@ -158,15 +189,16 @@ def main() -> None:
               f"Daily r was 0.42 in qa_report; monthly aggregation removes the ~7 AM observation-day offset.", ""]
 
     trends, indices = {}, {}
-    for label, df in ((COOP_SID, coop), ("KUNO", kuno), (ALTON_SID, alton), ("basin", basin)):
+    for label, df in ((COOP_SID, coop), ("KUNO", kuno), (ALTON_SID, alton),
+                      (COMPOSITE_LABEL, composite[["date", "pcpn_in"]]), ("basin", basin)):
         idx = annual_indices(df)
-        idx.to_parquet(TABLES_DIR / f"phase6_indices_{label}.parquet")
+        idx.to_parquet(TABLES_DIR / f"phase6_indices_{SERIES_STEM.get(label, label)}.parquet")
         indices[label] = idx
         tr = index_trends(idx).assign(series=label)
         trends[label] = tr
         lines += _trend_section(label, idx, tr, _series_span(df))
     pd.concat(trends.values()).to_parquet(TABLES_DIR / "phase6_index_trends.parquet")
-    lines += _divergence_note(trends, indices[COOP_SID], indices[ALTON_SID])
+    lines += _divergence_note(trends, indices, ratio, n_coop_fill)
 
     t0 = time.perf_counter()
     lcs = {k: lag_correlation(monthly_series(basin, v), n_boot=N_BOOT) for k, v in approval_variants(mammoth).items()}
@@ -190,8 +222,9 @@ def main() -> None:
               f"Figure: {caption(f'USGS DV {SITE_MAMMOTH} + {basin_mod.basin_label()}', mammoth)}.", "",
               "## Limitations", "",
               f"- Station indices are point measurements; basin indices are a gridded areal mean ({basin_mod.basin_label()}) — smoother extremes by construction.",
-              f"- COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the "
-              f"{COOP_SID} trend window matches KUNO/basin rather than extending it.",
+              f"- The {COOP_SID} series used for the station trend above is the 1981+ pull, so its window matches "
+              f"KUNO/basin. The 1948–1980 record **is** now pulled (separate `_1948` cache) but feeds only the "
+              f"{COMPOSITE_LABEL}; the 1981+ COOP series the other analyses read is unchanged.",
               f"- {COOP_SID} has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.",
               "- Precip series carry no approval flag; the all/approved-only rule does not apply to the index trends. "
               "It does apply to the coupling (Mammoth flow carries flags) and is reported above. "

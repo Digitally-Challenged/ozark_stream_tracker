@@ -172,6 +172,18 @@
   `acis_pcpn_USC00230127`); rows / NaN fraction recorded in the meta file. Used in Phase 6 as a
   third station series; not used for `precip_cal_in` (that column stays on USC00238880 for
   continuity).
+- **West Plains composite** (added 2026-08-25, Task 10): a derived gap-free daily station series
+  1948-07-01→, built in `src/spring_river/climate/composite.py` and used as a fourth station
+  series in Phase 6 (`reports/tables/phase6_indices_westplains_composite.parquet`). Caches used:
+  `acis_pcpn_USC00238880_1948` (the 1948→ COOP pull, requested with the new `cache_suffix="_1948"`
+  argument to `acis.get_station_pcpn` so the 1981+ `acis_pcpn_USC00238880` cache the ledger and
+  other phases read stays untouched) and `acis_pcpn_KUNO`. Construction: COOP as measured through
+  1998-03-31; from 1998-04-01, KUNO × the COOP/KUNO catch ratio (1.068, computed over calendar
+  months with ≥ 25 non-NaN days at both gauges) wherever KUNO reported, unscaled COOP where KUNO
+  was missing and COOP was not, NaN where neither reported. A `source` column records `coop` /
+  `kuno` / `none` per day. This substitutes a co-located measurement for missing volunteer
+  readings; **no value is interpolated** and no gap is filled across, so the 90 % annual coverage
+  gate still applies unchanged.
 - [x] Mammoth Spring discharge series available: **yes — and long.** Period-of-record
   evidence pulled directly on both surfaced gauges: **07069190 "Mammoth Spring at
   Mammoth Spring"** (the spring vent itself, site_tp_cd `SP`) has DV discharge (parm

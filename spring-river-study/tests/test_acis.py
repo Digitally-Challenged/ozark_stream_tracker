@@ -48,3 +48,47 @@ def test_parse_stndata_empty_returns_contract_frame():
     assert len(out) == 0
     assert out["date"].dtype.kind == "M"
     assert out["pcpn_in"].dtype == "float64"
+
+
+def test_get_station_pcpn_cache_suffix_names_a_separate_file(tmp_path, monkeypatch):
+    """A cache_suffix keys a distinct cache file, leaving the plain one alone."""
+    import json
+
+    from spring_river.ingest import acis, cache
+
+    monkeypatch.setattr(cache, "RAW_DIR", tmp_path)
+
+    class _Resp:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return PAYLOAD
+
+    monkeypatch.setattr(acis.requests, "post", lambda *a, **k: _Resp())
+
+    out = acis.get_station_pcpn("USC00238880", "1948-01-01", "2020-01-06", cache_suffix="_1948")
+    assert len(out) == 6
+    assert (tmp_path / "acis_pcpn_USC00238880_1948.parquet").exists()
+    assert not (tmp_path / "acis_pcpn_USC00238880.parquet").exists()
+    meta = json.loads((tmp_path / "acis_pcpn_USC00238880_1948.meta.json").read_text())
+    assert meta["cache_suffix"] == "_1948"
+    assert meta["request"]["sdate"] == "1948-01-01"
+
+
+def test_get_station_pcpn_without_suffix_keeps_the_plain_cache_name(tmp_path, monkeypatch):
+    from spring_river.ingest import acis, cache
+
+    monkeypatch.setattr(cache, "RAW_DIR", tmp_path)
+
+    class _Resp:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return PAYLOAD
+
+    monkeypatch.setattr(acis.requests, "post", lambda *a, **k: _Resp())
+
+    acis.get_station_pcpn("USC00238880", "1981-01-01", "2020-01-06")
+    assert (tmp_path / "acis_pcpn_USC00238880.parquet").exists()
