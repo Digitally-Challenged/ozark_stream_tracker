@@ -132,7 +132,7 @@ rest: 0.0139 → 0.0156 and R² 0.519 → 0.577. So the traced basin and the 1 k
 contribute, with the finer grid contributing slightly more of the R² gain than the geometry does. Coupling did not move (lag 1 month, r 0.45 on every source). Two conclusions did
 change. **Q3: the annual-total trend lost BH significance on both polygon series** (aorc +0.96 in/decade,
 CI −1.25 to 3.12; prism_polygon +2.01, CI −0.06 to 4.20) — the first edition's significant +2.4 in/decade
-was a property of the buffer, so the thesis becomes "more intense but not detectably wetter"; the
+was a property of the buffer, so the thesis becomes **[superseded by Phase 8: the buffer-vs-polygon trend difference is +0.27 in/decade with a CI spanning zero, and the intensity indices are a 2002 product step — see review.md]** — "more intense but not detectably wetter"; the
 intensity indices (max 1-day, SDII, days ≥ 1 in) stay significant on all three sources. **Q1 Hardy: the
 residual trend is +0.0203 log-cfs/yr (CI 0.0092 to 0.0291, n=24) on AORC**, where both PRISM series give
 CIs spanning zero — on the primary series Hardy's rising min7 is *not* fully explained by antecedent

@@ -106,7 +106,7 @@ Tally: 24 claims reviewed — 11 stand, 9 weakened, 3 refuted, 1 untestable. Two
 - **Would settle it.** Wet-day-frequency (quantile) matching between COOP and KUNO over the 282 overlapping months instead of a mean ratio, with the adjustment uncertainty propagated into the trend CI.
 
 ### Q3e — "6/10 indices BH-significant"
-- **Checks (reviewer).** Mean |r| among the ten indices 0.48; max-T permutation (year labels permuted jointly, 5,000 draws): 3/10 survive (SDII, days ≥1 in, top-5 share); growing-season total, days ≥2 in, max1 do not.
+- **Checks (reviewer).** Mean |r| among the ten indices 0.48; max-T permutation (year labels permuted jointly, 5,000 draws): the reviewer found 3/10 (SDII, days ≥1 in, top-5 share); the committed runner (`reports/tables/phase6_maxt.parquet`, seed 0) reproduces 2/10 — SDII and days ≥1 in — with top-5 share marginal at p = 0.078; growing-season total, days ≥2 in and max1 do not survive either way.
 - **Verdict: WEAKENED.** Stop using the count as a summary; subordinate to Q3a, under which none are trends.
 
 ### Q3f — annual total (+0.96, CI −1.25 to 3.12) and recharge-season total (−0.81, CI −1.99 to 0.60) not rising
