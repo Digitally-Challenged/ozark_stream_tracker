@@ -71,12 +71,39 @@ def main() -> None:
     ]
 
     if len(PRECIP_SIDS) >= 2:
-        a = acis.get_station_pcpn(PRECIP_SIDS[0], START_DATE, end)
-        b = acis.get_station_pcpn(PRECIP_SIDS[1], START_DATE, end)
+        precip_series = {}
+        lines += ["## Precip homogeneity", ""]
+        for sid in PRECIP_SIDS:
+            df = acis.get_station_pcpn(sid, START_DATE, end)
+            precip_series[sid] = df
+            gap_df = df.rename(columns={"pcpn_in": "value"})[["date", "value"]]
+            gaps = find_gaps(gap_df)
+            n_nan = int(gap_df["value"].isna().sum())
+            lines += [
+                f"### {sid}",
+                "",
+                f"- rows: {len(df)}; span {df['date'].min().date()} → {df['date'].max().date()}",
+                f"- NaN days: {n_nan}",
+                f"- gaps > 7 days: {len(gaps)}",
+                "",
+                gaps.to_markdown(index=False) if len(gaps) else "(none)",
+                "",
+            ]
+
+        overlap = precip_overlap(precip_series[PRECIP_SIDS[0]], precip_series[PRECIP_SIDS[1]])
         lines += [
-            "## Precip homogeneity",
+            f"### {PRECIP_SIDS[0]} vs {PRECIP_SIDS[1]} overlap",
             "",
-            f"- {PRECIP_SIDS[0]} vs {PRECIP_SIDS[1]}: {precip_overlap(a, b)}",
+            f"- overlap days: {overlap['n_days']}",
+            f"- correlation: {overlap['corr']:.2f}",
+            f"- mean ratio ({PRECIP_SIDS[1]}/{PRECIP_SIDS[0]}): {overlap['mean_ratio']:.2f}",
+            "",
+            (
+                "Daily correlation between an ASOS calendar-day series and a COOP "
+                "station whose observation day ends ~7 AM is expected to be depressed "
+                "by the observation-time offset; Phase 4 should compare on multi-day "
+                "or monthly aggregates before treating this as a data-quality problem."
+            ),
             "",
         ]
     else:
