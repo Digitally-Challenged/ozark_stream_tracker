@@ -19,8 +19,11 @@ regime over the Mammoth Spring recharge basin. Output is a reproducible report.
 See docs/data_inventory.md. Ingest modules must be idempotent and cached.
 
 ## Analysis order
-Phases 0–8 in plan.md. Phases 0–7 complete (2026-08-25); Phase 8 (adversarial review of
-conclusions → review.md) next. Outputs: docs/phase4_baseflow.md, docs/phase5_floods.md, docs/phase6_precip.md;
+Phases 0–8 in plan.md. **All phases complete (2026-08-25).** Phase 8 was the adversarial
+review of the conclusions: `review.md` is the record — verdicts on 24 claims plus the
+punch list that was implemented — and the four reviewer reports are in `docs/review_phase8/`.
+Two second-edition headlines changed there (Q3 intensity; Q7 framing), so read `review.md`
+before citing any conclusion. Outputs: docs/phase4_baseflow.md, docs/phase5_floods.md, docs/phase6_precip.md;
 docs/phase7_seasonality.md; reports/report.html via `make report` (Quarto in ~/.local/bin).
 Decisions and headline results in spring_river_research.md. `make analysis` rebuilds all.
 Second edition 2026-08-25: basin precip via ingest/basin.py (`config.BASIN_PRECIP_SOURCE`, default

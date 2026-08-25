@@ -67,14 +67,14 @@ systematic series. Imboden's 1915+ peaks are the defensible long series.
 
 | Q | Hypothesis | Result |
 |---|---|---|
-| Q1 | Drought-driven, not structural | **(2nd ed.)** Supported at Mammoth, source-dependent at Hardy. Mammoth residual trend −0.0013 log-cfs/yr (CI −0.0033 to +0.0012, n=42) — CI spans zero on all three basin series. Hardy residual +0.0203 (CI +0.0092 to +0.0291, n=24) on AORC, but the CI spans zero on both PRISM series (prism_polygon +0.0103, CI −0.0006 to 0.0191; prism_buffer +0.0068, CI −0.0014 to 0.0195). Hardy raw min7 rises (+0.023/yr, CI 0.007–0.036); antecedent precip explains part of it (R²=0.41 on AORC). |
-| Q2 | Magnitude up, frequency flat | Not detectable. Imboden peaks +0.0011 log10-cfs/yr (CI −0.0012 to 0.0041, n=89); pre/post-2008 10-yr quantile CIs overlap. |
-| Q3 | Weak/inconclusive | **(2nd ed.)** More intense but not detectably wetter. Basin (AORC, MoDNR polygon): 6/10 indices BH-significant — max 1-day +0.26 in/decade (CI 0.05–0.50), SDII +0.032 in/wet-day/decade (CI 0.020–0.046), days ≥ 1 in +1.38/decade (CI 0.49–2.22) — but annual total is **not** significant (+0.96 in/decade, CI −1.25 to 3.12, n=45); the first edition's significant +2.4 was a property of the oversized 30 km buffer. Recharge-season total flat-to-negative (−0.81, CI −1.99 to 0.60, n=44). Single-station tests low-power (COOP coverage gaps), but the 76-year West Plains 1948– record (COOP to Mar 1998, then KUNO raised by the measured 1.068 catch ratio) is not: only days ≥ 1 in is BH-significant (+0.70/decade, CI 0.26 to 1.15, n=76), with max 1-day and SDII CIs spanning zero — the gauge shows more wet days, not harder rain, and does not corroborate the basin intensification over 1949–2025. |
-| Q4 | Floods reduce recharge | **(2nd ed.) Not supported — opposite sign.** 6-month post-flood base flow +26% (Mammoth, CI 16–41, 16 unique controls) and +31% (Hardy, CI 20–39, 10 controls), n=6; matched on precip + antecedent base flow, 30-day recession skip. Stable across all three basin sources. Descriptive, not causal. |
-| Q5 | Partly a rating artifact | Supported. Stage at 1000 cfs −0.019 ft/yr (CI −0.021 to −0.016, n=19; local log-linear fit), 400 cfs −0.008 (CI −0.013 to −0.005); ±1-yr event shifts −0.18 to +0.02 ft — gradual drift dominates. |
-| Q6 | Modal, not periodic | Consistent with memoryless: CV 1.01, bootstrap p=0.47, n=7. |
-| Q7 | Pattern, n=2 | No support; P(quiet\|major)=0 vs base 0.08 (Clopper-Pearson diff −0.08 to +0.44), n_major=5. |
-| Q8 | 10 ft≈annual; 16≈4 yr; 22+≈15–25 | 10 ft 1.4 yr; 16 ft 4.5 (empirical 4.0); 20 ft 12.5; 23 ft ~29 yr (n=24 → wide). |
+| Q1 | Drought-driven, not structural | **(Phase 8)** Supported at Mammoth; **at Hardy the rise is a finding, not a source artefact**. Mammoth residual trend −0.0013 log-cfs/yr (CI −0.0033 to +0.0012, n=42) — but the PRISM fits are consistently, marginally negative and one specification (prism_polygon, 730-d window) has a CI excluding zero, so "≈0 on all three sources" overstates the agreement. Hardy residual +0.0203 (CI +0.0092 to +0.0291, n=24). The hedge is retired on two grounds that use no precipitation model: log(Hardy min7 / Mammoth min7) rises **+0.0124/yr (CI +0.0028 to +0.0219, p=0.0023, n=24)**, Pettitt after WY2014 (p=0.029); and dropping the never-significant ONI term makes the residual rise significant on **all three** sources (AORC +0.0213, PRISM-polygon +0.0116 p=0.021, buffer +0.0110 p=0.016). |
+| Q2 | Magnitude up, frequency flat | **(Phase 8)** Not detectable — on a test that could have found it. Imboden peaks +0.0011 log10-cfs/yr (CI −0.0012 to 0.0041, n=89); pre/post-2008 10-yr quantile CIs overlap. The old conjunction rule only saw the centre of the distribution, so the upper tail was tested directly: q=0.90 quantile regression +0.0026 (CI −0.0017 to +0.0070) and top-quartile Sen +0.0008 (CI −0.0009 to +0.0039) — both span zero. A WY2008 mean shift (Welch p=0.028, Mann–Whitney p=0.050) is disclosed as **post hoc**: the split year was chosen after seeing the data (a 1980 split gives p=0.77). |
+| Q3 | Weak/inconclusive | **(Phase 8 — REFRAMED)** **Not wetter, and no intensification detectable once the 2002 AORC radar onset is allowed for.** Annual total not significant (+0.96 in/decade, CI −1.25 to 3.12, n=45) and recharge-season total flat-to-negative (−0.81, CI −1.99 to 0.60, n=44) — the robust result, unaffected by the step term. The sharpness indices **step rather than trend**: with a 2002 step term SDII's slope is −0.002/decade (p=0.86) while its step is significant (p=0.001); days ≥1 in slope −0.93 (p=0.20), step p=0.0003. Within-era Sen slopes are flat-to-negative on every sharpness index (0 of 6 era combinations rising). Over identical years AORC SDII +36 % vs the West Plains gauge +1 %, and days ≥1 in +56 % vs +18 %, while the two products agree on annual total (+9 % vs +11 %) — a product change, not a weather change. Family-wise max-T (joint permutation, 5,000 draws) leaves 2/10 vs 6/10 under BH; the count is no longer used as a summary. The gauge fails to corroborate over its own 1949–2025 record and over AORC's identical window, and its one BH-significant index (days ≥1 in) survives at the measured catch ratio 1.068 but not at 1.00 or 1.034. PRISM shares AORC's inputs and is not an independent witness. |
+| Q4 | Floods reduce recharge | **(Phase 8)** **Not supported — opposite sign at Mammoth; Hardy materially weakened.** Mammoth +26 % (CI 16–41) against a placebo mean of **+0.6 %** — 0 of 200 placebo trials reach it — and stable from a 15- to a 90-day skip: stands, and stronger than the CI alone suggests. Hardy +31 % (CI 20–39) against a placebo mean of **+9.7 %** that **11 %** of trials reach, falling to **+8.0 % (CI −8.1 to +22.8)** at a 90-day skip; placebo-corrected ≈ +21 %. About a third of Hardy's figure is procedural and part of the rest is recession water. n=6 events. Descriptive, not causal. |
+| Q5 | Partly a rating artifact | **(Phase 8) Not an artifact — the channel really degraded, and the effect is understated.** Stage at 1000 cfs −0.019 ft/yr (CI −0.021 to −0.016, n=19), 400 cfs −0.008 (CI −0.013 to −0.005); event shifts −0.18 to +0.02 ft. The circularity objection (IV discharge is itself rating-derived) is answered by **field measurements**, where discharge and stage are both measured at the visit: stage at 400 cfs falls **−0.0149 ft/yr (CI −0.0219 to −0.0105, p<0.0001, n=20 WY 2003–2026)** — steeper, four years longer, and it brackets the 2006-09-23 event the shift table omits. Datum history reviewed: two revisions (340.91→342.49 ft pre-Dec 2022; 342.49→342.73 ft Dec 2022–Dec 2024), **no site move, nothing at WY2008**. The "~1 % agreement in every era" is corrected: era means are a few per cent either side of zero with sd several times larger, and are not independent evidence anyway (USGS shifts the rating to these measurements). |
+| Q6 | Modal, not periodic | **(Phase 8)** **No cadence detectable — and none weaker than near-metronomic could have been.** CV 1.01, bootstrap p=0.47, n=7. At 6 gaps an exponential null routinely gives CV 0.42–1.50, and power is 0.23 at CV 0.7, 0.58 at CV 0.5, reaching 80 % only at CV≈0.35. Absence of evidence, not evidence of absence. |
+| Q7 | Pattern, n=2 | **(Phase 8 — RECLASSIFIED) UNTESTABLE with the current record.** P(quiet\|major)=0 vs base 0.08 (Clopper-Pearson diff −0.08 to +0.44), n_major=5. Fisher power is 0.08 against a 2.5× effect and reaches 80 % only at a true conditional rate ≈0.8; the exact bound admits any rate in 0.00–0.52. The design produced **no result**, which is not a null result. |
+| Q8 | 10 ft≈annual; 16≈4 yr; 22+≈15–25 | **(Phase 8)** 10 ft 1.4 yr; 16 ft 4.5 (empirical 4.0). At the major tier the systematic-only fit is **biased long ~20–30 %** because it excludes the known 1982 crest (29.0 ft, ≈156,000 cfs). With it as historical information (B17B weighting): H=44 yr → 20 ft 9.9, 23 ft 20.1; H=90 yr → 11.3 / 24.5. **Quote 20 ft as 10–13 yr and 23 ft as 20–29 yr**, not 12.5 and 29. Still inside the 5–95 % bootstrap band, so not refuted. The station-skew case moves 23 ft by <1 yr and is not the sensitivity that matters. |
 
 ## Phase 7 decisions — 2026-08-25
 
@@ -184,3 +184,59 @@ correction across the ten indices. So the record corrects the "station tests are
 rather than confirming the basin thesis: with the power problem removed, the gauge does not
 corroborate intensification over the longer window. That is a genuine point-vs-areal and
 1948-vs-1981 difference, not a coverage artifact, and the prose now says so.
+
+## Phase 8 — adversarial review of the conclusions — 2026-08-25
+
+Four independent reviewers (three domain attackers — base flow and gauge, floods, precipitation — plus a
+generalist) were given every conclusion with its numbers and told to refute it, to state what would falsify
+it, and to run their own checks. Verdicts and the punch list: `review.md`; reports: `docs/review_phase8/`.
+Of 24 claims: 11 stand, 9 weakened, 3 refuted, 1 untestable. Everything below is computed by the phase
+runners, not transcribed.
+
+**Conclusions that changed.**
+
+- **Q3 reframed (refuted as stated).** "More intense, not detectably wetter" → *totals are not rising, and no
+  intensification is detectable over the recharge area once the 2002 AORC radar onset is allowed for*. The
+  sharpness indices step at the documented change in the product's inputs and trend flat-to-negative within
+  each era; the co-located gauge does not move with them over identical years while the annual totals agree.
+  The "6/10 BH-significant" count is removed from the abstract and synthesis (max-T leaves 2/10).
+- **Q7 reclassified** from "no support" to **untestable with the current record**: the design produced no
+  result, not a null result (Fisher power 0.08 against a 2.5× effect).
+- **Q6 restated**: "memoryless" → "no cadence detectable, and none weaker than near-metronomic could have
+  been", with the power statement attached.
+- **Q8 requoted**: 20 ft 10–13 yr and 23 ft **20–29 yr** with the 1982 crest as historical information, which
+  replaces the station-skew case as the headline sensitivity.
+- **Q4 Hardy weakened**: reported with its placebo (+9.7 %, 11 % of trials reach the effect) and the 90-day
+  skip result (+8.0 %, CI spans zero). Mammoth stands and is stronger than claimed (placebo +0.6 %, 0/200).
+
+**Conclusions that became stronger.**
+
+- **Q1 Hardy**: the low-flow rise is a finding. Led by the Hardy/Mammoth min7 ratio (+0.0124/yr, p=0.002),
+  which involves no precipitation model, plus precip-only fits significant on all three sources.
+- **Q5**: the field-measurement stage decline (−0.015 ft/yr, p<0.0001) retires the "IV-derived only"
+  limitation and the "no datum records reviewed" limitation.
+- **Q2**: now rests on a pre-registered upper-tail test (q=0.90 quantile regression) rather than a
+  conjunction rule that could barely fail.
+
+**Corrections of wording and number.**
+
+- Mammoth "≈0 on all three sources" → the PRISM fits are consistently, marginally negative (one CI excludes
+  zero).
+- Buffer-vs-polygon → a p-value threshold crossing, not an attribution to the geometry (difference trend
+  +0.27 in/decade, CI spans zero, r=0.984).
+- West Plains days ≥1 in → reported with the catch-ratio sensitivity 1.00–1.10, plus the residual 1998 splice
+  step in SDII and the recharge season.
+- Coupling → "onset within 2 days; monthly correlation maximised at lag 1 month". The monthly figure is a
+  bin, not a transit time.
+- BFI's null is **not** evidence against a base-flow change (a ratio near 1 is nearly blind to the absolute
+  rate); Pettitt p-values now sit beside their years, and Mammoth's WY2008 change-point is not significant
+  (p=0.26). On complete water years the Hardy−Mammoth difference and the ratio both locate the change at
+  WY2014 — the earlier WY2008-vs-WY2013 discrepancy was an incomplete-final-year artefact.
+- §6.1 → effective n by water-year block (Hardy 11 of 16 events; Mammoth 32 of 80), 7 Mammoth fits with
+  r²<0.75 flagged, and a Watson–Williams test across decades: no drift on the long Imboden series (p=0.32),
+  though the three-decade Hardy annual-peak series does reject a common mean (p=0.027).
+
+**Still open.** NOAA's AORC v1.1 homogeneity documentation and a one-cell AORC re-pull at the gauge
+coordinate; an independent gridded product with no 2002 input change (nClimGrid-Daily, Livneh);
+quantile-based COOP/KUNO homogenisation; PeakFQ/EMA with the 1982 crest; synoptic seepage runs
+Mammoth → South Fork → Hardy; the USGS shift tables (field and channel measurements are now in hand).
