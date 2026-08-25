@@ -71,25 +71,25 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
-Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-month block-bootstrap resamples for the CI (12 s).
+Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-month block-bootstrap resamples for the CI (0 s).
 
 |   lag |      r |   r_lo |   r_hi |   n |
 |------:|-------:|-------:|-------:|----:|
 |     0 |  0.3   |  0.252 |  0.358 | 545 |
-|     1 |  0.463 |  0.373 |  0.494 | 545 |
-|     2 |  0.357 |  0.222 |  0.366 | 545 |
-|     3 |  0.278 |  0.124 |  0.283 | 544 |
-|     4 |  0.22  |  0.059 |  0.22  | 543 |
-|     5 |  0.161 | -0.003 |  0.179 | 542 |
-|     6 |  0.128 | -0.029 |  0.138 | 541 |
-|     7 |  0.096 | -0.053 |  0.118 | 540 |
-|     8 |  0.06  | -0.077 |  0.106 | 539 |
-|     9 |  0.002 | -0.088 |  0.094 | 538 |
-|    10 | -0.001 | -0.087 |  0.08  | 537 |
-|    11 |  0.049 | -0.088 |  0.093 | 536 |
-|    12 |  0.02  | -0.09  |  0.085 | 535 |
+|     1 |  0.463 |  0.422 |  0.526 | 545 |
+|     2 |  0.357 |  0.29  |  0.409 | 545 |
+|     3 |  0.278 |  0.186 |  0.347 | 544 |
+|     4 |  0.22  |  0.134 |  0.272 | 543 |
+|     5 |  0.161 |  0.064 |  0.217 | 542 |
+|     6 |  0.128 |  0.035 |  0.203 | 541 |
+|     7 |  0.096 |  0.007 |  0.169 | 540 |
+|     8 |  0.06  | -0.036 |  0.151 | 539 |
+|     9 |  0.002 | -0.107 |  0.088 | 538 |
+|    10 | -0.001 | -0.083 |  0.085 | 537 |
+|    11 |  0.049 | -0.029 |  0.14  | 536 |
+|    12 |  0.02  | -0.062 |  0.125 | 535 |
 
-- response lag (max r): 1 months, r=0.46 (95% CI 0.37 to 0.49), n=545 months
+- response lag (max r): 1 months, r=0.46 (95% CI 0.42 to 0.53), n=545 months
 
 ![indices](../reports/figures/phase6_indices.png)
 
@@ -105,4 +105,4 @@ Figure: source: USGS DV 07069190 + PRISM 30 km basin mean; period 1981-02-25–2
 - COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the USC00238880 trend window matches KUNO/basin rather than extending it.
 - USC00238880 has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.
 - Precip series carry no approval flag; the all/approved-only rule does not apply here. Mammoth flow used in coupling: source: USGS DV 07069190; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
-- Lag correlation uses a fixed 12-month block bootstrap; lagged pairs that straddle block boundaries are scrambled, which biases resampled r low and makes the CI asymmetric (the upper bound hugs the point estimate). Read r_lo as the conservative bound; the CI does not otherwise correct for serial correlation.
+- Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year serial correlation but not dependence across block boundaries, so it is mildly optimistic.

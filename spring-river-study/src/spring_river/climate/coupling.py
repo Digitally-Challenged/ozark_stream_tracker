@@ -41,11 +41,19 @@ def lag_correlation(m: pd.DataFrame, max_lag: int = 12, n_boot: int = 1000, seed
     rows = []
     for lag in range(max_lag + 1):
         r, n = _lag_r(d, lag)
+        # Lag FIRST, then block-resample the aligned pairs: resampling the raw
+        # series before lagging would break pairs at every block boundary and
+        # bias the bootstrap r low.
+        x = d["p_a"].shift(lag).to_numpy()
+        y = d["q_a"].to_numpy()
+        ok = ~np.isnan(x) & ~np.isnan(y)
+        px, py = x[ok], y[ok]
         boots = []
-        for _ in range(n_boot):
-            starts = rng.integers(0, len(d) - 12, n_blocks)
-            sample = pd.concat([d.iloc[s : s + 12] for s in starts], ignore_index=True)
-            boots.append(_lag_r(sample, lag)[0])
+        if len(px) >= 24:
+            for _ in range(n_boot):
+                starts = rng.integers(0, len(px) - 12, n_blocks)
+                idx = np.concatenate([np.arange(s, s + 12) for s in starts])
+                boots.append(np.corrcoef(px[idx], py[idx])[0, 1])
         boots = np.array([b for b in boots if not np.isnan(b)])
         lo, hi = (np.percentile(boots, [2.5, 97.5]) if len(boots) else (float("nan"), float("nan")))
         rows.append({"lag": lag, "r": r, "r_lo": float(min(lo, r)), "r_hi": float(max(hi, r)), "n": n})

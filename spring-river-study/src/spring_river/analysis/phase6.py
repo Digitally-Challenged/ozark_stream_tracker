@@ -153,9 +153,8 @@ def main() -> None:
               f"- {COOP_SID} has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.",
               "- Precip series carry no approval flag; the all/approved-only rule does not apply here. "
               f"Mammoth flow used in coupling: {caption(f'USGS DV {SITE_MAMMOTH}', mammoth)}.",
-              "- Lag correlation uses a fixed 12-month block bootstrap; lagged pairs that straddle block boundaries are "
-              "scrambled, which biases resampled r low and makes the CI asymmetric (the upper bound hugs the point "
-              "estimate). Read r_lo as the conservative bound; the CI does not otherwise correct for serial correlation."]
+              "- Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year "
+              "serial correlation but not dependence across block boundaries, so it is mildly optimistic."]
     write_report(DOCS_DIR / "phase6_precip.md", lines)
     print(f"wrote {DOCS_DIR / 'phase6_precip.md'} (lag bootstrap {lag_secs:.0f} s)")
 
