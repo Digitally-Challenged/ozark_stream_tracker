@@ -93,9 +93,9 @@ def _trend_table(tr: pd.DataFrame) -> str:
 def _divergence_note(trends: dict[str, pd.DataFrame], indices: dict[str, pd.DataFrame],
                      ratio: float) -> list[str]:
     coop_idx, alton_idx = indices[COOP_SID], indices[ALTON_SID]
-    comp_idx = indices[WP_LABEL]
+    wp_idx = indices[WP_LABEL]
     n_alton = int(alton_idx["total_in"].notna().sum())
-    n_comp = int(comp_idx["total_in"].notna().sum())
+    n_wp = int(wp_idx["total_in"].notna().sum())
     # "Highest-power station test" is a claim about index years, so check it.
     station_years = {k: int(indices[k]["total_in"].notna().sum())
                      for k in (COOP_SID, "KUNO", ALTON_SID, WP_LABEL)}
@@ -121,24 +121,24 @@ def _divergence_note(trends: dict[str, pd.DataFrame], indices: dict[str, pd.Data
             f"systematically by ~{abs(ratio - 1) * 100:.0f} % on monthly totals, so the airport values are put on the "
             "town gauge's level rather than left as a step at 1998-04-01. **No day is borrowed between gauges**: a day "
             "the period's own instrument missed stays NaN, its year still judged on coverage; nothing is interpolated. "
-            f"Taking KUNO from 1998 closes the 2011–2021 volunteer-absence hole: {n_comp} years pass the 90 % coverage gate, against "
+            f"Taking KUNO from 1998 closes the 2011–2021 volunteer-absence hole: {n_wp} years pass the 90 % coverage gate, against "
             f"{station_years[COOP_SID]} for {COOP_SID} alone, {station_years['KUNO']} for KUNO and {n_alton} for {ALTON_SID}. "
             + (f"It is the highest-power station test in the study."
                if best == WP_LABEL
                else f"Note {best} still has more index years ({station_years[best]}).")
             + " Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.",
-            _westplains_interpretation(trends[WP_LABEL], comp_idx, n_comp),
+            _westplains_interpretation(trends[WP_LABEL], wp_idx, n_wp),
             ""]
 
 
-def _westplains_interpretation(comp_tr: pd.DataFrame, comp_idx: pd.DataFrame, n_comp: int) -> str:
+def _westplains_interpretation(wp_tr: pd.DataFrame, wp_idx: pd.DataFrame, n_wp: int) -> str:
     """One computed sentence on what the record shows — no typed year counts."""
-    tr = comp_tr.set_index("index")
-    yrs = comp_idx.loc[comp_idx["total_in"].notna(), "year"]
+    tr = wp_tr.set_index("index")
+    yrs = wp_idx.loc[wp_idx["total_in"].notna(), "year"]
     sig = tr.index[tr["significant_bh"]].tolist()
     intensity = [c for c in ("max1_in", "max3_in", "sdii_in", "top5_frac") if c in tr.index]
     quiet = [c for c in intensity if not tr.loc[c, "significant_bh"]]
-    return (f"- Reading the {WP_LABEL}, from its numbers: over the {n_comp} complete years "
+    return (f"- Reading the {WP_LABEL}, from its numbers: over the {n_wp} complete years "
             f"({int(yrs.min())}–{int(yrs.max())}) the BH-significant indices are "
             f"{', '.join(sig) if sig else 'none'}"
             + (f", while the intensity indices ({', '.join(quiet)}) have CIs spanning zero. "
