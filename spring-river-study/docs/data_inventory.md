@@ -28,6 +28,30 @@
 |  07069190 | Mammoth Spring at Mammoth Spring     | SP           |
 |  07069220 | Spring River near Mammoth Spring, AR | ST           |
 
+## Warnings
+
+(none)
+
+## USGS Mammoth Spring gauges — period of record
+
+### 07069220 — Spring River near Mammoth Spring, AR
+
+|   parm_cd | data_type_cd   | begin_date   | end_date   |   count_nu |
+|----------:|:---------------|:-------------|:-----------|-----------:|
+|        60 | dv             | 1988-03-17   | 2016-10-04 |       4764 |
+|       nan | pk             | 1988-03-29   | 2025-04-04 |         23 |
+|        60 | uv             | 1989-10-04   | 2016-10-05 |       9863 |
+|        65 | uv             | 2010-04-16   | 2026-08-24 |       5974 |
+
+### 07069190 — Mammoth Spring at Mammoth Spring
+
+|   parm_cd | data_type_cd   | begin_date   | end_date   |   count_nu |
+|----------:|:---------------|:-------------|:-----------|-----------:|
+|        60 | dv             | 1981-02-25   | 2026-08-23 |      16616 |
+|       nan | pk             | 1982-01-31   | 2025-04-05 |         43 |
+|        60 | uv             | 1987-10-01   | 2026-08-24 |      14207 |
+|        65 | uv             | 2007-10-03   | 2026-08-24 |       6900 |
+
 ## ACIS precip stations within ~40 km of West Plains
 
 | name                            | sids                                                                             | ll                    | valid_daterange                |
@@ -143,18 +167,25 @@
   precipitation regime analysis back before 1998 and for cross-checking KUNO. (DORA 3SE,
   MO COOP, `1948-08-01`→`2026-08-11`, is a viable third candidate if a second
   cross-check station is needed later.)
-- [x] Mammoth Spring discharge series available: **yes.** The search returned
-  07069220 "Spring River near Mammoth Spring, AR" (site_tp_cd `ST`, i.e. a stream/river
-  gauge suitable for discharge) in addition to 07069190 "Mammoth Spring at Mammoth
-  Spring" (site_tp_cd `SP`, the spring vent itself). No "Warm Fork" hit was found in the
-  MO search — Warm Fork likely lacks a matching site name or gauge in this search
-  scope; period of record for 07069220 was not pulled in this pass (out of the brief's
-  two named sites) and should be queried directly in Task 8 if the spring gauge is
-  brought into the analysis.
+- [x] Mammoth Spring discharge series available: **yes — and long.** Period-of-record
+  evidence pulled directly on both surfaced gauges: **07069190 "Mammoth Spring at
+  Mammoth Spring"** (the spring vent itself, site_tp_cd `SP`) has DV discharge (parm
+  00060) **1981-02-25 → 2026-08-23** (16,616 pts, 43 peaks 1982–2025) and IV stage
+  from 2007-10-03. **07069220 "Spring River near Mammoth Spring, AR"** (a downstream
+  river gauge, site_tp_cd `ST`) has DV discharge only **1988-03-17 → 2016-10-04**
+  (4,764 pts, discontinued — no current DV) plus IV stage from 2010-04-16. No "Warm
+  Fork" hit was found in the MO search (`hasDataTypeCd="dv"` scope). **A spring-discharge
+  series long enough for Q1 (base-flow attribution) does exist**: 07069190's DV
+  discharge record (1981-02-25 → present, 45+ years, essentially matching the study's
+  1981 start year) is the right series to use — it's continuous to the present, unlike
+  07069220 which stopped in 2016. Use 07069190, not 07069220, for any Mammoth Spring
+  base-flow/discharge work.
 - [x] IV data availability from 2007+ for rating-drift analysis: **yes.** Both Hardy
   and Imboden show `uv` (instantaneous-value) stage (parm 00065) beginning
   2007-10-01 → present (Hardy: 6902 pts; Imboden: 6902 pts) — sufficient overlap for a
-  rating-drift comparison across both stations from that date forward.
+  rating-drift comparison across both stations from that date forward. (Mammoth Spring
+  07069190 also has IV stage from 2007-10-03, essentially the same window, if a
+  three-way comparison is useful.)
 - [x] Legacy NWIS endpoint status note: `nwis.get_info` and `nwis.what_sites` in
   `dataretrieval` both emit `DeprecationWarning`s (removal on/after 2027-05-06) pointing
   at `waterdata.get_monitoring_locations()` as the replacement; the QW (water-quality)
@@ -163,4 +194,6 @@
   though the historical QW rows already in the catalog (Imboden, 1945–1987) remain
   queryable. Neither warning changes the values returned in this inventory; both are
   purely deprecation/currency notices to track before Phase 4+ (the underlying
-  functions may need migrating to `waterdata` ahead of the 2027 removal date).
+  functions may need migrating to `waterdata` ahead of the 2027 removal date). No
+  exceptions were raised during this run's Mammoth Spring/Warm Fork search — the
+  Warnings section above is empty.

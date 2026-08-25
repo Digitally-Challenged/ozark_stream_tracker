@@ -20,21 +20,27 @@ def _period_of_record(site: str) -> pd.DataFrame:
     return df[df["parm_cd"].isin(["00060", "00065"]) | df["data_type_cd"].eq("pk")]
 
 
-def _mammoth_spring_search() -> pd.DataFrame:
-    """Search NWIS for gauges near Mammoth Spring / Warm Fork (spec §1.1)."""
+def _mammoth_spring_search() -> tuple[pd.DataFrame, list[str]]:
+    """Search NWIS for gauges near Mammoth Spring / Warm Fork (spec §1.1).
+
+    Returns (frame, warnings) — exceptions are recorded as warning strings, never
+    folded into the result frame as fake rows.
+    """
     frames = []
+    warnings: list[str] = []
     for state, name_like in [("ar", "mammoth"), ("mo", "warm fork")]:
         try:
             raw, _ = nwis.what_sites(stateCd=state, hasDataTypeCd="dv")
             hit = raw[raw["station_nm"].str.lower().str.contains(name_like, na=False)]
             frames.append(hit[["site_no", "station_nm", "site_tp_cd"]])
-        except Exception as exc:  # noqa: BLE001 - inventory records failures
-            frames.append(
-                pd.DataFrame(
-                    {"site_no": ["ERROR"], "station_nm": [str(exc)], "site_tp_cd": [state]}
-                )
-            )
-    return pd.concat(frames, ignore_index=True)
+        except Exception as exc:  # noqa: BLE001 - inventory records failures as warnings
+            warnings.append(f"{state}/{name_like}: {exc}")
+    frame = (
+        pd.concat(frames, ignore_index=True)
+        if frames
+        else pd.DataFrame(columns=["site_no", "station_nm", "site_tp_cd"])
+    )
+    return frame, warnings
 
 
 def main() -> None:
@@ -46,8 +52,22 @@ def main() -> None:
         lines.append("")
 
     lines += ["## Mammoth Spring / Warm Fork gauge search", ""]
-    lines.append(_mammoth_spring_search().to_markdown(index=False))
+    search_frame, search_warnings = _mammoth_spring_search()
+    lines.append(search_frame.to_markdown(index=False))
     lines.append("")
+
+    lines += ["## Warnings", ""]
+    if search_warnings:
+        lines += [f"- {w}" for w in search_warnings]
+    else:
+        lines.append("(none)")
+    lines.append("")
+
+    lines += ["## USGS Mammoth Spring gauges — period of record", ""]
+    for site, label in [("07069220", "Spring River near Mammoth Spring, AR"), ("07069190", "Mammoth Spring at Mammoth Spring")]:
+        lines += [f"### {site} — {label}", ""]
+        lines.append(_period_of_record(site).to_markdown(index=False))
+        lines.append("")
 
     lines += ["## ACIS precip stations within ~40 km of West Plains", ""]
     bbox = _bbox_around(*WEST_PLAINS_LATLON, 40)
