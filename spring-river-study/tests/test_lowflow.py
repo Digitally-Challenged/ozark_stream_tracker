@@ -49,7 +49,8 @@ def test_predictors_are_strictly_antecedent_to_min7_window():
     row = tbl.dropna(subset=["p_trailing_in", "p_trailing_prev_in", "oni_trailing"]).iloc[3]
     end = pd.Timestamp(row["min7_end_date"])
     p = basin.set_index("date")["pcpn_in"]
-    last = end - pd.DateOffset(days=1)
+    # the 7-day min7 window spans end-6 .. end; predictors must end at end-7
+    last = end - pd.DateOffset(days=7)
     expected = p.loc[last - pd.DateOffset(days=364) : last].sum()
     assert abs(row["p_trailing_in"] - expected) < 1e-9
     prev_last = last - pd.DateOffset(days=365)

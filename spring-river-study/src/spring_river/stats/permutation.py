@@ -61,7 +61,7 @@ def conditional_rate_test(
             for _ in range(n_perm)
         ]
     )
-    p = float((perm >= diff).mean())
+    p = float(((perm >= diff).sum() + 1) / (n_perm + 1))  # plus-one Monte Carlo correction
     k = int(quiet[np.flatnonzero(prior) + 1].sum())
     lo, hi = _clopper_pearson(k, n_major)
     return ConditionalRateResult(

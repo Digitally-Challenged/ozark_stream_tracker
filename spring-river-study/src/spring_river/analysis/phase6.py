@@ -72,9 +72,10 @@ def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame) ->
             f"- {COOP_SID} years failing 90% coverage (excluded from its trend tests): {', '.join(map(str, failed))}. "
             "The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is "
             "low power, not evidence against the basin trend.",
-            "- `recharge_in` is NaN for the first year of every series by construction: its coverage gate is judged against "
-            "the full Sep (year-1)–Feb (year) calendar season, and no series holds the September before its first January. "
-            "Its n is therefore one less than the other indices for the same series.",
+            "- `recharge_in` uses a stricter gate than the other indices: coverage is judged against the full "
+            "Sep (year-1)–Feb (year) calendar season, so it is NaN for any year whose season straddles a series start "
+            "or a gap (e.g. a series beginning 1 Jan has no recharge value for its first year). Its n can therefore be "
+            "smaller than the other indices' n for the same series, never larger.",
             "- PRISM basin values are a 4 km grid mean over a ~60 × 60 km box around West Plains; station gaps enter "
             "PRISM only indirectly through its interpolation. Treat the basin trends as the Q3 headline and the station tests as a consistency check.", ""]
 

@@ -13,44 +13,44 @@ Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). 
 - Series: source: USGS DV 07069190 discharge; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09
 - min7 raw trend (log-cfs): Sen slope 0.000319 log-cfs/yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - Pettitt change-point on min7: after WY 2008 (K=178, p=0.260, n=45)
-- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.47, n=42
-  - p_trailing_in: 0.0139 (95% CI 0.0097 to 0.0182)
-  - p_trailing_prev_in: 0.0009 (95% CI -0.0031 to 0.0049)
-  - oni_trailing: 0.0205 (95% CI -0.0204 to 0.0613)
-- **Residual trend (non-climatic component): Sen slope -0.00212 log-cfs/yr (95% CI -0.00497 to 0.000592); MK z=-1.60, p=0.109; n=42**
+- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.45, n=42
+  - p_trailing_in: 0.0130 (95% CI 0.0089 to 0.0171)
+  - p_trailing_prev_in: 0.0007 (95% CI -0.0035 to 0.0049)
+  - oni_trailing: 0.0189 (95% CI -0.0222 to 0.0600)
+- **Residual trend (non-climatic component): Sen slope -0.00222 log-cfs/yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42**
 
 Sensitivity (approved-only re-run of the full chain):
-- residual trend (all): Sen slope -0.00212 /yr (95% CI -0.00497 to 0.000592); MK z=-1.60, p=0.109; n=42
-- residual trend (approved-only): Sen slope -0.00212 /yr (95% CI -0.00497 to 0.000592); MK z=-1.60, p=0.109; n=42
+- residual trend (all): Sen slope -0.00222 /yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42
+- residual trend (approved-only): Sen slope -0.00222 /yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42
 - min7 raw trend (all): Sen slope 0.000319 /yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - min7 raw trend (approved-only): Sen slope 0.000319 /yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - Pettitt (approved-only): after WY 2008 (K=178, p=0.260, n=45)
-- OLS (approved-only): R²=0.47, n=42
-  - p_trailing_in: 0.0139 (95% CI 0.0097 to 0.0182)
-  - p_trailing_prev_in: 0.0009 (95% CI -0.0031 to 0.0049)
-  - oni_trailing: 0.0205 (95% CI -0.0204 to 0.0613)
+- OLS (approved-only): R²=0.45, n=42
+  - p_trailing_in: 0.0130 (95% CI 0.0089 to 0.0171)
+  - p_trailing_prev_in: 0.0007 (95% CI -0.0035 to 0.0049)
+  - oni_trailing: 0.0189 (95% CI -0.0222 to 0.0600)
 
 ### Hardy
 
 - Series: source: USGS DV 07069305 discharge; period 2001-10-01–2026-08-23; approved 99%, provisional from 2026-04-09
 - min7 raw trend (log-cfs): Sen slope 0.023 log-cfs/yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - Pettitt change-point on min7: after WY 2013 (K=110, p=0.013, n=24)
-- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.48, n=24
-  - p_trailing_in: 0.0228 (95% CI 0.0108 to 0.0347)
-  - p_trailing_prev_in: 0.0176 (95% CI 0.0069 to 0.0283)
-  - oni_trailing: 0.0767 (95% CI -0.0520 to 0.2054)
-- **Residual trend (non-climatic component): Sen slope 0.00823 log-cfs/yr (95% CI -0.000811 to 0.0194); MK z=1.71, p=0.087; n=24**
+- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.47, n=24
+  - p_trailing_in: 0.0230 (95% CI 0.0097 to 0.0363)
+  - p_trailing_prev_in: 0.0173 (95% CI 0.0046 to 0.0300)
+  - oni_trailing: 0.0779 (95% CI -0.0465 to 0.2022)
+- **Residual trend (non-climatic component): Sen slope 0.00676 log-cfs/yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24**
 
 Sensitivity (approved-only re-run of the full chain):
-- residual trend (all): Sen slope 0.00823 /yr (95% CI -0.000811 to 0.0194); MK z=1.71, p=0.087; n=24
-- residual trend (approved-only): Sen slope 0.00823 /yr (95% CI -0.000811 to 0.0194); MK z=1.71, p=0.087; n=24
+- residual trend (all): Sen slope 0.00676 /yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24
+- residual trend (approved-only): Sen slope 0.00676 /yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24
 - min7 raw trend (all): Sen slope 0.023 /yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - min7 raw trend (approved-only): Sen slope 0.023 /yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - Pettitt (approved-only): after WY 2013 (K=110, p=0.013, n=24)
-- OLS (approved-only): R²=0.48, n=24
-  - p_trailing_in: 0.0228 (95% CI 0.0108 to 0.0347)
-  - p_trailing_prev_in: 0.0176 (95% CI 0.0069 to 0.0283)
-  - oni_trailing: 0.0767 (95% CI -0.0520 to 0.2054)
+- OLS (approved-only): R²=0.47, n=24
+  - p_trailing_in: 0.0230 (95% CI 0.0097 to 0.0363)
+  - p_trailing_prev_in: 0.0173 (95% CI 0.0046 to 0.0300)
+  - oni_trailing: 0.0779 (95% CI -0.0465 to 0.2022)
 
 ### BFI trend (gap-segmented Eckhardt; Lyne-Hollick check)
 

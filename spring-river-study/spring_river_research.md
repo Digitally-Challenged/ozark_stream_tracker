@@ -67,7 +67,7 @@ systematic series. Imboden's 1915+ peaks are the defensible long series.
 
 | Q | Hypothesis | Result |
 |---|---|---|
-| Q1 | Drought-driven, not structural | Supported (post-review, antecedent predictors). Mammoth residual trend −0.0021 log-cfs/yr (CI −0.0050 to +0.0006, n=42); Hardy residual +0.008 (CI −0.001 to 0.019, n=24). Hardy raw min7 *rises* (+0.023/yr, CI 0.007–0.036) but trailing-365-day precip explains it (R²=0.48). |
+| Q1 | Drought-driven, not structural | Supported (post-review, antecedent predictors). Mammoth residual trend −0.0022 log-cfs/yr (CI −0.0050 to +0.0005, n=42); Hardy residual +0.0068 (CI −0.0014 to 0.0195, n=24). Hardy raw min7 *rises* (+0.023/yr, CI 0.007–0.036) but trailing-365-day precip (ending before the min7 window starts) explains it (R²=0.47). |
 | Q2 | Magnitude up, frequency flat | Not detectable. Imboden peaks +0.0011 log10-cfs/yr (CI −0.0012 to 0.0041, n=89); pre/post-2008 10-yr quantile CIs overlap. |
 | Q3 | Weak/inconclusive | Basin (PRISM): 9/10 indices up (total +2.4 in/decade, CI 0.4–4.5, n=45); recharge-season total flat (−0.02, CI −1.3 to 1.2, n=44). Station tests low-power (COOP coverage gaps). |
 | Q4 | Floods reduce recharge | **Not supported — opposite sign.** 6-month post-flood base flow +28% (Mammoth, CI 20–42, 15 unique controls) and +23% (Hardy, CI 13–35, 11 controls), n=6; matched on precip + antecedent base flow, 30-day recession skip. Descriptive, not causal. |

@@ -27,3 +27,16 @@ Reviewer could not run the suite (uv cache permission in its sandbox); direct-ru
 | 2 | Spec gaps: fixed rather than fitted BFImax; no linear-reservoir attribution; no spectral check for Q6. | **Deferred** to Phase 7/8 with the §2.5 items; recorded in `spring_river_research.md`. Spectral check on n=7 events is not informative. |
 | 3 | Caption gaps (combined Phase 4 captions derive approval from Mammoth only; Phase 6 indices figure lacks period/approval; BH headline claims omit n). | **Fixed** in runners. |
 | 4 | Q4 7-day post-flood skip. | **Fixed** (see blocking 9). |
+
+## Second pass (same day, over 6288d49 + c2909de)
+
+**Verdict: NEEDS-CHANGES** (3 blocking, 3 non-blocking) — all addressed in the following commit.
+
+| # | Finding | Disposition |
+|---|---|---|
+| B1 | Q1 predictors still overlapped the 7-day min7 window by six days (precip ended at `end_date − 1`, window spans `end_date − 6 … end_date`). | **Fixed.** Predictor windows (precip and ONI) now end at `end_date − 7`, the day before the window starts (`MIN7_WINDOW_DAYS`); test updated to pin that boundary. Mammoth residual −0.0022 (CI −0.0050 to +0.0005, n=42); Hardy +0.0068 (CI −0.0014 to 0.0195, n=24). |
+| B2 | Pettitt approved-only printed but not CHANGED-checked. | **Fixed.** `_pettitt_changed` flags a differing change-year or p crossing 0.05. |
+| B3 | Phase 6 prose claimed recharge n is always one less than other indices; false for KUNO (27/27). | **Fixed.** Prose now states the gate correctly (n ≤ other indices, NaN when the Sep–Feb span straddles a series start or gap). |
+| N1 | Complete-WY selection uses the series max date only. | **Overruled for now** — stage series has no interior year-long gaps (qa_report: two ≤13-day gaps in 2014); revisit if a longer gap appears. |
+| N2 | Q4 candidate precip windows lack a coverage gate. | **Overruled for now** — PRISM basin series is complete over 1981–2026 (`precip_recharge_in` populated for every WY in the ledger). |
+| N3 | Permutation p lacked plus-one correction. | **Fixed.** |

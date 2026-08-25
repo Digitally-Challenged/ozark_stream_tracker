@@ -58,11 +58,21 @@ def _fmt_or_short(r: TrendResult | None, unit: str, n: int) -> str:
     return fmt_trend(r, unit) if r is not None else f"not tested (n={n} < {MIN_N})"
 
 
-def _pettitt_line(tbl: pd.DataFrame) -> str:
+def _pettitt_result(tbl: pd.DataFrame) -> tuple[int, float, str]:
     m7 = tbl[tbl["complete"]].dropna(subset=["min7_cfs"])
     pt = pettitt(m7["min7_cfs"].to_numpy())
     wy_change = int(m7["wy"].iloc[pt.change_index])
-    return f"after WY {wy_change} (K={pt.k:.0f}, p={pt.p:.3f}, n={pt.n})"
+    return wy_change, pt.p, f"after WY {wy_change} (K={pt.k:.0f}, p={pt.p:.3f}, n={pt.n})"
+
+
+def _pettitt_line(tbl: pd.DataFrame) -> str:
+    return _pettitt_result(tbl)[2]
+
+
+def _pettitt_changed(tbl_all: pd.DataFrame, tbl_appr: pd.DataFrame) -> bool:
+    wy_a, p_a, _ = _pettitt_result(tbl_all)
+    wy_b, p_b, _ = _pettitt_result(tbl_appr)
+    return wy_a != wy_b or (p_a < 0.05) != (p_b < 0.05)
 
 
 def _coef_line(fit: AttributionFit, k: str) -> str:
@@ -105,6 +115,8 @@ def _fit_section(
         *sensitivity_lines("residual trend", fit.residual_trend, fit_appr.residual_trend),
         *sensitivity_lines("min7 raw trend", fit.min7_trend, fit_appr.min7_trend),
         f"- Pettitt (approved-only): {_pettitt_line(tbl_appr)}",
+        *(["- **CHANGED**: Pettitt change-point year or significance differs between all and approved-only."]
+          if _pettitt_changed(tbl, tbl_appr) else []),
         f"- OLS (approved-only): R²={fit_appr.r2:.2f}, n={fit_appr.n}",
     ]
     for k in PREDICTORS:

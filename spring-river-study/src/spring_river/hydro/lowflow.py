@@ -11,7 +11,7 @@ was realised — non-causal leakage that inflates apparent precip control.
 Predictors are now strictly antecedent to each water year's own min7 window:
 
 - `p_trailing_in`      basin precip over the 365 days ending the day BEFORE
-                       the min7 window's end date;
+                       the 7-day min7 window STARTS (end_date - 7 days);
 - `p_trailing_prev_in` the 365 days before that;
 - `oni_trailing`       mean ONI anomaly over the 6 center-months ending in the
                        month before the end date.
@@ -32,6 +32,7 @@ from spring_river.stats.trends import TrendResult, trend_test
 PREDICTORS = ["p_trailing_in", "p_trailing_prev_in", "oni_trailing"]
 SON_MONTHS = [9, 10, 11]
 TRAILING_DAYS = 365
+MIN7_WINDOW_DAYS = 7  # predictors end the day before the 7-day window starts
 ONI_MONTHS = 6
 
 
@@ -117,14 +118,21 @@ def attribution_table(
             "min7_end_date": end_dates,
             "son_mean_cfs": wys.map(son),
             "bfi": wys.map(bfi),
+            # Windows end the day BEFORE the 7-day min7 window STARTS
+            # (end_date - 7 days), so no response day overlaps a predictor.
             "p_trailing_in": [
-                _trailing_precip(daily_p, d, 1, min_precip_coverage) for d in end_dates
-            ],
-            "p_trailing_prev_in": [
-                _trailing_precip(daily_p, d, 1 + TRAILING_DAYS, min_precip_coverage)
+                _trailing_precip(daily_p, d, MIN7_WINDOW_DAYS, min_precip_coverage)
                 for d in end_dates
             ],
-            "oni_trailing": [_trailing_oni(o, d, min_oni_months) for d in end_dates],
+            "p_trailing_prev_in": [
+                _trailing_precip(daily_p, d, MIN7_WINDOW_DAYS + TRAILING_DAYS, min_precip_coverage)
+                for d in end_dates
+            ],
+            "oni_trailing": [
+                _trailing_oni(o, d - pd.DateOffset(days=MIN7_WINDOW_DAYS), min_oni_months)
+                if pd.notna(d) else float("nan")
+                for d in end_dates
+            ],
             "complete": wys.map(complete).fillna(False).astype(bool),
         }
     )
