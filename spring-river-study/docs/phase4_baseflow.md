@@ -52,6 +52,51 @@ Sensitivity (approved-only re-run of the full chain):
   - p_trailing_prev_in: 0.0164 (95% CI 0.0056 to 0.0272)
   - oni_trailing: 0.0479 (95% CI -0.0800 to 0.1757)
 
+## Q1c Hardy low-flow rise: evidence without a precipitation model
+
+The published Hardy residual is source-dependent, which was reported as a reason not to call it a finding. Two checks say otherwise, and neither depends on a gridded precipitation product.
+
+### Hardy against Mammoth Spring (no precipitation model)
+
+Mammoth Spring is the best available climate control for Hardy: the same recharge climate, absorbing precipitation, ENSO, PET and any gridded-precip bias at once. If Hardy's rise were climate, it would vanish against Mammoth.
+
+- **log(Hardy min7 / Mammoth min7) trend: Sen slope 0.0124 log-ratio/yr (95% CI 0.00278 to 0.0219); MK z=3.05, p=0.002; n=24**
+- Pettitt change-point on the log ratio: after WY 2014 (K=101, p=0.029, n=24)
+- the ratio rises by a factor 1.33 across WY 2002–2025.
+
+### Precip-only fits (the ONI term dropped)
+
+At n≈24 the never-significant ONI regressor costs a degree of freedom for nothing. Dropping it:
+
+| series   | basin_source   |   n |     r2 |   resid_slope |      lo |     hi |      p |
+|:---------|:---------------|----:|-------:|--------------:|--------:|-------:|-------:|
+| Mammoth  | aorc           |  42 | 0.5734 |       -0.0012 | -0.0033 | 0.0012 | 0.2785 |
+| Hardy    | aorc           |  24 | 0.3956 |        0.0213 |  0.0108 | 0.0293 | 0      |
+| Mammoth  | prism_polygon  |  42 | 0.5156 |       -0.0022 | -0.0049 | 0      | 0.0537 |
+| Hardy    | prism_polygon  |  24 | 0.5407 |        0.0116 |  0.0017 | 0.0208 | 0.0211 |
+| Mammoth  | prism_buffer   |  42 | 0.4368 |       -0.0021 | -0.0051 | 0.0003 | 0.104  |
+| Hardy    | prism_buffer   |  24 | 0.4353 |        0.011  |  0.0027 | 0.0227 | 0.0161 |
+
+- Hardy's residual rise has a CI excluding zero on 3 of 3 basin sources; the source-dependence of the published figure was one weak regressor, not a fragile signal.
+- **The rise is therefore reported as a finding, not as a source artefact.** Its cause is Q1c/Q5: the channel at Hardy degraded (see the field-measurement trend below), and the reach gains water the spring alone does not account for.
+
+### Mammoth residual across basin sources and trailing windows
+
+The 365-day predictor window is a convention. A karst spring with a ~188-day recession constant may remember rain for longer, so each source is refitted at 730 days as well (precip-only, ONI dropped).
+
+| basin_source   |   window_days |   n |      r2 |   resid_slope |       lo |       hi |       p |
+|:---------------|--------------:|----:|--------:|--------------:|---------:|---------:|--------:|
+| aorc           |           365 |  42 | 0.57337 |      -0.00122 | -0.00331 |  0.00117 | 0.27848 |
+| aorc           |           730 |  40 | 0.40855 |      -0.00199 | -0.00542 |  0.00091 | 0.18029 |
+| prism_polygon  |           365 |  42 | 0.51561 |      -0.00219 | -0.00486 |  3e-05   | 0.05372 |
+| prism_polygon  |           730 |  40 | 0.33036 |      -0.0035  | -0.00654 | -0.0004  | 0.03496 |
+| prism_buffer   |           365 |  42 | 0.43682 |      -0.00206 | -0.00507 |  0.00034 | 0.10403 |
+| prism_buffer   |           730 |  40 | 0.28478 |      -0.00326 | -0.0064  |  0.00017 | 0.05755 |
+
+- specifications whose CI excludes zero (all on the negative side): 1 of 6 — prism_polygon at 730 d (p=0.035).
+- **Correction to the published wording.** The Mammoth conclusion survives on the primary series, but '≈0 on all three sources' claims a unanimity the numbers do not support: the PRISM fits are consistently, marginally negative, and one specification's CI excludes zero. State it that way, with the same candour applied to Hardy.
+- Settling it needs a basin series independent of PRISM's gauge network (Stage IV/MRMS 2002→, Livneh, nClimGrid-Daily) and a window pre-registered from spring recession or tracer transit rather than from convention.
+
 ### BFI trend (gap-segmented Eckhardt; Lyne-Hollick check)
 
 - Mammoth BFI (eckhardt): Sen slope 2.31e-05 BFI/yr (95% CI -4.6e-05 to 0.000117); MK z=0.75, p=0.451; n=45
@@ -66,6 +111,8 @@ Sensitivity (approved-only re-run of the full chain):
 - Hardy BFI (lyne_hollick): Sen slope 0.0039 BFI/yr (95% CI -0.00119 to 0.00879); MK z=1.66, p=0.097; n=25
   - Hardy BFI (lyne_hollick) (all): Sen slope 0.0039 /yr (95% CI -0.00119 to 0.00879); MK z=1.66, p=0.097; n=25
   - Hardy BFI (lyne_hollick) (approved-only): Sen slope 0.00295 /yr (95% CI -0.00202 to 0.00717); MK z=1.17, p=0.244; n=24
+
+**What a null BFI trend is not.** BFI is a ratio, and at a spring-fed river it sits near 1, so it is nearly blind to a change in the absolute base-flow *rate*: base flow and total flow can both rise together and leave the ratio flat. These nulls are reported as stated, but they are **not evidence against a base-flow change** and must not be cited as corroboration of one. The min7 series and the Hardy/Mammoth ratio above carry that question.
 
 ![min7](../reports/figures/phase4_min7_trend.png)
 
@@ -122,6 +169,58 @@ Event 2006-09-23 omitted from the shift table: no IV pairs within ±365 days (pr
   - stage at 1000 cfs (approved-only): Sen slope -0.0187 /yr (95% CI -0.0214 to -0.0157); MK z=-5.32, p=0.000; n=19
 
 ![rating](../reports/figures/phase4_rating_drift.png)
+
+### Field-measured stage at fixed discharge (independent of the rating)
+
+Source: USGS OGC API `field-measurements` and `channel-measurements` (`api.waterdata.usgs.gov/ogcapi/v0`), site 07069305; 502 readings over 134 visits with both a measured discharge and a measured stage, 2001-12-18–2026-08-18; 151 channel surveys.
+
+Both numbers in each pair are *measured at the visit* — the discharge by wading or ADCP, not computed from the stage — so a decline here cannot be rating drift. Stage is normalised to 400 cfs along a single log-linear fit through the 330–520 cfs band, then averaged per water year.
+
+- **field-measured stage at 400 cfs: Sen slope -0.0149 ft/yr (95% CI -0.0219 to -0.0105); MK z=-4.19, p=0.000; n=20**
+- water years covered: 2003–2026 (20 with a qualifying visit; 33 visits).
+- total fall over the record: 0.40 ft.
+- This is steeper than the IV-derived figure and four years longer, and it brackets the 2006-09-23 event the shift table has to omit. It retires both the 'IV-derived only' limitation and the 'events before IV_START have no pairs' gap: **the channel really degraded; the rating followed it.**
+
+|   wy |   stage_at_flow_ft |   n_visits |
+|-----:|-------------------:|-----------:|
+| 2003 |              3.361 |          2 |
+| 2004 |              3.412 |          1 |
+| 2005 |              3.48  |          1 |
+| 2007 |              3.249 |          1 |
+| 2008 |              3.176 |          1 |
+| 2009 |              3.201 |          1 |
+| 2011 |              3.029 |          2 |
+| 2012 |              3.018 |          2 |
+| 2014 |              3.091 |          2 |
+| 2015 |              3.122 |          2 |
+| 2016 |              3.076 |          1 |
+| 2017 |              3.097 |          1 |
+| 2018 |              2.988 |          2 |
+| 2020 |              3.109 |          1 |
+| 2021 |              3.075 |          1 |
+| 2022 |              3.026 |          2 |
+| 2023 |              2.993 |          2 |
+| 2024 |              2.979 |          3 |
+| 2025 |              3.016 |          1 |
+| 2026 |              2.962 |          4 |
+
+### Gauge datum
+
+- current datum: 342.73 ft NAVD88 (±0.16, GNSS1 - Level 1 Quality Survey Grade Global Navigation Satellite System), from the `monitoring-locations` endpoint.
+- The datum elevation carries **two revisions** (340.91→342.49 ft before Dec 2022; 342.49→342.73 ft between Dec 2022 and Dec 2024 — the value above). Both are post-2022 bookkeeping of the datum elevation: **no site move, and nothing at WY2008**, so neither can explain the low-flow step. `time-series-revisions` returns no rows for this site.
+
+### Measured vs computed low flow, by era
+
+Field-measured discharge below 800 cfs against the same day's published daily value (n=65 visits). Reported with its scatter: the era means are a few per cent either side of zero with a standard deviation several times larger, not '~1 % in every era'.
+
+| era       |   n |   mean_pct |   median_pct |   sd_pct |
+|:----------|----:|-----------:|-------------:|---------:|
+| 2001–2007 |  16 |        1.3 |          1.8 |      5.1 |
+| 2008–2014 |  21 |       -1.1 |         -1.3 |      4   |
+| 2015–2025 |  25 |       -0.3 |         -0.1 |      3.3 |
+| 2026      |   3 |        3.3 |          3.4 |      3.3 |
+
+This agreement is **not independent evidence**: USGS shifts the rating to these very measurements, so close agreement shows only that the rating tracks them. The rating-independent evidence is the measured-stage decline above and the Hardy/Mammoth ratio in Q1c.
 
 ### Stage–discharge lookup
 
@@ -198,9 +297,47 @@ Series: source: USGS DV 07069305 discharge; period 2001-10-01–2026-08-23; appr
 
 ![postflood](../reports/figures/phase4_postflood.png)
 
+### Placebo and skip-day sensitivity
+
+With n=6 events, three nearest controls each and heavy control-year reuse, the procedure itself may produce an effect. The placebo runs the identical pipeline on random NON-flood pseudo-events keeping the real events' days-of-year, so what it returns is what 'no flood' looks like through this machinery. The skip-day sensitivity asks whether the effect is recession water still present in the post window rather than a change in base flow.
+
+Placebo: 200 trials per series, seed 0.
+
+| series   |   real_diff_pct |   placebo_mean |   placebo_sd |   placebo_p95 |   frac_ge_real |   corrected |   n_trials |
+|:---------|----------------:|---------------:|-------------:|--------------:|---------------:|------------:|-----------:|
+| Mammoth  |           26.01 |           0.6  |         6.94 |         11.54 |           0    |       25.41 |        200 |
+| Hardy    |           30.72 |           9.73 |        17.06 |         37.73 |           0.11 |       20.99 |        200 |
+
+Skip-day sensitivity (post window starts this many days after the event):
+
+|   skip_days |   mean_diff_pct |   lo |   hi |   n | series   |
+|------------:|----------------:|-----:|-----:|----:|:---------|
+|          15 |            25.4 | 12.7 | 38.9 |   6 | Mammoth  |
+|          30 |            26   | 15.7 | 41   |   6 | Mammoth  |
+|          60 |            19.1 | 12.3 | 28   |   6 | Mammoth  |
+|          90 |            21.9 | 11.7 | 31.3 |   6 | Mammoth  |
+|          15 |            30.6 | 15.8 | 49   |   6 | Hardy    |
+|          30 |            30.7 | 19.6 | 38.7 |   6 | Hardy    |
+|          60 |            23.9 |  9.3 | 38.9 |   6 | Hardy    |
+|          90 |             8   | -8.1 | 22.8 |   6 | Hardy    |
+
+- **Mammoth**: placebo mean +0.6% (sd 6.9); 0.0% of placebo trials reach the real +26.0%; placebo-corrected effect +25.4%. At a 90-day skip the effect is +21.9% (CI 11.7 to 31.3).
+- **Hardy**: placebo mean +9.7% (sd 17.1); 11.0% of placebo trials reach the real +30.7%; placebo-corrected effect +21.0%. At a 90-day skip the effect is +8.0% (CI -8.1 to 22.8) — the CI spans zero.
+
+Reading: an effect worth reporting must sit far outside its own placebo distribution AND survive a later window start. Where the placebo is centred near zero and the effect holds at a long skip, the result stands and is stronger than the bootstrap CI alone suggests. Where a material fraction of placebo trials reach the reported figure and the effect decays as the window moves later, part of it is procedural and part is recession water: report the placebo-corrected value with this sensitivity, not the raw percentage.
+
+## Change-points: what steps, and when
+
+- Mammoth min7: after WY 2008 (K=178, p=0.260, n=45) — **not significant**; it must not be read as a step, and in particular must not be set beside a significant one as if the two agreed.
+- Hardy min7: after WY 2013 (K=110, p=0.013, n=24)
+- Hardy−Mammoth min7 **difference**: after WY 2014 (K=115, p=0.008, n=24).
+- log(Hardy/Mammoth) **ratio**: after WY 2014 (K=101, p=0.029, n=24).
+
+The difference and the ratio both locate the change at WY 2014, so on complete water years the two framings agree; the earlier WY2008-vs-WY2013 discrepancy was an artefact of including an incomplete final year. Synoptic seepage runs (Mammoth → South Fork → Hardy at low flow) are what would settle the cause.
+
 ## Limitations
 
-- Regional-skew, datum and USGS rating-shift records remain unobtained; Q5 rests on IV-derived stage-at-flow only.
+- Regional-skew values and the USGS rating-shift tables remain unobtained. Q5 no longer rests on IV-derived stage-at-flow alone: the field-measurement trend above is independent of the rating, and the gauge datum records have now been reviewed (two post-2022 revisions, no site move, nothing at WY2008).
 - Hardy series is WY 2002+ (n≤24); Mammoth Spring vent carries the 1981+ record.
 - Q4 n equals the number of ≥16 ft events in the Hardy peak file; CI is a bootstrap on a handful of events and excludes matching uncertainty and control-year reuse (descriptive, not causal).
 - Q5 shifts use ±365-day windows around each event; events before IV_START (2007-10-01) have no pairs and are omitted.

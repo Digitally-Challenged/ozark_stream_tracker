@@ -160,3 +160,58 @@ def fit_attribution(tbl: pd.DataFrame, response: str = "min7_cfs") -> Attributio
         residual_trend=trend_test(np.asarray(res.resid), wy),
         min7_trend=trend_test(y, wy),
     )
+
+
+PRECIP_ONLY_PREDICTORS = ["p_trailing_in", "p_trailing_prev_in"]
+
+
+def ratio_series(numer: pd.DataFrame, denom: pd.DataFrame) -> pd.DataFrame:
+    """log(numer min7 / denom min7) by water year.
+
+    Phase 8 (review.md item 5). The best available climate control for Hardy
+    is Mammoth Spring itself: the same recharge climate, absorbing
+    precipitation, ENSO, PET and any gridded-precipitation bias at once. The
+    ratio therefore tests Hardy's rise with NO precipitation model involved —
+    if the rise were climate, it would vanish against Mammoth.
+
+    `numer` and `denom` are attribution tables (see `attribution_table`).
+    """
+    a = numer.set_index("wy")["min7_cfs"]
+    b = denom.set_index("wy")["min7_cfs"]
+    j = pd.DataFrame({"numer_cfs": a, "denom_cfs": b}).dropna()
+    j = j[(j["numer_cfs"] > 0) & (j["denom_cfs"] > 0)]
+    j["ratio"] = j["numer_cfs"] / j["denom_cfs"]
+    j["log_ratio"] = np.log(j["ratio"])
+    return j.reset_index()
+
+
+def ratio_trend(numer: pd.DataFrame, denom: pd.DataFrame) -> tuple[TrendResult, pd.DataFrame]:
+    """Sen/MK trend on log(numer/denom) min7, plus the series itself."""
+    s = ratio_series(numer, denom)
+    return trend_test(s["log_ratio"].to_numpy(dtype="float64"),
+                      s["wy"].to_numpy(dtype="float64")), s
+
+
+def fit_attribution_precip_only(tbl: pd.DataFrame, response: str = "min7_cfs") -> AttributionFit:
+    """`fit_attribution` without the ONI term.
+
+    At n≈24 the never-significant ONI regressor costs a degree of freedom for
+    nothing; dropping it is what makes the Hardy residual rise resolvable on
+    all three basin sources rather than one.
+    """
+    d = tbl[tbl["complete"]].dropna(subset=[response, *PRECIP_ONLY_PREDICTORS])
+    d = d[d[response] > 0]
+    y = np.log(d[response].to_numpy(dtype="float64"))
+    X = sm.add_constant(d[PRECIP_ONLY_PREDICTORS].to_numpy(dtype="float64"))
+    res = sm.OLS(y, X).fit(cov_type="HC3")
+    names = ["const", *PRECIP_ONLY_PREDICTORS]
+    ci_arr = np.asarray(res.conf_int())
+    wy = d["wy"].to_numpy(dtype="float64")
+    return AttributionFit(
+        n=int(res.nobs),
+        coef={k: float(v) for k, v in zip(names, res.params)},
+        ci={k: (float(lo), float(hi)) for k, (lo, hi) in zip(names, ci_arr)},
+        r2=float(res.rsquared),
+        residual_trend=trend_test(np.asarray(res.resid), wy),
+        min7_trend=trend_test(y, wy),
+    )

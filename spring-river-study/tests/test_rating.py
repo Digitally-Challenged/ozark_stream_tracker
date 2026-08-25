@@ -101,3 +101,34 @@ def test_shift_detected_after_event():
     row = shifts.iloc[0]
     assert abs(row["shift_ft"] + 0.5) < 1e-6
     assert row["n_before"] >= 5 and row["n_after"] >= 5
+
+
+def test_field_stage_at_flow_recovers_a_known_decline():
+    """Synthetic visits: a real channel degradation of -0.02 ft/yr at 400 cfs,
+    with the visits scattered across the flow band, must come back out."""
+    import numpy as np
+    import pandas as pd
+
+    from spring_river.qa.rating import field_stage_at_flow
+    from spring_river.stats.trends import trend_test
+
+    rng = np.random.default_rng(0)
+    wys = np.repeat(np.arange(2003, 2027), 2)
+    q = rng.uniform(330, 520, len(wys))
+    # stage = level(wy) + 0.9*log10(q/400); level falls 0.02 ft per year
+    stage = 3.4 - 0.02 * (wys - 2003) + 0.9 * np.log10(q / 400.0)
+    pairs = pd.DataFrame({"wy": wys, "q_cfs": q, "stage_ft": stage})
+    out = field_stage_at_flow(pairs)
+    assert len(out) == 24 and out["n_visits"].eq(2).all()
+    t = trend_test(out["stage_at_flow_ft"].to_numpy(), out["wy"].to_numpy(dtype=float))
+    assert abs(t.slope - (-0.02)) < 0.002
+    assert t.slope_hi < 0
+
+
+def test_field_stage_at_flow_empty_below_minimum():
+    import pandas as pd
+
+    from spring_river.qa.rating import field_stage_at_flow
+
+    out = field_stage_at_flow(pd.DataFrame({"wy": [2010], "q_cfs": [400.0], "stage_ft": [3.0]}))
+    assert out.empty
