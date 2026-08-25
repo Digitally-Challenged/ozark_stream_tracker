@@ -105,6 +105,15 @@ def get_basin_pcpn(
         name = "prism_basin_pcpn_polygon"
         approximation = "cells with centre inside the MoDNR Mammoth Spring recharge polygon"
 
+    meta = {
+        "source": "PRISM 4km daily pcpn via ACIS GridData (grid 21)",
+        "bbox": bbox,
+        "buffer_km": None if polygon is not None else buffer_km,
+        "approximation": approximation,
+        "start": start,
+        "end": end,
+    }
+
     def fetch() -> pd.DataFrame:
         frames = []
         mask = None
@@ -125,13 +134,4 @@ def get_basin_pcpn(
             frames.append(_mean_grid_series(payload, mask))
         out = pd.concat(frames, ignore_index=True).drop_duplicates("date")
         return out.sort_values("date").reset_index(drop=True)
-
-    meta = {
-        "source": "PRISM 4km daily pcpn via ACIS GridData (grid 21)",
-        "bbox": bbox,
-        "buffer_km": None if polygon is not None else buffer_km,
-        "approximation": approximation,
-        "start": start,
-        "end": end,
-    }
     return fetch_cached(name, fetch, meta, refresh=refresh)
