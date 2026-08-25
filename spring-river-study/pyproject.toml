@@ -14,6 +14,9 @@ dependencies = [
     "tabulate>=0.10.0",
     "statsmodels>=0.14,<0.15",
     "shapely>=2.0,<3",
+    "xarray>=2024.6",
+    "zarr>=2.18,<3",
+    "s3fs>=2024.6",
 ]
 
 [dependency-groups]
