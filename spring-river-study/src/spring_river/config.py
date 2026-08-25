@@ -1,4 +1,5 @@
 """Project-wide constants. Single source of truth for sites, params, paths."""
+import os
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -33,3 +34,21 @@ MAJOR_FLOOD_FT = 16.0
 NWS_CATEGORY_FT = {"action": 8.0, "minor": 10.0, "moderate": 14.0, "major": 16.0}  # NWS HDYA4
 RATING_TABLE_STAGES_FT = (2.5, 3, 3.5, 4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 22)
 RATING_RECENT_SINCE = "2023-10-01"      # "recent" rating variant = WY 2024+
+
+# Recharge-basin geometry (second edition, 2026-08-25). MoDNR / Missouri
+# Geological Survey "Mammoth Spring Recharge Area" (layer modified 2022-09-14),
+# 361.08 mi² per MoDNR, ~349 mi² equal-area recompute. Replaces the 30 km
+# West Plains buffer, which is retained only for the comparison edition.
+RECHARGE_POLYGON_PATH = PROJECT_ROOT / "docs" / "gis" / "mammoth_spring_recharge_modnr.geojson"
+BASIN_SOURCES = ("aorc", "prism_polygon", "prism_buffer")
+BASIN_PRECIP_SOURCE = os.environ.get("BASIN_PRECIP_SOURCE", "aorc")
+if BASIN_PRECIP_SOURCE not in BASIN_SOURCES:
+    raise ValueError(f"BASIN_PRECIP_SOURCE={BASIN_PRECIP_SOURCE!r} not in {BASIN_SOURCES}")
+
+# NOAA AORC v1.1: 1 km hourly, anonymous S3 zarr, APCP_surface in mm/hr.
+AORC_BUCKET = "noaa-nws-aorc-v1-1-1km"
+AORC_VAR = "APCP_surface"
+AORC_FIRST_YEAR = 1981           # study window; product starts 1979
+AORC_DAY_END_HOUR_UTC = 12       # daily total = 24 h ending 12 UTC (PRISM day)
+
+ALTON_SID = "USC00230127"        # Alton, MO COOP, 1940→, eastern edge of the polygon
