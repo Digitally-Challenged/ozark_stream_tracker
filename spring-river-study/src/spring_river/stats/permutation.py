@@ -67,3 +67,27 @@ def conditional_rate_test(
     return ConditionalRateResult(
         n, n_major, observed, base, float(diff), lo - base, hi - base, p
     )
+
+
+def conditional_rate_power(n_major: int, n_other: int, base_rate: float,
+                           alt_rates: tuple[float, ...] = (0.2, 0.4, 0.6, 0.8),
+                           n_sim: int = 4000, alpha: float = 0.05, seed: int = 1):
+    """Power of the Q7 conditional-rate test (Fisher exact) by true rate.
+
+    Phase 8 (review.md item 2). With a handful of major-flood years the design
+    cannot detect any plausible effect, so a null result is not evidence of no
+    effect — it is no result. This reports what the test could have found.
+    """
+    import pandas as pd
+
+    rng = np.random.default_rng(seed)
+    rows = []
+    for p_alt in alt_rates:
+        a = rng.binomial(n_major, p_alt, n_sim)
+        b = rng.binomial(n_other, base_rate, n_sim)
+        rej = sum(stats.fisher_exact([[int(x), n_major - int(x)],
+                                      [int(y), n_other - int(y)]])[1] < alpha
+                  for x, y in zip(a, b))
+        rows.append({"true_rate_given_major": p_alt, "power": rej / n_sim})
+    return pd.DataFrame(rows).assign(n_major=n_major, n_other=n_other,
+                                     base_rate=base_rate, alpha=alpha)

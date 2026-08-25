@@ -134,3 +134,54 @@ def stage_to_flow(a: float, b: float, stage_ft: float) -> float:
 
 def flow_to_stage(a: float, b: float, q_cfs: float) -> float:
     return float(10 ** ((np.log10(q_cfs) - a) / b))
+
+
+def fit_lp3_historical(
+    systematic_cfs: np.ndarray,
+    historical_cfs: np.ndarray,
+    historical_period_years: int,
+    regional_skew: float | None = REGIONAL_SKEW,
+    mse_r: float = REGIONAL_SKEW_MSE,
+) -> LP3Fit:
+    """LP3 moments with Bulletin 17B historical weighting (Appendix 6).
+
+    Phase 8 (review.md item 4). The 1982-12-03 29.0 ft crest is KNOWN but sits
+    outside the systematic record, and excluding a known extreme biases the
+    return periods of exactly the "major exposure" tier long. B17B's remedy is
+    to weight the systematic peaks BELOW the historical threshold by
+
+        W = (H - Z) / (n - s)
+
+    where H is the historical period length, Z the number of peaks at or above
+    the threshold known in H, n the systematic record length and s the number
+    of systematic peaks at or above the threshold. Peaks at or above the
+    threshold (systematic or historical) carry weight 1: they are known to be
+    the largest in H, so they must not be inflated.
+
+    This is the historical-weighting approximation, not EMA: there is no
+    censored-likelihood treatment and no conditional-probability adjustment.
+    PeakFQ/EMA remains the documented follow-up.
+    """
+    sx = np.log10(np.asarray(systematic_cfs, dtype="float64"))
+    sx = sx[np.isfinite(sx)]
+    hx = np.log10(np.asarray(historical_cfs, dtype="float64"))
+    hx = hx[np.isfinite(hx)]
+    if hx.size == 0:
+        return fit_lp3(systematic_cfs, regional_skew=regional_skew, mse_r=mse_r)
+    threshold = float(hx.min())
+    n = len(sx)
+    s = int((sx >= threshold).sum())
+    z = len(hx) + s
+    if n - s <= 0 or historical_period_years <= z:
+        raise ValueError("historical period too short, or every systematic peak exceeds the threshold")
+    w_below = (historical_period_years - z) / (n - s)
+    below, above = sx[sx < threshold], sx[sx >= threshold]
+    weights = np.concatenate([np.full(len(below), w_below), np.ones(len(above)), np.ones(len(hx))])
+    values = np.concatenate([below, above, hx])
+    n_eff = float(weights.sum())
+    mean = float((weights * values).sum() / n_eff)
+    sd = float(np.sqrt((weights * (values - mean) ** 2).sum() / (n_eff - 1)))
+    gs = float(n_eff * (weights * (values - mean) ** 3).sum() / ((n_eff - 1) * (n_eff - 2) * sd**3))
+    gw = gs if regional_skew is None else weighted_skew(gs, int(round(n_eff)), regional_skew, mse_r)
+    thr_cfs = float(10**grubbs_beck_threshold(sx))
+    return LP3Fit(int(round(n_eff)), mean, sd, gs, gw, thr_cfs, int((sx < np.log10(thr_cfs)).sum()))

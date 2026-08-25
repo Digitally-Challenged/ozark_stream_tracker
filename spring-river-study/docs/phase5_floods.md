@@ -55,10 +55,40 @@ Stage→flow from the 24 annual-peak (stage, flow) pairs: log10 Q = 1.954 + 2.21
 
 NWS crest count includes the 1982-12-03 29.0 ft record; the Hardy systematic record is WY 2002+. Empirical return period = n_years / exceedances of the annual-peak stage.
 
+### Sensitivity: the 1982 crest as historical information
+
+The 1982-12-03 29.0 ft crest is known but sits outside the systematic record (Hardy WY 2002+). By the annual-peak log-log relation it is ≈156,047 cfs. Leaving a known extreme out biases the return periods of the major-exposure tier long, so it is added back by Bulletin 17B historical weighting (W = (H−Z)/(n−s); peaks at or above the threshold keep weight 1). Historical period H = 44 yr (1982–2025) and 90 yr (back to the long record's start).
+
+| case                           | historical_period_yr   |   n_effective |   weighted_skew |   rp_16ft_yr |   rp_20ft_yr |   rp_23ft_yr |
+|:-------------------------------|:-----------------------|--------------:|----------------:|-------------:|-------------:|-------------:|
+| systematic only (headline fit) | <NA>                   |            24 |          -0.175 |          4.5 |         12.5 |         29.4 |
+| with 1982 crest, H=44 yr       | 44                     |            44 |          -0.056 |          4   |          9.9 |         20.1 |
+| with 1982 crest, H=90 yr       | 90                     |            90 |          -0.089 |          4.3 |         11.3 |         24.5 |
+
+- **This is the headline sensitivity for Q8.** Across the cases, 20 ft is 10–13 yr and 23 ft is 20–29 yr; the systematic-only point estimates are biased long by roughly 20–30 % at these stages. They remain inside the bootstrap 5–95 % band, so the published figures are not refuted — but 23 ft should be quoted as **20–29 yr**, not as a single number.
+- The station-vs-regional-skew case (reported above) moves 23 ft by well under a year: it tests a parameter that does not matter here, and is retained only as a completeness check.
+- This is historical weighting, not EMA. PeakFQ/EMA with the 1982 crest over a stated perceptibility threshold remains the documented follow-up.
+
 ## Q2 stationarity
 
 - Hardy annual peaks (log10 cfs): Sen slope 0.00125 log10-cfs/yr (95% CI -0.0232 to 0.03); MK z=0.17, p=0.862; n=24; Pettitt change after WY 2011 (p=1.000)
 - Imboden annual peaks (log10 cfs): Sen slope 0.00112 log10-cfs/yr (95% CI -0.00123 to 0.00406); MK z=0.94, p=0.346; n=89; Pettitt change after WY 2005 (p=0.350)
+### Upper-tail trend (pre-registered) and the post-hoc 2008 shift
+
+The decision rule used for the verdict below (trend CI excludes zero AND split 10-yr quantile CIs disjoint) can barely fail at any n and only inspects the centre of the distribution. A flood-risk question is about the upper tail, so the tail is tested directly.
+
+|   quantile |   slope_log10_per_yr |       lo |      hi |       p |
+|-----------:|---------------------:|---------:|--------:|--------:|
+|        0.5 |             -0.00076 | -0.0046  | 0.00308 | 0.69438 |
+|        0.9 |              0.00263 | -0.00172 | 0.00698 | 0.23224 |
+
+- top-quartile (≥45,900 cfs) Sen slope +0.00081 log10-cfs/yr (95% CI -0.00094 to +0.00386, n=23).
+- **Both upper-tail tests have CIs spanning zero.** The Q2 conclusion is therefore better supported than the conjunction rule made it look: it now rests on a test that could have detected a tail change.
+
+**Disclosed as post hoc.** A split at WY 2008 gives a mean shift (24,598 → 38,241 cfs; Welch p=0.028, Mann–Whitney p=0.050) that the decision rule never surfaced. The split year was chosen after seeing the data — a split at 1980 gives p=0.77 — so this is a finding to test on new data, not a result. It is reported because omitting it would be selective.
+
+The largest peak in the record is WY1983 (244,000 cfs), 1.9× the next largest.
+
 
 Imboden LP3 split at WY 2008:
 
@@ -140,11 +170,40 @@ Sensitivity (approved-only stage days for the post-2008 events):
 
 A bootstrap p well above 0.05 means the gaps are consistent with a memoryless (Poisson) process — no evidence of a regular cadence; CV near 1 is the exponential signature, CV well below 1 would indicate regularity.
 
+### What this test could have detected (power)
+
+At n=6 gaps a memoryless process routinely produces a CV anywhere in **0.42–1.50** (central 95 %), so the observed CV 1.01 is unremarkable either way. Power of the test against a regular (gamma) cadence:
+
+|   cv |   power |   n_gaps |   alpha |   critical_cv |
+|-----:|--------:|---------:|--------:|--------------:|
+| 0.7  |   0.227 |        6 |    0.05 |         0.484 |
+| 0.5  |   0.578 |        6 |    0.05 |         0.484 |
+| 0.35 |   0.92  |        6 |    0.05 |         0.484 |
+
+- 80 % power is reached only at CV ≈ 0.35 — near-metronomic.
+- **State the conclusion as 'no cadence is detectable, and none weaker than near-metronomic could have been' — not as 'the process is memoryless'.** A high p here is an absence of evidence.
+- Adding the 1982 crest (the 'with 1982 crest' row above) is the only extra information available; a ≥10 ft POT series (see the partial-duration section) is the supplementary check with real n.
+
 ## Q7 quiet year (<8 ft peak) after a ≥16 ft year
 
 - P(quiet | prior major) = 0.00 vs base rate 0.08; difference -0.08 (Clopper-Pearson exact 95% bounds on the conditional rate minus the base rate: -0.08 to +0.44); permutation p=1.000; n_major=5, n_years=24
 
 Water years with a missing annual peak count as neither major nor quiet. With n_major=5 the test has little power; the CI is the honest statement.
+
+### What this test could have detected (power)
+
+Fisher-exact power at n_major=5, n_other=19, base rate 0.08, against a true conditional quiet-year rate of:
+
+|   true_rate_given_major |   power |   n_major |   n_other |   base_rate |   alpha |
+|------------------------:|--------:|----------:|----------:|------------:|--------:|
+|                     0.2 |   0.084 |         5 |        19 |       0.083 |    0.05 |
+|                     0.4 |   0.346 |         5 |        19 |       0.083 |    0.05 |
+|                     0.6 |   0.654 |         5 |        19 |       0.083 |    0.05 |
+|                     0.8 |   0.909 |         5 |        19 |       0.083 |    0.05 |
+
+- 80 % power requires a true conditional rate of about 0.8 — i.e. a quiet year would have to follow a major flood most of the time before this design could see it.
+- Against a 2.5× effect the power is roughly 0.08. The Clopper-Pearson bound already admits a conditional rate anywhere from 0.00 to 0.52.
+- **Q7 is therefore reclassified as UNTESTABLE with the current record, not as 'no support'.** The design produced no result, which is not the same as a null result. Testing it needs many more major-flood years than this river has recorded.
 
 ## Antecedent conditions before ≥14 ft annual peaks (60-day BFI, 30-day basin precip)
 
@@ -176,8 +235,10 @@ BFI from segmented Eckhardt on Hardy DV discharge; precip is the basin mean (NOA
 
 ## Limitations
 
-- LP3/MOM with weighted skew, not EMA; 1982 historical crest not in the fit. Regional skew approximate.
+- LP3/MOM with weighted skew, not EMA. The headline fit excludes the 1982 crest; the historical-weighting sensitivity above puts it back and is the case to quote at 20–23 ft. Regional skew approximate.
 - Hardy n=24; return periods beyond ~50 yr are extrapolation — the CIs say so.
-- Stage↔flow mapping is a log-log fit to annual-peak pairs, not the USGS rating; rating shifts (Q5) propagate here.
+- Stage↔flow mapping is a log-log fit to annual-peak pairs, not the USGS rating. **Q5's rating drift does not measurably reach these stages**: refitting stage→flow on recent water years only moves the 23 ft return period by a couple of years, and the fit's residuals show no trend against water year — the drift is a low- and mid-flow control effect. The real extrapolation risk at 29 ft is the stage→flow relation itself (see below), not the drift.
 - POT and Q6 post-2008 events use daily MAX IV stage (upper bound vs a daily-mean product).
 - Imboden peaks file in NWIS begins WY 1937; the split at WY 2008 leaves n=18 in the post period.
+- Q6 and Q7 are power-limited, and the power sections say by how much: Q6 cannot detect any cadence weaker than near-metronomic, and Q7 cannot detect any plausible effect at all. Read their high p-values as absence of evidence, not evidence of absence.
+- The 29 ft crest is 1.27× the maximum observed stage and its implied flow is 1.86× the maximum observed flow: the stage→flow relation is extrapolated well beyond its data there, which is a larger uncertainty than the frequency fit itself.

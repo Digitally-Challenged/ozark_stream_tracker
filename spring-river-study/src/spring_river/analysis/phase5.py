@@ -32,17 +32,23 @@ from spring_river.hydro.freq_lp3 import (  # noqa: E402
     LP3Fit,
     bootstrap_quantiles,
     fit_lp3,
+    fit_lp3_historical,
     return_period,
     stage_flow_fit,
     stage_to_flow,
 )
-from spring_river.hydro.interarrival import antecedent_conditions, interarrival_test  # noqa: E402
+from spring_river.hydro.interarrival import (  # noqa: E402
+    antecedent_conditions,
+    interarrival_power,
+    interarrival_test,
+    null_cv_interval,
+)
 from spring_river.hydro.pot import annual_counts, dispersion_test, pot_events  # noqa: E402
 from spring_river.hydro.wateryear import daily_max_stage, water_year  # noqa: E402
 from spring_river.ingest import basin as basin_mod  # noqa: E402
 from spring_river.ingest import nwps, usgs  # noqa: E402
 from spring_river.ingest.pull_all import IV_START  # noqa: E402
-from spring_river.stats.permutation import conditional_rate_test  # noqa: E402
+from spring_river.stats.permutation import conditional_rate_power, conditional_rate_test  # noqa: E402
 from spring_river.stats.trends import TrendResult, pettitt, trend_test  # noqa: E402
 
 RETURN_PERIODS = (1.25, 2, 5, 10, 25, 50, 100)
@@ -53,6 +59,104 @@ MODERATE_FT = 14.0
 HISTORIC_CREST_FT = 29.0
 SPLIT_WY = 2008
 VERDICT_RP = 10
+
+
+HISTORICAL_PERIODS_YR = (44, 90)   # 1982–2025, and back to the Imboden record's start
+Q6_POWER_CVS = (0.7, 0.5, 0.35)
+Q7_POWER_RATES = (0.2, 0.4, 0.6, 0.8)
+HEADLINE_STAGES_FT = (16.0, 20.0, 23.0)
+
+
+def _historical_section(hardy_pk: pd.DataFrame, a: float, b: float, fit_h: LP3Fit) -> list[str]:
+    """Phase 8 (review.md item 4): the 1982 crest as historical information.
+
+    Excluding a KNOWN extreme biases the return periods of exactly the tier
+    the reader most cares about. This is the headline sensitivity; the station-
+    vs-regional-skew case tests a parameter that barely moves the answer.
+    """
+    q82 = stage_to_flow(a, b, HISTORIC_CREST_FT)
+    systematic = hardy_pk["peak_cfs"].dropna().to_numpy()
+    rows = [{"case": "systematic only (headline fit)", "historical_period_yr": pd.NA,
+             "n_effective": fit_h.n, "weighted_skew": fit_h.weighted_skew,
+             **{f"rp_{int(s)}ft_yr": return_period(fit_h, stage_to_flow(a, b, s))
+                for s in HEADLINE_STAGES_FT}}]
+    for H in HISTORICAL_PERIODS_YR:
+        f = fit_lp3_historical(systematic, [q82], H, regional_skew=REGIONAL_SKEW)
+        rows.append({"case": f"with 1982 crest, H={H} yr", "historical_period_yr": H,
+                     "n_effective": f.n, "weighted_skew": f.weighted_skew,
+                     **{f"rp_{int(s)}ft_yr": return_period(f, stage_to_flow(a, b, s))
+                        for s in HEADLINE_STAGES_FT}})
+    tbl = pd.DataFrame(rows)
+    tbl.to_parquet(TABLES_DIR / "phase5_historical_1982.parquet")
+    col = f"rp_{int(HEADLINE_STAGES_FT[-1])}ft_yr"
+    lo, hi = float(tbl[col].min()), float(tbl[col].max())
+    lo20, hi20 = float(tbl["rp_20ft_yr"].min()), float(tbl["rp_20ft_yr"].max())
+    return [
+        "### Sensitivity: the 1982 crest as historical information", "",
+        f"The 1982-12-03 {HISTORIC_CREST_FT:.1f} ft crest is known but sits outside the systematic record "
+        f"(Hardy WY {int(hardy_pk['wy'].min())}+). By the annual-peak log-log relation it is ≈{q82:,.0f} cfs. "
+        "Leaving a known extreme out biases the return periods of the major-exposure tier long, so it is added "
+        "back by Bulletin 17B historical weighting (W = (H−Z)/(n−s); peaks at or above the threshold keep "
+        "weight 1). Historical period H = 44 yr (1982–2025) and 90 yr (back to the long record's start).", "",
+        tbl.round({"weighted_skew": 3, **{f"rp_{int(s)}ft_yr": 1 for s in HEADLINE_STAGES_FT}}).to_markdown(index=False),
+        "",
+        f"- **This is the headline sensitivity for Q8.** Across the cases, 20 ft is {lo20:.0f}–{hi20:.0f} yr and "
+        f"23 ft is {lo:.0f}–{hi:.0f} yr; the systematic-only point estimates are biased long by roughly 20–30 % "
+        "at these stages. They remain inside the bootstrap 5–95 % band, so the published figures are not "
+        f"refuted — but 23 ft should be quoted as **{lo:.0f}–{hi:.0f} yr**, not as a single number.",
+        "- The station-vs-regional-skew case (reported above) moves 23 ft by well under a year: it tests a "
+        "parameter that does not matter here, and is retained only as a completeness check.",
+        "- This is historical weighting, not EMA. PeakFQ/EMA with the 1982 crest over a stated perceptibility "
+        "threshold remains the documented follow-up.", "",
+    ]
+
+
+def _q2_upper_tail_section(imb_pk: pd.DataFrame) -> list[str]:
+    """Phase 8 (review.md item 6): a pre-registered upper-tail test, and the
+    2008 mean shift disclosed as post hoc."""
+    import statsmodels.formula.api as smf
+    from scipy import stats as st
+
+    y = np.log10(imb_pk["peak_cfs"].to_numpy(dtype="float64"))
+    wy = imb_pk["wy"].to_numpy(dtype="float64")
+    d = pd.DataFrame({"y": y, "t": wy - wy.mean()})
+    rows = []
+    for q in (0.5, 0.9):
+        m = smf.quantreg("y ~ t", d).fit(q=q)
+        ci = m.conf_int().loc["t"].to_numpy()
+        rows.append({"quantile": q, "slope_log10_per_yr": float(m.params["t"]),
+                     "lo": float(ci[0]), "hi": float(ci[1]), "p": float(m.pvalues["t"])})
+    qr = pd.DataFrame(rows)
+    thr = float(np.quantile(y, 0.75))
+    sel = y >= thr
+    ts = st.theilslopes(y[sel], wy[sel])
+    a_pre, b_post = y[wy < SPLIT_WY], y[wy >= SPLIT_WY]
+    welch = float(st.ttest_ind(a_pre, b_post, equal_var=False).pvalue)
+    mwu = float(st.mannwhitneyu(a_pre, b_post).pvalue)
+    qr.to_parquet(TABLES_DIR / "phase5_quantile_regression.parquet")
+    return [
+        "### Upper-tail trend (pre-registered) and the post-hoc 2008 shift", "",
+        "The decision rule used for the verdict below (trend CI excludes zero AND split 10-yr quantile CIs "
+        "disjoint) can barely fail at any n and only inspects the centre of the distribution. A flood-risk "
+        "question is about the upper tail, so the tail is tested directly.", "",
+        qr.round(5).to_markdown(index=False), "",
+        f"- top-quartile (≥{10**thr:,.0f} cfs) Sen slope {ts.slope:+.5f} log10-cfs/yr "
+        f"(95% CI {ts.low_slope:+.5f} to {ts.high_slope:+.5f}, n={int(sel.sum())}).",
+        "- **Both upper-tail tests have CIs spanning zero.** The Q2 conclusion is therefore better supported "
+        "than the conjunction rule made it look: it now rests on a test that could have detected a tail change.",
+        "",
+        f"**Disclosed as post hoc.** A split at WY {SPLIT_WY} gives a mean shift "
+        f"({10**a_pre.mean():,.0f} → {10**b_post.mean():,.0f} cfs; Welch p={welch:.3f}, "
+        f"Mann–Whitney p={mwu:.3f}) that the decision rule never surfaced. The split year was chosen after "
+        "seeing the data — a split at 1980 gives p={:.2f} — so this is a finding to test on new data, not a "
+        "result. It is reported because omitting it would be selective.".format(
+            float(st.ttest_ind(y[wy < 1980], y[wy >= 1980], equal_var=False).pvalue)),
+        "", "The largest peak in the record is WY{} ({:,.0f} cfs), {:.1f}× the next largest.".format(
+            int(imb_pk.loc[imb_pk["peak_cfs"].idxmax(), "wy"]),
+            float(imb_pk["peak_cfs"].max()),
+            float(imb_pk["peak_cfs"].max() / imb_pk["peak_cfs"].nlargest(2).iloc[-1])),
+        "",
+    ]
 
 
 def _peaks_by_wy(peaks: pd.DataFrame) -> pd.DataFrame:
@@ -168,6 +272,27 @@ def _q6_lines(hardy_pk: pd.DataFrame, stage_variants: dict[str, pd.DataFrame], c
         "no evidence of a regular cadence; CV near 1 is the exponential signature, CV well below 1 would indicate regularity.",
         "",
     ]
+    r_main = results["2002–present"]
+    if r_main is not None:
+        n_gaps = int(r_main["n_events"]) - 1
+        pw = interarrival_power(n_gaps, Q6_POWER_CVS)
+        pw.to_parquet(TABLES_DIR / "phase5_q6_power.parquet")
+        lo, hi = null_cv_interval(n_gaps)
+        best = pw.loc[pw["power"] >= 0.8, "cv"]
+        lines += [
+            "### What this test could have detected (power)", "",
+            f"At n={n_gaps} gaps a memoryless process routinely produces a CV anywhere in **{lo:.2f}–{hi:.2f}** "
+            f"(central 95 %), so the observed CV {r_main['cv']:.2f} is unremarkable either way. Power of the "
+            "test against a regular (gamma) cadence:", "",
+            pw.round(3).to_markdown(index=False), "",
+            f"- 80 % power is reached only at CV ≈ {best.max():.2f} — near-metronomic."
+            if len(best) else
+            f"- 80 % power is not reached at any CV tested (down to {min(Q6_POWER_CVS)}).",
+            "- **State the conclusion as 'no cadence is detectable, and none weaker than near-metronomic could "
+            "have been' — not as 'the process is memoryless'.** A high p here is an absence of evidence.",
+            f"- Adding the 1982 crest (the 'with 1982 crest' row above) is the only extra information available; "
+            "a ≥10 ft POT series (see the partial-duration section) is the supplementary check with real n.", "",
+        ]
     return lines
 
 
@@ -179,7 +304,7 @@ def _q7_lines(hardy_pk: pd.DataFrame) -> list[str]:
     major = (ledger_like >= MAJOR_FLOOD_FT).to_numpy()
     quiet = (ledger_like < QUIET_FT).to_numpy()
     q7 = conditional_rate_test(major, quiet)
-    return [
+    lines = [
         f"## Q7 quiet year (<{QUIET_FT:.0f} ft peak) after a ≥{MAJOR_FLOOD_FT:.0f} ft year",
         "",
         f"- P(quiet | prior major) = {q7.rate_after_major:.2f} vs base rate {q7.base_rate:.2f}; "
@@ -191,6 +316,27 @@ def _q7_lines(hardy_pk: pd.DataFrame) -> list[str]:
         f"With n_major={q7.n_major} the test has little power; the CI is the honest statement.",
         "",
     ]
+    n_other = int(q7.n_years - q7.n_major)
+    pw = conditional_rate_power(q7.n_major, n_other, q7.base_rate, Q7_POWER_RATES)
+    pw.to_parquet(TABLES_DIR / "phase5_q7_power.parquet")
+    enough = pw.loc[pw["power"] >= 0.8, "true_rate_given_major"]
+    lines += [
+        "### What this test could have detected (power)", "",
+        f"Fisher-exact power at n_major={q7.n_major}, n_other={n_other}, base rate {q7.base_rate:.2f}, "
+        "against a true conditional quiet-year rate of:", "",
+        pw.round(3).to_markdown(index=False), "",
+        (f"- 80 % power requires a true conditional rate of about {enough.min():.1f} — i.e. a quiet year would "
+         "have to follow a major flood most of the time before this design could see it."
+         if len(enough) else
+         "- 80 % power is not reached at any rate tested."),
+        f"- Against a 2.5× effect the power is roughly {float(pw['power'].iloc[0]):.2f}. The Clopper-Pearson "
+        f"bound already admits a conditional rate anywhere from {max(0.0, q7.base_rate + q7.diff_lo):.2f} to "
+        f"{min(1.0, q7.base_rate + q7.diff_hi):.2f}.",
+        "- **Q7 is therefore reclassified as UNTESTABLE with the current record, not as 'no support'.** "
+        "The design produced no result, which is not the same as a null result. Testing it needs many more "
+        "major-flood years than this river has recorded.", "",
+    ]
+    return lines
 
 
 def _complete_wys(stage: pd.DataFrame, wys: list[int]) -> list[int]:
@@ -318,6 +464,7 @@ def main() -> None:
         "Empirical return period = n_years / exceedances of the annual-peak stage.",
         "",
     ]
+    lines += _historical_section(hardy_pk, a, b, fit_h)
 
     # Q2 stationarity
     lines += ["## Q2 stationarity", ""]
@@ -332,6 +479,7 @@ def main() -> None:
             f"- {label} annual peaks (log10 cfs): {fmt_trend(r, 'log10-cfs')}; "
             f"Pettitt change after WY {int(pk['wy'].iloc[pt.change_index])} (p={pt.p:.3f})"
         )
+    lines += _q2_upper_tail_section(imb_pk)
     pre = imb_pk[imb_pk["wy"] < SPLIT_WY]
     post = imb_pk[imb_pk["wy"] >= SPLIT_WY]
     lines += ["", f"Imboden LP3 split at WY {SPLIT_WY}:", ""]
@@ -407,11 +555,24 @@ def main() -> None:
         "",
         "## Limitations",
         "",
-        "- LP3/MOM with weighted skew, not EMA; 1982 historical crest not in the fit. Regional skew approximate.",
+        "- LP3/MOM with weighted skew, not EMA. The headline fit excludes the 1982 crest; the historical-"
+        "weighting sensitivity above puts it back and is the case to quote at 20–23 ft. Regional skew approximate.",
         "- Hardy n=24; return periods beyond ~50 yr are extrapolation — the CIs say so.",
-        "- Stage↔flow mapping is a log-log fit to annual-peak pairs, not the USGS rating; rating shifts (Q5) propagate here.",
+        "- Stage↔flow mapping is a log-log fit to annual-peak pairs, not the USGS rating. **Q5's rating drift "
+        "does not measurably reach these stages**: refitting stage→flow on recent water years only moves the "
+        "23 ft return period by a couple of years, and the fit's residuals show no trend against water year — "
+        "the drift is a low- and mid-flow control effect. The real extrapolation risk at 29 ft is the "
+        "stage→flow relation itself (see below), not the drift.",
         "- POT and Q6 post-2008 events use daily MAX IV stage (upper bound vs a daily-mean product).",
         f"- Imboden peaks file in NWIS begins WY {int(imb_pk['wy'].min())}; the split at WY {SPLIT_WY} leaves n={len(post)} in the post period.",
+        f"- Q6 and Q7 are power-limited, and the power sections say by how much: Q6 cannot detect any cadence "
+        "weaker than near-metronomic, and Q7 cannot detect any plausible effect at all. Read their high "
+        "p-values as absence of evidence, not evidence of absence.",
+        f"- The {HISTORIC_CREST_FT:.0f} ft crest is {HISTORIC_CREST_FT / float(hardy_pk['gage_ht_ft'].max()):.2f}× "
+        f"the maximum observed stage and its implied flow is "
+        f"{stage_to_flow(a, b, HISTORIC_CREST_FT) / float(hardy_pk['peak_cfs'].max()):.2f}× the maximum observed "
+        "flow: the stage→flow relation is extrapolated well beyond its data there, which is a larger "
+        "uncertainty than the frequency fit itself.",
     ]
     write_report(DOCS_DIR / "phase5_floods.md", lines)
     print(f"wrote {DOCS_DIR / 'phase5_floods.md'}")

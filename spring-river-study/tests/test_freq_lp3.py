@@ -79,3 +79,54 @@ def test_stage_flow_fit_roundtrip():
     a, b, r2 = stage_flow_fit(pd.DataFrame({"peak_cfs": q, "gage_ht_ft": h}))
     assert abs(a - 2.0) < 1e-9 and abs(b - 1.8) < 1e-9 and r2 > 0.999
     assert abs(flow_to_stage(a, b, stage_to_flow(a, b, 16.0)) - 16.0) < 1e-9
+
+
+def test_historical_weighting_lengthens_the_effective_record():
+    """Adding a known historical extreme over a long historical period must
+    raise the effective n and lower the return period of a high quantile."""
+    import numpy as np
+
+    from spring_river.hydro.freq_lp3 import fit_lp3, fit_lp3_historical, return_period
+
+    rng = np.random.default_rng(0)
+    sysx = 10 ** rng.normal(4.0, 0.3, 24)          # 24 systematic peaks
+    big = float(sysx.max() * 5)                     # a much larger known crest
+    base = fit_lp3(sysx)
+    hist = fit_lp3_historical(sysx, [big], historical_period_years=90)
+    assert hist.n > base.n                          # effective record is longer
+    # the extreme is now IN the fit, so a high quantile becomes less rare
+    assert return_period(hist, big) < return_period(base, big)
+
+
+def test_historical_weighting_reduces_to_the_plain_fit_with_no_history():
+    import numpy as np
+
+    from spring_river.hydro.freq_lp3 import fit_lp3, fit_lp3_historical
+
+    x = 10 ** np.random.default_rng(1).normal(4.0, 0.3, 30)
+    a, b = fit_lp3(x), fit_lp3_historical(x, [], historical_period_years=90)
+    assert a == b
+
+
+def test_historical_weighting_rejects_an_impossible_period():
+    import numpy as np
+    import pytest
+
+    from spring_river.hydro.freq_lp3 import fit_lp3_historical
+
+    x = 10 ** np.random.default_rng(2).normal(4.0, 0.3, 24)
+    with pytest.raises(ValueError):
+        fit_lp3_historical(x, [float(x.max() * 5)], historical_period_years=1)
+
+
+def test_historical_weight_formula_matches_b17b():
+    """W = (H - Z)/(n - s): with n=24, one historical peak above every
+    systematic peak and H=44, W must be (44-1)/24."""
+    import numpy as np
+
+    from spring_river.hydro.freq_lp3 import fit_lp3_historical
+
+    x = 10 ** np.random.default_rng(3).normal(4.0, 0.2, 24)
+    fit = fit_lp3_historical(x, [float(x.max() * 10)], historical_period_years=44)
+    # effective n = 24*W + 1 historical = 43 + 1
+    assert fit.n == 44
