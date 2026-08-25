@@ -172,18 +172,20 @@
   `acis_pcpn_USC00230127`); rows / NaN fraction recorded in the meta file. Used in Phase 6 as a
   third station series; not used for `precip_cal_in` (that column stays on USC00238880 for
   continuity).
-- **West Plains composite** (added 2026-08-25, Task 10): a derived gap-free daily station series
-  1948-07-01→, built in `src/spring_river/climate/composite.py` and used as a fourth station
-  series in Phase 6 (`reports/tables/phase6_indices_westplains_composite.parquet`). Caches used:
+- **West Plains 1948–** (added 2026-08-25, Task 10; revised Task 11): a daily station record
+  1948-07-01→, built in `src/spring_river/climate/westplains.py` and used as a fourth station
+  series in Phase 6 (`reports/tables/phase6_indices_westplains_1948.parquet`). Caches used:
   `acis_pcpn_USC00238880_1948` (the 1948→ COOP pull, requested with the new `cache_suffix="_1948"`
   argument to `acis.get_station_pcpn` so the 1981+ `acis_pcpn_USC00238880` cache the ledger and
-  other phases read stays untouched) and `acis_pcpn_KUNO`. Construction: COOP as measured through
-  1998-03-31; from 1998-04-01, KUNO × the COOP/KUNO catch ratio (1.068, computed over calendar
-  months with ≥ 25 non-NaN days at both gauges) wherever KUNO reported, unscaled COOP where KUNO
-  was missing and COOP was not, NaN where neither reported. A `source` column records `coop` /
-  `kuno` / `none` per day. This substitutes a co-located measurement for missing volunteer
-  readings; **no value is interpolated** and no gap is filled across, so the 90 % annual coverage
-  gate still applies unchanged.
+  other phases read stays untouched) and `acis_pcpn_KUNO`. Construction: two instruments, one at a
+  time — COOP USC00238880 (town gauge, −91.874/36.727, 1105 ft) as measured through 1998-03-31;
+  from 1998-04-01, KUNO ASOS (West Plains Municipal Airport, −91.905/36.879, 1226 ft — 10.7 mi
+  north of and 120 ft above the town gauge) raised by the COOP/KUNO catch ratio (1.068, computed
+  over the 282 calendar months with ≥ 25 non-NaN days at both gauges) so the whole record sits on
+  the town gauge's level. **No day is borrowed between gauges**: a day the period's own instrument
+  missed stays NaN (43 such days after 1998-04-01), and **no value is interpolated**, so the 90 %
+  annual coverage gate still applies unchanged. A `source` column records `coop` / `kuno` / `none`
+  per day.
 - [x] Mammoth Spring discharge series available: **yes — and long.** Period-of-record
   evidence pulled directly on both surfaced gauges: **07069190 "Mammoth Spring at
   Mammoth Spring"** (the spring vent itself, site_tp_cd `SP`) has DV discharge (parm

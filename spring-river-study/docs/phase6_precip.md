@@ -1,6 +1,6 @@
 # Phase 6 — precipitation regime (Q3) — generated 2026-08-25
 
-Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, unchanged — the other phases read this cache), KUNO ASOS (1998-04-01–2026-08-23), USC00230127 Alton COOP (1981-01-01–2026-08-03), West Plains composite (1948-07-01–2026-08-24; COOP through 1998-03-31, KUNO × 1.068 from 1998-04-01 with COOP fallback; 10331 KUNO days, 36 COOP-fallback days after 1998-04-01), basin = NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC (1981-01-02–2025-12-31).
+Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, unchanged — the other phases read this cache), KUNO ASOS (1998-04-01–2026-08-23), USC00230127 Alton COOP (1981-01-01–2026-08-03), West Plains 1948– (1948-07-01–2026-08-23; COOP USC00238880 through 1998-03-31; KUNO ASOS from 1998-04-01 raised by the COOP/KUNO catch ratio 1.068 measured on 282 overlapping months, so the record is on the town gauge's level; no day borrowed between gauges; 10331 KUNO days and 43 days KUNO missed after 1998-04-01), basin = NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC (1981-01-02–2025-12-31).
 
 ## Station agreement on monthly totals (qa_report follow-up)
 
@@ -63,24 +63,24 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | top5_frac   |  24 |             -0.011 | -0.027 | 0.01  | -1.116 | 0.264 |  0.515 | False            |
 | sdii_in     |  24 |              0.022 | -0.027 | 0.07  |  1.017 | 0.309 |  0.515 | False            |
 
-## West Plains composite: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
+## West Plains 1948–: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
 
-- series span (non-missing days): 1948-07-01–2026-08-24
+- series span (non-missing days): 1948-07-01–2026-08-23
 - index years 1949–2025; years passing 90% coverage: 76
-- BH-significant: days_ge_1 (+0.714/decade, 95% CI 0.267 to 1.18, n=76 years)
+- BH-significant: days_ge_1 (+0.703/decade, 95% CI 0.256 to 1.15, n=76 years)
 
 | index       |   n |   slope_per_decade |     lo |    hi |      z |     p |   p_bh | significant_bh   |
 |:------------|----:|-------------------:|-------:|------:|-------:|------:|-------:|:-----------------|
-| total_in    |  76 |              1.322 |  0.308 | 2.352 |  2.543 | 0.011 |  0.055 | False            |
-| recharge_in |  74 |              0.569 | -0.062 | 1.083 |  1.731 | 0.083 |  0.167 | False            |
-| growing_in  |  76 |              0.624 | -0.034 | 1.347 |  1.879 | 0.06  |  0.151 | False            |
-| days_ge_0p5 |  76 |              0.833 |  0     | 1.562 |  2.314 | 0.021 |  0.069 | False            |
-| days_ge_1   |  76 |              0.714 |  0.267 | 1.176 |  3.19  | 0.001 |  0.014 | True             |
-| days_ge_2   |  76 |              0     |  0     | 0.323 |  1.581 | 0.114 |  0.187 | False            |
+| total_in    |  76 |              1.261 |  0.282 | 2.343 |  2.471 | 0.013 |  0.067 | False            |
+| recharge_in |  74 |              0.566 | -0.062 | 1.08  |  1.731 | 0.083 |  0.167 | False            |
+| growing_in  |  76 |              0.619 | -0.051 | 1.307 |  1.825 | 0.068 |  0.167 | False            |
+| days_ge_0p5 |  76 |              0.818 |  0     | 1.525 |  2.183 | 0.029 |  0.097 | False            |
+| days_ge_1   |  76 |              0.703 |  0.256 | 1.154 |  3.146 | 0.002 |  0.017 | True             |
+| days_ge_2   |  76 |              0     |  0     | 0.323 |  1.581 | 0.114 |  0.19  | False            |
 | max1_in     |  76 |              0.033 | -0.085 | 0.149 |  0.529 | 0.597 |  0.597 | False            |
 | max3_in     |  76 |              0.065 | -0.105 | 0.235 |  0.789 | 0.43  |  0.537 | False            |
-| top5_frac   |  76 |             -0.003 | -0.007 | 0.001 | -1.511 | 0.131 |  0.187 | False            |
-| sdii_in     |  76 |              0.003 | -0.005 | 0.01  |  0.664 | 0.507 |  0.563 | False            |
+| top5_frac   |  76 |             -0.003 | -0.007 | 0.001 | -1.395 | 0.163 |  0.233 | False            |
+| sdii_in     |  76 |              0.003 | -0.005 | 0.01  |  0.637 | 0.524 |  0.582 | False            |
 
 ## basin: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
 
@@ -103,13 +103,13 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 
 ## Station vs basin: reading the divergence
 
-- BH-significant indices per series: USC00238880 0/10, KUNO 1/10, USC00230127 0/10, West Plains composite 1/10, basin 6/10.
+- BH-significant indices per series: USC00238880 0/10, KUNO 1/10, USC00230127 0/10, West Plains 1948– 1/10, basin 6/10.
 - USC00238880 years failing 90% coverage (excluded from its trend tests): 1997, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021. The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is low power, not evidence against the basin trend.
 - `recharge_in` uses a stricter gate than the other indices: coverage is judged against the full Sep (year-1)–Feb (year) calendar season, so it is NaN for any year whose season straddles a series start or a gap (e.g. a series beginning 1 Jan has no recharge value for its first year). Its n can therefore be smaller than the other indices' n for the same series, never larger.
 - Basin values are NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC; station gaps enter a gridded product only through its gauge blending. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
 - USC00230127 (Alton) has no data 1983–1994 and 2012–2016; 24 years pass the 90 % coverage gate, so its trend test is a consistency check only.
-- **West Plains composite**: the USC00238880 1948→ record with its missing volunteer readings replaced by the co-located KUNO ASOS (~2 mi away) × the COOP/KUNO catch ratio 1.068, plus 36 days after 1998-04-01 where KUNO was missing and COOP was not. This **substitutes a co-located measurement, it does not interpolate** — a day missing at both gauges stays NaN and its year is still judged on coverage. That turns the 2011–2021 hole into a complete record: 76 years pass the 90 % coverage gate, against 34 for USC00238880 alone, 27 for KUNO and 24 for USC00230127. It is the highest-power station test in the study. Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.
-- Reading the West Plains composite, from its numbers: over the 76 complete years (1949–2025) the BH-significant indices are days_ge_1, while the intensity indices (max1_in, max3_in, sdii_in, top5_frac) have CIs spanning zero. With the coverage problem removed, the gauge does not reproduce the basin series' intensification over its own, longer window — a point-vs-areal and record-length difference, not a coverage artifact.
+- **West Plains 1948–**: two instruments, one at a time — USC00238880 daily values through 1998-03-31, then the KUNO ASOS (West Plains Municipal Airport, 10.7 mi north of and 120 ft above the town gauge) from 1998-04-01, raised by the measured COOP/KUNO catch ratio 1.068. The two gauges differ systematically by ~7 % on monthly totals, so the airport values are put on the town gauge's level rather than left as a step at 1998-04-01. **No day is borrowed between gauges**: a day the period's own instrument missed stays NaN, its year still judged on coverage; nothing is interpolated. Taking KUNO from 1998 closes the 2011–2021 volunteer-absence hole: 76 years pass the 90 % coverage gate, against 34 for USC00238880 alone, 27 for KUNO and 24 for USC00230127. It is the highest-power station test in the study. Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.
+- Reading the West Plains 1948–, from its numbers: over the 76 complete years (1949–2025) the BH-significant indices are days_ge_1, while the intensity indices (max1_in, max3_in, sdii_in, top5_frac) have CIs spanning zero. With the coverage problem removed, the gauge does not reproduce the basin series' intensification over its own, longer window — a point-vs-areal and record-length difference, not a coverage artifact.
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
@@ -150,7 +150,7 @@ Figure: source: USGS DV 07069190 + NOAA AORC v1.1 1 km hourly basin mean over th
 ## Limitations
 
 - Station indices are point measurements; basin indices are a gridded areal mean (NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC) — smoother extremes by construction.
-- The USC00238880 series used for the station trend above is the 1981+ pull, so its window matches KUNO/basin. The 1948–1980 record **is** now pulled (separate `_1948` cache) but feeds only the West Plains composite; the 1981+ COOP series the other analyses read is unchanged.
+- The USC00238880 series used for the station trend above is the 1981+ pull, so its window matches KUNO/basin. The 1948–1980 record **is** now pulled (separate `_1948` cache) but feeds only the West Plains 1948–; the 1981+ COOP series the other analyses read is unchanged.
 - USC00238880 has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.
 - Precip series carry no approval flag; the all/approved-only rule does not apply to the index trends. It does apply to the coupling (Mammoth flow carries flags) and is reported above. Mammoth flow used in coupling: source: USGS DV 07069190; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
 - Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year serial correlation but not dependence across block boundaries, so it is mildly optimistic.
