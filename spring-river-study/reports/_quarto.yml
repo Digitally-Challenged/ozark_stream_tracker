@@ -1,0 +1,17 @@
+project:
+  type: default
+
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    embed-resources: true
+    fig-cap-location: bottom
+    df-print: default
+
+execute:
+  echo: false
+  warning: false
+
+jupyter: python3

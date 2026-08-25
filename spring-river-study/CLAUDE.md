@@ -19,9 +19,10 @@ regime over the Mammoth Spring recharge basin. Output is a reproducible report.
 See docs/data_inventory.md. Ingest modules must be idempotent and cached.
 
 ## Analysis order
-Phases 0–8 in plan.md. Phases 0–6 complete (2026-08-25); Phase 7 (report assembly)
-next. Outputs: docs/phase4_baseflow.md, docs/phase5_floods.md, docs/phase6_precip.md;
-decisions and headline results in spring_river_research.md. `make analysis` rebuilds all.
+Phases 0–8 in plan.md. Phases 0–7 complete (2026-08-25); Phase 8 (adversarial review of
+conclusions → review.md) next. Outputs: docs/phase4_baseflow.md, docs/phase5_floods.md, docs/phase6_precip.md;
+docs/phase7_seasonality.md; reports/report.html via `make report` (Quarto in ~/.local/bin).
+Decisions and headline results in spring_river_research.md. `make analysis` rebuilds all.
 
 ## Style
 Scientific, terse. Thesis → evidence → limitation. No hedging language in place

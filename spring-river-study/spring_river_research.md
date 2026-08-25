@@ -75,3 +75,10 @@ systematic series. Imboden's 1915+ peaks are the defensible long series.
 | Q6 | Modal, not periodic | Consistent with memoryless: CV 1.01, bootstrap p=0.47, n=7. |
 | Q7 | Pattern, n=2 | No support; P(quiet\|major)=0 vs base 0.08 (Clopper-Pearson diff −0.08 to +0.44), n_major=5. |
 | Q8 | 10 ft≈annual; 16≈4 yr; 22+≈15–25 | 10 ft 1.4 yr; 16 ft 4.5 (empirical 4.0); 20 ft 12.5; 23 ft ~29 yr (n=24 → wide). |
+
+## Phase 7 decisions — 2026-08-25
+
+- §2.5 closed: `climate/seasonal.py` (circular mean, resultant length R, Rayleigh p — Zar 1999) and `hydro/recession.py` (local-peak recession runs, ln-linear k, matching-strip master curve). Runner `analysis/phase7.py` → `docs/phase7_seasonality.md`.
+- Peak timing: Hardy POT ≥10 ft (n=17) mean 3 Mar, R=0.53, p=0.006; Hardy annual peaks (n=24) 3 Mar, R=0.43, p=0.012; Imboden annual peaks (n=89) 24 Feb, R=0.49, p<0.0001. Decadal R varies 0.31–0.94 with no drift.
+- Recession: Hardy (peaks ≥10,000 cfs) median k 13.9 d, trend +0.06 d/yr (CI −0.22 to 0.40, n=16); Mammoth (peaks ≥488 cfs) median k 188 d, trend +0.22 d/yr (CI −1.03 to 1.70, n=80). No change in channel/aquifer drainage rate detectable.
+- Report: Quarto 1.10.18 installed from the release tarball into `~/.local/opt` (cask needs sudo); `make report` sets `QUARTO_PYTHON` to the project venv (jupyter/ipykernel dev deps). Numbers in `reports/report.qmd` are read from `reports/tables/*.parquet` in code cells, not typed.
