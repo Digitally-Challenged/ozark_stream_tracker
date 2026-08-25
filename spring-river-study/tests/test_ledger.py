@@ -37,3 +37,26 @@ def test_ledger_one_water_year():
     assert abs(row["precip_recharge_in"] - 18.2) < 0.11
     # calendar 2020 station total = 366 * 0.1
     assert abs(row["precip_cal_in"] - 36.6) < 1e-6
+    # discharge runs through 2020-09-30 -> water year is complete
+    assert row["complete"] == True
+
+
+def test_ledger_missing_stage_yields_na_threshold_counts():
+    dv_q, _dv_stage, peaks, precip, basin, thresholds = _one_wy_inputs()
+    empty_stage = pd.DataFrame({"date": pd.Series([], dtype="datetime64[ns]"), "value": [], "approved": []})
+    ledger = build_ledger(dv_q, empty_stage, peaks, precip, basin, thresholds)
+    row = ledger[ledger["wy"] == 2020].iloc[0]
+    assert pd.isna(row["days_ge_8ft"])
+    assert pd.isna(row["days_ge_10ft"])
+    assert pd.isna(row["days_ge_14ft"])
+    assert pd.isna(row["days_ge_16ft"])
+
+
+def test_ledger_partial_water_year_is_not_complete():
+    dv_q, dv_stage, peaks, precip, basin, thresholds = _one_wy_inputs()
+    cutoff = pd.Timestamp("2020-08-24")
+    dv_q = dv_q[dv_q["date"] <= cutoff].reset_index(drop=True)
+    dv_stage = dv_stage[dv_stage["date"] <= cutoff].reset_index(drop=True)
+    ledger = build_ledger(dv_q, dv_stage, peaks, precip, basin, thresholds)
+    row = ledger[ledger["wy"] == 2020].iloc[0]
+    assert row["complete"] == False

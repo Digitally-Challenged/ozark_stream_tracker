@@ -14,6 +14,25 @@ before then. This column instead uses `PRECIP_SIDS[1]` (USC00238880, West
 Plains COOP station, 1948-present) so the calendar-year precip total is
 populated across the full period of record. `precip_recharge_in` continues to
 use the PRISM basin-average grid (Task 5), as in the original brief.
+
+Fix round 1 (2026-08-24), two behaviours:
+
+1. `days_ge_*` columns are `pd.NA` (nullable `Int64`, not `0`) for a water
+   year with no stage data at all (`len(st) == 0`) — e.g. WY 2002-2007,
+   which predate IV stage coverage (IV_START = 2007-10-01). A bare `0` would
+   be indistinguishable from "instrument present, no exceedance"; `pd.NA`
+   marks "no instrument" explicitly. When stage data exists but no reading
+   crosses a threshold, the count is a real `0`.
+2. `complete` (last column, boolean) is `True` iff the discharge frame for
+   that water year has at least one row dated on or after Sep 30 of `wy`
+   (the water year ran to its scheduled end), else `False`. This flags
+   partial/in-progress water years (e.g. the current WY while mid-year) so
+   readers don't silently treat a partial year's peak/min7/precip figures as
+   a complete-year value.
+
+Output columns, in order: `wy`, `peak_stage_ft`, `peak_cfs`, `days_ge_8ft`,
+`days_ge_10ft`, `days_ge_14ft`, `days_ge_16ft`, `min7_cfs`, `bfi`,
+`precip_cal_in`, `precip_recharge_in`, `complete`.
 """
 from datetime import date
 
@@ -61,22 +80,29 @@ def build_ledger(
             & (basin_precip["date"] < pd.Timestamp(wy, 3, 1))
         ]["pcpn_in"]
         cal = precip[precip["date"].dt.year == wy]["pcpn_in"]
+        has_stage = len(st) > 0
+        wy_end = pd.Timestamp(wy, 9, 30)
+        complete = bool((grp["date"] >= wy_end).any())
         rows.append(
             {
                 "wy": wy,
                 "peak_cfs": pk_wy["peak_cfs"].max() if len(pk_wy) else pd.NA,
                 "peak_stage_ft": pk_wy["gage_ht_ft"].max() if len(pk_wy) else pd.NA,
-                "days_ge_8ft": int((st >= th["action"]).sum()),
-                "days_ge_10ft": int((st >= th["minor"]).sum()),
-                "days_ge_14ft": int((st >= th["moderate"]).sum()),
-                "days_ge_16ft": int((st >= th["major"]).sum()),
+                "days_ge_8ft": int((st >= th["action"]).sum()) if has_stage else pd.NA,
+                "days_ge_10ft": int((st >= th["minor"]).sum()) if has_stage else pd.NA,
+                "days_ge_14ft": int((st >= th["moderate"]).sum()) if has_stage else pd.NA,
+                "days_ge_16ft": int((st >= th["major"]).sum()) if has_stage else pd.NA,
                 "min7_cfs": min7(grp[["date", "value"]]).get(wy, pd.NA),
                 "bfi": bfi(qv) if len(qv) > 30 else pd.NA,
                 "precip_cal_in": cal.sum() if len(cal) else pd.NA,
                 "precip_recharge_in": recharge.sum() if len(recharge) else pd.NA,
+                "complete": complete,
             }
         )
-    return pd.DataFrame(rows).sort_values("wy").reset_index(drop=True)
+    out = pd.DataFrame(rows).sort_values("wy").reset_index(drop=True)
+    for col in ("days_ge_8ft", "days_ge_10ft", "days_ge_14ft", "days_ge_16ft"):
+        out[col] = out[col].astype("Int64")
+    return out
 
 
 def main() -> None:
