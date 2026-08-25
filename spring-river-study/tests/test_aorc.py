@@ -68,3 +68,31 @@ def test_get_basin_pcpn_concatenates_years_and_uses_cache(raw_dir, monkeypatch):
     assert calls == [2019, 2020]
     assert out["date"].tolist() == [pd.Timestamp("2020-01-01")]
     assert out["pcpn_in"].tolist() == pytest.approx([24.0])
+
+
+def test_get_basin_pcpn_rejects_out_of_range_request(raw_dir, monkeypatch):
+    def fail_if_called(year: int, refresh: bool = False) -> pd.DataFrame:
+        raise AssertionError("get_basin_hourly should not be called for an out-of-range request")
+
+    monkeypatch.setattr(aorc, "get_basin_hourly", fail_if_called)
+    with pytest.raises(ValueError):
+        aorc.get_basin_pcpn("1970-01-01", "1975-12-31")
+
+
+def test_fetch_year_raises_when_no_hours_in_bbox(monkeypatch):
+    from spring_river.config import RECHARGE_POLYGON_PATH
+    from spring_river.ingest.basin import load_recharge_polygon
+
+    poly = load_recharge_polygon(RECHARGE_POLYGON_PATH)
+    cx, cy = poly.centroid.x, poly.centroid.y
+    lats = np.array([cy - 0.01, cy + 0.01])
+    lons = np.array([cx - 0.01, cx + 0.01])
+    empty = xr.DataArray(
+        np.empty((0, 2, 2)),
+        dims=("time", "latitude", "longitude"),
+        coords={"time": np.array([], dtype="datetime64[ns]"), "latitude": lats, "longitude": lons},
+    )
+
+    monkeypatch.setattr(aorc, "_open_year_subset", lambda year, bbox: empty)
+    with pytest.raises(RuntimeError, match="no hours"):
+        aorc._fetch_year(2020)

@@ -65,6 +65,8 @@ def _fetch_year(year: int) -> pd.DataFrame:
         if chunk.sizes["time"] == 0:
             continue
         frames.append(_basin_hourly_mean(chunk.load(), mask))
+    if not frames:
+        raise RuntimeError(f"AORC {year}.zarr returned no hours in the polygon bbox")
     out = pd.concat(frames, ignore_index=True)
     return out.sort_values("time_utc").drop_duplicates("time_utc").reset_index(drop=True)
 
@@ -84,7 +86,7 @@ def get_basin_hourly(year: int, refresh: bool = False) -> pd.DataFrame:
 def daily_from_hourly(hourly: pd.DataFrame, day_end_hour_utc: int = AORC_DAY_END_HOUR_UTC) -> pd.DataFrame:
     """24 h ending `day_end_hour_utc`, labelled with the window-end date; NaN unless all 24 hours present."""
     t = pd.to_datetime(hourly["time_utc"])
-    label = (t - pd.Timedelta(hours=day_end_hour_utc)).dt.ceil("D")
+    label = (t - pd.Timedelta(day_end_hour_utc, unit="h")).dt.ceil("D")
     g = hourly.assign(date=label).groupby("date")["pcpn_mm"].agg(["sum", "count"])
     pcpn_in = (g["sum"] / MM_PER_IN).where(g["count"] == HOURS_PER_DAY)
     return pd.DataFrame({"date": g.index, "pcpn_in": pcpn_in.to_numpy(dtype="float64")}).reset_index(drop=True)
@@ -93,6 +95,10 @@ def daily_from_hourly(hourly: pd.DataFrame, day_end_hour_utc: int = AORC_DAY_END
 def get_basin_pcpn(start: str, end: str, refresh: bool = False) -> pd.DataFrame:
     y0 = max(pd.Timestamp(start).year, AORC_FIRST_YEAR)
     y1 = min(pd.Timestamp(end).year, date.today().year)
+    if y0 > y1:
+        raise ValueError(
+            f"requested {start}..{end} lies outside AORC availability {AORC_FIRST_YEAR}..{date.today().year}"
+        )
     hourly = pd.concat([get_basin_hourly(y, refresh=refresh) for y in range(y0, y1 + 1)], ignore_index=True)
     daily = daily_from_hourly(hourly)
     keep = (daily["date"] >= pd.Timestamp(start)) & (daily["date"] <= pd.Timestamp(end))
