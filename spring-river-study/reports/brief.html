@@ -1,0 +1,1382 @@
+<title>What the Spring River Is Doing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap"
+/>
+<style>
+  :root {
+    --ground: #f4f7f7;
+    --card: #ffffff;
+    --ink: #15272d;
+    --ink-2: #4b5f66;
+    --ink-3: #7f9298;
+    --rule: #d7e0e2;
+    --grid: #e6ecee;
+    --river: #0f7f9f;
+    --river-soft: #d4e9ef;
+    --sand: #d0712a;
+    --sand-soft: #f6e1d0;
+    --band1: #eef2f3;
+    --band2: #e2e9eb;
+    --band3: #d3dde0;
+    --band4: #c2cfd3;
+    --chip-ok: #2f6f4a;
+    --chip-ok-bg: #dcefe3;
+    --chip-mid: #8a6414;
+    --chip-mid-bg: #f6ecd0;
+    --chip-low: #8a3c2a;
+    --chip-low-bg: #f4dcd6;
+    --tip-bg: #15272d;
+    --tip-ink: #f4f7f7;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme='light']) {
+      --ground: #101b1f;
+      --card: #162429;
+      --ink: #e6eef0;
+      --ink-2: #a9bcc2;
+      --ink-3: #7d9198;
+      --rule: #28393f;
+      --grid: #213036;
+      --river: #3aa3c0;
+      --river-soft: #1d3b46;
+      --sand: #cf7538;
+      --sand-soft: #40291a;
+      --band1: #182529;
+      --band2: #1f3036;
+      --band3: #283b42;
+      --band4: #32474f;
+      --chip-ok: #9bd7b3;
+      --chip-ok-bg: #1e3a2b;
+      --chip-mid: #e8c46a;
+      --chip-mid-bg: #3a3016;
+      --chip-low: #eaa593;
+      --chip-low-bg: #3f241d;
+      --tip-bg: #e6eef0;
+      --tip-ink: #101b1f;
+    }
+  }
+  :root[data-theme='dark'] {
+    --ground: #101b1f;
+    --card: #162429;
+    --ink: #e6eef0;
+    --ink-2: #a9bcc2;
+    --ink-3: #7d9198;
+    --rule: #28393f;
+    --grid: #213036;
+    --river: #3aa3c0;
+    --river-soft: #1d3b46;
+    --sand: #cf7538;
+    --sand-soft: #40291a;
+    --band1: #182529;
+    --band2: #1f3036;
+    --band3: #283b42;
+    --band4: #32474f;
+    --chip-ok: #9bd7b3;
+    --chip-ok-bg: #1e3a2b;
+    --chip-mid: #e8c46a;
+    --chip-mid-bg: #3a3016;
+    --chip-low: #eaa593;
+    --chip-low-bg: #3f241d;
+    --tip-bg: #e6eef0;
+    --tip-ink: #101b1f;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+    font-size: 18px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  .display {
+    font-family: 'Bricolage Grotesque', 'Helvetica Neue', Arial, sans-serif;
+    text-wrap: balance;
+    letter-spacing: -0.01em;
+  }
+  .mono,
+  .tick,
+  .tip,
+  .stat b,
+  .chip {
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  a {
+    color: var(--river);
+  }
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--sand);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .measure {
+    max-width: 62ch;
+  }
+
+  header.hero {
+    padding: 64px 0 32px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  header.hero h1 {
+    font-size: clamp(38px, 6vw, 64px);
+    line-height: 1.02;
+    margin: 12px 0 18px;
+    font-weight: 700;
+  }
+  header.hero p.lede {
+    font-size: 21px;
+    line-height: 1.45;
+    color: var(--ink-2);
+    margin: 0 0 28px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 12px;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+  .stat b {
+    display: block;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--river);
+    line-height: 1.1;
+    white-space: nowrap;
+  }
+  .stat span {
+    display: block;
+    font-size: 14px;
+    color: var(--ink-2);
+    margin-top: 6px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+  }
+  .stat.sand b {
+    color: var(--sand);
+  }
+
+  .finding {
+    padding: 48px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .finding .q {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink-3);
+    margin: 0 0 8px;
+  }
+  .finding h2 {
+    font-size: clamp(26px, 3.6vw, 34px);
+    line-height: 1.15;
+    margin: 0 0 14px;
+    font-weight: 700;
+  }
+  .finding p {
+    margin: 0 0 12px;
+    color: var(--ink);
+  }
+  .finding p.why {
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .chip {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .chip.ok {
+    color: var(--chip-ok);
+    background: var(--chip-ok-bg);
+  }
+  .chip.mid {
+    color: var(--chip-mid);
+    background: var(--chip-mid-bg);
+  }
+  .chip.low {
+    color: var(--chip-low);
+    background: var(--chip-low-bg);
+  }
+
+  figure {
+    margin: 22px 0 10px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 16px 16px 10px;
+    overflow-x: auto;
+  }
+  figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  figcaption {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    color: var(--ink-2);
+    margin: 2px 0 8px;
+  }
+  .legend i {
+    display: inline-block;
+    width: 14px;
+    height: 3px;
+    vertical-align: middle;
+    margin-right: 6px;
+    border-radius: 2px;
+  }
+  .legend i.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+  .tick {
+    font-size: 11px;
+    fill: var(--ink-3);
+  }
+  .axis {
+    stroke: var(--rule);
+    stroke-width: 1;
+  }
+  .gridl {
+    stroke: var(--grid);
+    stroke-width: 1;
+  }
+  .lbl {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 12px;
+    fill: var(--ink-2);
+  }
+  .lbl.strong {
+    fill: var(--ink);
+    font-weight: 700;
+  }
+  .tip {
+    position: fixed;
+    pointer-events: none;
+    background: var(--tip-bg);
+    color: var(--tip-ink);
+    font-size: 12px;
+    padding: 6px 9px;
+    border-radius: 4px;
+    opacity: 0;
+    transform: translate(-50%, -120%);
+    white-space: nowrap;
+    transition: opacity 0.08s;
+    z-index: 10;
+  }
+  .hit {
+    fill: transparent;
+    cursor: crosshair;
+  }
+
+  .ladder {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 8px 14px;
+    align-items: center;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 14px;
+  }
+  .ladder .bar {
+    height: 14px;
+    border-radius: 3px;
+    background: var(--river);
+    position: relative;
+  }
+  .ladder .bar.range {
+    background: var(--river-soft);
+  }
+  .ladder .lab {
+    color: var(--ink-2);
+  }
+  .ladder .val {
+    color: var(--ink);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+  .ladder .cat {
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .caveats {
+    padding: 48px 0 72px;
+  }
+  .caveats h2 {
+    font-size: 26px;
+    margin: 0 0 16px;
+  }
+  .caveats ul {
+    padding-left: 20px;
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .caveats li {
+    margin-bottom: 8px;
+  }
+  footer {
+    padding: 24px 0 48px;
+    border-top: 1px solid var(--rule);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 13px;
+    color: var(--ink-3);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      transition: none !important;
+    }
+  }
+</style>
+
+<div class="tip" id="tip"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Spring River at Hardy, Arkansas · 1981–2026</div>
+    <h1>What the Spring River Is Doing</h1>
+    <p class="lede measure">
+      Forty-five years of gauge and rain records, read for the questions
+      paddlers and river-front neighbors actually ask: is the low water getting
+      lower, are the floods getting bigger, and how often should we expect the
+      big ones?
+    </p>
+    <div class="stats">
+      <div class="stat">
+        <b>No</b
+        ><span>Base flow is not declining once you account for rain</span>
+      </div>
+      <div class="stat">
+        <b>No</b><span>Floods are not measurably bigger or more frequent</span>
+      </div>
+      <div class="stat sand">
+        <b>~1 in 4½ yr</b
+        ><span>How often the river reaches major flood (16 ft)</span>
+      </div>
+      <div class="stat sand">
+        <b>+2.4 in/decade</b
+        ><span>Rain over the spring's recharge country is rising</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">Every year has a high-water mark. How big were they?</p>
+    <h2>
+      Two record-class floods in twenty-four years — and eight quiet ones.
+    </h2>
+    <span class="chip ok"
+      >High confidence · USGS annual peaks, all approved</span
+    >
+    <figure>
+      <div class="legend">
+        <span
+          ><i style="background: var(--river)"></i>Peak stage each water
+          year</span
+        ><span
+          ><i style="background: var(--band3); height: 10px"></i>NWS flood
+          categories</span
+        >
+      </div>
+      <svg
+        id="peaks"
+        viewBox="0 0 860 300"
+        role="img"
+        aria-label="Annual peak stage at Hardy, 2002 to 2025, with flood category bands"
+      ></svg>
+      <figcaption>
+        Source: USGS 07069305 annual peaks, water years 2002–2025 (all
+        approved). Bands: NWS action 8 ft, minor 10, moderate 14, major 16. The
+        1982 record crest (29 ft) predates the gauge record.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      2008 and 2025 both topped 22 ft. Between them sit a lot of ordinary years
+      — a third of them never reached the 10-ft minor-flood line. That mix, not
+      a steady climb, is what the record shows.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">How often does the river hit each flood stage?</p>
+    <h2>
+      10 ft most years. 16 ft about every four. 23 ft is a once-in-a-generation
+      event.
+    </h2>
+    <span class="chip mid"
+      >Moderate confidence · fitted on 24 years; the rare end is wide</span
+    >
+    <figure>
+      <div class="ladder" id="ladder"></div>
+      <figcaption>
+        Return period = average years between floods reaching that stage. Bars:
+        log-Pearson III fit to Hardy annual peaks (WY 2002–2025) converted to
+        stage. "Seen" = how many of the 24 years actually reached it. Beyond ~25
+        years the estimate is extrapolation.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      Read these as odds, not a schedule: a 1-in-4½-year flood has roughly a 20
+      % chance in any given year, and two can land back to back (2008 did it
+      twice in a month).
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">Is the summer low water drying up?</p>
+    <h2>
+      Low water rises and falls with the previous year's rain — no hidden
+      decline.
+    </h2>
+    <span class="chip ok"
+      >High confidence · 45 years at the spring, no gaps</span
+    >
+    <figure>
+      <div class="legend">
+        <span
+          ><i style="background: var(--river)"></i>Lowest 7-day flow at Mammoth
+          Spring (cfs)</span
+        ><span
+          ><i style="background: var(--sand)"></i>Rain in the year before that
+          low (inches)</span
+        >
+      </div>
+      <svg
+        id="lowflow"
+        viewBox="0 0 860 360"
+        role="img"
+        aria-label="Mammoth Spring annual 7-day low flow and trailing-year rain, 1982 to 2025"
+      ></svg>
+      <figcaption>
+        Source: USGS 07069190 Mammoth Spring daily discharge (99 % approved;
+        provisional from 2026-04-09), PRISM 4-km rain averaged over a 30-km
+        circle around West Plains, MO. Water years 1982–2025.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      Mammoth Spring is the river's base flow, and its lowest week each year
+      tracks the rain that fell in the twelve months before it. After removing
+      that rain signal, what's left drifts by about −0.2 % a year — a range that
+      comfortably includes zero.
+    </p>
+    <p class="why measure">
+      In numbers: residual trend −0.0022 log-cfs/yr, 95 % CI −0.0050 to +0.0005,
+      n = 42. Hardy's own record (2002+) tells the same story once rain is
+      accounted for.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">Why does the river <em>look</em> lower at the same flow?</p>
+    <h2>
+      The gauge's channel has dropped about 4 inches since 2008. The water
+      hasn't.
+    </h2>
+    <span class="chip ok"
+      >High confidence · 667,000 paired stage–flow readings</span
+    >
+    <figure>
+      <div class="legend">
+        <span
+          ><i style="background: var(--river)"></i>Stage when the river carries
+          1,000 cfs</span
+        ><span><i style="background: var(--sand)"></i>Stage at 400 cfs</span>
+      </div>
+      <svg
+        id="rating"
+        viewBox="0 0 860 260"
+        role="img"
+        aria-label="Stage at a fixed flow of 400 and 1000 cfs, by water year 2008 to 2026"
+      ></svg>
+      <figcaption>
+        Source: USGS 07069305 15-minute stage and discharge, WY 2008–2026 (98 %
+        approved). Each point is a local fit of stage against flow within ±20 %
+        of the target, evaluated at 400 and 1,000 cfs.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      At a steady 1,000 cfs the gauge read 3.94 ft in 2008 and 3.52 ft in 2025 —
+      a drop of 0.019 ft a year (95 % CI −0.021 to −0.016). That is the riverbed
+      at the gauge changing shape, not less water. Anyone judging the river by
+      stage alone will think it's lower than it is.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">
+      Do big floods "flush out" the aquifer and leave the spring low afterwards?
+    </p>
+    <h2>
+      The opposite: the six months after a major flood run higher than
+      comparable years.
+    </h2>
+    <span class="chip mid"
+      >Moderate confidence · only six major floods to compare; descriptive, not
+      causal</span
+    >
+    <figure>
+      <div class="legend">
+        <span
+          ><i class="dot" style="background: var(--river)"></i>Six months after
+          the flood</span
+        ><span
+          ><i class="dot" style="background: var(--ink-3)"></i>Same season,
+          similar-rain years without a flood</span
+        >
+      </div>
+      <svg
+        id="postflood"
+        viewBox="0 0 860 300"
+        role="img"
+        aria-label="Mammoth Spring base flow six months after each major flood versus matched non-flood years"
+      ></svg>
+      <figcaption>
+        Source: USGS 07069190 Mammoth Spring, Eckhardt base-flow separation;
+        window starts 30 days after each ≥16 ft Hardy crest. Matches chosen on
+        rain and pre-flood base flow (15 distinct control years). Mean +28 %,
+        bootstrap 95 % CI +20 to +42 %.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      Every one of the six comparisons came out higher. The likeliest reading is
+      simple: the storms that make major floods also soak the recharge country,
+      and the spring pays that back for months.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">Is it raining harder over the spring's watershed?</p>
+    <h2>
+      Yes — about 2.4 inches more per decade, mostly as more wet days, not just
+      bigger storms.
+    </h2>
+    <span class="chip mid"
+      >Moderate confidence · gridded rain data; the single weather station can't
+      confirm it</span
+    >
+    <figure>
+      <div class="legend">
+        <span
+          ><i style="background: var(--river)"></i>Annual rain over the recharge
+          area</span
+        ><span><i style="background: var(--sand)"></i>Trend (Sen slope)</span>
+      </div>
+      <svg
+        id="rain"
+        viewBox="0 0 860 300"
+        role="img"
+        aria-label="Annual basin rainfall 1981 to 2025 with trend line"
+      ></svg>
+      <figcaption>
+        Source: PRISM 4-km daily precipitation, 30-km buffer around West Plains,
+        calendar years 1981–2025 (no approval flag applies). Sen slope +2.41
+        in/decade, 95 % CI +0.36 to +4.46, n = 45; 9 of 10 intensity indices
+        rise, but recharge-season (Sep–Feb) totals do not.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      Days with an inch or more are up by about 1.4 per decade; the wettest day
+      of the year is up about a quarter inch. The one thing not rising is winter
+      recharge rain, which is why the spring's base flow is steady rather than
+      climbing.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">How long after it rains does the spring respond?</p>
+    <h2>About a month. The signal is mostly gone by nine.</h2>
+    <span class="chip ok">High confidence · 545 months of paired data</span>
+    <figure>
+      <svg
+        id="lag"
+        viewBox="0 0 860 240"
+        role="img"
+        aria-label="Correlation between monthly rain and spring flow at lags of 0 to 12 months"
+      ></svg>
+      <figcaption>
+        Correlation of monthly rain anomalies with Mammoth Spring flow
+        anomalies, rain shifted earlier by 0–12 months. Bars show 95 %
+        block-bootstrap intervals. Peak r = 0.46 at lag 1.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      A wet month shows up in the spring the following month and fades over most
+      of a year. That is the memory of the aquifer — and the reason a dry winter
+      shows up as a low August.
+    </p>
+  </div>
+</section>
+
+<section class="finding">
+  <div class="wrap">
+    <p class="q">When do the big floods come — and is that changing?</p>
+    <h2>Late winter to early spring, same as it was in the 1940s.</h2>
+    <span class="chip ok"
+      >High confidence · 89 years of peaks downstream at Imboden</span
+    >
+    <figure>
+      <svg
+        id="timing"
+        viewBox="0 0 860 200"
+        role="img"
+        aria-label="Mean date of the annual peak by decade at Imboden, 1937 to 2025"
+      ></svg>
+      <figcaption>
+        Source: USGS 07069500 Imboden annual peaks, WY 1937–2025. Each dot is a
+        decade's average peak date (circular mean); dot size shows how tightly
+        that decade's peaks cluster. The partial 1930s (3 years) is omitted.
+        All-years mean 24 Feb, R = 0.49, n = 89.
+      </figcaption>
+    </figure>
+    <p class="measure">
+      Decades wander between mid-January and early April with no direction to
+      the wander. Recession behaviour is just as steady: after a flood, Hardy
+      drains at the same rate it did in 2008 (median 14 days per e-fold, no
+      trend), and the spring at the same slow rate (median 188 days).
+    </p>
+  </div>
+</section>
+
+<section class="caveats">
+  <div class="wrap measure">
+    <h2>What would change these answers</h2>
+    <ul>
+      <li>
+        <b>Twenty-four years is short for floods.</b> The 16-ft and 23-ft return
+        periods rest on 24 Hardy peaks. The 1982 record crest is real but has no
+        flow measurement, so it isn't in the fit. Ranges are wide on purpose.
+      </li>
+      <li>
+        <b>The gauge's own history is missing.</b> The USGS keeps records of
+        when and how it re-calibrated the Hardy gauge. Until those are obtained,
+        the channel-drop finding comes from the readings alone.
+      </li>
+      <li>
+        <b>The rain trend is a model product.</b> PRISM blends stations into a
+        grid. The West Plains station itself has too many missing years to
+        confirm or deny the trend on its own.
+      </li>
+      <li>
+        <b>Six floods make a pattern, not a proof.</b> The post-flood finding is
+        a comparison, not an experiment.
+      </li>
+      <li>
+        <b>The recharge area is approximated</b> as a 30-km circle around West
+        Plains; the dye-traced boundary would be better.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    Companion to the full technical report (Spring River hydrologic regime
+    study, 2026-08-25). Every number here is computed from the same result
+    tables; the technical report carries the methods, sensitivity checks, and
+    the independent review record.
+  </div>
+</footer>
+
+<script>
+  const D = {
+    peaks: [
+      [2002, 11.48],
+      [2003, 6.36],
+      [2004, 14.66],
+      [2005, 9.71],
+      [2006, 16.75],
+      [2007, 11.11],
+      [2008, 22.29],
+      [2009, 8.55],
+      [2010, 17.41],
+      [2011, 20.73],
+      [2012, 8.25],
+      [2013, 9.4],
+      [2014, 11.39],
+      [2015, 11.21],
+      [2016, 15.6],
+      [2017, 16.65],
+      [2018, 8.11],
+      [2019, 10.37],
+      [2020, 9.76],
+      [2021, 15.45],
+      [2022, 10.85],
+      [2023, 13.19],
+      [2024, 6.1],
+      [2025, 22.82],
+    ],
+    ladder: [
+      [8, 'Action', 1.16, 22],
+      [10, 'Minor flood', 1.43, 16],
+      [14, 'Moderate', 2.85, 9],
+      [16, 'Major', 4.47, 6],
+      [20, '', 12.5, 3],
+      [23, '', 29.4, 0],
+    ],
+    low: [
+      [1982, 182.9, 37.1],
+      [1983, 207.0, 40.4],
+      [1984, 255.7, 48.0],
+      [1985, 267.0, 43.4],
+      [1986, 259.6, 51.2],
+      [1987, 219.0, 35.8],
+      [1988, 206.1, 32.6],
+      [1989, 264.3, 45.1],
+      [1990, 226.7, 35.1],
+      [1991, 232.9, 48.7],
+      [1992, 283.6, 42.7],
+      [1993, 257.0, 41.5],
+      [1994, 271.9, 51.9],
+      [1995, 246.0, 45.3],
+      [1996, 229.4, 38.3],
+      [1997, 274.4, 45.9],
+      [1998, 240.0, 44.2],
+      [1999, 240.7, 46.3],
+      [2000, 209.1, 35.5],
+      [2001, 177.7, 36.4],
+      [2002, 173.7, 31.7],
+      [2003, 214.3, 36.9],
+      [2004, 196.9, 41.6],
+      [2005, 209.3, 44.3],
+      [2006, 191.6, 43.6],
+      [2007, 239.4, 49.2],
+      [2008, 211.0, 42.5],
+      [2009, 255.0, 60.4],
+      [2010, 292.6, 52.3],
+      [2011, 213.4, 35.7],
+      [2012, 241.7, 41.7],
+      [2013, 211.7, 36.8],
+      [2014, 259.9, 43.3],
+      [2015, 284.7, 45.5],
+      [2016, 260.3, 51.2],
+      [2017, 254.6, 45.7],
+      [2018, 208.6, 48.8],
+      [2019, 215.4, 44.6],
+      [2020, 294.1, 59.7],
+      [2021, 292.4, 60.5],
+      [2022, 251.7, 46.6],
+      [2023, 269.0, 43.7],
+      [2024, 212.1, 42.1],
+      [2025, 218.4, 47.5],
+    ],
+    rating: [
+      [2008, 3.27, 3.94],
+      [2009, 3.21, 3.88],
+      [2010, 3.03, 3.79],
+      [2011, 3.05, 3.73],
+      [2012, 3.04, 3.76],
+      [2013, 3.11, 3.75],
+      [2014, 3.05, 3.71],
+      [2015, 3.03, 3.71],
+      [2016, 3.04, 3.65],
+      [2017, 2.99, 3.67],
+      [2018, 3.01, 3.63],
+      [2019, 3.01, 3.62],
+      [2020, 3.01, 3.62],
+      [2021, 3.01, 3.57],
+      [2022, 3.01, 3.57],
+      [2023, 2.95, 3.55],
+      [2024, 2.96, 3.53],
+      [2025, 2.97, 3.52],
+      [2026, 2.95, 3.56],
+    ],
+    post: [
+      ['Sep 2006', 287, 349],
+      ['Mar 2008', 282, 338],
+      ['Oct 2009', 305, 362],
+      ['Apr 2011', 188, 307],
+      ['Apr 2017', 228, 275],
+      ['Apr 2025', 295, 355],
+    ],
+    rain: [
+      [1981, 37.1],
+      [1982, 54.9],
+      [1983, 41.2],
+      [1984, 50.2],
+      [1985, 50.4],
+      [1986, 32.6],
+      [1987, 42.2],
+      [1988, 43.0],
+      [1989, 35.3],
+      [1990, 56.5],
+      [1991, 48.0],
+      [1992, 44.1],
+      [1993, 52.6],
+      [1994, 48.8],
+      [1995, 40.2],
+      [1996, 48.7],
+      [1997, 36.4],
+      [1998, 46.5],
+      [1999, 35.5],
+      [2000, 36.4],
+      [2001, 36.9],
+      [2002, 58.2],
+      [2003, 47.2],
+      [2004, 47.9],
+      [2005, 43.0],
+      [2006, 55.7],
+      [2007, 42.0],
+      [2008, 60.6],
+      [2009, 57.1],
+      [2010, 38.3],
+      [2011, 63.7],
+      [2012, 36.1],
+      [2013, 54.3],
+      [2014, 44.6],
+      [2015, 64.1],
+      [2016, 45.4],
+      [2017, 49.1],
+      [2018, 51.4],
+      [2019, 58.8],
+      [2020, 60.4],
+      [2021, 48.9],
+      [2022, 48.2],
+      [2023, 42.1],
+      [2024, 59.6],
+      [2025, 52.0],
+    ],
+    rainSlope: 0.241,
+    rainMid: [2003, 47.4],
+    lag: [
+      [0, 0.3, 0.25, 0.36],
+      [1, 0.46, 0.42, 0.53],
+      [2, 0.36, 0.29, 0.41],
+      [3, 0.28, 0.19, 0.35],
+      [4, 0.22, 0.13, 0.27],
+      [5, 0.16, 0.06, 0.22],
+      [6, 0.13, 0.04, 0.2],
+      [7, 0.1, 0.01, 0.17],
+      [8, 0.06, -0.04, 0.15],
+      [9, 0, -0.11, 0.09],
+      [10, 0, -0.08, 0.09],
+      [11, 0.05, -0.03, 0.14],
+      [12, 0.02, -0.06, 0.13],
+    ],
+    timing: [
+      ['1940s', 61, 0.68, 10],
+      ['1950s', 58, 0.59, 10],
+      ['1960s', 99, 0.5, 10],
+      ['1970s', 40, 0.39, 11],
+      ['1980s', 18, 0.68, 9],
+      ['1990s', 87, 0.31, 10],
+      ['2000s', 16, 0.33, 11],
+      ['2010s', 58, 0.64, 9],
+      ['2020s', 72, 0.7, 6],
+    ],
+  };
+  const css = (n) =>
+    getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const NS = 'http://www.w3.org/2000/svg';
+  const el = (t, a, p) => {
+    const e = document.createElementNS(NS, t);
+    for (const k in a) e.setAttribute(k, a[k]);
+    if (p) p.appendChild(e);
+    return e;
+  };
+  const txt = (p, x, y, s, cls, anchor) => {
+    const t = el(
+      'text',
+      { x, y, class: cls || 'tick', 'text-anchor': anchor || 'start' },
+      p
+    );
+    t.textContent = s;
+    return t;
+  };
+  const lin = (d0, d1, r0, r1) => (v) =>
+    r0 + ((v - d0) / (d1 - d0)) * (r1 - r0);
+  const tip = document.getElementById('tip');
+  const showTip = (e, s) => {
+    tip.textContent = s;
+    tip.style.left = e.clientX + 'px';
+    tip.style.top = e.clientY - 8 + 'px';
+    tip.style.opacity = 1;
+  };
+  const hideTip = () => (tip.style.opacity = 0);
+  const hover = (node, s) => {
+    node.addEventListener('mousemove', (e) => showTip(e, s));
+    node.addEventListener('mouseleave', hideTip);
+  };
+  const yAxis = (svg, y, ticks, x0, x1, fmt) =>
+    ticks.forEach((v) => {
+      el('line', { x1: x0, x2: x1, y1: y(v), y2: y(v), class: 'gridl' }, svg);
+      txt(svg, x0 - 8, y(v) + 4, fmt ? fmt(v) : v, 'tick', 'end');
+    });
+
+  // 1 · annual peaks with category bands
+  (() => {
+    const svg = document.getElementById('peaks'),
+      L = 56,
+      R = 110,
+      T = 12,
+      B = 36,
+      W = 860,
+      H = 300;
+    const x = lin(2001.4, 2025.6, L, W - R),
+      y = lin(0, 25, H - B, T);
+    const bands = [
+      [8, 10, 'band1', 'action'],
+      [10, 14, 'band2', 'minor'],
+      [14, 16, 'band3', 'moderate'],
+      [16, 25, 'band4', 'major'],
+    ];
+    bands.forEach(([a, b, c, n]) => {
+      el(
+        'rect',
+        {
+          x: L,
+          y: y(b),
+          width: W - R - L,
+          height: y(a) - y(b),
+          fill: css('--' + c),
+        },
+        svg
+      );
+      txt(svg, W - R + 8, y(a) + 4, n + ' · ' + a + ' ft', 'lbl');
+    });
+    yAxis(svg, y, [0, 5, 10, 15, 20, 25], L, W - R, (v) => v + ' ft');
+    const bw = x(2003) - x(2002) - 3;
+    D.peaks.forEach(([yr, v]) => {
+      const r = el(
+        'rect',
+        {
+          x: x(yr) - bw / 2,
+          y: y(v),
+          width: bw,
+          height: y(0) - y(v),
+          rx: 2,
+          fill: css('--river'),
+        },
+        svg
+      );
+      if (v >= 20)
+        txt(svg, x(yr), y(v) - 6, v.toFixed(1), 'lbl strong', 'middle');
+      hover(r, `WY ${yr}: ${v.toFixed(2)} ft`);
+      if (yr % 4 === 2) txt(svg, x(yr), H - 12, yr, 'tick', 'middle');
+    });
+    el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), class: 'axis' }, svg);
+  })();
+
+  // 2 · return-period ladder
+  (() => {
+    const box = document.getElementById('ladder'),
+      max = 30;
+    D.ladder.forEach(([ft, cat, rp, seen]) => {
+      const lab = document.createElement('div');
+      lab.className = 'lab';
+      lab.innerHTML = `<b>${ft} ft</b>${cat ? ` <span class="cat">${cat}</span>` : ''}`;
+      const track = document.createElement('div');
+      track.className = 'bar range';
+      track.style.height = '16px';
+      const fill = document.createElement('div');
+      fill.className = 'bar';
+      fill.style.width = Math.min(100, (rp / max) * 100) + '%';
+      fill.style.height = '16px';
+      fill.style.position = 'absolute';
+      fill.style.left = 0;
+      fill.style.top = 0;
+      track.style.position = 'relative';
+      track.appendChild(fill);
+      const val = document.createElement('div');
+      val.className = 'val';
+      val.textContent =
+        (rp < 10 ? rp.toFixed(1) : Math.round(rp)) +
+        ' yr · seen ' +
+        seen +
+        '/24';
+      hover(
+        track,
+        `${ft} ft: about once every ${rp < 10 ? rp.toFixed(1) : Math.round(rp)} years`
+      );
+      box.append(lab, track, val);
+    });
+  })();
+
+  // 3 · low flow + trailing rain (two stacked panels, one x)
+  (() => {
+    const svg = document.getElementById('lowflow'),
+      L = 56,
+      R = 16,
+      W = 860;
+    const x = lin(1981.5, 2025.5, L, W - R);
+    const y1 = lin(150, 310, 190, 12),
+      y2 = lin(25, 65, 340, 215);
+    yAxis(svg, y1, [150, 200, 250, 300], L, W - R, (v) => v);
+    txt(svg, L, 10, 'low flow, cfs', 'lbl');
+    yAxis(svg, y2, [30, 40, 50, 60], L, W - R, (v) => v + '"');
+    txt(svg, L, 212, 'rain in the 12 months before, inches', 'lbl');
+    const p1 = D.low.map(([yr, q]) => `${x(yr)},${y1(q)}`).join(' ');
+    el(
+      'polyline',
+      {
+        points: p1,
+        fill: 'none',
+        stroke: css('--river'),
+        'stroke-width': 2,
+        'stroke-linejoin': 'round',
+      },
+      svg
+    );
+    const bw = x(1983) - x(1982) - 3;
+    D.low.forEach(([yr, q, p]) => {
+      el(
+        'rect',
+        {
+          x: x(yr) - bw / 2,
+          y: y2(p),
+          width: bw,
+          height: y2(25) - y2(p),
+          rx: 2,
+          fill: css('--sand'),
+        },
+        svg
+      );
+      const h = el(
+        'rect',
+        {
+          x: x(yr) - bw / 2 - 1.5,
+          y: 12,
+          width: bw + 3,
+          height: 328,
+          class: 'hit',
+        },
+        svg
+      );
+      hover(
+        h,
+        `WY ${yr}: low ${q.toFixed(0)} cfs · rain before ${p.toFixed(1)} in`
+      );
+      if (yr % 5 === 0) txt(svg, x(yr), 356, yr, 'tick', 'middle');
+    });
+    el(
+      'line',
+      { x1: L, x2: W - R, y1: y2(25), y2: y2(25), class: 'axis' },
+      svg
+    );
+  })();
+
+  // 4 · rating drift
+  (() => {
+    const svg = document.getElementById('rating'),
+      L = 56,
+      R = 16,
+      W = 860;
+    const x = lin(2007.5, 2026.5, L, W - R),
+      y = lin(2.8, 4.0, 220, 14);
+    yAxis(svg, y, [3.0, 3.5, 4.0], L, W - R, (v) => v.toFixed(1) + ' ft');
+    [
+      [2, '--river', '1,000 cfs'],
+      [1, '--sand', '400 cfs'],
+    ].forEach(([i, c, n]) => {
+      el(
+        'polyline',
+        {
+          points: D.rating.map((r) => `${x(r[0])},${y(r[i])}`).join(' '),
+          fill: 'none',
+          stroke: css(c),
+          'stroke-width': 2,
+          'stroke-linejoin': 'round',
+        },
+        svg
+      );
+      const last = D.rating[D.rating.length - 1];
+      txt(svg, x(last[0]) + 6, y(last[i]) + 4, n, 'lbl');
+    });
+    D.rating.forEach((r) => {
+      const h = el(
+        'rect',
+        { x: x(r[0]) - 10, y: 14, width: 20, height: 206, class: 'hit' },
+        svg
+      );
+      hover(
+        h,
+        `WY ${r[0]}: ${r[2].toFixed(2)} ft at 1,000 cfs · ${r[1].toFixed(2)} ft at 400 cfs`
+      );
+      if (r[0] % 3 === 2) txt(svg, x(r[0]), 240, r[0], 'tick', 'middle');
+    });
+  })();
+
+  // 5 · post-flood dumbbells
+  (() => {
+    const svg = document.getElementById('postflood'),
+      L = 90,
+      R = 60,
+      W = 860;
+    const x = lin(150, 400, L, W - R),
+      rows = D.post.length,
+      y = (i) => 30 + i * 42;
+    [200, 250, 300, 350, 400].forEach((v) => {
+      el(
+        'line',
+        { x1: x(v), x2: x(v), y1: 14, y2: y(rows - 1) + 18, class: 'gridl' },
+        svg
+      );
+      txt(svg, x(v), y(rows - 1) + 34, v + ' cfs', 'tick', 'middle');
+    });
+    D.post.forEach(([lab, m, p], i) => {
+      txt(svg, L - 12, y(i) + 4, lab, 'lbl', 'end');
+      el(
+        'line',
+        {
+          x1: x(m),
+          x2: x(p),
+          y1: y(i),
+          y2: y(i),
+          stroke: css('--river-soft'),
+          'stroke-width': 6,
+        },
+        svg
+      );
+      const c1 = el(
+        'circle',
+        {
+          cx: x(m),
+          cy: y(i),
+          r: 6,
+          fill: css('--ink-3'),
+          stroke: css('--card'),
+          'stroke-width': 2,
+        },
+        svg
+      );
+      const c2 = el(
+        'circle',
+        {
+          cx: x(p),
+          cy: y(i),
+          r: 6,
+          fill: css('--river'),
+          stroke: css('--card'),
+          'stroke-width': 2,
+        },
+        svg
+      );
+      txt(
+        svg,
+        x(p) + 12,
+        y(i) + 4,
+        '+' + Math.round(((p - m) / m) * 100) + ' %',
+        'lbl strong'
+      );
+      hover(c1, `${lab} · matched years: ${m} cfs`);
+      hover(c2, `${lab} · after flood: ${p} cfs`);
+    });
+  })();
+
+  // 6 · rain with Sen trend
+  (() => {
+    const svg = document.getElementById('rain'),
+      L = 56,
+      R = 16,
+      W = 860;
+    const x = lin(1980.4, 2025.6, L, W - R),
+      y = lin(0, 70, 264, 12);
+    yAxis(svg, y, [0, 20, 40, 60], L, W - R, (v) => v + '"');
+    const bw = x(1982) - x(1981) - 3;
+    D.rain.forEach(([yr, v]) => {
+      const r = el(
+        'rect',
+        {
+          x: x(yr) - bw / 2,
+          y: y(v),
+          width: bw,
+          height: y(0) - y(v),
+          rx: 2,
+          fill: css('--river'),
+        },
+        svg
+      );
+      hover(r, `${yr}: ${v.toFixed(1)} in`);
+      if (yr % 5 === 0) txt(svg, x(yr), 284, yr, 'tick', 'middle');
+    });
+    const [ym, vm] = D.rainMid,
+      s = D.rainSlope;
+    el(
+      'line',
+      {
+        x1: x(1981),
+        x2: x(2025),
+        y1: y(vm + s * (1981 - ym)),
+        y2: y(vm + s * (2025 - ym)),
+        stroke: css('--sand'),
+        'stroke-width': 2.5,
+        'stroke-dasharray': '6 4',
+      },
+      svg
+    );
+    el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), class: 'axis' }, svg);
+  })();
+
+  // 7 · lag correlation
+  (() => {
+    const svg = document.getElementById('lag'),
+      L = 56,
+      R = 16,
+      W = 860;
+    const x = lin(-0.6, 12.6, L, W - R),
+      y = lin(-0.15, 0.6, 200, 14);
+    yAxis(svg, y, [0, 0.2, 0.4, 0.6], L, W - R, (v) => 'r ' + v.toFixed(1));
+    const bw = x(1) - x(0) - 8;
+    D.lag.forEach(([lg, r, lo, hi]) => {
+      const b = el(
+        'rect',
+        {
+          x: x(lg) - bw / 2,
+          y: y(Math.max(r, 0)),
+          width: bw,
+          height: Math.abs(y(r) - y(0)),
+          rx: 2,
+          fill: lg === 1 ? css('--river') : css('--river-soft'),
+        },
+        svg
+      );
+      el(
+        'line',
+        {
+          x1: x(lg),
+          x2: x(lg),
+          y1: y(lo),
+          y2: y(hi),
+          stroke: css('--ink-2'),
+          'stroke-width': 1.5,
+        },
+        svg
+      );
+      hover(
+        b,
+        `lag ${lg} mo: r = ${r.toFixed(2)} (${lo.toFixed(2)} to ${hi.toFixed(2)})`
+      );
+      txt(
+        svg,
+        x(lg),
+        222,
+        lg === 0 ? 'same month' : lg + ' mo',
+        'tick',
+        'middle'
+      );
+    });
+    txt(svg, x(1), y(0.46) - 10, 'peak: 1 month later', 'lbl strong', 'middle');
+    el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), class: 'axis' }, svg);
+  })();
+
+  // 8 · peak timing by decade
+  (() => {
+    const svg = document.getElementById('timing'),
+      L = 70,
+      R = 30,
+      W = 860;
+    const x = lin(1, 152, L, W - R),
+      yb = 140;
+    const months = [
+      ['Jan', 1],
+      ['Feb', 32],
+      ['Mar', 60],
+      ['Apr', 91],
+      ['May', 121],
+    ];
+    months.forEach(([m, d]) => {
+      el(
+        'line',
+        { x1: x(d), x2: x(d), y1: 24, y2: yb + 4, class: 'gridl' },
+        svg
+      );
+      txt(svg, x(d) + 4, yb + 22, m, 'tick');
+    });
+    el('line', { x1: L, x2: W - R, y1: yb, y2: yb, class: 'axis' }, svg);
+    [...D.timing]
+      .sort((a, b) => a[1] - b[1])
+      .forEach(([dec, doy, Rv, n], i) => {
+        const cy = yb - 10 - (i % 4) * 26,
+          r = 4 + Rv * 12;
+        const c = el(
+          'circle',
+          {
+            cx: x(doy),
+            cy,
+            r,
+            fill: css('--river'),
+            'fill-opacity': 0.85,
+            stroke: css('--card'),
+            'stroke-width': 2,
+          },
+          svg
+        );
+        txt(svg, x(doy) + r + 5, cy + 4, dec, 'lbl');
+        hover(
+          c,
+          `${dec}: mean peak day ${doy} · clustering R ${Rv.toFixed(2)} · n ${n}`
+        );
+      });
+    el(
+      'line',
+      {
+        x1: x(55),
+        x2: x(55),
+        y1: 12,
+        y2: yb,
+        stroke: css('--sand'),
+        'stroke-width': 2,
+        'stroke-dasharray': '5 4',
+      },
+      svg
+    );
+    txt(svg, x(55) + 6, yb + 40, 'all years: 24 Feb', 'lbl strong');
+  })();
+</script>
