@@ -1,6 +1,6 @@
 # Handoff — Spring River study: second edition on supplemental precipitation data
 
-Status: implemented 2026-08-25 on `study/precip-edition` — see `docs/superpowers/plans/2026-08-25-spring-river-precip-edition.md`.
+Status: implemented 2026-08-25 on `study/precip-edition` — see `docs/superpowers/plans/2026-08-25-spring-river-precip-edition.md`. Lay-reader artifact (new, 2026-08-25): https://claude.ai/code/artifact/461090a5-7702-4c8f-8fa2-0a498fde7390 — source reports/plain.html (hand-authored; numbers typed from reports/tables and the phase docs, plus the West Plains COOP 1948→ pull cached as data/raw/acis_pcpn_USC00238880_1948). Refresh by hand when headlines move.
 
 Written 2026-08-25. Next session's job: rebuild the precipitation-dependent parts of the report on the MoDNR recharge polygon and NOAA AORC, then republish.
 

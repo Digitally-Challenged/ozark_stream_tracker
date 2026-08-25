@@ -40,3 +40,15 @@ Reviewer could not run the suite (uv cache permission in its sandbox); direct-ru
 | N1 | Complete-WY selection uses the series max date only. | **Overruled for now** — stage series has no interior year-long gaps (qa_report: two ≤13-day gaps in 2014); revisit if a longer gap appears. |
 | N2 | Q4 candidate precip windows lack a coverage gate. | **Overruled for now** — PRISM basin series is complete over 1981–2026 (`precip_recharge_in` populated for every WY in the ledger). |
 | N3 | Permutation p lacked plus-one correction. | **Fixed.** |
+
+## Second edition review — 2026-08-25
+
+Independent passes on branch `study/precip-edition` (d3f58af..35ccaf5): a whole-branch code review and a Codex adversarial pass (`codex:codex-rescue`, verdict NEEDS-CHANGES). All items were fixed in 7959df5.
+
+Blocking (Codex): the Phase 4 Q1 header prose still described the pre-review predictor window ("ending the day before the min7 end date") while the code ends it before the 7-day window starts — prose corrected to match `hydro/lowflow.py`.
+
+Important (whole-branch review): (1) a mid-file circular import in `ingest/basin.py` that worked only by position — dispatcher imports made function-local, import-order tests added; (2) `aorc.get_basin_pcpn` listed the S3 bucket on every call, so `make analysis` needed the network even with a full cache — listing now skipped when all requested years are cached, memoised, and offline falls back to the newest cached year with a warning; (3) the comparison figure title said "1981–present" although the three sources end on different dates — title now built from non-missing spans.
+
+Non-blocking (Codex), all applied: AORC span was reported from NaN half-window rows (now 1981-01-02–2025-12-31); the Mammoth coefficient/R² gain is now split between geometry (0.013→0.0139; R² 0.446→0.519) and product (→0.0156; →0.577) in the research notes; the report no longer claims the comparison covers "every" precipitation-dependent result (ledger and Phase 5 antecedent table run on the default source only); Q4 precipitation windows now carry a 90 % coverage gate (`hydro/postflood.MIN_PRECIP_COVERAGE`) — no window failed it, Q4 unchanged; PRISM caches are documented as keyed by geometry, not date range. Codex also noted that "two of three sources say zero" for the Hardy residual is really one product (PRISM) on two geometries against another product (AORC) — carried to Phase 8.
+
+Verified after the fixes: 171 tests; `make phase4 compare` runs offline; fresh-clone `make report` reproduces the phase documents.
