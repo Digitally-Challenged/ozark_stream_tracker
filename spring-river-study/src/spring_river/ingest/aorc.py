@@ -95,7 +95,5 @@ def get_basin_pcpn(start: str, end: str, refresh: bool = False) -> pd.DataFrame:
     y1 = min(pd.Timestamp(end).year, date.today().year)
     hourly = pd.concat([get_basin_hourly(y, refresh=refresh) for y in range(y0, y1 + 1)], ignore_index=True)
     daily = daily_from_hourly(hourly)
-    # A day labelled D covers the 24h window ending 12 UTC on D, so it can carry
-    # data from the last calendar day of `end`'s year even when labelled D = end+1.
-    keep = (daily["date"] >= pd.Timestamp(start)) & (daily["date"] <= pd.Timestamp(end) + pd.Timedelta(days=1))
+    keep = (daily["date"] >= pd.Timestamp(start)) & (daily["date"] <= pd.Timestamp(end))
     return daily[keep].reset_index(drop=True)

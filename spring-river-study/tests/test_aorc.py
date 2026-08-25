@@ -66,5 +66,5 @@ def test_get_basin_pcpn_concatenates_years_and_uses_cache(raw_dir, monkeypatch):
     monkeypatch.setattr(aorc, "get_basin_hourly", fake_year)
     out = aorc.get_basin_pcpn("2019-01-01", "2020-12-31")
     assert calls == [2019, 2020]
-    assert out["date"].tolist() == [pd.Timestamp("2020-01-01"), pd.Timestamp("2021-01-01")]
-    assert out["pcpn_in"].tolist() == pytest.approx([24.0, 24.0])
+    assert out["date"].tolist() == [pd.Timestamp("2020-01-01")]
+    assert out["pcpn_in"].tolist() == pytest.approx([24.0])
