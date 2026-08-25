@@ -68,11 +68,17 @@ def _flag_counts(df: pd.DataFrame) -> dict[str, int]:
 
 
 def get_station_pcpn(
-    sid: str, start: str, end: str, refresh: bool = False
+    sid: str, start: str, end: str, refresh: bool = False, cache_suffix: str = ""
 ) -> pd.DataFrame:
-    name = f"acis_pcpn_{sid.replace(' ', '_')}"
+    """Daily precipitation for one station.
+
+    `cache_suffix` keys a separate cache file for the same station under a
+    different request window (e.g. `"_1948"` for the West Plains COOP
+    backfill), leaving the default 1981+ cache untouched for other callers.
+    """
+    name = f"acis_pcpn_{sid.replace(' ', '_')}{cache_suffix}"
     body = {"sid": sid, "sdate": start, "edate": end, "elems": [{"name": "pcpn"}]}
-    meta = {"source": "RCC-ACIS StnData", "request": body}
+    meta = {"source": "RCC-ACIS StnData", "request": body, "cache_suffix": cache_suffix}
 
     def fetch() -> pd.DataFrame:
         resp = requests.post(f"{ACIS_BASE}/StnData", json=body, timeout=60)

@@ -23,6 +23,8 @@ Phases 0–8 in plan.md. Phases 0–7 complete (2026-08-25); Phase 8 (adversaria
 conclusions → review.md) next. Outputs: docs/phase4_baseflow.md, docs/phase5_floods.md, docs/phase6_precip.md;
 docs/phase7_seasonality.md; reports/report.html via `make report` (Quarto in ~/.local/bin).
 Decisions and headline results in spring_river_research.md. `make analysis` rebuilds all.
+Second edition 2026-08-25: basin precip via ingest/basin.py (`config.BASIN_PRECIP_SOURCE`, default
+`aorc`); `make compare` → docs/precip_comparison.md. Lay page: reports/plain.html (published artifact; see handoff).
 
 ## Style
 Scientific, terse. Thesis → evidence → limitation. No hedging language in place

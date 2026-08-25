@@ -12,8 +12,9 @@ Controller ruling on `precip_cal_in`: `PRECIP_SIDS[0]` (KUNO) only starts in
 1998, which would leave `precip_cal_in` NaN/zero-biased for water years
 before then. This column instead uses `PRECIP_SIDS[1]` (USC00238880, West
 Plains COOP station, 1948-present) so the calendar-year precip total is
-populated across the full period of record. `precip_recharge_in` continues to
-use the PRISM basin-average grid (Task 5), as in the original brief.
+populated across the full period of record. `precip_recharge_in` uses the
+basin series selected by `config.BASIN_PRECIP_SOURCE` (AORC over the MoDNR
+polygon by default; second edition 2026-08-25).
 
 Fix round 1 (2026-08-24), two behaviours:
 
@@ -126,7 +127,7 @@ def build_ledger(
 
 
 def main() -> None:
-    from spring_river.ingest import acis, nwps, prism, usgs
+    from spring_river.ingest import acis, basin as basin_mod, nwps, usgs
     from spring_river.ingest.pull_all import IV_START, PRECIP_SIDS
     from spring_river.hydro.wateryear import daily_max_stage
 
@@ -139,7 +140,7 @@ def main() -> None:
     # PRECIP_SIDS[0] (KUNO, 1998-present) so the column is populated across
     # the full period of record — see module docstring.
     precip = acis.get_station_pcpn(PRECIP_SIDS[1], START_DATE, end)
-    basin = prism.get_basin_pcpn(START_DATE, end)
+    basin = basin_mod.get_basin_pcpn(START_DATE, end)
     thresholds = nwps.flood_categories(nwps.get_gauge_info())
 
     ledger = build_ledger(dv_q, dv_stage, peaks, precip, basin, thresholds)
@@ -171,8 +172,7 @@ def main() -> None:
     axes[2].set_xlabel("water year")
     fig.suptitle(
         f"Spring River at Hardy (USGS {SITE_HARDY}) — annual ledger\n"
-        f"source: USGS discharge/stage/peaks (site {SITE_HARDY}), PRISM basin "
-        f"recharge precip, ACIS USC00238880 calendar precip; "
+        f"source: USGS discharge/stage/peaks (site {SITE_HARDY}), basin recharge precip = {basin_mod.basin_label()}, ACIS USC00238880 calendar precip; "
         f"period WY {int(ledger['wy'].min())}–{int(ledger['wy'].max())}; "
         f"{approval_note}",
         fontsize=10,

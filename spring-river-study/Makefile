@@ -1,9 +1,12 @@
-.PHONY: data qa ledger test inventory phase4 phase5 phase6 phase7 analysis report
+.PHONY: data qa ledger test inventory phase4 phase5 phase6 phase7 compare analysis report
 
 QUARTO ?= $(shell command -v quarto 2>/dev/null || echo $(HOME)/.local/bin/quarto)
 
 phase7:
 	uv run python -m spring_river.analysis.phase7
+
+compare:
+	uv run python -m spring_river.analysis.compare_sources
 
 report: analysis
 	cd reports && QUARTO_PYTHON=$(CURDIR)/.venv/bin/python $(QUARTO) render report.qmd
@@ -17,7 +20,7 @@ phase5:
 phase6:
 	uv run python -m spring_river.analysis.phase6
 
-analysis: ledger phase4 phase5 phase6 phase7
+analysis: ledger phase4 phase5 phase6 phase7 compare
 
 inventory:
 	uv run python -m spring_river.ingest.inventory

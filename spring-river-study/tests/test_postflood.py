@@ -1,12 +1,39 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from spring_river.hydro.postflood import (
+    MIN_PRECIP_COVERAGE,
     RECESSION_SKIP_DAYS,
+    _window_precip,
     matched_comparison,
     paired_summary,
     post_event_baseflow,
 )
+
+
+def _precip_window_with_missing(n_missing: int) -> float:
+    """30-day window total with `n_missing` of its days NaN."""
+    start = pd.Timestamp("2020-01-01")
+    dates = pd.date_range(start, periods=30, freq="D")
+    pcpn = np.full(30, 0.1)
+    pcpn[:n_missing] = np.nan
+    basin = pd.DataFrame({"date": dates, "pcpn_in": pcpn})
+    return _window_precip(basin, start, start + pd.Timedelta(30, unit="D"))
+
+
+def test_min_precip_coverage_is_90_percent():
+    assert MIN_PRECIP_COVERAGE == 0.9
+
+
+def test_window_precip_passes_at_27_of_30_days():
+    # 3 of 30 missing → 90 % coverage, exactly at the gate
+    assert _precip_window_with_missing(3) == pytest.approx(2.7)
+
+
+def test_window_precip_is_nan_below_coverage_gate():
+    # 6 of 30 missing → 80 % coverage, below the gate
+    assert np.isnan(_precip_window_with_missing(6))
 
 
 def _data(n_years=12, seed=0):

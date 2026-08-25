@@ -4,53 +4,53 @@ Every trend line reports Sen slope, 95% CI, MK z/p and n; every analysis is repe
 
 ## Q1 attribution
 
-Basin precip: PRISM 30 km buffer around West Plains, 1981-01-01–2026-08-24; ONI: CPC, 1950-01-01–2026-06-01.
+Basin precip: NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC [aorc], 1981-01-01–2026-01-01; ONI: CPC, 1950-01-01–2026-06-01.
 
-Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly antecedent to each water year's own min7 window: `p_trailing_in` = basin precip over the 365 days ending the day before that WY's min7 end date; `p_trailing_prev_in` = the 365 days before that; `oni_trailing` = mean ONI over the 6 months ending the month before the min7 end date. (The earlier fixed Sep–Feb recharge total leaked precipitation that fell after most years' min7.) Precip predictors require ≥90% day coverage; ONI ≥4 of 6 months. Incomplete water years are excluded from the fit.
+Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly antecedent to each water year's own min7 window: `p_trailing_in` = basin precip over the 365 days ending the day before that WY's 7-day min7 window STARTS (its end date minus 7 days); `p_trailing_prev_in` = the 365 days before that; `oni_trailing` = mean ONI over the 6 center-months ending in the month before that same window-start day (end date minus 7 days). (The earlier fixed Sep–Feb recharge total leaked precipitation that fell after most years' min7.) Precip predictors require ≥90% day coverage; ONI ≥4 of 6 months. Incomplete water years are excluded from the fit.
 
 ### Mammoth
 
 - Series: source: USGS DV 07069190 discharge; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09
 - min7 raw trend (log-cfs): Sen slope 0.000319 log-cfs/yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - Pettitt change-point on min7: after WY 2008 (K=178, p=0.260, n=45)
-- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.45, n=42
-  - p_trailing_in: 0.0130 (95% CI 0.0089 to 0.0171)
-  - p_trailing_prev_in: 0.0007 (95% CI -0.0035 to 0.0049)
-  - oni_trailing: 0.0189 (95% CI -0.0222 to 0.0600)
-- **Residual trend (non-climatic component): Sen slope -0.00222 log-cfs/yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42**
+- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.58, n=42
+  - p_trailing_in: 0.0156 (95% CI 0.0111 to 0.0201)
+  - p_trailing_prev_in: 0.0032 (95% CI -0.0007 to 0.0071)
+  - oni_trailing: 0.0115 (95% CI -0.0232 to 0.0461)
+- **Residual trend (non-climatic component): Sen slope -0.00126 log-cfs/yr (95% CI -0.00326 to 0.00122); MK z=-0.91, p=0.363; n=42**
 
 Sensitivity (approved-only re-run of the full chain):
-- residual trend (all): Sen slope -0.00222 /yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42
-- residual trend (approved-only): Sen slope -0.00222 /yr (95% CI -0.00497 to 0.000453); MK z=-1.71, p=0.087; n=42
+- residual trend (all): Sen slope -0.00126 /yr (95% CI -0.00326 to 0.00122); MK z=-0.91, p=0.363; n=42
+- residual trend (approved-only): Sen slope -0.00126 /yr (95% CI -0.00326 to 0.00122); MK z=-0.91, p=0.363; n=42
 - min7 raw trend (all): Sen slope 0.000319 /yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - min7 raw trend (approved-only): Sen slope 0.000319 /yr (95% CI -0.00376 to 0.00357); MK z=0.13, p=0.897; n=42
 - Pettitt (approved-only): after WY 2008 (K=178, p=0.260, n=45)
-- OLS (approved-only): R²=0.45, n=42
-  - p_trailing_in: 0.0130 (95% CI 0.0089 to 0.0171)
-  - p_trailing_prev_in: 0.0007 (95% CI -0.0035 to 0.0049)
-  - oni_trailing: 0.0189 (95% CI -0.0222 to 0.0600)
+- OLS (approved-only): R²=0.58, n=42
+  - p_trailing_in: 0.0156 (95% CI 0.0111 to 0.0201)
+  - p_trailing_prev_in: 0.0032 (95% CI -0.0007 to 0.0071)
+  - oni_trailing: 0.0115 (95% CI -0.0232 to 0.0461)
 
 ### Hardy
 
 - Series: source: USGS DV 07069305 discharge; period 2001-10-01–2026-08-23; approved 99%, provisional from 2026-04-09
 - min7 raw trend (log-cfs): Sen slope 0.023 log-cfs/yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - Pettitt change-point on min7: after WY 2013 (K=110, p=0.013, n=24)
-- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.47, n=24
-  - p_trailing_in: 0.0230 (95% CI 0.0097 to 0.0363)
-  - p_trailing_prev_in: 0.0173 (95% CI 0.0046 to 0.0300)
-  - oni_trailing: 0.0779 (95% CI -0.0465 to 0.2022)
-- **Residual trend (non-climatic component): Sen slope 0.00676 log-cfs/yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24**
+- OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3): R²=0.41, n=24
+  - p_trailing_in: 0.0231 (95% CI 0.0088 to 0.0375)
+  - p_trailing_prev_in: 0.0164 (95% CI 0.0056 to 0.0272)
+  - oni_trailing: 0.0479 (95% CI -0.0800 to 0.1757)
+- **Residual trend (non-climatic component): Sen slope 0.0203 log-cfs/yr (95% CI 0.00915 to 0.0291); MK z=3.99, p=0.000; n=24**
 
 Sensitivity (approved-only re-run of the full chain):
-- residual trend (all): Sen slope 0.00676 /yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24
-- residual trend (approved-only): Sen slope 0.00676 /yr (95% CI -0.00135 to 0.0195); MK z=1.76, p=0.078; n=24
+- residual trend (all): Sen slope 0.0203 /yr (95% CI 0.00915 to 0.0291); MK z=3.99, p=0.000; n=24
+- residual trend (approved-only): Sen slope 0.0203 /yr (95% CI 0.00915 to 0.0291); MK z=3.99, p=0.000; n=24
 - min7 raw trend (all): Sen slope 0.023 /yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - min7 raw trend (approved-only): Sen slope 0.023 /yr (95% CI 0.00736 to 0.0361); MK z=3.05, p=0.002; n=24
 - Pettitt (approved-only): after WY 2013 (K=110, p=0.013, n=24)
-- OLS (approved-only): R²=0.47, n=24
-  - p_trailing_in: 0.0230 (95% CI 0.0097 to 0.0363)
-  - p_trailing_prev_in: 0.0173 (95% CI 0.0046 to 0.0300)
-  - oni_trailing: 0.0779 (95% CI -0.0465 to 0.2022)
+- OLS (approved-only): R²=0.41, n=24
+  - p_trailing_in: 0.0231 (95% CI 0.0088 to 0.0375)
+  - p_trailing_prev_in: 0.0164 (95% CI 0.0056 to 0.0272)
+  - oni_trailing: 0.0479 (95% CI -0.0800 to 0.1757)
 
 ### BFI trend (gap-segmented Eckhardt; Lyne-Hollick check)
 
@@ -160,7 +160,7 @@ Flow percentile → stage (Hardy DV discharge percentiles; median stage of recen
 
 ## Q4 post-flood base flow vs matched non-flood years
 
-Post window: 6 months of Eckhardt base flow starting 30 days after the event (past the recession limb). Controls: the 3 non-flood years (no ≥16 ft event within ±1 yr) closest in standardized distance on same-calendar post-window precip AND antecedent base flow (mean over the 90 days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the antecedent match.
+Post window: 6 months of Eckhardt base flow starting 30 days after the event (past the recession limb). Controls: the 3 non-flood years (no ≥16 ft event within ±1 yr) closest in standardized distance on same-calendar post-window precip AND antecedent base flow (mean over the 90 days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the antecedent match; precip windows with < 90 % day coverage are NaN and drop out of the match distance.
 
 ### Mammoth
 
@@ -168,15 +168,15 @@ Series: source: USGS DV 07069190 discharge; period 1981-02-25–2026-08-23; appr
 
 | event_date          |   post_bf_cfs |   post_p_in |   pre_bf_cfs | matched_years   |   matched_bf_cfs |   matched_p_in |   matched_pre_bf_cfs |   diff_cfs |   diff_pct |
 |:--------------------|--------------:|------------:|-------------:|:----------------|-----------------:|---------------:|---------------------:|-----------:|-----------:|
-| 2006-09-23 00:00:00 |         349.4 |        26.4 |        218.3 | 2004,1987,1982  |            287.3 |           26.5 |                223.3 |       62.2 |       21.6 |
-| 2008-03-19 00:00:00 |         338.4 |        26.8 |        234.4 | 1996,2003,1990  |            281.6 |           26.6 |                228.9 |       56.8 |       20.2 |
-| 2009-10-30 00:00:00 |         362.2 |        22.3 |        275.6 | 2013,1993,2002  |            304.9 |           21   |                267.1 |       57.3 |       18.8 |
-| 2011-04-26 00:00:00 |         307.4 |        22.6 |        226   | 2000,2001,2003  |            188.3 |           22.1 |                223.6 |      119.1 |       63.3 |
-| 2017-04-30 00:00:00 |         275.5 |        14.1 |        267.6 | 1987,1986,1999  |            227.6 |           16.6 |                292.7 |       47.9 |       21   |
-| 2025-04-05 00:00:00 |         354.6 |        26.1 |        358.6 | 2019,1993,1984  |            295.2 |           27.2 |                344.9 |       59.4 |       20.1 |
+| 2006-09-23 00:00:00 |         349.4 |        25.3 |        218.3 | 2004,1987,2014  |            288.9 |           26.5 |                227.5 |       60.6 |       21   |
+| 2008-03-19 00:00:00 |         338.4 |        26.5 |        234.4 | 1982,2003,1990  |            268.1 |           25.6 |                233.2 |       70.3 |       26.2 |
+| 2009-10-30 00:00:00 |         362.2 |        25   |        275.6 | 2021,2013,2015  |            321.1 |           25.8 |                270.3 |       41.1 |       12.8 |
+| 2011-04-26 00:00:00 |         307.4 |        23.2 |        226   | 2000,2001,1987  |            190   |           20.9 |                235.9 |      117.4 |       61.8 |
+| 2017-04-30 00:00:00 |         275.5 |        14   |        267.6 | 1999,1986,1987  |            227.6 |           18   |                292.7 |       47.9 |       21   |
+| 2025-04-05 00:00:00 |         354.6 |        24.1 |        358.6 | 1991,1988,2019  |            313.3 |           25   |                352.5 |       41.4 |       13.2 |
 
-- mean post-flood base-flow difference: 27.5% (bootstrap 95% CI 19.8 to 42.0); n=6 events; 15 unique control years
-- approved-only: 27.5% (bootstrap 95% CI 19.8 to 42.0); n=6 events; 15 unique control years
+- mean post-flood base-flow difference: 26.0% (bootstrap 95% CI 15.7 to 41.0); n=6 events; 16 unique control years
+- approved-only: 26.0% (bootstrap 95% CI 15.7 to 41.0); n=6 events; 16 unique control years
 - CI reflects event-to-event variation only; matching uncertainty and control-year reuse are not propagated — descriptive, not causal.
 
 ### Hardy
@@ -185,15 +185,15 @@ Series: source: USGS DV 07069305 discharge; period 2001-10-01–2026-08-23; appr
 
 | event_date          |   post_bf_cfs |   post_p_in |   pre_bf_cfs | matched_years   |   matched_bf_cfs |   matched_p_in |   matched_pre_bf_cfs |   diff_cfs |   diff_pct |
 |:--------------------|--------------:|------------:|-------------:|:----------------|-----------------:|---------------:|---------------------:|-----------:|-----------:|
-| 2006-09-23 00:00:00 |        1231.9 |        26.4 |        251.3 | 2004,2003,2014  |            912.6 |           22.7 |                394   |      319.3 |       35   |
-| 2008-03-19 00:00:00 |         787.6 |        26.8 |        721.8 | 2021,2014,2004  |            734.3 |           27.6 |                803.7 |       53.3 |        7.3 |
-| 2009-10-30 00:00:00 |        1336.1 |        22.3 |        946.4 | 2013,2020,2014  |           1103.1 |           24.3 |                509.6 |      233   |       21.1 |
-| 2011-04-26 00:00:00 |         698.1 |        22.6 |        632.4 | 2004,2014,2003  |            471.6 |           26.3 |                698.4 |      226.5 |       48   |
-| 2017-04-30 00:00:00 |         600.3 |        14.1 |        903.5 | 2021,2022,2023  |            522.7 |           18.5 |               1347   |       77.6 |       14.8 |
-| 2025-04-05 00:00:00 |         975.3 |        26.1 |       1270.9 | 2015,2019,2002  |            875.4 |           28.4 |               1339.5 |       99.9 |       11.4 |
+| 2006-09-23 00:00:00 |        1231.9 |        25.3 |        251.3 | 2004,2014,2003  |            912.6 |           23.8 |                394   |      319.3 |       35   |
+| 2008-03-19 00:00:00 |         787.6 |        26.5 |        721.8 | 2003,2004,2014  |            578.6 |           27.7 |                724.2 |      209   |       36.1 |
+| 2009-10-30 00:00:00 |        1336.1 |        25   |        946.4 | 2013,2020,2022  |           1054.7 |           23.5 |                508.8 |      281.5 |       26.7 |
+| 2011-04-26 00:00:00 |         698.1 |        23.2 |        632.4 | 2004,2014,2013  |            482.4 |           25.8 |                770.6 |      215.8 |       44.7 |
+| 2017-04-30 00:00:00 |         600.3 |        14   |        903.5 | 2021,2022,2014  |            564.1 |           20.1 |               1133.1 |       36.2 |        6.4 |
+| 2025-04-05 00:00:00 |         975.3 |        24.1 |       1270.9 | 2015,2002,2023  |            720.4 |           25.1 |               1279.2 |      254.9 |       35.4 |
 
-- mean post-flood base-flow difference: 22.9% (bootstrap 95% CI 12.6 to 35.1); n=6 events; 11 unique control years
-- approved-only: 22.9% (bootstrap 95% CI 12.6 to 35.1); n=6 events; 11 unique control years
+- mean post-flood base-flow difference: 30.7% (bootstrap 95% CI 19.6 to 38.7); n=6 events; 10 unique control years
+- approved-only: 30.7% (bootstrap 95% CI 19.6 to 38.7); n=6 events; 10 unique control years
 - CI reflects event-to-event variation only; matching uncertainty and control-year reuse are not propagated — descriptive, not causal.
 
 ![postflood](../reports/figures/phase4_postflood.png)
@@ -204,4 +204,4 @@ Series: source: USGS DV 07069305 discharge; period 2001-10-01–2026-08-23; appr
 - Hardy series is WY 2002+ (n≤24); Mammoth Spring vent carries the 1981+ record.
 - Q4 n equals the number of ≥16 ft events in the Hardy peak file; CI is a bootstrap on a handful of events and excludes matching uncertainty and control-year reuse (descriptive, not causal).
 - Q5 shifts use ±365-day windows around each event; events before IV_START (2007-10-01) have no pairs and are omitted.
-- Basin precip is the 30 km West Plains PRISM buffer, not a dye-traced recharge polygon.
+- Basin precip: NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC. The polygon excludes recharge shared with Bill Mac and Greer springs (separate MoDNR layers). AORC before 2002 has no radar input and shares gauge/Stage IV inputs with PRISM, so the two grids are not independent.

@@ -26,6 +26,10 @@ PRE_STATE_DAYS = 90
 MIN_DAYS_PER_MONTH = 20
 # Minimum defined-baseflow days in the antecedent window for a candidate.
 MIN_PRE_DAYS = 60
+# Minimum fraction of a precip window's calendar days that must carry a value.
+# AORC has documented missing days; below this the window total is NaN and the
+# precip term drops out of the match distance rather than reading as "dry".
+MIN_PRECIP_COVERAGE = 0.9
 
 
 class Candidate(NamedTuple):
@@ -57,9 +61,13 @@ def _window_mean(
 def _window_precip(
     basin: pd.DataFrame, start: pd.Timestamp, end: pd.Timestamp
 ) -> float:
-    return float(
-        basin[(basin["date"] >= start) & (basin["date"] < end)]["pcpn_in"].sum()
-    )
+    """Precip total over [start, end). NaN when fewer than `MIN_PRECIP_COVERAGE`
+    of the window's calendar days carry a value."""
+    w = basin[(basin["date"] >= start) & (basin["date"] < end)]["pcpn_in"]
+    days = (end - start).days
+    if days <= 0 or w.notna().sum() < MIN_PRECIP_COVERAGE * days:
+        return float("nan")
+    return float(w.sum())
 
 
 def _pre_state(bf: pd.DataFrame, event: pd.Timestamp) -> tuple[float, int]:

@@ -1,5 +1,7 @@
 # Handoff — Spring River study: second edition on supplemental precipitation data
 
+Status: implemented 2026-08-25 on `study/precip-edition` — see `docs/superpowers/plans/2026-08-25-spring-river-precip-edition.md`. Lay-reader artifact (new, 2026-08-25): https://claude.ai/code/artifact/461090a5-7702-4c8f-8fa2-0a498fde7390 — source reports/plain.html (hand-authored; numbers typed from reports/tables and the phase docs, plus the West Plains COOP 1948→ pull cached as data/raw/acis_pcpn_USC00238880_1948). Refresh by hand when headlines move.
+
 Written 2026-08-25. Next session's job: rebuild the precipitation-dependent parts of the report on the MoDNR recharge polygon and NOAA AORC, then republish.
 
 ## Where things stand
@@ -47,3 +49,17 @@ USGS rating-shift/datum records for Hardy (Q5/Q8 provisional); real regional ske
 - `dataviz` + `artifact-design` — only if the brief gets new charts.
 - `superpowers:verification-before-completion` — fresh-clone `make report` before claiming done.
 - `handoff` at the end.
+
+## Closing status — 2026-08-25 (end of the second-edition session)
+
+Branch `study/precip-edition`, head 08152bf (18 commits on d3f58af). 180 tests; fresh-clone `make report` reproduces all phase documents byte-for-byte from the `data/raw` cache (verified three times, last at 08152bf). **Not yet merged** — merge with `--no-ff` and push only on Nick's explicit go-ahead.
+
+Delivered beyond the original sequence:
+- `climate/westplains.py` — West Plains 1948– record: two instruments, one at a time — COOP USC00238880 through 1998-03-31, then KUNO ASOS from 1998-04-01 raised by the measured COOP/KUNO catch ratio 1.068 (282 overlapping months) so the record stays on the town gauge's level; no day borrowed between gauges (43 KUNO-missing days stay NaN); cache `acis_pcpn_USC00238880_1948`, build cache untouched. Phase 6 series "West Plains 1948–" (n = 76): total +1.26 in/decade (CI 0.28–2.34, p_BH 0.067, ns); days ≥ 1 in significant (+0.70, CI 0.26–1.15); max1/SDII flat — the "station tests are low-power" line was replaced by what the 76-year gauge shows.
+- `analysis/compare_sources.py` (`make compare`) and `docs/precip_comparison.md`; `hydro/postflood.py` 90 % coverage gate; offline-safe AORC year clamp; Q1 prose matched to code (Codex blocking item).
+- Reviews: per-task gates, whole-branch review, Codex adversarial pass, all findings fixed — record in `docs/review_phase4-6.md` § "Second edition review".
+- Artifacts (republish to the same URLs): technical report https://claude.ai/code/artifact/a1dc172c-1984-4789-9ca4-cb3ba474b90c ; lay final report https://claude.ai/code/artifact/461090a5-7702-4c8f-8fa2-0a498fde7390 (source `reports/plain.html`; Nick's instruction: standalone final report, no references to prior editions; includes "Is 2026 unusual?" on the West Plains record).
+
+Gotchas learned this session: AORC bucket carries whole calendar years and lags by months (2025.zarr latest on 2026-08-25); `cp -R data/raw dest/data/raw` nests into `raw/raw` — use `cp -R data/raw/. dest/data/raw/`; a subagent added `*.html` to `reports/.gitignore` unasked (reverted) — check gitignore diffs from doc tasks; ACIS caches are keyed by station id (+ optional suffix), never by date range.
+
+Next: Phase 8 (`review.md`). Attack first: the Hardy residual (AORC positive vs PRISM zero is one product vs another, not "two of three"); the grid-vs-gauge intensity disagreement (1981+ areal vs 1949+ point); the COOP/KUNO 3.5-in disagreement over the last twelve months.
