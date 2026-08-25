@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 
 from spring_river.ingest.nwps import flood_categories
@@ -56,3 +58,45 @@ def test_historic_crests_empty_returns_zero_row_frame_with_correct_dtypes():
     assert out["date"].dtype == "datetime64[ns]"
     assert out["stage_ft"].dtype == "float64"
     assert out["flow_cfs"].dtype == "float64"
+
+
+def test_get_gauge_info_writes_atomically_and_caches(monkeypatch, tmp_path):
+    from spring_river.ingest import nwps
+
+    monkeypatch.setattr(nwps, "RAW_DIR", tmp_path)
+
+    fake_info = {"foo": "bar"}
+
+    class FakeResponse:
+        def raise_for_status(self):
+            pass
+
+        def json(self):
+            return fake_info
+
+    def fake_get(url, timeout):
+        return FakeResponse()
+
+    monkeypatch.setattr(nwps.requests, "get", fake_get)
+
+    result = nwps.get_gauge_info()
+    assert result == fake_info
+
+    json_path = tmp_path / f"nwps_{nwps.NWS_GAUGE}.json"
+    meta_path = tmp_path / f"nwps_{nwps.NWS_GAUGE}.meta.json"
+    assert json_path.exists()
+    assert meta_path.exists()
+    assert list(tmp_path.glob("*.tmp")) == []
+
+    meta = json.loads(meta_path.read_text())
+    assert meta["source"]
+    assert meta["url"]
+    assert meta["fetched_at"]
+
+    def fake_get_raises(url, timeout):
+        raise AssertionError("should not hit network on cache hit")
+
+    monkeypatch.setattr(nwps.requests, "get", fake_get_raises)
+
+    result_cached = nwps.get_gauge_info()
+    assert result_cached == fake_info

@@ -1,5 +1,6 @@
 """NWS NWPS gauge document for HDYA4: flood categories, ratings, crests."""
 import json
+import os
 from datetime import datetime, timezone
 
 import pandas as pd
@@ -18,8 +19,15 @@ def get_gauge_info(refresh: bool = False) -> dict:
     resp = requests.get(NWPS_URL, timeout=30)
     resp.raise_for_status()
     info = resp.json()
-    path.write_text(json.dumps(info, indent=2))
-    (RAW_DIR / f"nwps_{NWS_GAUGE}.meta.json").write_text(
+
+    # Atomic write: temp file → replace, so a truncated file never appears as cache
+    tmp_path = path.with_suffix(".json.tmp")
+    tmp_path.write_text(json.dumps(info, indent=2))
+    os.replace(tmp_path, path)
+
+    meta_path = RAW_DIR / f"nwps_{NWS_GAUGE}.meta.json"
+    meta_tmp_path = meta_path.with_suffix(".json.tmp")
+    meta_tmp_path.write_text(
         json.dumps(
             {
                 "source": "NWS NWPS v1 gauge document",
@@ -29,6 +37,7 @@ def get_gauge_info(refresh: bool = False) -> dict:
             indent=2,
         )
     )
+    os.replace(meta_tmp_path, meta_path)
     return info
 
 
@@ -53,6 +62,7 @@ def historic_crests(info: dict) -> pd.DataFrame:
                 "flow_cfs": pd.Series(dtype="float64"),
             }
         )
+    # Crests are all-day events; drop tz and keep the UTC wall date (not local-tz converted).
     df = pd.DataFrame(
         {
             "date": pd.to_datetime([r["occurredTime"] for r in rows]).tz_localize(None),
