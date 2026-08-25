@@ -37,3 +37,20 @@ def test_no_pattern_is_not_significant():
 def test_no_major_years_gives_nan_rate():
     r = conditional_rate_test(np.zeros(10, bool), np.ones(10, bool), n_perm=100)
     assert np.isnan(r.rate_after_major)
+
+
+def test_conditional_rate_power_is_negligible_at_small_n_major():
+    from spring_river.stats.permutation import conditional_rate_power
+
+    p = conditional_rate_power(5, 19, 2 / 19, alt_rates=(0.2, 0.8), n_sim=800).set_index(
+        "true_rate_given_major")
+    assert p.loc[0.2, "power"] < 0.15         # a 2x effect is undetectable
+    assert p.loc[0.8, "power"] > p.loc[0.2, "power"]
+
+
+def test_conditional_rate_power_improves_with_more_major_years():
+    from spring_river.stats.permutation import conditional_rate_power
+
+    few = conditional_rate_power(5, 19, 0.1, alt_rates=(0.6,), n_sim=800)["power"].iloc[0]
+    many = conditional_rate_power(40, 100, 0.1, alt_rates=(0.6,), n_sim=800)["power"].iloc[0]
+    assert many > few

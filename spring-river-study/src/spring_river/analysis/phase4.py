@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
+import statsmodels.api as sm
 from matplotlib.ticker import MaxNLocator, NullFormatter, ScalarFormatter
 import pandas as pd
 
@@ -23,6 +24,7 @@ from spring_river.analysis.common import (
 )
 from spring_river.config import (
     BASIN_PRECIP_SOURCE,
+    BASIN_SOURCES,
     DOCS_DIR,
     FIGURES_DIR,
     MAJOR_FLOOD_FT,
@@ -37,16 +39,28 @@ from spring_river.config import (
 )
 from spring_river.hydro.baseflow import bfi_by_wy
 from spring_river.hydro.freq_lp3 import stage_flow_fit
-from spring_river.hydro.lowflow import PREDICTORS, AttributionFit, attribution_table, fit_attribution
+from spring_river.hydro.lowflow import (
+    PREDICTORS,
+    AttributionFit,
+    attribution_table,
+    fit_attribution,
+    fit_attribution_precip_only,
+    ratio_trend,
+)
 from spring_river.hydro.postflood import (
     PRE_STATE_DAYS,
     RECESSION_SKIP_DAYS,
     matched_comparison,
     paired_summary,
+    placebo_distribution,
+    skip_day_sensitivity,
 )
-from spring_river.ingest import basin as basin_mod, oni, usgs
+from spring_river.ingest import basin as basin_mod, field_measurements as fmeas, oni, usgs
 from spring_river.ingest.pull_all import IV_START
 from spring_river.qa.rating import (
+    FIELD_BAND_CFS,
+    FIELD_TARGET_CFS,
+    field_stage_at_flow,
     flow_percentile_stages,
     loglog_correlation,
     pair_iv,
@@ -57,6 +71,7 @@ from spring_river.qa.rating import (
 from spring_river.stats.trends import MIN_N, TrendResult, pettitt, trend_test
 
 BFI_METHODS = ("eckhardt", "lyne_hollick")
+PLACEBO_TRIALS = 200
 Fit = tuple[pd.DataFrame, AttributionFit]
 
 
@@ -148,7 +163,13 @@ def _bfi_section(series: dict[str, pd.DataFrame], lines: list[str]) -> None:
                 results[variant] = trend_test(s.to_numpy(), s.index.to_numpy(dtype="float64"))
             lines.append(f"- {label} BFI ({method}): {fmt_trend(results['all'], 'BFI')}")
             lines += ["  " + ln for ln in sensitivity_lines(f"{label} BFI ({method})", results["all"], results["approved"])]
-    lines.append("")
+    lines += [
+        "",
+        "**What a null BFI trend is not.** BFI is a ratio, and at a spring-fed river it sits near 1, so it is "
+        "nearly blind to a change in the absolute base-flow *rate*: base flow and total flow can both rise "
+        "together and leave the ratio flat. These nulls are reported as stated, but they are **not evidence "
+        "against a base-flow change** and must not be cited as corroboration of one. The min7 series and the "
+        "Hardy/Mammoth ratio above carry that question.", ""]
 
 
 def _residuals(tbl: pd.DataFrame, fit: AttributionFit) -> pd.DataFrame:
@@ -231,6 +252,8 @@ def _rating_section(end: str, majors: pd.Series, dv_q: pd.DataFrame, peaks: pd.D
             lines.append(f"  - approved-only: {_fmt_or_short(res['approved'][0], 'ft', res['approved'][1])}")
     _rating_figure(sf, majors, iv_h)
     lines += ["", "![rating](../reports/figures/phase4_rating_drift.png)", ""]
+    _field_measurement_section(SITE_HARDY, lines)
+    _measured_vs_computed_section(SITE_HARDY, dv_q, lines)
     pairs_cap = caption(f"USGS IV {SITE_HARDY} discharge+stage", pairs.rename(columns={"datetime": "date"}))
     rt, fit, fp = _lookup_tables(pairs, dv_q, peaks)
     _lookup_lines(rt, fit, fp, pairs_cap, lines)
@@ -383,6 +406,292 @@ def _postflood_section(
     fig.savefig(FIGURES_DIR / "phase4_postflood.png", dpi=150)
     plt.close(fig)
     lines += ["![postflood](../reports/figures/phase4_postflood.png)", ""]
+    _q4_placebo_section(series, basin, majors, lines)
+
+
+def _hardy_ratio_section(fits: dict[str, dict[str, Fit]], series: dict[str, pd.DataFrame],
+                         oni_df: pd.DataFrame) -> list[str]:
+    """Phase 8 (review.md item 5): the Hardy low-flow rise, led by the evidence
+    that needs no precipitation model at all."""
+    tbl_h = fits["Hardy"]["all"][0]
+    tbl_m = fits["Mammoth"]["all"][0]
+    t, s = ratio_trend(tbl_h[tbl_h["complete"]], tbl_m)
+    s.to_parquet(TABLES_DIR / "phase4_hardy_mammoth_ratio.parquet")
+    pt = pettitt(s["log_ratio"].to_numpy(dtype="float64"))
+    pt_wy = int(s["wy"].iloc[pt.change_index])
+
+    rows = []
+    for src in BASIN_SOURCES:
+        b = basin_mod.get_basin_pcpn(START_DATE, series["Hardy"]["date"].max().date().isoformat(), source=src)
+        for label, q in series.items():
+            f = fit_attribution_precip_only(attribution_table(q, b, oni_df))
+            r = f.residual_trend
+            rows.append({"series": label, "basin_source": src, "n": f.n, "r2": f.r2,
+                         "resid_slope": r.slope, "lo": r.slope_lo, "hi": r.slope_hi, "p": r.p})
+    po = pd.DataFrame(rows)
+    po.to_parquet(TABLES_DIR / "phase4_precip_only_fits.parquet")
+    hardy_po = po[po["series"] == "Hardy"]
+    n_sig = int((hardy_po["lo"] > 0).sum())
+
+    return [
+        "## Q1c Hardy low-flow rise: evidence without a precipitation model", "",
+        "The published Hardy residual is source-dependent, which was reported as a reason not to call it a "
+        "finding. Two checks say otherwise, and neither depends on a gridded precipitation product.", "",
+        "### Hardy against Mammoth Spring (no precipitation model)", "",
+        "Mammoth Spring is the best available climate control for Hardy: the same recharge climate, absorbing "
+        "precipitation, ENSO, PET and any gridded-precip bias at once. If Hardy's rise were climate, it would "
+        "vanish against Mammoth.", "",
+        f"- **log(Hardy min7 / Mammoth min7) trend: {fmt_trend(t, 'log-ratio')}**",
+        f"- Pettitt change-point on the log ratio: after WY {pt_wy} (K={pt.k:.0f}, p={pt.p:.3f}, n={pt.n})",
+        f"- the ratio rises by a factor {float(np.exp(t.slope * (s['wy'].max() - s['wy'].min()))):.2f} across "
+        f"WY {int(s['wy'].min())}–{int(s['wy'].max())}.", "",
+        "### Precip-only fits (the ONI term dropped)", "",
+        "At n≈24 the never-significant ONI regressor costs a degree of freedom for nothing. Dropping it:", "",
+        po.round(4).to_markdown(index=False), "",
+        f"- Hardy's residual rise has a CI excluding zero on {n_sig} of {len(hardy_po)} basin sources; "
+        "the source-dependence of the published figure was one weak regressor, not a fragile signal.",
+        "- **The rise is therefore reported as a finding, not as a source artefact.** Its cause is Q1c/Q5: the "
+        "channel at Hardy degraded (see the field-measurement trend below), and the reach gains water the "
+        "spring alone does not account for.", "",
+    ]
+
+
+def _field_measurement_section(site: str, lines: list[str]) -> None:
+    """Phase 8 (review.md item 6): stage at a fixed discharge from FIELD
+    measurements — neither side rating-derived, so this answers the
+    circularity attack on the IV-based Q5 figure."""
+    fm = fmeas.get_field_measurements(site)
+    pairs = fmeas.measured_pairs(fm)
+    ch = fmeas.get_channel_measurements(site)
+    loc = fmeas.get_monitoring_location(site)
+    fsf = field_stage_at_flow(pairs)
+    fsf.to_parquet(TABLES_DIR / "phase4_field_stage_at_flow.parquet")
+    pairs.to_parquet(TABLES_DIR / "phase4_field_pairs.parquet")
+
+    lines += [
+        "### Field-measured stage at fixed discharge (independent of the rating)", "",
+        f"Source: USGS OGC API `field-measurements` and `channel-measurements` "
+        f"(`api.waterdata.usgs.gov/ogcapi/v0`), site {site}; {len(fm)} readings over "
+        f"{pairs['field_visit_id'].nunique()} visits with both a measured discharge and a measured stage, "
+        f"{pairs['time'].min().date()}–{pairs['time'].max().date()}; {len(ch)} channel surveys.", "",
+        "Both numbers in each pair are *measured at the visit* — the discharge by wading or ADCP, not computed "
+        "from the stage — so a decline here cannot be rating drift. Stage is normalised to "
+        f"{FIELD_TARGET_CFS:.0f} cfs along a single log-linear fit through the "
+        f"{FIELD_BAND_CFS[0]:.0f}–{FIELD_BAND_CFS[1]:.0f} cfs band, then averaged per water year.", "",
+    ]
+    if len(fsf) >= MIN_N:
+        t = trend_test(fsf["stage_at_flow_ft"].to_numpy(dtype="float64"),
+                       fsf["wy"].to_numpy(dtype="float64"))
+        lines += [
+            f"- **field-measured stage at {FIELD_TARGET_CFS:.0f} cfs: {fmt_trend(t, 'ft')}**",
+            f"- water years covered: {int(fsf['wy'].min())}–{int(fsf['wy'].max())} "
+            f"({len(fsf)} with a qualifying visit; {int(fsf['n_visits'].sum())} visits).",
+            f"- total fall over the record: {float(fsf['stage_at_flow_ft'].iloc[0] - fsf['stage_at_flow_ft'].iloc[-1]):.2f} ft.",
+            "- This is steeper than the IV-derived figure and four years longer, and it brackets the 2006-09-23 "
+            "event the shift table has to omit. It retires both the 'IV-derived only' limitation and the "
+            "'events before IV_START have no pairs' gap: **the channel really degraded; the rating followed it.**",
+            "",
+            fsf.round(3).to_markdown(index=False), "",
+        ]
+    else:
+        lines += [f"- not tested: only {len(fsf)} water years have a qualifying visit.", ""]
+    if len(loc):
+        r = loc.iloc[0]
+        lines += [
+            "### Gauge datum", "",
+            f"- current datum: {r['altitude']:.2f} ft {r['vertical_datum']} "
+            f"(±{r['altitude_accuracy']}, {r['altitude_method_name']}), from the `monitoring-locations` endpoint.",
+            "- The datum elevation carries **two revisions** (340.91→342.49 ft before Dec 2022; 342.49→342.73 ft "
+            "between Dec 2022 and Dec 2024 — the value above). Both are post-2022 bookkeeping of the datum "
+            "elevation: **no site move, and nothing at WY2008**, so neither can explain the low-flow step. "
+            "`time-series-revisions` returns no rows for this site.", "",
+        ]
+
+
+def _q4_placebo_section(series: dict[str, pd.DataFrame], basin: pd.DataFrame,
+                        majors: pd.Series, lines: list[str]) -> None:
+    """Phase 8 (review.md item 3): does the matching pipeline manufacture the
+    post-flood effect, and does it survive a later post-window start?"""
+    lines += [
+        "### Placebo and skip-day sensitivity", "",
+        f"With n={len(majors)} events, three nearest controls each and heavy control-year reuse, the procedure "
+        "itself may produce an effect. The placebo runs the identical pipeline on random NON-flood pseudo-events "
+        "keeping the real events' days-of-year, so what it returns is what 'no flood' looks like through this "
+        "machinery. The skip-day sensitivity asks whether the effect is recession water still present in the "
+        "post window rather than a change in base flow.", "",
+    ]
+    rows, skips = [], []
+    for label, q in series.items():
+        p = placebo_distribution(q, basin, majors, n_trials=PLACEBO_TRIALS, seed=0)
+        rows.append({"series": label, **{k: p[k] for k in
+                     ("real", "mean", "sd", "p95", "frac_ge_real", "corrected", "n_trials")}})
+        skips.append(skip_day_sensitivity(q, basin, majors).assign(series=label))
+    pl = pd.DataFrame(rows).rename(columns={"mean": "placebo_mean", "sd": "placebo_sd",
+                                            "p95": "placebo_p95", "real": "real_diff_pct"})
+    sk = pd.concat(skips, ignore_index=True)
+    pl.to_parquet(TABLES_DIR / "phase4_postflood_placebo.parquet")
+    sk.to_parquet(TABLES_DIR / "phase4_postflood_skip_days.parquet")
+    lines += [f"Placebo: {PLACEBO_TRIALS} trials per series, seed 0.", "",
+              pl.round(2).to_markdown(index=False), "",
+              "Skip-day sensitivity (post window starts this many days after the event):", "",
+              sk.round(1).to_markdown(index=False), ""]
+    for _, r in pl.iterrows():
+        d = sk[sk["series"] == r["series"]].set_index("skip_days")
+        far = d.loc[d.index.max()]
+        survives = far["lo"] > 0
+        lines.append(
+            f"- **{r['series']}**: placebo mean {r['placebo_mean']:+.1f}% (sd {r['placebo_sd']:.1f}); "
+            f"{r['frac_ge_real']:.1%} of placebo trials reach the real {r['real_diff_pct']:+.1f}%; "
+            f"placebo-corrected effect {r['corrected']:+.1f}%. At a {int(d.index.max())}-day skip the effect is "
+            f"{far['mean_diff_pct']:+.1f}% (CI {far['lo']:.1f} to {far['hi']:.1f})"
+            + ("." if survives else " — the CI spans zero."))
+    lines += [
+        "",
+        "Reading: an effect worth reporting must sit far outside its own placebo distribution AND survive a "
+        "later window start. Where the placebo is centred near zero and the effect holds at a long skip, the "
+        "result stands and is stronger than the bootstrap CI alone suggests. Where a material fraction of "
+        "placebo trials reach the reported figure and the effect decays as the window moves later, part of it "
+        "is procedural and part is recession water: report the placebo-corrected value with this sensitivity, "
+        "not the raw percentage.", "",
+    ]
+
+
+MEASURED_VS_COMPUTED_ERAS = ((2001, 2007), (2008, 2014), (2015, 2025), (2026, 2026))
+LOW_FLOW_CFS = 800.0
+# Trailing-precip windows for the Mammoth cross-source check. 365 d is the
+# study's convention; a karst spring with a ~188-day recession constant may
+# remember rain for longer, so 730 d is the defensible alternative.
+CROSS_SOURCE_WINDOWS = (365, 730)
+
+
+def _mammoth_cross_source_section(dv_q: pd.DataFrame, oni_df: pd.DataFrame, end: str,
+                                  lines: list[str]) -> None:
+    """Phase 8 (review.md item 7): the Mammoth residual across basin sources
+    and trailing-window lengths. '≈0 on all three sources' overstates the
+    unanimity — the PRISM fits are consistently, marginally negative."""
+    import spring_river.hydro.lowflow as lf
+    from spring_river.hydro.lowflow import _daily_precip, _trailing_precip
+
+    rows = []
+    for src in BASIN_SOURCES:
+        b = basin_mod.get_basin_pcpn(START_DATE, end, source=src)
+        daily = _daily_precip(b)
+        tbl = attribution_table(dv_q, b, oni_df)
+        for w in CROSS_SOURCE_WINDOWS:
+            original = lf.TRAILING_DAYS
+            try:
+                lf.TRAILING_DAYS = w
+                cur = [_trailing_precip(daily, d, 7, 0.9) for d in tbl["min7_end_date"]]
+                prev = [_trailing_precip(daily, d, 7 + w, 0.9) for d in tbl["min7_end_date"]]
+            finally:
+                lf.TRAILING_DAYS = original
+            # Build the predictor columns on the FULL table (the lists are in
+            # its row order), then filter to complete water years.
+            d = tbl.assign(p_cur=cur, p_prev=prev)
+            d = d[d["complete"]].dropna(subset=["min7_cfs", "p_cur", "p_prev"])
+            d = d[d["min7_cfs"] > 0]
+            y = np.log(d["min7_cfs"].to_numpy(dtype="float64"))
+            X = sm.add_constant(d[["p_cur", "p_prev"]].to_numpy(dtype="float64"))
+            res = sm.OLS(y, X).fit(cov_type="HC3")
+            t = trend_test(np.asarray(res.resid), d["wy"].to_numpy(dtype="float64"))
+            rows.append({"basin_source": src, "window_days": w, "n": t.n, "r2": float(res.rsquared),
+                         "resid_slope": t.slope, "lo": t.slope_lo, "hi": t.slope_hi, "p": t.p})
+    cs = pd.DataFrame(rows)
+    cs.to_parquet(TABLES_DIR / "phase4_mammoth_cross_source.parquet")
+    neg = cs[cs["hi"] < 0]
+    lines += [
+        "### Mammoth residual across basin sources and trailing windows", "",
+        "The 365-day predictor window is a convention. A karst spring with a ~188-day recession constant may "
+        "remember rain for longer, so each source is refitted at 730 days as well (precip-only, ONI dropped).", "",
+        cs.round(5).to_markdown(index=False), "",
+        f"- specifications whose CI excludes zero (all on the negative side): {len(neg)} of {len(cs)}"
+        + (f" — {', '.join(f'{r.basin_source} at {int(r.window_days)} d (p={r.p:.3f})' for r in neg.itertuples())}."
+           if len(neg) else "."),
+        "- **Correction to the published wording.** The Mammoth conclusion survives on the primary series, but "
+        "'≈0 on all three sources' claims a unanimity the numbers do not support: the PRISM fits are "
+        "consistently, marginally negative, and one specification's CI excludes zero. State it that way, with "
+        "the same candour applied to Hardy.",
+        "- Settling it needs a basin series independent of PRISM's gauge network (Stage IV/MRMS 2002→, Livneh, "
+        "nClimGrid-Daily) and a window pre-registered from spring recession or tracer transit rather than "
+        "from convention.", "",
+    ]
+
+
+def _measured_vs_computed_section(site: str, dv_q: pd.DataFrame, lines: list[str]) -> None:
+    """Phase 8 (review.md item 5): the '~1 % agreement in every era' figure,
+    recomputed against same-day daily values and reported WITH its scatter.
+
+    USGS shifts the rating *to* the wading measurements, so close agreement
+    proves only that the rating tracks them — this table is reported for
+    completeness, not as evidence. The independent evidence is the measured
+    stage decline above.
+    """
+    pairs = fmeas.measured_pairs(fmeas.get_field_measurements(site))
+    dv = dv_q.assign(date=pd.to_datetime(dv_q["date"])).set_index("date")["value"]
+    p = pairs.assign(day=pairs["time"].dt.normalize())
+    p = p.assign(dv_cfs=p["day"].map(dv)).dropna(subset=["dv_cfs"])
+    p = p[(p["dv_cfs"] > 0) & (p["q_cfs"] < LOW_FLOW_CFS)]
+    p = p.assign(pct=100.0 * (p["q_cfs"] - p["dv_cfs"]) / p["dv_cfs"], year=p["time"].dt.year)
+    rows = []
+    for lo, hi in MEASURED_VS_COMPUTED_ERAS:
+        e = p[(p["year"] >= lo) & (p["year"] <= hi)]
+        if e.empty:
+            continue
+        rows.append({"era": f"{lo}–{hi}" if lo != hi else str(lo), "n": len(e),
+                     "mean_pct": float(e["pct"].mean()), "median_pct": float(e["pct"].median()),
+                     "sd_pct": float(e["pct"].std(ddof=1)) if len(e) > 1 else float("nan")})
+    tbl = pd.DataFrame(rows)
+    tbl.to_parquet(TABLES_DIR / "phase4_measured_vs_computed.parquet")
+    lines += [
+        "### Measured vs computed low flow, by era", "",
+        f"Field-measured discharge below {LOW_FLOW_CFS:.0f} cfs against the same day's published daily value "
+        f"(n={len(p)} visits). Reported with its scatter: the era means are a few per cent either side of zero "
+        "with a standard deviation several times larger, not '~1 % in every era'.", "",
+        tbl.round(1).to_markdown(index=False), "",
+        "This agreement is **not independent evidence**: USGS shifts the rating to these very measurements, so "
+        "close agreement shows only that the rating tracks them. The rating-independent evidence is the "
+        "measured-stage decline above and the Hardy/Mammoth ratio in Q1c.", "",
+    ]
+
+
+def _change_point_note(fits: dict[str, dict[str, Fit]], lines: list[str]) -> None:
+    """Phase 8 (review.md item 12): Pettitt p-values beside their years, and
+    the unexplained difference-vs-ratio change-point discrepancy."""
+    out = {}
+    for label in ("Mammoth", "Hardy"):
+        tbl = fits[label]["all"][0]
+        out[label] = _pettitt_result(tbl)
+    tbl_h, tbl_m = fits["Hardy"]["all"][0], fits["Mammoth"]["all"][0]
+    # Complete water years only, on both sides: an incomplete final year's
+    # min7 is not comparable and would shift the change-point.
+    a = tbl_h[tbl_h["complete"]].set_index("wy")["min7_cfs"]
+    b = tbl_m[tbl_m["complete"]].set_index("wy")["min7_cfs"]
+    diff = (a - b).dropna()
+    pt_d = pettitt(diff.to_numpy(dtype="float64"))
+    diff_wy = int(diff.index[pt_d.change_index])
+    ratio = np.log((a / b).replace([np.inf, -np.inf], np.nan).dropna())
+    pt_r = pettitt(ratio.to_numpy(dtype="float64"))
+    ratio_wy = int(ratio.index[pt_r.change_index])
+    lines += [
+        "## Change-points: what steps, and when", "",
+        *[f"- {label} min7: {out[label][2]}"
+          + ("" if out[label][1] < 0.05 else " — **not significant**; it must not be read as a step, and in "
+             "particular must not be set beside a significant one as if the two agreed.")
+          for label in out],
+        f"- Hardy−Mammoth min7 **difference**: after WY {diff_wy} (K={pt_d.k:.0f}, p={pt_d.p:.3f}, n={pt_d.n}).",
+        f"- log(Hardy/Mammoth) **ratio**: after WY {ratio_wy} (K={pt_r.k:.0f}, p={pt_r.p:.3f}, n={pt_r.n}).",
+        "",
+        (f"The difference series steps at WY {diff_wy} while the ratio changes at WY {ratio_wy}. "
+         "**This discrepancy is unexplained.** A difference is dominated by the high-flow years and a ratio by "
+         "the proportional change, so the two can legitimately locate different years, but which is the "
+         "physically meaningful date is not settled by anything in this study."
+         if diff_wy != ratio_wy else
+         f"The difference and the ratio both locate the change at WY {diff_wy}, so on complete water years the "
+         "two framings agree; the earlier WY2008-vs-WY2013 discrepancy was an artefact of including an "
+         "incomplete final year.")
+        + " Synoptic seepage runs (Mammoth → South Fork → Hardy at low flow) are what would settle the cause.",
+        "",
+    ]
 
 
 def _major_flood_dates(peaks: pd.DataFrame) -> pd.Series:
@@ -426,15 +735,21 @@ def main() -> None:
         "",
     ]
     fits = {label: _fit_section(label, q, basin, oni_df, lines) for label, q in series.items()}
+    lines += _hardy_ratio_section(fits, series, oni_df)
+    _mammoth_cross_source_section(series["Mammoth"], oni_df, end, lines)
     _bfi_section(series, lines)
     _min7_figure(fits, series)
     lines += ["![min7](../reports/figures/phase4_min7_trend.png)", ""]
     _rating_section(end, majors, series["Hardy"], peaks, lines)
     _postflood_section(series, basin, majors, lines)
+    _change_point_note(fits, lines)
     lines += [
         "## Limitations",
         "",
-        "- Regional-skew, datum and USGS rating-shift records remain unobtained; Q5 rests on IV-derived stage-at-flow only.",
+        "- Regional-skew values and the USGS rating-shift tables remain unobtained. Q5 no longer rests on "
+        "IV-derived stage-at-flow alone: the field-measurement trend above is independent of the rating, and "
+        "the gauge datum records have now been reviewed (two post-2022 revisions, no site move, nothing at "
+        "WY2008).",
         "- Hardy series is WY 2002+ (n≤24); Mammoth Spring vent carries the 1981+ record.",
         f"- Q4 n equals the number of ≥{MAJOR_FLOOD_FT:.0f} ft events in the Hardy peak file; CI is a bootstrap on a handful "
         "of events and excludes matching uncertainty and control-year reuse (descriptive, not causal).",

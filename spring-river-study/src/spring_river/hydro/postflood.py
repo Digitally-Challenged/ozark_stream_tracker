@@ -229,3 +229,89 @@ def paired_summary(cmp: pd.DataFrame, n_boot: int = 5000, seed: int = 0) -> dict
         "hi": float(hi),
         "n_unique_controls": _unique_controls(cmp),
     }
+
+
+def placebo_distribution(
+    dv_q: pd.DataFrame,
+    basin_precip: pd.DataFrame,
+    event_dates: pd.Series,
+    n_trials: int = 200,
+    months: int = 6,
+    k: int = 3,
+    seed: int = 0,
+) -> dict:
+    """Run the identical matched-comparison pipeline on random NON-flood
+    pseudo-events and report what it produces.
+
+    Phase 8 (review.md item 3). With six events, three nearest controls each,
+    and heavy control-year reuse, the procedure itself may manufacture an
+    effect. Each trial keeps the real events' days-of-year (so seasonality is
+    held fixed) but moves them to years with no major flood within ±1 yr; the
+    resulting distribution is what "no flood" looks like through this pipeline.
+    An effect worth reporting must sit far out in this distribution.
+
+    Returns mean/sd/p95 of the placebo differences and the fraction of trials
+    reaching the real effect.
+    """
+    events = pd.DatetimeIndex(pd.to_datetime(event_dates))
+    real = paired_summary(matched_comparison(dv_q, basin_precip, event_dates, months, k))
+    q = dv_q.assign(date=pd.to_datetime(dv_q["date"]))
+    years = sorted(set(q["date"].dt.year))
+    event_years = set(events.year)
+    pool = [y for y in years if not any(abs(y - ey) <= 1 for ey in event_years)]
+    rng = np.random.default_rng(seed)
+    out = []
+    for _ in range(n_trials):
+        if len(pool) < len(events):
+            break
+        picked = rng.choice(pool, size=len(events), replace=False)
+        dates = pd.Series([_same_day_in_year(d, int(y)) for y, d in zip(picked, events)])
+        try:
+            s = paired_summary(matched_comparison(q, basin_precip, dates, months, k), n_boot=1)
+        except (ValueError, KeyError, IndexError):
+            continue
+        if not np.isnan(s["mean_diff_pct"]):
+            out.append(s["mean_diff_pct"])
+    arr = np.asarray(out, dtype="float64")
+    nan = float("nan")
+    if arr.size == 0:
+        return {"n_trials": 0, "mean": nan, "sd": nan, "p95": nan,
+                "real": real["mean_diff_pct"], "frac_ge_real": nan, "corrected": nan}
+    return {
+        "n_trials": int(arr.size),
+        "mean": float(arr.mean()),
+        "sd": float(arr.std(ddof=1)) if arr.size > 1 else 0.0,
+        "p95": float(np.percentile(arr, 95)),
+        "real": real["mean_diff_pct"],
+        "frac_ge_real": float((arr >= real["mean_diff_pct"]).mean()),
+        # What is left of the effect once the pipeline's own bias is removed.
+        "corrected": float(real["mean_diff_pct"] - arr.mean()),
+    }
+
+
+def skip_day_sensitivity(
+    dv_q: pd.DataFrame,
+    basin_precip: pd.DataFrame,
+    event_dates: pd.Series,
+    skips: tuple[int, ...] = (15, 30, 60, 90),
+    months: int = 6,
+    k: int = 3,
+) -> pd.DataFrame:
+    """The effect at several recession-skip lengths.
+
+    A post-window that starts too soon is still measuring the flood's own
+    recession rather than a change in base flow, so an effect that decays as
+    the skip lengthens is recession water, not recharge.
+    """
+    global RECESSION_SKIP_DAYS
+    original = RECESSION_SKIP_DAYS
+    rows = []
+    try:
+        for s in skips:
+            RECESSION_SKIP_DAYS = s
+            summ = paired_summary(matched_comparison(dv_q, basin_precip, event_dates, months, k))
+            rows.append({"skip_days": s, "mean_diff_pct": summ["mean_diff_pct"],
+                         "lo": summ["lo"], "hi": summ["hi"], "n": summ["n"]})
+    finally:
+        RECESSION_SKIP_DAYS = original
+    return pd.DataFrame(rows)

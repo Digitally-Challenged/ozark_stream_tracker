@@ -216,3 +216,33 @@
   functions may need migrating to `waterdata` ahead of the 2027 removal date). No
   exceptions were raised during this run's Mammoth Spring/Warm Fork search — the
   Warnings section above is empty.
+## USGS field and channel measurements — Hardy 07069305 (Phase 8)
+
+Source: USGS OGC API for Water Data, `https://api.waterdata.usgs.gov/ogcapi/v0`
+(collections `field-measurements`, `channel-measurements`, `monitoring-locations`),
+pulled by `ingest/field_measurements.py` and cached as `usgs_fieldmeas_{site}`,
+`usgs_chanmeas_{site}`, `usgs_monloc_{site}`. Not available through `dataretrieval`,
+which is why this is a separate ingest module.
+
+| collection | rows | span | note |
+|---|---|---|---|
+| field-measurements | 502 (360 × 00065, 142 × 00060) | 2001-12-18 → 2026-08-18 | one row per (visit, parameter, reading); 399 approved / 103 provisional |
+| channel-measurements | 151 | same | surveyed width, area, velocity per visit |
+| monitoring-locations | 1 | current | datum 342.73 ft NAVD88 (±0.16, GNSS survey grade) |
+
+**Joining.** Discharge (00060) and gage height (00065) arrive as *separate rows*
+sharing a `field_visit_id`; they must be joined on that id, not on timestamp
+(readings within a visit differ by minutes). A visit usually records several gage
+heights — wire-weight readings at the start and end of the measurement plus a mean —
+so `measured_pairs()` reduces each side to one value per visit before joining,
+yielding **134 (discharge, stage) pairs**, one per visit.
+
+**Why it matters.** Both numbers in a pair are measured at the visit, so neither is
+rating-derived. This is the only series in the study that can distinguish real
+channel change from rating drift, and it is what Q5 now rests on (§4.2).
+
+**Datum.** `monitoring-locations` reports only the datum currently in force. The two
+dated revisions cited in Q1c (340.91→342.49 ft before Dec 2022; 342.49→342.73 ft
+Dec 2022–Dec 2024) come from the Phase 8 review; `time-series-revisions` returns no
+rows for this site. Both are bookkeeping of the datum elevation — no site move, and
+nothing at WY2008.

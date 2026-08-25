@@ -119,3 +119,56 @@ def test_paired_summary_ci_and_unique_controls():
 def test_paired_summary_empty():
     s = paired_summary(pd.DataFrame({"diff_pct": [np.nan], "matched_years": [""]}), n_boot=10)
     assert s["n"] == 0 and np.isnan(s["mean_diff_pct"]) and s["n_unique_controls"] == 0
+
+
+def _synthetic_series(years=range(1990, 2020)):
+    """Flat base flow plus noise — no flood effect of any kind."""
+    import numpy as np
+    import pandas as pd
+
+    rng = np.random.default_rng(0)
+    d = pd.date_range(f"{min(years)}-01-01", f"{max(years)}-12-31", freq="D")
+    q = 100 + 10 * np.sin(2 * np.pi * d.dayofyear / 365.25) + rng.normal(0, 2, len(d))
+    p = np.where(rng.random(len(d)) < 0.2, rng.exponential(0.3, len(d)), 0.0)
+    return (pd.DataFrame({"date": d, "value": q, "approved": True}),
+            pd.DataFrame({"date": d, "pcpn_in": p}))
+
+
+def test_placebo_distribution_is_centred_near_zero_with_no_real_effect():
+    import numpy as np
+    import pandas as pd
+
+    from spring_river.hydro.postflood import placebo_distribution
+
+    q, basin = _synthetic_series()
+    ev = pd.Series(pd.to_datetime(["1995-04-01", "2001-04-01", "2010-04-01"]))
+    out = placebo_distribution(q, basin, ev, n_trials=25, seed=0)
+    assert out["n_trials"] > 0
+    assert abs(out["mean"]) < 10.0          # the pipeline invents no large effect here
+    assert np.isfinite(out["sd"]) and np.isfinite(out["p95"])
+    assert 0.0 <= out["frac_ge_real"] <= 1.0
+
+
+def test_placebo_is_reproducible_and_seed_dependent():
+    import pandas as pd
+
+    from spring_river.hydro.postflood import placebo_distribution
+
+    q, basin = _synthetic_series()
+    ev = pd.Series(pd.to_datetime(["1995-04-01", "2001-04-01", "2010-04-01"]))
+    a = placebo_distribution(q, basin, ev, n_trials=15, seed=0)
+    b = placebo_distribution(q, basin, ev, n_trials=15, seed=0)
+    assert a == b
+
+
+def test_skip_day_sensitivity_restores_the_module_constant():
+    import pandas as pd
+
+    from spring_river.hydro import postflood as pf
+
+    q, basin = _synthetic_series()
+    ev = pd.Series(pd.to_datetime(["1995-04-01", "2001-04-01", "2010-04-01"]))
+    before = pf.RECESSION_SKIP_DAYS
+    out = pf.skip_day_sensitivity(q, basin, ev, skips=(15, 30, 90))
+    assert list(out["skip_days"]) == [15, 30, 90]
+    assert pf.RECESSION_SKIP_DAYS == before      # restored even though it is a global

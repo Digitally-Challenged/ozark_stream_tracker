@@ -440,11 +440,98 @@ def cmp_val(source, block, metric):
 
 agree = cmp_val("aorc vs prism_polygon", "agreement", "annual_total_r")
 ratio = cmp_val("aorc vs prism_polygon", "agreement", "annual_total_ratio")
+
+# ---------------------------------------------------------------- Phase 8 (review.md)
+# Every Phase 8 number below is read from a table a phase runner wrote; none is typed.
+p8_step = tbl("phase6_step_2002").set_index("index")
+p8_era = tbl("phase6_era_slopes")
+p8_means = tbl("phase6_era_means")
+p8_maxt = tbl("phase6_maxt")
+p8_wp_step = tbl("phase6_step_1998_westplains").set_index("index")
+p8_bufpoly = tbl("phase6_buffer_vs_polygon")
+p8_daily = tbl("phase6_daily_lag_correlation")
+
+P6_STEP_SEC = section(P6, "## Q3 step test")
+p8_ratio_sens = dict(re.findall(r"- catch ratio ([\d.]+): (.+)", P6_STEP_SEC))
+p8_bufpoly_trend = doc_trend(section(P6, "## Buffer vs polygon"), "trend of the buffer−polygon difference")
+p8_bufpoly_r = doc_re(section(P6, "## Buffer vs polygon"), r"correlate r=([\d.]+)")
+p8_daily_peak = int(p8_daily.loc[p8_daily["r"].idxmax(), "lag_days"])
+p8_daily_r = float(p8_daily["r"].max())
+p8_maxt_n = int(p8_maxt["survives"].sum())
+p8_maxt_which = p8_maxt.loc[p8_maxt["survives"], "index"].tolist()
+
+
+def step_row(index: str) -> pd.Series:
+    return p8_step.loc[index]
+
+
+def era_row(index: str, era_contains: str) -> pd.Series:
+    d = p8_era[(p8_era["index"] == index) & (p8_era["era"].str.contains(era_contains))]
+    return d.iloc[0]
+
+
+def mean_row(series: str, index: str) -> pd.Series:
+    return p8_means[(p8_means["series"] == series) & (p8_means["index"] == index)].iloc[0]
+
+
+AORC_LBL, WP_LBL = "AORC basin", "West Plains 1948–"
+ERA_PRE, ERA_POST = "–2001", "2002–"
+
+# Phase 4
+p8_ratio = tbl("phase4_hardy_mammoth_ratio")
+p8_precip_only = tbl("phase4_precip_only_fits")
+p8_cross = tbl("phase4_mammoth_cross_source")
+p8_placebo = tbl("phase4_postflood_placebo").set_index("series")
+p8_skip = tbl("phase4_postflood_skip_days")
+p8_fieldstage = tbl("phase4_field_stage_at_flow")
+p8_measvcomp = tbl("phase4_measured_vs_computed")
+P4_Q1C = section(P4, "## Q1c Hardy low-flow rise")
+p8_ratio_trend = doc_trend(P4_Q1C, "log(Hardy min7 / Mammoth min7) trend")
+p8_ratio_pettitt = doc_re(P4_Q1C, r"log ratio: after WY (\d+) \(K=\d+, p=([\d.]+)", str, 1)
+p8_ratio_pettitt_p = doc_re(P4_Q1C, r"log ratio: after WY \d+ \(K=\d+, p=([\d.]+)")
+p8_field_trend = doc_trend(section(P4, "### Field-measured stage"), "field-measured stage at")
+p8_field_n_visits = doc_re(section(P4, "### Field-measured stage"), r"(\d+) visits\)", int)
+p8_datum = doc_re(section(P4, "### Gauge datum"), r"current datum: ([\d.]+) ft")
+p8_hardy_po = p8_precip_only[p8_precip_only["series"] == "Hardy"]
+p8_hardy_po_sig = int((p8_hardy_po["lo"] > 0).sum())
+p8_cross_neg = p8_cross[p8_cross["hi"] < 0]
+
+# Phase 5
+p8_hist = tbl("phase5_historical_1982")
+p8_qr = tbl("phase5_quantile_regression").set_index("quantile")
+p8_q6pow = tbl("phase5_q6_power")
+p8_q7pow = tbl("phase5_q7_power")
+P5_HIST = section(P5, "### Sensitivity: the 1982 crest")
+p8_q82_cfs = doc_re(P5_HIST, r"≈([\d,]+) cfs", lambda s: float(s.replace(",", "")))
+P5_Q2T = section(P5, "### Upper-tail trend")
+p8_topq_slope = doc_re(P5_Q2T, r"Sen slope ([+-][\d.]+) log10-cfs/yr")
+p8_topq_lo = doc_re(P5_Q2T, r"95% CI ([+-][\d.]+) to")
+p8_topq_hi = doc_re(P5_Q2T, r"95% CI [+-][\d.]+ to ([+-][\d.]+)")
+p8_welch = doc_re(P5_Q2T, r"Welch p=([\d.]+)")
+p8_mwu = doc_re(P5_Q2T, r"Mann–Whitney p=([\d.]+)")
+p8_cvlo = doc_re(section(P5, "## Q6 inter-arrival"), r"CV anywhere in \*\*([\d.]+)–")
+p8_cvhi = doc_re(section(P5, "## Q6 inter-arrival"), r"CV anywhere in \*\*[\d.]+–([\d.]+)\*\*")
+
+
+def hist_case(contains: str) -> pd.Series:
+    return p8_hist[p8_hist["case"].str.contains(contains)].iloc[0]
+
+
+rp23_lo, rp23_hi = float(p8_hist["rp_23ft_yr"].min()), float(p8_hist["rp_23ft_yr"].max())
+rp20_lo, rp20_hi = float(p8_hist["rp_20ft_yr"].min()), float(p8_hist["rp_20ft_yr"].max())
+q6_power_80 = p8_q6pow.loc[p8_q6pow["power"] >= 0.8, "cv"]
+q7_power_80 = p8_q7pow.loc[p8_q7pow["power"] >= 0.8, "true_rate_given_major"]
+
+# Phase 7
+p8_drift = tbl("phase7_timing_drift_test").set_index("series")
+p8_drift_sig = p8_drift.index[p8_drift["p"] < 0.05].tolist()
+rk_blocks = {s: int(d["wy"].nunique()) for s, d in rk_fit.items()}
+rk_lowr2 = {s: int((d["r2"] < 0.75).sum()) for s, d in rk_fit.items()}
 ```
 
 # Abstract
 
-Spring River at Hardy, AR (USGS 07069305) is a spring-fed Ozark river whose base flow is set by Mammoth Spring (07069190) and whose floods are set by basin rainfall. Over the systematic record (Hardy WY `{python} int(att['hardy']['wy'].min())`–`{python} int(att['hardy']['wy'].max())`, Mammoth WY `{python} int(att['mammoth']['wy'].min())`–`{python} int(att['mammoth']['wy'].max())`; `{python} f"{hardy_approved:.1%}"` of Hardy daily discharge approved) the 7-day annual low flow at Hardy rose (`{python} trend_str(min7['hardy'], 'log-cfs')`), but antecedent precipitation and ENSO explain it (OLS R² = `{python} g(ols_r2['hardy'], 2)`, n = `{python} ols_n['hardy']`) and the non-climatic residual trend is indistinguishable from zero at Mammoth Spring, the 1981+ primary series (`{python} trend_str(resid['mammoth'], 'log-cfs')`). At Hardy the residual is positive on this edition's primary basin series (`{python} trend_str(resid['hardy'], 'log-cfs')`) but its CI spans zero on both PRISM basin series (§7.1) — a source-dependent result at n = `{python} resid['hardy']['n']`, not a finding. Base flow after the `{python} pf_n['mammoth']` major (≥16 ft) floods was higher, not lower, than in precipitation- and antecedent-matched non-flood years (Mammoth `{python} f"{pf_mean['mammoth']:+.1f}%"`, bootstrap 95% CI `{python} g(pf_ci['mammoth'][0])` to `{python} g(pf_ci['mammoth'][1])`; Hardy `{python} f"{pf_mean['hardy']:+.1f}%"`, CI `{python} g(pf_ci['hardy'][0])` to `{python} g(pf_ci['hardy'][1])`; descriptive, not causal). The falling stage floor is largely a rating artifact: stage at 1000 cfs fell (`{python} trend_str(rating[1000], 'ft')`). Flood frequency shows no detectable change: Imboden annual peaks `{python} trend_str(peak_trend['imboden'], 'log10-cfs')`; the pre-/post-2008 10-yr quantiles (`{python} f"{pre10[0]:,.0f}"` vs `{python} f"{post10[0]:,.0f}"` cfs) have overlapping 5–95% bootstrap intervals. LP3 return periods at Hardy (n = `{python} int(lp3_meta_df.loc[0, 'n'])`) put 10 ft at `{python} g(rp10['lp3_return_period_yr'], 2)` yr, 16 ft at `{python} g(rp16['lp3_return_period_yr'], 2)` yr (empirical `{python} g(rp16['empirical_return_period_yr'], 2)`), 20 ft at `{python} g(rp20['lp3_return_period_yr'], 3)` yr and 23 ft at `{python} g(rp23['lp3_return_period_yr'], 2)` yr. Major-flood inter-arrivals are consistent with a memoryless process (CV `{python} g(q6_main['cv'])`, bootstrap p = `{python} g(q6_main['bootstrap_p'], 2)`, n = `{python} int(q6_main['n'])`). Basin (AORC, MoDNR recharge polygon) precipitation became more intense without becoming detectably wetter: `{python} sig_count['basin']`/`{python} n_index` indices are BH-significant, led by SDII (`{python} pm(basin_sdii['slope'])` in/wet-day/decade, 95% CI `{python} g(basin_sdii['lo'], 2)` to `{python} g(basin_sdii['hi'], 2)`) and max 1-day (`{python} pm(basin_max1['slope'])` in/decade, CI `{python} g(basin_max1['lo'], 2)` to `{python} g(basin_max1['hi'], 2)`), but the annual total is not (`{python} pm(basin_total['slope'])` in/decade, CI `{python} g(basin_total['lo'], 2)` to `{python} g(basin_total['hi'], 2)`, n = `{python} basin_total['n']`) and the Sep–Feb recharge-season total is flat to negative (`{python} pm(basin_recharge['slope'])` in/decade, CI `{python} g(basin_recharge['lo'], 2)` to `{python} g(basin_recharge['hi'], 2)`, n = `{python} basin_recharge['n']`). The first edition's significant annual-total rise was a property of the oversized 30 km buffer (§7.1). The `{python} wp_total['n']`-year West Plains 1948– gauge record (COOP to Mar 1998, then the airport ASOS raised by the measured catch ratio) does not corroborate the intensification: over `{python} wp_first_year`–2025 only the count of days ≥ 1 in is BH-significant (`{python} pm(wp_days1['slope'])`/decade, CI `{python} g(wp_days1['lo'], 2)` to `{python} g(wp_days1['hi'], 2)`), with max 1-day and SDII CIs spanning zero. Monthly basin precipitation anomalies lead Mammoth Spring flow by `{python} int(best['lag'])` month (r = `{python} g(best['r'], 2)`, 95% CI `{python} g(best['r_lo'], 2)` to `{python} g(best['r_hi'], 2)`, n = `{python} int(best['n'])` months). Flood timing is a broad late-winter mode with no drift across decades (Imboden annual peaks mean date `{python} pt_all.loc[PT_IMBODEN, 'mean_date_label']`, R = `{python} f"{pt_all.loc[PT_IMBODEN, 'R']:.2f}"`, n = `{python} int(pt_all.loc[PT_IMBODEN, 'n'])`), and recession constants show no trend (Hardy median k `{python} f"{rk_stats['hardy']['median']:.0f}"` days, `{python} trend_str(rk_trend['hardy'], 'days')`; Mammoth Spring `{python} f"{rk_stats['mammoth']['median']:.0f}"` days, `{python} trend_str(rk_trend['mammoth'], 'days')`). No conclusion changed when provisional data were excluded.
+Spring River at Hardy, AR (USGS 07069305) is a spring-fed Ozark river whose base flow is set by Mammoth Spring (07069190) and whose floods are set by basin rainfall. Over the systematic record (Hardy WY `{python} int(att['hardy']['wy'].min())`–`{python} int(att['hardy']['wy'].max())`, Mammoth WY `{python} int(att['mammoth']['wy'].min())`–`{python} int(att['mammoth']['wy'].max())`; `{python} f"{hardy_approved:.1%}"` of Hardy daily discharge approved) the 7-day annual low flow at Hardy rose (`{python} trend_str(min7['hardy'], 'log-cfs')`), but antecedent precipitation and ENSO explain it (OLS R² = `{python} g(ols_r2['hardy'], 2)`, n = `{python} ols_n['hardy']`) and the non-climatic residual trend is indistinguishable from zero at Mammoth Spring, the 1981+ primary series (`{python} trend_str(resid['mammoth'], 'log-cfs')`). At Hardy the residual is positive (`{python} trend_str(resid['hardy'], 'log-cfs')`), and Phase 8 establishes this as a finding rather than a source artifact: log(Hardy min7 / Mammoth min7), which needs no precipitation model at all, rises `{python} pm(p8_ratio_trend['slope'])`/yr (95 % CI `{python} g(p8_ratio_trend['lo'], 2)` to `{python} g(p8_ratio_trend['hi'], 2)`, p = `{python} g(p8_ratio_trend['p'], 2)`, n = `{python} p8_ratio_trend['n']`), and dropping the never-significant ENSO term makes the residual rise resolvable on `{python} p8_hardy_po_sig` of `{python} len(p8_hardy_po)` basin sources (§4.1). Base flow after the `{python} pf_n['mammoth']` major (≥16 ft) floods was higher, not lower, than in precipitation- and antecedent-matched non-flood years, but the two gauges differ once the procedure is placebo-tested (§4.3): at Mammoth `{python} f"{pf_mean['mammoth']:+.1f}%"` (bootstrap 95% CI `{python} g(pf_ci['mammoth'][0])` to `{python} g(pf_ci['mammoth'][1])`) against a placebo mean of `{python} f"{p8_placebo.loc['Mammoth','placebo_mean']:+.1f}%"` — none of `{python} int(p8_placebo.loc['Mammoth','n_trials'])` placebo trials reaches it — while at Hardy `{python} f"{pf_mean['hardy']:+.1f}%"` sits against a placebo mean of `{python} f"{p8_placebo.loc['Hardy','placebo_mean']:+.1f}%"` that `{python} f"{p8_placebo.loc['Hardy','frac_ge_real']:.0%}"` of trials reach, and falls to `{python} f"{float(p8_skip[(p8_skip['series']=='Hardy') & (p8_skip['skip_days']==90)]['mean_diff_pct'].iloc[0]):+.1f}%"` (CI spanning zero) when the post window starts 90 days after the event. Mammoth stands; roughly a third of Hardy's figure is procedural and part of the rest is recession water (descriptive, not causal). The falling stage floor is a real channel change, not a rating artifact: stage at 1000 cfs fell (`{python} trend_str(rating[1000], 'ft')`), and USGS field measurements — where both the discharge and the stage are measured at the visit, so neither is rating-derived — put stage at 400 cfs falling `{python} trend_str(p8_field_trend, 'ft')` over `{python} p8_field_n_visits` visits (§4.2). Flood frequency shows no detectable change: Imboden annual peaks `{python} trend_str(peak_trend['imboden'], 'log10-cfs')`; the pre-/post-2008 10-yr quantiles (`{python} f"{pre10[0]:,.0f}"` vs `{python} f"{post10[0]:,.0f}"` cfs) have overlapping 5–95% bootstrap intervals. LP3 return periods at Hardy (n = `{python} int(lp3_meta_df.loc[0, 'n'])`) put 10 ft at `{python} g(rp10['lp3_return_period_yr'], 2)` yr and 16 ft at `{python} g(rp16['lp3_return_period_yr'], 2)` yr (empirical `{python} g(rp16['empirical_return_period_yr'], 2)`). At the major-exposure tier the systematic-only fit is biased long because it excludes the known 1982 crest; adding it back as historical information (Bulletin 17B weighting) gives 20 ft `{python} f"{rp20_lo:.0f}"`–`{python} f"{rp20_hi:.0f}"` yr and 23 ft **`{python} f"{rp23_lo:.0f}"`–`{python} f"{rp23_hi:.0f}"` yr**, which is how those two should be quoted (§5.1). Major-flood inter-arrivals show no detectable cadence (CV `{python} g(q6_main['cv'])`, bootstrap p = `{python} g(q6_main['bootstrap_p'], 2)`, n = `{python} int(q6_main['n'])`) — but at this n a memoryless process routinely produces a CV anywhere in `{python} g(p8_cvlo, 2)`–`{python} g(p8_cvhi, 2)`, and the test reaches 80 % power only against a near-metronomic cadence, so this is an absence of evidence rather than evidence of absence (§5.4). Precipitation over the recharge area is not becoming wetter and no intensification is detectable once a product discontinuity is allowed for. The annual total does not rise (`{python} pm(basin_total['slope'])` in/decade, 95% CI `{python} g(basin_total['lo'], 2)` to `{python} g(basin_total['hi'], 2)`, n = `{python} basin_total['n']`) and the Sep–Feb recharge-season total is flat to negative (`{python} pm(basin_recharge['slope'])` in/decade, CI `{python} g(basin_recharge['lo'], 2)` to `{python} g(basin_recharge['hi'], 2)`) — the study's most robust precipitation result. The apparent rise in AORC's storm-sharpness indices is a **step at the 2002 radar onset, not a trend**: with a step term, SDII's slope is `{python} f"{step_row('sdii_in')['slope_per_decade']:+.3f}"`/decade (p = `{python} g(step_row('sdii_in')['slope_p'], 2)`) while the step itself is significant (p = `{python} g(step_row('sdii_in')['step_p'], 2)`), and within-era Sen slopes are flat to negative on every sharpness index. Over identical years AORC's SDII rises `{python} f"{mean_row(AORC_LBL,'sdii_in')['pct_change']:+.0f}%"` against `{python} f"{mean_row(WP_LBL,'sdii_in')['pct_change']:+.0f}%"` at the co-located gauge, while the two products agree on how much rain fell (`{python} f"{mean_row(AORC_LBL,'total_in')['pct_change']:+.0f}%"` vs `{python} f"{mean_row(WP_LBL,'total_in')['pct_change']:+.0f}%"`). The first edition's significant annual-total rise was a p-value threshold crossing, not a property of the 30 km buffer: the buffer−polygon difference has no detectable trend (`{python} pm(p8_bufpoly_trend['slope']*10)` in/decade, CI spanning zero, r = `{python} g(p8_bufpoly_r, 3)`) (§7.1). The `{python} wp_total['n']`-year West Plains 1948– gauge record (COOP to Mar 1998, then the airport ASOS raised by the measured catch ratio) does not corroborate the intensification over its own record or over AORC's identical window, and what significance it does carry is knife-edge: only the count of days ≥ 1 in is BH-significant (`{python} pm(wp_days1['slope'])`/decade, CI `{python} g(wp_days1['lo'], 2)` to `{python} g(wp_days1['hi'], 2)`), and it passes at the measured catch ratio 1.068 but not at 1.00 or 1.034 (§7.3). Monthly basin precipitation anomalies lead Mammoth Spring flow by `{python} int(best['lag'])` month (r = `{python} g(best['r'], 2)`, 95% CI `{python} g(best['r_lo'], 2)` to `{python} g(best['r_hi'], 2)`, n = `{python} int(best['n'])` months); at daily resolution the response begins within `{python} p8_daily_peak` days and decays monotonically, so the monthly figure is the coarsest bin capturing a fast onset plus a long tail, not a transit time (§8). Flood timing is a broad late-winter mode with no drift detectable on the long record (Imboden annual peaks mean date `{python} pt_all.loc[PT_IMBODEN, 'mean_date_label']`, R = `{python} f"{pt_all.loc[PT_IMBODEN, 'R']:.2f}"`, n = `{python} int(pt_all.loc[PT_IMBODEN, 'n'])`; Watson–Williams across `{python} int(p8_drift.loc[PT_IMBODEN, 'decades_tested'])` decades p = `{python} g(p8_drift.loc[PT_IMBODEN, 'p'], 2)`), and recession constants show no trend (Hardy median k `{python} f"{rk_stats['hardy']['median']:.0f}"` days, `{python} trend_str(rk_trend['hardy'], 'days')`; Mammoth Spring `{python} f"{rk_stats['mammoth']['median']:.0f}"` days, `{python} trend_str(rk_trend['mammoth'], 'days')`). No conclusion changed when provisional data were excluded.
 
 # Setting
 
@@ -482,7 +569,7 @@ show(led, floatfmt=".4g")
 
 # Base-flow regime
 
-Thesis: base flow tracks antecedent precipitation; there is no detectable structural decline, and the visible drop in the stage floor is mostly rating drift.
+Thesis: at Mammoth Spring base flow tracks antecedent precipitation with no detectable structural decline; at Hardy it rose for a reason precipitation does not explain; and the drop in the stage floor is a real channel change, confirmed by measurements that do not depend on the rating.
 
 ## Low-flow trend and attribution (Q1)
 
@@ -504,12 +591,14 @@ show(pd.DataFrame(rows))
 ```
 
 - Mammoth (1981+, the primary series): raw min7 is flat (`{python} trend_str(min7['mammoth'], 'log-cfs')`); the residual after climate is `{python} trend_str(resid['mammoth'], 'log-cfs')` — a point estimate of `{python} f"{100 * (np.exp(10 * resid['mammoth']['slope']) - 1):+.1f}%"` per decade with a CI spanning zero.
-- Hardy (WY 2002+): raw min7 rises (`{python} trend_str(min7['hardy'], 'log-cfs')`; Pettitt step after WY `{python} pettitt['hardy'][0]`, p = `{python} g(pettitt['hardy'][1], 2)`), but trailing-365-day precipitation carries the signal (coefficient `{python} g(ols_coef['hardy']['p_trailing_in'][0], 3)` log-cfs per inch, 95% CI `{python} g(ols_coef['hardy']['p_trailing_in'][1], 3)` to `{python} g(ols_coef['hardy']['p_trailing_in'][2], 3)`); it does not carry all of it: on this edition's primary basin series the residual still rises (`{python} trend_str(resid['hardy'], 'log-cfs')`). That residual trend is source-dependent — its CI spans zero on both PRISM basin series (@tbl-sources) — so at n = `{python} resid['hardy']['n']` and R² = `{python} g(ols_r2['hardy'], 2)` it is reported, not concluded.
-- Base-flow index (gap-segmented Eckhardt; Lyne-Hollick as check) has no trend: Mammoth `{python} trend_str(bfi[('mammoth', 'eckhardt')], 'BFI', sig=2)`; Hardy `{python} trend_str(bfi[('hardy', 'eckhardt')], 'BFI', sig=2)`.
+- Hardy (WY 2002+): raw min7 rises (`{python} trend_str(min7['hardy'], 'log-cfs')`; Pettitt step after WY `{python} pettitt['hardy'][0]`, p = `{python} g(pettitt['hardy'][1], 2)`), but trailing-365-day precipitation carries the signal (coefficient `{python} g(ols_coef['hardy']['p_trailing_in'][0], 3)` log-cfs per inch, 95% CI `{python} g(ols_coef['hardy']['p_trailing_in'][1], 3)` to `{python} g(ols_coef['hardy']['p_trailing_in'][2], 3)`); it does not carry all of it: the residual still rises (`{python} trend_str(resid['hardy'], 'log-cfs')`). The second edition called this source-dependent and declined to conclude from it. That hedge is now retired — see the two checks below, neither of which uses a gridded precipitation product.
+- **The Hardy rise, without any precipitation model.** Mammoth Spring is the best available climate control for Hardy: the same recharge climate, absorbing precipitation, ENSO, PET and any gridded-precipitation bias at once. If Hardy's rise were climate it would vanish against Mammoth. It does not — log(Hardy min7 / Mammoth min7) rises `{python} trend_str(p8_ratio_trend, 'log-ratio')`, with a Pettitt change-point after WY `{python} p8_ratio_pettitt` (p = `{python} g(p8_ratio_pettitt_p, 2)`). Separately, dropping the never-significant ONI term — which at n ≈ 24 costs a degree of freedom for nothing — leaves Hardy's residual rise with a CI excluding zero on `{python} p8_hardy_po_sig` of `{python} len(p8_hardy_po)` basin sources (AORC, PRISM-polygon and PRISM-buffer). The source-dependence was one weak regressor, not a fragile signal. **The rise is a finding.** Its cause is the channel change in §4.2 plus a reach gain the spring alone does not account for.
+- **The Mammoth null, stated precisely.** Across three basin sources and two trailing-window lengths (365 and 730 d — a karst spring with a ~188-day recession constant may remember rain longer than the convention assumes), `{python} len(p8_cross_neg)` of `{python} len(p8_cross)` specifications have a CI excluding zero, all on the negative side, and the PRISM fits are consistently marginally negative. The conclusion survives on the primary series, but "≈0 on all three sources" claims a unanimity the numbers do not support.
+- Base-flow index (gap-segmented Eckhardt; Lyne-Hollick as check) has no trend: Mammoth `{python} trend_str(bfi[('mammoth', 'eckhardt')], 'BFI', sig=2)`; Hardy `{python} trend_str(bfi[('hardy', 'eckhardt')], 'BFI', sig=2)`. **This is not evidence against a base-flow change.** BFI is a ratio, and at a spring-fed river it sits near 1, so it is nearly blind to a change in the absolute base-flow rate: base flow and total flow can rise together and leave it flat. It is reported as stated and must not be cited as corroboration.
 
 ![Q1 base-flow attribution: min7 at Mammoth and Hardy (top); Mammoth OLS residual with Sen trend (bottom). `{python} series_cap['mammoth']`; `{python} series_cap['hardy']`.](figures/phase4_min7_trend.png){#fig-min7}
 
-Limitation: Hardy n = `{python} min7['hardy']['n']` water years; the ONI coefficient is not resolved at either gauge; AORC before 2002 is a gauge/reanalysis blend without radar. The Hardy residual result is source-dependent — see @tbl-sources.
+Limitation: Hardy n = `{python} min7['hardy']['n']` water years; the ONI coefficient is not resolved at either gauge, which is why the precip-only fits above are the ones to read; AORC before 2002 is a gauge/reanalysis blend without radar (§7.2). Change-points: Hardy min7 steps after WY `{python} pettitt['hardy'][0]` (p = `{python} g(pettitt['hardy'][1], 2)`), but Mammoth's apparent WY `{python} pettitt['mammoth'][0]` step is **not significant** (p = `{python} g(pettitt['mammoth'][1], 2)`) and must not be set beside it as though the two agreed. What would settle the cause of the Hardy gain is synoptic seepage runs (Mammoth → South Fork → Hardy at low flow), not more statistics on these series.
 
 ## Rating drift (Q5)
 
@@ -534,7 +623,11 @@ show(st)
 
 ![Q5 stage at fixed discharge by water year; dotted lines mark ≥16 ft flood water years. `{python} rating_pairs_cap`.](figures/phase4_rating_drift.png){#fig-rating}
 
-Limitation: USGS rating-shift and datum history was not obtained; the drift is inferred from IV pairs only and is provisional until the official record is compared.
+**The drift is a real channel change, not a rating artifact.** The objection to the two numbers above is that both come from IV pairs whose discharge is itself rating-derived, so a drifting rating would produce a drifting stage-at-flow with no channel change at all. USGS field measurements answer it: at each visit the discharge is measured by wading or ADCP and the stage is read directly, so neither side depends on the rating. Normalised to 400 cfs across the 330–520 cfs band, measured stage falls `{python} trend_str(p8_field_trend, 'ft')` over `{python} p8_field_n_visits` visits — steeper than the IV-derived figure, four years longer, and it brackets the 2006-09-23 event the shift table has to omit. The channel really degraded; the rating followed it.
+
+The agreement between measured and computed low flow is **not** independent evidence, because USGS shifts the rating to these very measurements; era means are `{python} ", ".join(f"{r['era']} {r['mean_pct']:+.1f}% (sd {r['sd_pct']:.1f})" for _, r in p8_measvcomp.iterrows())`, which is a few per cent either side of zero with scatter several times larger — not the "~1 % in every era" the second edition reported.
+
+Limitation: the USGS rating-shift tables are still unobtained. The **datum history has now been reviewed** and rules out the obvious artifact: the gauge datum carries two revisions (340.91→342.49 ft before Dec 2022, then 342.49→`{python} g(p8_datum, 5)` ft), both post-2022 bookkeeping of the datum elevation, with no site move and nothing at WY2008.
 
 ### Stage–discharge relationship
 
@@ -576,11 +669,26 @@ show(pd.concat(rows), floatfmt=".4g")
 
 ![Q4 post-flood base flow vs matched controls. `{python} series_cap['mammoth']`; `{python} series_cap['hardy']`; events from USGS peaks 07069305.](figures/phase4_postflood.png){#fig-postflood}
 
-Limitation: the CI reflects event-to-event variation only; matching uncertainty and control-year reuse are not propagated. Descriptive, not causal.
+**Does the procedure manufacture this?** With six events, three nearest controls each and heavy control-year reuse, the machinery itself might produce a positive difference. The placebo runs the identical pipeline on `{python} int(p8_placebo.loc['Mammoth','n_trials'])` sets of random NON-flood pseudo-events, keeping the real events' days-of-year so seasonality is held fixed; what it returns is what "no flood" looks like through this pipeline. The skip-day sensitivity asks whether the effect is recession water still in the post window rather than a change in base flow.
+
+```{python}
+#| label: tbl-placebo
+#| tbl-cap: "Q4 placebo distribution and skip-day sensitivity (reports/tables/phase4_postflood_placebo.parquet, phase4_postflood_skip_days.parquet)."
+pl = p8_placebo.reset_index()[["series", "real_diff_pct", "placebo_mean", "placebo_sd", "placebo_p95", "frac_ge_real", "corrected"]].copy()
+pl.columns = ["series", "real (%)", "placebo mean (%)", "placebo sd", "placebo p95", "frac of trials ≥ real", "placebo-corrected (%)"]
+sk = p8_skip.pivot(index="series", columns="skip_days", values="mean_diff_pct").reset_index()
+sk.columns = ["series"] + [f"skip {int(c)} d (%)" for c in sk.columns[1:]]
+show(pl.merge(sk, on="series"))
+```
+
+- **Mammoth stands, and is stronger than the bootstrap CI suggests.** Its placebo is centred at `{python} f"{p8_placebo.loc['Mammoth','placebo_mean']:+.1f}%"` (sd `{python} g(p8_placebo.loc['Mammoth','placebo_sd'], 2)`) and **none** of the trials reaches the observed `{python} f"{pf_mean['mammoth']:+.1f}%"`; the effect holds from a 15- to a 90-day skip.
+- **Hardy is materially weakened.** Its placebo is centred at `{python} f"{p8_placebo.loc['Hardy','placebo_mean']:+.1f}%"` (sd `{python} g(p8_placebo.loc['Hardy','placebo_sd'], 2)`) and `{python} f"{p8_placebo.loc['Hardy','frac_ge_real']:.0%}"` of trials reach or beat the observed `{python} f"{pf_mean['hardy']:+.1f}%"`. Pushing the post window to 90 days after the event drops the effect to `{python} f"{float(p8_skip[(p8_skip['series']=='Hardy') & (p8_skip['skip_days']==90)]['mean_diff_pct'].iloc[0]):+.1f}%"` with a CI spanning zero. About a third of the figure is procedural and part of the rest is recession water still present at 30 days: report Hardy placebo-corrected (`{python} f"{p8_placebo.loc['Hardy','corrected']:+.0f}%"`) with this sensitivity, not the raw percentage.
+
+Limitation: the bootstrap CI reflects event-to-event variation only; matching uncertainty and control-year reuse are not propagated, which is exactly what the placebo above exists to expose. n = `{python} pf_n['hardy']` events is the binding constraint; a dose–response regression of post-event base-flow anomaly on peak magnitude across all peaks would need no matched controls. Descriptive, not causal.
 
 # Flood regime
 
-Thesis: flood frequency at Hardy and Imboden is stationary within the resolving power of the record; return periods beyond ~50 yr are extrapolation.
+Thesis: flood frequency at Hardy and Imboden is stationary within the resolving power of the record — now on an upper-tail test that could have found a change rather than only a centre-of-distribution rule. At the major-exposure tier the published return periods are biased long because they exclude the known 1982 crest; with it restored, 23 ft is `{python} f"{rp23_lo:.0f}"`–`{python} f"{rp23_hi:.0f}"` yr. Return periods beyond ~50 yr are extrapolation.
 
 ## Flood frequency (Q8)
 
@@ -607,6 +715,21 @@ show(q, floatfmt=",.0f")
 
 - Hardy 10-yr flood `{python} f"{h10[0]:,.0f}"` cfs (`{python} f"{h10[1]:,.0f}"`–`{python} f"{h10[2]:,.0f}"`); 100-yr `{python} f"{h100[0]:,.0f}"` cfs (`{python} f"{h100[1]:,.0f}"`–`{python} f"{h100[2]:,.0f}"`), a `{python} f"{(h100[2] - h100[1]) / h100[0]:.0%}"`-wide interval relative to the estimate. Replacing weighted skew with station skew moves the Hardy 100-yr estimate to `{python} f"{q_at(lp3['hardy_station_skew_only'], 100)[0]:,.0f}"` cfs (`{python} f"{(q_at(lp3['hardy_station_skew_only'], 100)[0] / h100[0] - 1):+.1%}"`).
 
+**The 1982 crest belongs in the fit.** The 1982-12-03 29.0 ft crest is known but sits outside the systematic record, and excluding a known extreme biases the return periods of exactly the tier a reader cares most about. By the annual-peak log-log relation it is ≈`{python} f"{p8_q82_cfs:,.0f}"` cfs. Adding it back as historical information (Bulletin 17B weighting, W = (H−Z)/(n−s)) over a historical period H of 44 yr (1982–2025) and 90 yr:
+
+```{python}
+#| label: tbl-hist1982
+#| tbl-cap: "Q8 return periods with the 1982 crest as historical information (reports/tables/phase5_historical_1982.parquet)."
+hh = p8_hist.copy()
+hh.columns = ["case", "historical period (yr)", "effective n", "weighted skew", "16 ft (yr)", "20 ft (yr)", "23 ft (yr)"]
+show(hh)
+```
+
+- **This, not the skew case, is the sensitivity that matters.** 20 ft becomes `{python} f"{rp20_lo:.0f}"`–`{python} f"{rp20_hi:.0f}"` yr and 23 ft `{python} f"{rp23_lo:.0f}"`–`{python} f"{rp23_hi:.0f}"` yr, against `{python} g(rp20['lp3_return_period_yr'], 3)` and `{python} g(rp23['lp3_return_period_yr'], 2)` yr systematic-only — the published figures are biased long by roughly 20–30 % there. They remain inside the 5–95 % bootstrap band, so they are not refuted, but the ranges are what should be quoted.
+- The station-vs-regional-skew case above moves 23 ft by well under a year: it tests a parameter that does not matter here.
+- This is historical weighting, not EMA. PeakFQ/EMA with the 1982 crest over a stated perceptibility threshold remains the follow-up.
+- **Rating drift does not reach these stages.** Refitting stage→flow on recent water years only moves the 23 ft return period by a couple of years and the fit's residuals show no trend against water year, so §4.2's drift is a low- and mid-flow control effect. The real extrapolation risk at 29 ft is the stage→flow relation itself, which is being read `{python} f"{p8_q82_cfs / float(rp['flow_cfs'].max()):.1f}"`× beyond the largest flow in its own data.
+
 ![LP3 frequency curves with bootstrap bands; Hardy (n = `{python} int(lp3_meta_df.loc[0, 'n'])`, WY `{python} int(lp3_meta_df.loc[0, 'wy_start'])`–`{python} int(lp3_meta_df.loc[0, 'wy_end'])`) and Imboden (n = `{python} int(lp3_meta_df.loc[2, 'n'])`, WY `{python} int(lp3_meta_df.loc[2, 'wy_start'])`–`{python} int(lp3_meta_df.loc[2, 'wy_end'])`). Source: USGS annual peaks 07069305 and 07069500; peak files carry no provisional flag.](figures/phase5_freq_curves.png){#fig-freq}
 
 ## Stationarity (Q2)
@@ -615,6 +738,8 @@ show(q, floatfmt=",.0f")
 - Imboden annual peaks: `{python} trend_str(peak_trend['imboden'], 'log10-cfs')`; Pettitt after WY `{python} peak_pettitt['imboden']`.
 - Imboden LP3 split at WY 2008: 10-yr quantile `{python} f"{pre10[0]:,.0f}"` cfs (`{python} f"{pre10[1]:,.0f}"`–`{python} f"{pre10[2]:,.0f}"`, n = `{python} int(lp3_meta_df.loc[3, 'n'])`) before vs `{python} f"{post10[0]:,.0f}"` cfs (`{python} f"{post10[1]:,.0f}"`–`{python} f"{post10[2]:,.0f}"`, n = `{python} int(lp3_meta_df.loc[4, 'n'])`) after; intervals overlap: `{python} "yes" if split_overlap else "no"`.
 - Rule: "non-stationary" requires both a trend CI excluding zero and non-overlapping split-period 10-yr CIs. **Verdict: `{python} verdict_text`.** The post-2008 point estimate is higher; the n = `{python} int(lp3_meta_df.loc[4, 'n'])` record cannot distinguish it from sampling variation.
+- **The rule is weak, so the tail was tested directly.** A conjunction of two conditions can barely fail at any n, and both conditions inspect the centre of the distribution while a flood-risk question is about the upper tail. Quantile regression at q = 0.90 gives `{python} pm(p8_qr.loc[0.9,'slope_log10_per_yr'])` log10-cfs/yr (95 % CI `{python} g(p8_qr.loc[0.9,'lo'], 2)` to `{python} g(p8_qr.loc[0.9,'hi'], 2)`) and the top-quartile Sen slope `{python} pm(p8_topq_slope)` (CI `{python} g(p8_topq_lo, 2)` to `{python} g(p8_topq_hi, 2)`). Both CIs span zero, so the conclusion is **better supported than the conjunction rule made it look**: it now rests on a test with the power to have detected a tail change.
+- **Disclosed as post hoc.** Splitting at WY 2008 gives a mean shift (Welch p = `{python} g(p8_welch, 2)`, Mann–Whitney p = `{python} g(p8_mwu, 2)`) that the decision rule never surfaced. The split year was chosen after seeing the data — a split at 1980 gives p ≈ 0.77 — so this is a hypothesis for new data, not a result. It is reported because omitting it would be selective.
 
 ## Partial-duration series and threshold counts
 
@@ -648,11 +773,15 @@ Events (annual-peak file before WY 2008; declustered daily-max stage after): `{p
 show(q6_df)
 ```
 
-CV ≈ 1 and bootstrap p = `{python} g(q6_main['bootstrap_p'], 2)` (n = `{python} int(q6_main['n'])`) are the exponential signature: the ~4-yr cadence is modal, not periodic. A spectral check on n = `{python} int(q6_main['n'])` events is not informative and was not run.
+CV ≈ 1 and bootstrap p = `{python} g(q6_main['bootstrap_p'], 2)` (n = `{python} int(q6_main['n'])`) are the exponential signature: the ~4-yr cadence is modal, not periodic.
+
+**But state what this test could have found.** At `{python} int(q6_main['n']) - 1` gaps a memoryless process routinely produces a CV anywhere in `{python} g(p8_cvlo, 2)`–`{python} g(p8_cvhi, 2)` (central 95 %), so the observed `{python} g(q6_main['cv'], 3)` is unremarkable in either direction. Power against a regular (gamma) cadence is `{python} g(float(p8_q6pow.loc[p8_q6pow['cv'] == 0.7, 'power'].iloc[0]), 2)` at CV 0.7 and `{python} g(float(p8_q6pow.loc[p8_q6pow['cv'] == 0.5, 'power'].iloc[0]), 2)` at CV 0.5, reaching 80 % only at CV ≈ `{python} f"{q6_power_80.max():.2f}"` — near-metronomic. The conclusion is therefore **"no cadence is detectable, and none weaker than near-metronomic could have been"**, not "the process is memoryless". A high p here is an absence of evidence. The ≥10 ft POT series above, with real n, is the supplementary check. A spectral check on n = `{python} int(q6_main['n'])` events is not informative and was not run.
 
 ## Quiet year after a major flood (Q7)
 
-P(annual peak < 8 ft | prior WY had a ≥16 ft event) = `{python} g(q7_cond, 2)` vs base rate `{python} g(q7_base, 2)`; difference `{python} pm(q7_cond - q7_base)` (Clopper-Pearson exact 95 % bounds `{python} pm(q7_lo)` to `{python} pm(q7_hi)`); permutation p = `{python} g(q7_perm, 2)`; n_major = `{python} q7_nmaj`, n_years = `{python} q7_ny`. No support for the pattern; the CI is the honest statement of power.
+P(annual peak < 8 ft | prior WY had a ≥16 ft event) = `{python} g(q7_cond, 2)` vs base rate `{python} g(q7_base, 2)`; difference `{python} pm(q7_cond - q7_base)` (Clopper-Pearson exact 95 % bounds `{python} pm(q7_lo)` to `{python} pm(q7_hi)`); permutation p = `{python} g(q7_perm, 2)`; n_major = `{python} q7_nmaj`, n_years = `{python} q7_ny`.
+
+**This is untestable with the current record, which is not the same as no support.** Fisher-exact power at n_major = `{python} q7_nmaj` is `{python} g(float(p8_q7pow['power'].iloc[0]), 2)` against a 2.5× effect and reaches 80 % only if a quiet year followed a major flood about `{python} f"{q7_power_80.min():.0%}"` of the time; the exact bound already admits a conditional rate anywhere from 0.00 to `{python} g(q7_base + q7_hi, 2)`. The design produced **no result**, not a null result, and Q7 is reclassified accordingly. Testing it would need far more major-flood years than this river has recorded.
 
 ## Antecedent conditions
 
@@ -666,7 +795,9 @@ The two largest stage events (`{python} ante.loc[ante['precip_prior_in'].idxmax(
 
 # Precipitation regime
 
-Thesis: basin-mean precipitation has become more intense over 1981–2025 but not detectably wetter — the annual total carries no significant trend and the Sep–Feb recharge-season total is flat to negative. The gap-ridden single-station tests are low-power, but the `{python} wp_total['n']`-year West Plains 1948– record is not: it finds more wet days (days ≥ 1 in `{python} pm(wp_days1['slope'])`/decade, CI `{python} g(wp_days1['lo'], 2)` to `{python} g(wp_days1['hi'], 2)`) and no intensification, so the basin series' intensity signal is not corroborated at the gauge over the longer window.
+Thesis: precipitation over the recharge area is **not becoming wetter, and no intensification is detectable** once a known discontinuity in the gridded product is allowed for. The annual total carries no significant trend and the Sep–Feb recharge-season total is flat to negative — the robust result. The apparent rise in AORC's storm-sharpness indices is a step at the 2002 radar onset rather than a trend (§7.2), it is not reproduced at the co-located gauge over the same years, and PRISM over the same polygon shares AORC's inputs and cannot corroborate it independently.
+
+This reverses the second edition's "more intense, not detectably wetter". What follows reports the monotone-trend tests first, because they are what the earlier reading rested on, and then the tests that reinterpret them.
 
 Indices are calendar-year: total, Sep–Feb recharge-season total, growing-season total, wet-day counts at 0.5/1/2 in, max 1- and 3-day totals, top-5-day fraction, and SDII. Trend: Sen slope per decade with 95 % CI, Mann-Kendall, Benjamini-Hochberg across the `{python} n_index` indices per series; years with < 90 % daily coverage are excluded.
 
@@ -679,9 +810,56 @@ show(it_show)
 - Basin (AORC, MoDNR polygon, n = `{python} basin_total['n']` years): `{python} sig_count['basin']`/`{python} n_index` indices BH-significant: intensity (max 1-day, SDII, top-5 share), wet-day counts (≥ 1 in, ≥ 2 in) and the growing-season total; not the annual or recharge-season totals. The annual total is **not** among them: `{python} pm(basin_total['slope'])` in/decade (95 % CI `{python} g(basin_total['lo'], 2)` to `{python} g(basin_total['hi'], 2)`; mean `{python} f"{basin_mean_total:.1f}"` in), a CI spanning zero. Days ≥ 1 in `{python} pm(basin_days1['slope'])`/decade (CI `{python} g(basin_days1['lo'], 2)` to `{python} g(basin_days1['hi'], 2)`); max 1-day `{python} pm(basin_max1['slope'])` in/decade (CI `{python} g(basin_max1['lo'], 2)` to `{python} g(basin_max1['hi'], 2)`); SDII `{python} pm(basin_sdii['slope'])` in/wet-day/decade (CI `{python} g(basin_sdii['lo'], 2)` to `{python} g(basin_sdii['hi'], 2)`).
 - Recharge season (Sep–Feb, `{python} f"{basin_recharge_frac:.0%}"` of the annual mean): `{python} pm(basin_recharge['slope'])` in/decade (CI `{python} g(basin_recharge['lo'], 2)` to `{python} g(basin_recharge['hi'], 2)`, n = `{python} basin_recharge['n']`) — flat to negative, and the only rise in a seasonal total is the growing season. Nothing here adds water to the recharge season.
 - Stations: USC00238880 `{python} sig_count['USC00238880']`/`{python} n_index` significant (n = `{python} coop_max3['n']`; max 3-day `{python} pm(coop_max3['slope'])` in/decade, CI `{python} g(coop_max3['lo'], 2)` to `{python} g(coop_max3['hi'], 2)`, p_BH = `{python} g(trend_row('USC00238880', 'max3_in')['p_bh'], 2)`); KUNO `{python} sig_count['KUNO']`/`{python} n_index` (SDII `{python} pm(kuno_sdii['slope'])`, CI `{python} g(kuno_sdii['lo'], 2)` to `{python} g(kuno_sdii['hi'], 2)`, n = `{python} kuno_sdii['n']`); Alton USC00230127 `{python} sig_count['USC00230127']`/`{python} n_index` (n = `{python} idx_trend('USC00230127', 'total_in')['n']` years — no data 1983–1994 or 2012–2016, a consistency check only). USC00238880 fails the coverage gate in `{python} len(coop_fail_years)` years, `{python} len(coop_fail_recent)` of them in 2011–2021 (`{python} ", ".join(str(y) for y in coop_fail_recent)`), which removes most of the recent wet decade from the station test; its null is low power, not evidence against the basin trend.
-- **West Plains 1948–** (`{python} wp_first_year`–2025, n = `{python} wp_total['n']` years): two instruments, one at a time — the town COOP gauge through 1998-03-31, then the KUNO airport ASOS (10.7 mi north, 120 ft higher) from 1998-04-01, raised by the COOP/KUNO catch ratio `{python} wp_ratio` measured on `{python} wp_ratio_months` overlapping months so the record stays on the town gauge's level (`{python} f"{wp_kuno_days:,}"` KUNO days and `{python} wp_kuno_missed` days KUNO missed after 1998-04-01; no day is borrowed between gauges and none is interpolated). `{python} wp_years` years pass the coverage gate against `{python} years_passing(idx['USC00238880'])` for COOP alone, making this the longest and highest-power station test in the study. `{python} sig_count[WESTPLAINS]`/`{python} n_index` indices are BH-significant (`{python} ", ".join(INDEX_LABELS[i] for i in wp_sig)`). The annual total rises `{python} pm(wp_total['slope'])` in/decade (95 % CI `{python} g(wp_total['lo'], 2)` to `{python} g(wp_total['hi'], 2)`, n = `{python} wp_total['n']`) but does not survive BH correction; the recharge-season total is `{python} pm(wp_recharge['slope'])` in/decade (CI `{python} g(wp_recharge['lo'], 2)` to `{python} g(wp_recharge['hi'], 2)`, n = `{python} wp_recharge['n']`). Unlike the basin series, the gauge record shows no intensification: max 1-day `{python} pm(wp_max1['slope'])` in/decade (CI `{python} g(wp_max1['lo'], 2)` to `{python} g(wp_max1['hi'], 2)`) and SDII `{python} pm(wp_sdii['slope'])` in/wet-day/decade (CI `{python} g(wp_sdii['lo'], 2)` to `{python} g(wp_sdii['hi'], 2)`) both have CIs spanning zero over `{python} wp_total['n']` years. What it does show is more wet days: days ≥ 1 in `{python} pm(wp_days1['slope'])`/decade (CI `{python} g(wp_days1['lo'], 2)` to `{python} g(wp_days1['hi'], 2)`), the one index that passes.
+- **West Plains 1948–** (`{python} wp_first_year`–2025, n = `{python} wp_total['n']` years): two instruments, one at a time — the town COOP gauge through 1998-03-31, then the KUNO airport ASOS (10.7 mi north, 120 ft higher) from 1998-04-01, raised by the COOP/KUNO catch ratio `{python} wp_ratio` measured on `{python} wp_ratio_months` overlapping months so the record stays on the town gauge's level (`{python} f"{wp_kuno_days:,}"` KUNO days and `{python} wp_kuno_missed` days KUNO missed after 1998-04-01; no day is borrowed between gauges and none is interpolated). `{python} wp_years` years pass the coverage gate against `{python} years_passing(idx['USC00238880'])` for COOP alone, making this the longest and highest-power station test in the study. `{python} sig_count[WESTPLAINS]`/`{python} n_index` indices are BH-significant (`{python} ", ".join(INDEX_LABELS[i] for i in wp_sig)`). The annual total rises `{python} pm(wp_total['slope'])` in/decade (95 % CI `{python} g(wp_total['lo'], 2)` to `{python} g(wp_total['hi'], 2)`, n = `{python} wp_total['n']`) but does not survive BH correction; the recharge-season total is `{python} pm(wp_recharge['slope'])` in/decade (CI `{python} g(wp_recharge['lo'], 2)` to `{python} g(wp_recharge['hi'], 2)`, n = `{python} wp_recharge['n']`). Unlike the basin series, the gauge record shows no intensification: max 1-day `{python} pm(wp_max1['slope'])` in/decade (CI `{python} g(wp_max1['lo'], 2)` to `{python} g(wp_max1['hi'], 2)`) and SDII `{python} pm(wp_sdii['slope'])` in/wet-day/decade (CI `{python} g(wp_sdii['lo'], 2)` to `{python} g(wp_sdii['hi'], 2)`) both have CIs spanning zero over `{python} wp_total['n']` years. What it does show is more wet days: days ≥ 1 in `{python} pm(wp_days1['slope'])`/decade (CI `{python} g(wp_days1['lo'], 2)` to `{python} g(wp_days1['hi'], 2)`), the one index that passes — **but that result is knife-edge on the catch ratio.** The whole KUNO era is scaled by one constant measured on the period it is applied to, so an error in it maps one-for-one into the trend. Which indices pass BH at each ratio: 1.000 → `{python} p8_ratio_sens['1.000']`; 1.034 → `{python} p8_ratio_sens['1.034']`; 1.068 (the measured value) → `{python} p8_ratio_sens['1.068']`; 1.100 → `{python} p8_ratio_sens['1.100']`. A residual step term at the 1998 instrument change is also significant for SDII (`{python} pm(p8_wp_step.loc['sdii_in','step'])`, p = `{python} g(p8_wp_step.loc['sdii_in','step_p'], 2)`) and for the recharge-season total (`{python} pm(p8_wp_step.loc['recharge_in','step'])` in, p = `{python} g(p8_wp_step.loc['recharge_in','step_p'], 2)`), and allowing it reveals an SDII trend of `{python} pm(p8_wp_step.loc['sdii_in','slope_per_decade'])`/decade (p = `{python} g(p8_wp_step.loc['sdii_in','slope_p'], 2)`) that the pooled fit suppresses — KUNO's tipping bucket counts more small events than a volunteer observer, deflating KUNO-era SDII. The COOP-only era (1949–1997) is the homogeneous baseline. Read "more wet days, not harder rain" as resting on a splice, not as established.
 
 ![`{python} idx_cap`](figures/phase6_indices.png){#fig-indices}
+
+## Is the intensity signal a trend or a 2002 product change?
+
+AORC v1.1 blends gauges and reanalysis throughout but gains radar (Stage IV/MRMS) input only from 2002. A gauge/reanalysis blend is smooth; a radar-informed analysis is sharp. Every index flagged above measures sharpness, and a monotone-trend test on a series with an input change at 2002 reads the step as a trend. Three tests separate them.
+
+**A step term absorbs the trend.** Refitting each index as OLS `index ~ year + I(year ≥ 2002)` with HC3 errors:
+
+```{python}
+#| label: tbl-step
+#| tbl-cap: "Basin index trends with a 2002 step term (reports/tables/phase6_step_2002.parquet). `slope_per_decade` is the trend surviving once the step is allowed for; `step` is the level shift in the index's own units."
+st_show = p8_step.reset_index()[["index", "n", "slope_per_decade", "slope_lo_per_decade", "slope_hi_per_decade", "slope_p", "step", "step_p", "step_significant_bh"]].copy()
+st_show["index"] = st_show["index"].map(INDEX_LABELS)
+st_show.columns = ["index", "n", "slope/decade", "CI lo", "CI hi", "slope p", "step", "step p", "step BH-sig"]
+show(st_show)
+```
+
+SDII's slope collapses to `{python} f"{step_row('sdii_in')['slope_per_decade']:+.3f}"`/decade (p = `{python} g(step_row('sdii_in')['slope_p'], 2)`) while its step is significant (`{python} pm(step_row('sdii_in')['step'])`, p = `{python} g(step_row('sdii_in')['step_p'], 2)`); days ≥ 1 in goes to `{python} pm(step_row('days_ge_1')['slope_per_decade'])`/decade (p = `{python} g(step_row('days_ge_1')['slope_p'], 2)`) with step p = `{python} g(step_row('days_ge_1')['step_p'], 2)`; max 1-day to `{python} pm(step_row('max1_in')['slope_per_decade'])` (p = `{python} g(step_row('max1_in')['slope_p'], 2)`). The annual total is unaffected either way, which is why it remains the one Q3 result to state without qualification.
+
+**Within each era the indices are flat or falling.** Sen slopes computed separately either side of 2002:
+
+```{python}
+#| label: tbl-era
+#| tbl-cap: "Within-era Sen slopes per decade, split at 2002 (reports/tables/phase6_era_slopes.parquet)."
+er = p8_era.copy()
+er["index"] = er["index"].map(INDEX_LABELS)
+er.columns = ["era", "index", "n (yr)", "Sen slope / decade", "CI lo", "CI hi", "p"]
+show(er[["era", "index", "n (yr)", "Sen slope / decade", "CI lo", "CI hi", "p"]])
+```
+
+Not one sharpness index has a CI excluding zero on the rising side in either era. A quantity that steps once and is flat on both sides of the step is not intensifying.
+
+**The gauge does not move with the product.** Comparing pre- and post-2002 means over the calendar years both series cover — so this is not a comparison of different periods:
+
+```{python}
+#| label: tbl-eramean
+#| tbl-cap: "Pre/post-2002 means of each index, AORC vs the West Plains gauge, over identical years (reports/tables/phase6_era_means.parquet)."
+em = p8_means.copy()
+em["index"] = em["index"].map(INDEX_LABELS)
+em.columns = ["series", "index", "n pre", "n post", "pre-2002 mean", "2002+ mean", "% change"]
+show(em)
+```
+
+The two products agree closely on **how much rain fell** (annual total `{python} f"{mean_row(AORC_LBL,'total_in')['pct_change']:+.0f}%"` in AORC vs `{python} f"{mean_row(WP_LBL,'total_in')['pct_change']:+.0f}%"` at the gauge) and disagree sharply on **how it fell**: SDII `{python} f"{mean_row(AORC_LBL,'sdii_in')['pct_change']:+.0f}%"` vs `{python} f"{mean_row(WP_LBL,'sdii_in')['pct_change']:+.0f}%"`, days ≥ 1 in `{python} f"{mean_row(AORC_LBL,'days_ge_1')['pct_change']:+.0f}%"` vs `{python} f"{mean_row(WP_LBL,'days_ge_1')['pct_change']:+.0f}%"`, max 1-day `{python} f"{mean_row(AORC_LBL,'max1_in')['pct_change']:+.0f}%"` vs `{python} f"{mean_row(WP_LBL,'max1_in')['pct_change']:+.0f}%"`. A meteorological change would move both. A change in how the product resolves storms moves only the grid.
+
+**The "6/10 indices" count overstates the evidence.** The ten indices are strongly correlated, and BH assumes far more independence than they have. Permuting year labels *jointly* across all ten (5,000 draws, seed 0) gives a family-wise max-T test: `{python} p8_maxt_n` of `{python} n_index` survive (`{python} ", ".join(INDEX_LABELS[i] for i in p8_maxt_which)`), against `{python} sig_count['basin']`/`{python} n_index` under BH. The count is no longer used as a summary anywhere in this report — and under the step test above, none of the survivors is a trend.
+
+**What would settle it.** NOAA's AORC v1.1 homogeneity documentation; a one-cell AORC re-pull at the gauge coordinate split at 2002 (the cache keeps only the polygon mean); or an independent gridded product with no 2002 input change (nClimGrid-Daily, Livneh). PRISM cannot serve: it shares the same Stage IV/MRMS and gauge inputs.
 
 Limitation: AORC is a 1 km gridded analysis blending Stage IV/MRMS radar (2002+), gauges and reanalysis, averaged over the polygon — smoother extremes than a point gauge by construction, and its pre-2002 half has no radar input; the COOP record before 1981 is not yet pulled; precipitation carries no approval flag, so the all/approved rule does not apply here.
 
@@ -696,13 +874,13 @@ from spring_river.analysis.compare_sources import to_markdown_table
 Markdown(to_markdown_table(cmp[cmp.block != "agreement"]))
 ```
 
-Two conclusions moved. The annual-total precipitation trend is BH-significant only on the legacy buffer, so the Q3 thesis becomes "more intense but not detectably wetter"; and the Hardy non-climatic residual is positive on AORC while both PRISM series give CIs spanning zero, making it a source-dependent result rather than a finding. Everything else held: the Mammoth residual trend is ~0 under all three sources (and its precipitation coefficient and R² both rose on the polygon), the intensity indices rise on all three, the post-flood base-flow gain stays positive at both gauges, and the precipitation→spring coupling is a 1-month lag at r ≈ 0.45 regardless of source.
+Two conclusions appeared to move between editions, and Phase 8 shows both readings were wrong. **The annual-total trend was not a property of the buffer geometry.** The buffer and polygon annual totals correlate r = `{python} g(p8_bufpoly_r, 3)`, and the trend of their *difference* is `{python} pm(p8_bufpoly_trend['slope']*10)` in/decade (95 % CI `{python} g(p8_bufpoly_trend['lo']*10, 2)` to `{python} g(p8_bufpoly_trend['hi']*10, 2)`, n = `{python} p8_bufpoly_trend['n']`) — no detectable difference in how the two geometries evolve. The first edition's significance and this edition's null are the same estimate either side of a p-value threshold; both geometries give a positive annual-total slope not separable from zero at this n. **And the Hardy residual is not source-dependent**: dropping the never-significant ENSO term makes it significant on all three sources, and the Hardy/Mammoth ratio establishes the rise with no precipitation model at all (§4.1). What genuinely differs by source is the Mammoth residual, which is marginally negative on the PRISM fits (§4.1). Everything else held: the post-flood base-flow gain stays positive at both gauges, and the precipitation→spring coupling is a 1-month lag at r ≈ 0.45 regardless of source. The intensity indices rise on all three sources — which, given that all three share radar and gauge inputs, is now read as evidence about the products rather than about the weather.
 
 ![Calendar-year basin precipitation under the three sources; period 1981–present; no approval flag applies.](figures/precip_sources_annual.png){#fig-sources}
 
 ## Seasonality and recession
 
-Thesis: floods arrive in late winter–early spring at every gauge and in every decade with enough events to test, and the timing has not drifted; post-peak recession is fast at Hardy (k ≈ `{python} f"{rk_stats['hardy']['median']:.0f}"` days) and slow at Mammoth Spring (k ≈ `{python} f"{rk_stats['mammoth']['median']:.0f}"` days), and neither constant trends with water year.
+Thesis: floods arrive in late winter–early spring at every gauge and in every decade with enough events to test, and no drift is detectable on the long record (now tested, not asserted); post-peak recession is fast at Hardy (k ≈ `{python} f"{rk_stats['hardy']['median']:.0f}"` days) and slow at Mammoth Spring (k ≈ `{python} f"{rk_stats['mammoth']['median']:.0f}"` days), and neither constant trends with water year.
 
 Peak timing is the circular mean of day-of-year per calendar decade; R is the mean resultant length (0 = uniform through the year, 1 = every peak on the same day); the Rayleigh test is of uniformity (Zar approximation, adequate for n ≥ 3, blank below). Decades are calendar decades, so the first row of each series is partial.
 
@@ -713,14 +891,15 @@ show(pt_show, floatfmt=".3f")
 ```
 
 - Whole series: Imboden annual peaks `{python} pt_str(PT_IMBODEN)`; Hardy annual peaks `{python} pt_str(PT_HARDY)`; Hardy POT ≥ 10 ft events `{python} pt_str(PT_HARDY_POT)`. All three reject uniformity; R ≈ 0.4–0.5 means a broad late-winter mode, not a narrow one.
-- Decades: Imboden decade means range from `{python} pt_decade_range(PT_IMBODEN)` with no monotone ordering across the `{python} len(pt_dec.loc[pt_dec['series'] == PT_IMBODEN])` decades; the 2020s rows (n = `{python} int(pt_dec.loc[(pt_dec['series'] == PT_IMBODEN) & (pt_dec['period'] == '2020–2029'), 'n'].iloc[0])`–`{python} int(pt_dec.loc[(pt_dec['series'] == PT_HARDY_POT) & (pt_dec['period'] == '2020–2029'), 'n'].iloc[0])`) sit inside the spread of earlier decades. Per-decade Rayleigh tests at n ≤ 11 have little power and are reported, not interpreted.
+- Decades: Imboden decade means range from `{python} pt_decade_range(PT_IMBODEN)` with no monotone ordering across the `{python} len(pt_dec.loc[pt_dec['series'] == PT_IMBODEN])` decades; the 2020s rows sit inside the spread of earlier decades. Per-decade Rayleigh tests at n ≤ 11 have little power and are reported, not interpreted.
+- **"No drift" is now tested, not asserted.** Watson–Williams across decades does not reject a common circular mean on the long Imboden series (F = `{python} g(p8_drift.loc[PT_IMBODEN, 'F'], 3)`, p = `{python} g(p8_drift.loc[PT_IMBODEN, 'p'], 2)`, `{python} int(p8_drift.loc[PT_IMBODEN, 'decades_tested'])` decades, n = `{python} int(p8_drift.loc[PT_IMBODEN, 'n_events'])`) — the only series with enough decades to speak to a century-scale drift. It **does** reject on the `{python} int(p8_drift.loc[PT_HARDY, 'decades_tested'])`-decade Hardy annual-peak series (p = `{python} g(p8_drift.loc[PT_HARDY, 'p'], 3)`), which is a difference among three decade means, not a direction of travel. Either way a decade mean's circular standard error is about `{python} f"{p8_drift['median_decade_se_days'].median():.0f}"` days, so only a large drift would be detectable.
 
 ![Peak timing by calendar decade. `{python} PT_HARDY_POT`: `{python} pt_cap[PT_HARDY_POT]`. `{python} PT_HARDY`: `{python} pt_cap[PT_HARDY]`. `{python} PT_IMBODEN`: `{python} pt_cap[PT_IMBODEN]`.](figures/phase7_peak_timing.png){#fig-peaktiming}
 
-Recession constant k (days) is from OLS ln q = a − t/k on each recession run after the quickflow crest (Hardy: `{python} rec_params['hardy']`; Mammoth Spring: `{python} rec_params['mammoth']`); runs are extracted only within gap-free segments. Trend: Mann-Kendall / Sen on k vs water year of the peak, recomputed here from the per-event tables.
+Recession constant k (days) is from OLS ln q = a − t/k on each recession run after the quickflow crest (Hardy: `{python} rec_params['hardy']`; Mammoth Spring: `{python} rec_params['mammoth']`); runs are extracted only within gap-free segments. Trend: Mann-Kendall / Sen on k vs water year of the peak, recomputed here from the per-event tables. **Read these trends against their effective n**: events cluster within wet years, so the event count overstates independence — `{python} rk_blocks['hardy']` water-year blocks carry Hardy's `{python} rk_trend['hardy']['n']` fitted events and `{python} rk_blocks['mammoth']` carry Mammoth's `{python} rk_trend['mammoth']['n']`.
 
 - Hardy: `{python} rk_stats['hardy']['events']` events (k fitted for `{python} rk_stats['hardy']['fitted']`), median k `{python} f"{rk_stats['hardy']['median']:.1f}"` days (IQR `{python} f"{rk_stats['hardy']['q25']:.1f}"`–`{python} f"{rk_stats['hardy']['q75']:.1f}"`), median r² `{python} f"{rk_stats['hardy']['r2']:.3f}"`. Trend `{python} trend_str(rk_trend['hardy'], 'days')`. Pettitt change-point after `{python} rec_pett['hardy']['date']` (WY `{python} rec_pett['hardy']['wy']`; K = `{python} rec_pett['hardy']['K']`, p = `{python} rec_pett['hardy']['p']`) — not significant.
-- Mammoth Spring: `{python} rk_stats['mammoth']['events']` events (k fitted for `{python} rk_stats['mammoth']['fitted']`), median k `{python} f"{rk_stats['mammoth']['median']:.1f}"` days (IQR `{python} f"{rk_stats['mammoth']['q25']:.1f}"`–`{python} f"{rk_stats['mammoth']['q75']:.1f}"`), median r² `{python} f"{rk_stats['mammoth']['r2']:.3f}"`. Trend `{python} trend_str(rk_trend['mammoth'], 'days')`. Pettitt after `{python} rec_pett['mammoth']['date']` (WY `{python} rec_pett['mammoth']['wy']`; K = `{python} rec_pett['mammoth']['K']`, p = `{python} rec_pett['mammoth']['p']`) — not significant. The spring drains an order of magnitude more slowly than the river: a Hardy crest is back on its base-flow floor in weeks, the Mammoth response persists for months (§7 lag structure).
+- Mammoth Spring: `{python} rk_stats['mammoth']['events']` events (k fitted for `{python} rk_stats['mammoth']['fitted']`), median k `{python} f"{rk_stats['mammoth']['median']:.1f}"` days (IQR `{python} f"{rk_stats['mammoth']['q25']:.1f}"`–`{python} f"{rk_stats['mammoth']['q75']:.1f}"`), median r² `{python} f"{rk_stats['mammoth']['r2']:.3f}"`. Trend `{python} trend_str(rk_trend['mammoth'], 'days')` (effective n `{python} rk_blocks['mammoth']` WY blocks). Pettitt after `{python} rec_pett['mammoth']['date']` (WY `{python} rec_pett['mammoth']['wy']`; K = `{python} rec_pett['mammoth']['K']`, p = `{python} rec_pett['mammoth']['p']`) — not significant. `{python} rk_lowr2['mammoth']` of these fits have r² < 0.75 and are flagged in the phase table; a single-exponential curve describes them poorly and their long k inflates the IQR above. The spring drains an order of magnitude more slowly than the river: a Hardy crest is back on its base-flow floor in weeks, the Mammoth response persists for months (§7 lag structure).
 - Approved-only: `{python} "identical event sets and identical trends — no qualifying peak falls in the provisional period" if rec_identical else "the approved-only trend differs from the all-data trend (see docs/phase7_seasonality.md)"` (from `{python} qa_df.loc[0, 'provisional_from']`); recession runs were re-extracted within approved-only gap-free segments.
 
 ![Master recession curves: median ln(q/q₀) by day after the skip window, IQR band, truncated at the last day reached by ≥ 3 runs (Hardy day `{python} mr_end['hardy'][0]`, Mammoth Spring day `{python} mr_end['mammoth'][0]`). Hardy: `{python} rec_cap['hardy']`. Mammoth Spring: `{python} rec_cap['mammoth']`.](figures/phase7_master_recession.png){#fig-masterrec}
@@ -739,7 +918,8 @@ lg.columns = ["lag (months)", "r", "95 % lo", "95 % hi", "n (months)"]
 show(lg, floatfmt=".3f")
 ```
 
-- Response peaks at lag `{python} int(best['lag'])` month: r = `{python} g(best['r'], 2)` (95 % CI `{python} g(best['r_lo'], 2)` to `{python} g(best['r_hi'], 2)`, n = `{python} int(best['n'])`), vs r = `{python} g(lag0['r'], 2)` at lag 0. Correlation decays to a CI including zero by lag `{python} lag_zero_cross`: the spring integrates roughly two seasons of rainfall, with the bulk of the response inside one to three months.
+- Response peaks at lag `{python} int(best['lag'])` month: r = `{python} g(best['r'], 2)` (95 % CI `{python} g(best['r_lo'], 2)` to `{python} g(best['r_hi'], 2)`, n = `{python} int(best['n'])`), vs r = `{python} g(lag0['r'], 2)` at lag 0. Correlation decays to a CI including zero by lag `{python} lag_zero_cross`: the spring integrates roughly two seasons of rainfall.
+- **The 1-month lag is a bin, not a transit time.** At daily resolution the cross-correlation peaks at `{python} p8_daily_peak` days (r = `{python} g(p8_daily_r, 3)`) and decays monotonically thereafter, with no local maximum near 30 days. The honest statement carries both halves: **onset within days; monthly correlation maximised at lag 1 month.** The monthly figure is the coarsest bin that captures a fast onset plus a long tail, and reading it as an aquifer travel time would be wrong.
 - Approved-only flow: lag `{python} int(best_appr['lag'])`, r = `{python} g(best_appr['r'], 2)` (CI `{python} g(best_appr['r_lo'], 2)` to `{python} g(best_appr['r_hi'], 2)`, n = `{python} int(best_appr['n'])`) — unchanged.
 - Spring → river: Hardy min7 is set by Mammoth base flow plus tributary inflow; the Hardy attribution model (§4.1) uses the same trailing-365-day precipitation window and reaches R² = `{python} g(ols_r2['hardy'], 2)`.
 
@@ -754,36 +934,40 @@ Limitation: the block bootstrap preserves within-year serial correlation but not
 #| tbl-cap: "Working hypotheses (plan.md §0) vs results. Every number regenerated from reports/tables/ or parsed from the phase reports."
 hyp = pd.DataFrame([
     ("Q1", "Base flow declining secularly or tracking precipitation?", "Drought-driven, not structural",
-     f"Supported at Mammoth, source-dependent at Hardy. Residual (non-climatic) trend: Mammoth {resid['mammoth']['slope']:+.4f} log-cfs/yr (CI {resid['mammoth']['lo']:+.4f} to {resid['mammoth']['hi']:+.4f}, n={resid['mammoth']['n']}) — CI spans zero on all three basin series. "
-     f"Hardy {resid['hardy']['slope']:+.4f} (CI {resid['hardy']['lo']:+.4f} to {resid['hardy']['hi']:+.4f}, n={resid['hardy']['n']}) on AORC, but CI spans zero on both PRISM basin series (§7.1). "
-     f"Hardy raw min7 rises {min7['hardy']['slope']:+.3f}/yr (CI {min7['hardy']['lo']:.3f} to {min7['hardy']['hi']:.3f}); antecedent precip explains part of it (R²={ols_r2['hardy']:.2f})."),
+     f"Supported at Mammoth; at Hardy base flow rose for a non-climatic reason. Mammoth residual {resid['mammoth']['slope']:+.4f} log-cfs/yr (CI {resid['mammoth']['lo']:+.4f} to {resid['mammoth']['hi']:+.4f}, n={resid['mammoth']['n']}) — but the PRISM fits are consistently, marginally negative and one specification's CI excludes zero, so 'zero on all three sources' overstates the agreement. "
+     f"Hardy {resid['hardy']['slope']:+.4f} (CI {resid['hardy']['lo']:+.4f} to {resid['hardy']['hi']:+.4f}, n={resid['hardy']['n']}); no longer called source-dependent — log(Hardy/Mammoth min7), which uses no precipitation model, rises {p8_ratio_trend['slope']:+.4f}/yr (CI {p8_ratio_trend['lo']:+.4f} to {p8_ratio_trend['hi']:+.4f}, p={p8_ratio_trend['p']:.3f}, n={p8_ratio_trend['n']}), and precip-only fits are significant on {p8_hardy_po_sig}/{len(p8_hardy_po)} sources."),
     ("Q2", "Are floods getting bigger?", "Magnitude up, frequency flat",
-     f"Not detectable. Imboden peaks {peak_trend['imboden']['slope']:+.4f} log10-cfs/yr (CI {peak_trend['imboden']['lo']:+.4f} to {peak_trend['imboden']['hi']:+.4f}, n={peak_trend['imboden']['n']}); "
-     f"10-yr quantile {pre10[0]:,.0f} → {post10[0]:,.0f} cfs pre/post-2008, CIs overlap."),
+     f"Not detectable, on a test that could have found it. Imboden peaks {peak_trend['imboden']['slope']:+.4f} log10-cfs/yr (CI {peak_trend['imboden']['lo']:+.4f} to {peak_trend['imboden']['hi']:+.4f}, n={peak_trend['imboden']['n']}); "
+     f"upper tail tested directly: q=0.90 quantile regression {p8_qr.loc[0.9,'slope_log10_per_yr']:+.4f} (CI {p8_qr.loc[0.9,'lo']:+.4f} to {p8_qr.loc[0.9,'hi']:+.4f}), top-quartile Sen {p8_topq_slope:+.4f} (CI {p8_topq_lo:+.4f} to {p8_topq_hi:+.4f}) — both span zero. "
+     f"A WY2008 mean shift (Welch p={p8_welch:.3f}, Mann-Whitney p={p8_mwu:.3f}) is disclosed as POST HOC: the split year was chosen after seeing the data."),
     ("Q3", "Has rainfall intensity shifted?", "Weak/inconclusive",
-     f"More intense, not detectably wetter. Basin: {sig_count['basin']}/{n_index} indices BH-significant — intensity, wet-day counts and the growing-season total (max 1-day {basin_max1['slope']:+.2f} in/decade, CI {basin_max1['lo']:.2f} to {basin_max1['hi']:.2f}; SDII {basin_sdii['slope']:+.3f}, CI {basin_sdii['lo']:.3f} to {basin_sdii['hi']:.3f}); "
-     f"annual total NOT significant ({basin_total['slope']:+.1f} in/decade, CI {basin_total['lo']:.1f} to {basin_total['hi']:.1f}, n={basin_total['n']}); "
-     f"recharge-season total flat to negative ({basin_recharge['slope']:+.2f}, CI {basin_recharge['lo']:.1f} to {basin_recharge['hi']:.1f}, n={basin_recharge['n']}). "
-     f"West Plains 1948– ({wp_total['n']} yr, COOP+KUNO): only days ≥ 1 in significant "
-     f"({wp_days1['slope']:+.2f}/decade, CI {wp_days1['lo']:.2f} to {wp_days1['hi']:.2f}); "
-     f"no intensification at the gauge. Other station tests low-power."),
+     f"Not wetter, and no intensification detectable once the 2002 AORC radar onset is allowed for. Annual total NOT significant ({basin_total['slope']:+.1f} in/decade, CI {basin_total['lo']:.1f} to {basin_total['hi']:.1f}, n={basin_total['n']}) and recharge season flat to negative ({basin_recharge['slope']:+.2f}, CI {basin_recharge['lo']:.1f} to {basin_recharge['hi']:.1f}) — the robust result. "
+     f"The sharpness indices STEP rather than trend: with a 2002 step term SDII slope {step_row('sdii_in')['slope_per_decade']:+.3f}/decade (p={step_row('sdii_in')['slope_p']:.2f}) but step p={step_row('sdii_in')['step_p']:.3f}; days ≥1 in slope {step_row('days_ge_1')['slope_per_decade']:+.2f} (p={step_row('days_ge_1')['slope_p']:.2f}), step p={step_row('days_ge_1')['step_p']:.3f}. Within-era Sen slopes flat to negative. "
+     f"Over identical years AORC SDII {mean_row(AORC_LBL,'sdii_in')['pct_change']:+.0f}% vs gauge {mean_row(WP_LBL,'sdii_in')['pct_change']:+.0f}%, while annual totals agree ({mean_row(AORC_LBL,'total_in')['pct_change']:+.0f}% vs {mean_row(WP_LBL,'total_in')['pct_change']:+.0f}%). "
+     f"Family-wise max-T leaves {p8_maxt_n}/{n_index} (vs {sig_count['basin']}/{n_index} under BH); the count is no longer used as a summary. PRISM shares AORC's inputs and is not an independent witness."),
     ("Q4", "Do major floods reduce recharge?", "Yes — post-flood floors are low",
-     f"Not supported — opposite sign. Post-flood base flow Mammoth {pf_mean['mammoth']:+.0f}% (CI {pf_ci['mammoth'][0]:.0f} to {pf_ci['mammoth'][1]:.0f}), "
-     f"Hardy {pf_mean['hardy']:+.0f}% (CI {pf_ci['hardy'][0]:.0f} to {pf_ci['hardy'][1]:.0f}); n={pf_n['hardy']} events. Descriptive."),
+     f"Not supported — opposite sign at Mammoth; Hardy materially weakened by its placebo. Mammoth {pf_mean['mammoth']:+.0f}% (CI {pf_ci['mammoth'][0]:.0f} to {pf_ci['mammoth'][1]:.0f}) against a placebo mean of {p8_placebo.loc['Mammoth','placebo_mean']:+.1f}% ({p8_placebo.loc['Mammoth','frac_ge_real']:.0%} of {int(p8_placebo.loc['Mammoth','n_trials'])} trials reach it) and stable across skip days — stands, stronger than the CI alone suggests. "
+     f"Hardy {pf_mean['hardy']:+.0f}% (CI {pf_ci['hardy'][0]:.0f} to {pf_ci['hardy'][1]:.0f}) against a placebo mean of {p8_placebo.loc['Hardy','placebo_mean']:+.1f}% that {p8_placebo.loc['Hardy','frac_ge_real']:.0%} of trials reach, falling to {float(p8_skip[(p8_skip['series']=='Hardy') & (p8_skip['skip_days']==90)]['mean_diff_pct'].iloc[0]):+.1f}% (CI spans zero) at a 90-day skip; placebo-corrected {p8_placebo.loc['Hardy','corrected']:+.0f}%. n={pf_n['hardy']} events. Descriptive."),
     ("Q5", "Is the stage-floor decline a rating artifact?", "Partly",
-     f"Supported. Stage at 1000 cfs {rating[1000]['slope']:+.3f} ft/yr (CI {rating[1000]['lo']:.3f} to {rating[1000]['hi']:.3f}, n={rating[1000]['n']}); "
-     f"at 400 cfs {rating[400]['slope']:+.3f} (CI {rating[400]['lo']:.3f} to {rating[400]['hi']:.3f}). Event shifts {shift_min:+.2f} to {shift_max:+.2f} ft — gradual drift dominates."),
+     f"Not an artifact — the channel really degraded, and the effect is understated. Stage at 1000 cfs {rating[1000]['slope']:+.3f} ft/yr (CI {rating[1000]['lo']:.3f} to {rating[1000]['hi']:.3f}, n={rating[1000]['n']}); at 400 cfs {rating[400]['slope']:+.3f} (CI {rating[400]['lo']:.3f} to {rating[400]['hi']:.3f}). "
+     f"FIELD-measured stage at 400 cfs (neither side rating-derived) falls {p8_field_trend['slope']:+.4f} ft/yr (CI {p8_field_trend['lo']:+.4f} to {p8_field_trend['hi']:+.4f}, p<0.001, n={p8_field_trend['n']} WY) — steeper and four years longer, and it brackets the 2006 event the shift table omits. "
+     f"Datum records reviewed: two post-2022 revisions, no site move, nothing at WY2008. Event shifts {shift_min:+.2f} to {shift_max:+.2f} ft."),
     ("Q6", "Is the ~4-yr major-flood cadence real?", "Modal, not periodic",
-     f"Consistent with memoryless: CV {q6_main['cv']:.2f}, KS {q6_main['ks']:.2f}, bootstrap p={q6_main['bootstrap_p']:.2f}, n={int(q6_main['n'])}."),
+     f"No cadence detectable — and none weaker than near-metronomic could have been. CV {q6_main['cv']:.2f}, KS {q6_main['ks']:.2f}, bootstrap p={q6_main['bootstrap_p']:.2f}, n={int(q6_main['n'])}. "
+     f"At this n an exponential null routinely gives CV {p8_cvlo:.2f}–{p8_cvhi:.2f}; power reaches 80 % only at CV≈{q6_power_80.max():.2f} ({p8_q6pow.loc[p8_q6pow['cv']==0.7,'power'].iloc[0]:.2f} at CV 0.7). Absence of evidence, not evidence of absence."),
     ("Q7", "Quiet year after a major flood?", "Pattern, n=2",
-     f"No support. P(quiet|major)={q7_cond:.2f} vs base {q7_base:.2f}; difference {q7_cond - q7_base:+.2f} (exact 95% {q7_lo:+.2f} to {q7_hi:+.2f}); n_major={q7_nmaj}."),
+     f"UNTESTABLE with the current record — the design produced no result, which is not a null result. P(quiet|major)={q7_cond:.2f} vs base {q7_base:.2f}; difference {q7_cond - q7_base:+.2f} (exact 95% {q7_lo:+.2f} to {q7_hi:+.2f}); n_major={q7_nmaj}. "
+     f"Fisher power is {p8_q7pow['power'].iloc[0]:.2f} against a 2.5x effect and reaches 80 % only at a true conditional rate of ~{q7_power_80.min():.1f}; the exact bound admits any rate in 0.00–{q7_base + q7_hi:.2f}."),
     ("Q8", "Return periods for 8/10/14/16/20/23 ft?", "10 ft ≈ annual; 16 ft ≈ 4 yr; 22+ ft ≈ 1-in-15–25",
-     f"10 ft {rp10['lp3_return_period_yr']:.1f} yr; 16 ft {rp16['lp3_return_period_yr']:.1f} (empirical {rp16['empirical_return_period_yr']:.1f}); "
-     f"20 ft {rp20['lp3_return_period_yr']:.1f}; 23 ft {rp23['lp3_return_period_yr']:.0f} yr (n={int(lp3_meta_df.loc[0, 'n'])} → wide)."),
+     f"10 ft {rp10['lp3_return_period_yr']:.1f} yr; 16 ft {rp16['lp3_return_period_yr']:.1f} (empirical {rp16['empirical_return_period_yr']:.1f}). "
+     f"At the major-exposure tier the systematic-only fit is biased LONG by ~20–30 % because it excludes the known 1982 crest (≈{p8_q82_cfs:,.0f} cfs). With it as historical information (B17B weighting): "
+     f"20 ft {rp20_lo:.0f}–{rp20_hi:.0f} yr and 23 ft {rp23_lo:.0f}–{rp23_hi:.0f} yr, vs {rp20['lp3_return_period_yr']:.1f} and {rp23['lp3_return_period_yr']:.0f} systematic-only. Quote the ranges. "
+     f"Still inside the bootstrap band, so not refuted; the station-skew case moves 23 ft by <1 yr and is not the sensitivity that matters."),
     ("§6.1", "Has flood timing or recession behaviour shifted?", "Late-winter peaks; no drift expected",
-     f"No drift. Imboden peaks mean date {pt_all.loc[PT_IMBODEN, 'mean_date_label']} (R={pt_all.loc[PT_IMBODEN, 'R']:.2f}, n={int(pt_all.loc[PT_IMBODEN, 'n'])}); decade means span Jan–Apr with no monotone order. "
-     f"Recession k: Hardy median {rk_stats['hardy']['median']:.1f} d, trend {rk_trend['hardy']['slope']:+.3f} d/yr (CI {rk_trend['hardy']['lo']:+.3f} to {rk_trend['hardy']['hi']:+.3f}, n={rk_trend['hardy']['n']}); "
-     f"Mammoth median {rk_stats['mammoth']['median']:.0f} d, trend {rk_trend['mammoth']['slope']:+.2f} d/yr (CI {rk_trend['mammoth']['lo']:+.2f} to {rk_trend['mammoth']['hi']:+.2f}, n={rk_trend['mammoth']['n']})."),
+     f"No drift on the long record, now TESTED not asserted. Imboden peaks mean date {pt_all.loc[PT_IMBODEN, 'mean_date_label']} (R={pt_all.loc[PT_IMBODEN, 'R']:.2f}, n={int(pt_all.loc[PT_IMBODEN, 'n'])}); Watson-Williams across {int(p8_drift.loc[PT_IMBODEN,'decades_tested'])} decades F={p8_drift.loc[PT_IMBODEN,'F']:.2f}, p={p8_drift.loc[PT_IMBODEN,'p']:.2f}. "
+     f"The short Hardy annual-peak series DOES reject a common decadal mean (p={p8_drift.loc[PT_HARDY,'p']:.3f}) over 3 decades — a difference among three means, not a direction of travel. A decade mean's circular SE is ~{p8_drift['median_decade_se_days'].median():.0f} d. "
+     f"Recession k: Hardy median {rk_stats['hardy']['median']:.1f} d, trend {rk_trend['hardy']['slope']:+.3f} d/yr (CI {rk_trend['hardy']['lo']:+.3f} to {rk_trend['hardy']['hi']:+.3f}) — effective n {rk_blocks['hardy']} WY blocks, not {rk_trend['hardy']['n']} events; "
+     f"Mammoth median {rk_stats['mammoth']['median']:.0f} d, trend {rk_trend['mammoth']['slope']:+.2f} d/yr (CI {rk_trend['mammoth']['lo']:+.2f} to {rk_trend['mammoth']['hi']:+.2f}) — {rk_blocks['mammoth']} blocks carry {rk_trend['mammoth']['n']} events, and {rk_lowr2['mammoth']} fits with r²<0.75 inflate the IQR."),
 ], columns=["Q", "question", "hypothesis", "result"])
 show(hyp)
 ```
@@ -810,11 +994,11 @@ Stage→flow: log10 Q = `{python} g(sf_a, 4)` + `{python} g(sf_b, 4)`·log10 H (
 | Paddling, runnable | 400–1000 cfs (`{python} f"{rating_wide.iloc[-1, 1]:.2f}"`–`{python} f"{rating_wide.iloc[-1, 2]:.2f}"` ft) | stage-at-flow fit | most of the year; Mammoth supplies ≥ `{python} f"{att['mammoth'].loc[att['mammoth']['complete'], 'min7_cfs'].min():.0f}"` cfs (record min7) |
 | Action / bank-full | 8–10 ft (`{python} f"{rp8['flow_cfs']:,.0f}"`–`{python} f"{rp10['flow_cfs']:,.0f}"` cfs) | NWS action/minor | `{python} g(rp8['lp3_return_period_yr'], 2)`–`{python} g(rp10['lp3_return_period_yr'], 2)` yr LP3; `{python} g(pot8['mean_per_yr'], 2)` declustered ≥8 ft events per year |
 | Flood exposure, moderate | 14–16 ft (`{python} f"{rp14['flow_cfs']:,.0f}"`–`{python} f"{rp16['flow_cfs']:,.0f}"` cfs) | NWS moderate/major | `{python} g(rp14['lp3_return_period_yr'], 2)`–`{python} g(rp16['lp3_return_period_yr'], 2)` yr LP3 (empirical `{python} g(rp14['empirical_return_period_yr'], 2)`–`{python} g(rp16['empirical_return_period_yr'], 2)`) |
-| Flood exposure, major | 20–23 ft (`{python} f"{rp20['flow_cfs']:,.0f}"`–`{python} f"{rp23['flow_cfs']:,.0f}"` cfs) | 2008/2025 tier | `{python} g(rp20['lp3_return_period_yr'], 3)`–`{python} g(rp23['lp3_return_period_yr'], 2)` yr LP3; `{python} int(rp20['nws_crests_ge_stage_1982_2025'])` NWS crests ≥ 20 ft in 1982–2025 |
+| Flood exposure, major | 20–23 ft (`{python} f"{rp20['flow_cfs']:,.0f}"`–`{python} f"{rp23['flow_cfs']:,.0f}"` cfs) | 2008/2025 tier | **20 ft `{python} f"{rp20_lo:.0f}"`–`{python} f"{rp20_hi:.0f}"` yr, 23 ft `{python} f"{rp23_lo:.0f}"`–`{python} f"{rp23_hi:.0f}"` yr** with the 1982 crest as historical information (§5.1); systematic-only LP3 gives `{python} g(rp20['lp3_return_period_yr'], 3)` and `{python} g(rp23['lp3_return_period_yr'], 2)` yr, biased long. `{python} int(rp20['nws_crests_ge_stage_1982_2025'])` NWS crests ≥ 20 ft in 1982–2025 |
 | Stage → flow lookup | `{python} rt_show.iloc[0, 0]`–`{python} rt_show.iloc[-1, 0]` ft in @tbl-rating-lookup; median day `{python} f"{pct_row[50]['stage_ft']:.2f}"` ft = `{python} f"{pct_row[50]['q_cfs']:,.0f}"` cfs | ±0.05 ft bands on `{python} f"{int(rfit['n']):,}"` IV pairs (§4.2.1) | use the recent column below `{python} f"{rt_hi_ok.index.min():.0f}"` ft; whole-record above |
 | Monitoring alert | basin precipitation anomaly this month → Mammoth flow next month (r = `{python} g(best['r'], 2)`); any ≥8 ft rise → recheck stage-at-flow drift | §7, §4.2 | — |
 
-The practical number for 22+ ft is the empirical rate: `{python} int(rp20['empirical_exceedances_2002_2025'])` annual peaks ≥ 20 ft in `{python} int(lp3_meta_df.loc[0, 'n'])` water years plus the 1982 crest outside the systematic record; the LP3 `{python} g(rp23['lp3_return_period_yr'], 2)` yr at 23 ft carries the full width of the n = `{python} int(lp3_meta_df.loc[0, 'n'])` bootstrap band.
+The practical number for 22+ ft is **23 ft once every `{python} f"{rp23_lo:.0f}"`–`{python} f"{rp23_hi:.0f}"` years**, the range spanned by the historical-information fits that include the 1982 crest. Quoting the systematic-only `{python} g(rp23['lp3_return_period_yr'], 2)` yr alone understates the hazard: that fit excludes a crest the town actually experienced. The empirical check is consistent — `{python} int(rp20['empirical_exceedances_2002_2025'])` annual peaks ≥ 20 ft in `{python} int(lp3_meta_df.loc[0, 'n'])` water years plus the 1982 crest outside the systematic record — and every one of these figures still carries the full width of an n = `{python} int(lp3_meta_df.loc[0, 'n'])` bootstrap band.
 
 # Limitations and next steps
 
@@ -822,23 +1006,23 @@ Data and record length
 
 - Hardy discharge is WY 2002+ (n ≤ `{python} min7['hardy']['n']` for low-flow statistics, `{python} int(lp3_meta_df.loc[0, 'n'])` annual peaks); Mammoth Spring (1981+) carries the long base-flow record and Imboden (WY 1937+) the long flood record. Return periods beyond ~50 yr are extrapolation — the CIs say so.
 - Hardy daily stage is the daily maximum of IV readings (WY 2008+); threshold-day counts and POT events are an upper bound relative to a daily-mean product.
-- The 1982 29.0 ft crest predates the Hardy record and is reported as a historical exceedance only, not fitted.
+- The 1982 29.0 ft crest predates the Hardy record. It is not in the headline LP3 fit, but it **is** now used as historical information in the Q8 sensitivity (§5.1), which is the case to quote at 20–23 ft.
 - COOP USC00238880 has `{python} coop_gaps` gaps > 7 days and fails coverage in `{python} len(coop_fail_years)` index years; its 1948–1980 record is now pulled but feeds only the West Plains 1948– record, not the 1981+ COOP series the other analyses use. KUNO begins 1998-04.
 
 Unobtained inputs (open items from the plan)
 
-- USGS rating-shift, measurement and datum history for Hardy: Q5 and the stage↔flow mapping in Q8 rest on IV-derived stage-at-flow and a log-log fit to `{python} int(lp3_meta_df.loc[0, 'n'])` annual-peak pairs, and are provisional until compared with the official record.
+- USGS rating-shift tables for Hardy remain unobtained. The **field/channel measurements and the datum history are now in hand**: Q5 no longer rests on IV-derived stage-at-flow alone (§4.2), and the datum records show two post-2022 revisions with no site move and nothing at WY2008. The stage↔flow mapping in Q8 is still a log-log fit to `{python} int(lp3_meta_df.loc[0, 'n'])` annual-peak pairs, extrapolated well beyond its data at 29 ft.
 - Regional skew: `{python} regional_skew` is the Bulletin 17B Plate I approximation; the Arkansas/Missouri regional-skew study value and an EMA (B17C, PeakFQ) fit with the 1982 crest as a historical peak remain to be done.
 - Recharge polygon: MoDNR layer, not a study-specific dye trace; recharge shared with Bill Mac and Greer springs is excluded.
 
 Methods
 
 - LP3 is method-of-moments with weighted skew, not EMA; low outliers are flagged but retained without a conditional-probability adjustment.
-- Q4 n = `{python} pf_n['hardy']` events; the bootstrap CI excludes matching uncertainty and control-year reuse (descriptive, not causal). BFImax is fixed rather than fitted; no linear-reservoir attribution.
-- Q6 spectral check not run (n = `{python} int(q6_main['n'])` events; not informative). Q7 has n_major = `{python} q7_nmaj`.
+- Q4 n = `{python} pf_n['hardy']` events; the bootstrap CI excludes matching uncertainty and control-year reuse, which is what the placebo in §4.3 exists to quantify — and at Hardy it finds a material part of the effect is procedural. BFImax is fixed rather than fitted; no linear-reservoir attribution.
+- **Q6 and Q7 are power-limited and their power is now quantified.** Q6 cannot detect any cadence weaker than near-metronomic (§5.4); Q7 cannot detect any plausible effect at all and is reclassified untestable with the current record (§5.5). Read their high p-values as absence of evidence. Spectral check not run (n = `{python} int(q6_main['n'])` events; not informative).
 - Lag-correlation block bootstrap is mildly optimistic across block boundaries.
 - Review overrules (docs/review_phase4-6.md): complete-WY selection uses the series end date only (no interior year-long stage gaps exist). Q4 precipitation windows now carry a coverage gate — a window with under 90 % of its calendar days observed is NaN and drops out of the match distance (AORC has documented missing days, so the first edition's "basin series are complete" no longer holds).
-- Seasonality (§6.1): Hardy POT event dates are the day of the declustered daily-max IV stage; the Rayleigh test is of uniformity only (a bimodal spring/autumn pattern can give low R without being uniform); Imboden annual peaks in NWIS begin WY 1937, so the 1930s row is partial and earlier decades are absent; per-decade tests at n ≤ 11 are low power.
+- Seasonality (§6.1): Hardy POT event dates are the day of the declustered daily-max IV stage; the Rayleigh test is of uniformity only (a bimodal spring/autumn pattern can give low R without being uniform); Imboden annual peaks in NWIS begin WY 1937, so the 1930s row is partial and earlier decades are absent; per-decade tests at n ≤ 11 are low power. "No drift" is now **tested** rather than asserted (Watson–Williams), and the test does not reject on the long Imboden series though it does on the three-decade Hardy series; a decade mean's circular standard error is around a month, so only a large drift would be detectable. The recession k trends should be read against their **effective n** — `{python} rk_blocks['hardy']` and `{python} rk_blocks['mammoth']` water-year blocks, not `{python} rk_trend['hardy']['n']` and `{python} rk_trend['mammoth']['n']` events — and `{python} rk_lowr2['mammoth']` Mammoth fits with r² < 0.75 inflate the reported IQR.
 - Recession (§6.1): k depends on the min-peak (Hardy 10,000 cfs; Mammoth 488 cfs, the 90 % quantile of its DV) and 3-day skip choices; a single-exponential fit ignores multi-store behaviour; the k trend treats each event as a sample although events cluster within wet years, so n overstates independence; master curves are unweighted medians truncated at the last day reached by ≥ 3 runs, and the late IQR band rests on few long runs.
 
 Next steps: obtain the USGS rating history and regional skew; backfill COOP 1948–1980; EMA fit with historical information; Phase 8 adversarial review of the conclusions.
@@ -900,4 +1084,6 @@ Phase reports: [phase4_baseflow.md](../docs/phase4_baseflow.md), [phase5_floods.
 
 Independent adversarial review of Phases 4–6 (two Codex passes, 2026-08-25; 9 + 3 blocking findings, all fixed or explicitly overruled): [docs/review_phase4-6.md](../docs/review_phase4-6.md). Material effects: Q1 predictors made strictly antecedent (Hardy residual trend lost significance); LP3 retains low outliers by default; basin recharge-season trend went to ~0 once the coverage gate was corrected.
 
-Second edition (2026-08-25): basin geometry and series replaced — the MoDNR Mammoth Spring recharge polygon with NOAA AORC v1.1 in place of a 30 km PRISM buffer, with PRISM over the same polygon as a second opinion; comparison in §7.1. Two conclusions moved: the annual-total precipitation trend lost BH significance on both polygon series (it was a property of the oversized buffer), and the Hardy non-climatic residual became positive on AORC while remaining zero on both PRISM series — reported as source-dependent. No all/approved-only conclusion changed. Codex pass on the second edition: pending Phase 8.
+Second edition (2026-08-25): basin geometry and series replaced — the MoDNR Mammoth Spring recharge polygon with NOAA AORC v1.1 in place of a 30 km PRISM buffer, with PRISM over the same polygon as a second opinion; comparison in §7.1. Two conclusions appeared to move: the annual-total precipitation trend lost BH significance on both polygon series, and the Hardy non-climatic residual became positive on AORC while remaining zero on both PRISM series. Phase 8 shows both of those readings were wrong (below). No all/approved-only conclusion changed.
+
+**Phase 8 review (2026-08-25).** Four independent reviewers — three domain attackers (base flow and gauge; floods; precipitation) and a generalist — were each given every conclusion with its numbers and told to refute it, to say what would falsify it, and to run their own checks. Of 24 claims reviewed, 11 stand, 9 are weakened, 3 are refuted and 1 is untestable. Two headline conclusions of the second edition change: **Q3**, where the AORC intensification turns out to be a step at the 2002 radar onset rather than a trend (§7.2), and **Q7**, which is reclassified from "no support" to untestable with the current record (§5.5). Three conclusions become stronger than the second edition stated: the Hardy low-flow rise is a finding rather than a source artifact (§4.1), Q2 stationarity now rests on an upper-tail test rather than a weak conjunction rule (§5.2), and the Q5 rating drift is confirmed by measurements independent of the rating (§4.2). Q8's major-tier return periods are biased long and are now quoted as ranges (§5.1), and Q4's Hardy figure is materially weakened by its own placebo (§4.3). Every number in this edition is computed by the phase runners, not transcribed. The verdicts and the punch list are in [review.md](../review.md); the four reviewer reports are in [docs/review_phase8/](../docs/review_phase8/).

@@ -53,3 +53,27 @@ def test_antecedent_conditions_nan_when_no_flow_in_window():
     assert np.isnan(out.iloc[0]["bfi_prior"])
     assert np.isnan(out.iloc[0]["baseflow_prior_cfs"])
     assert out.iloc[0]["precip_prior_in"] == 0.0
+
+
+def test_interarrival_power_rises_as_the_cadence_gets_more_regular():
+    from spring_river.hydro.interarrival import interarrival_power
+
+    p = interarrival_power(6, cvs=(0.7, 0.5, 0.35), n_sim=2000).set_index("cv")
+    assert p.loc[0.7, "power"] < p.loc[0.5, "power"] < p.loc[0.35, "power"]
+    assert p.loc[0.7, "power"] < 0.5          # near-blind to a mild cadence at n=6
+    assert 0.0 <= p["power"].min() and p["power"].max() <= 1.0
+
+
+def test_interarrival_power_improves_with_more_events():
+    from spring_river.hydro.interarrival import interarrival_power
+
+    few = interarrival_power(6, cvs=(0.5,), n_sim=2000)["power"].iloc[0]
+    many = interarrival_power(30, cvs=(0.5,), n_sim=2000)["power"].iloc[0]
+    assert many > few
+
+
+def test_null_cv_interval_brackets_one():
+    from spring_river.hydro.interarrival import null_cv_interval
+
+    lo, hi = null_cv_interval(6, n_sim=5000)
+    assert lo < 1.0 < hi                      # the exponential signature is CV=1

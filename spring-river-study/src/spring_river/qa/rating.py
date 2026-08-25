@@ -149,3 +149,38 @@ def flow_percentile_stages(
         stage = float(np.median(band)) if len(band) else float("nan")
         rows.append({"percentile": int(pct), "q_cfs": float(f), "stage_ft": stage, "n_pairs": int(len(band))})
     return pd.DataFrame(rows, columns=["percentile", "q_cfs", "stage_ft", "n_pairs"])
+
+
+# Phase 8 (review.md item 6). Flow band around the 400 cfs target within which
+# field measurements are normalised to that flow before the annual trend: wide
+# enough to give most water years a visit, narrow enough that the log-linear
+# normalisation is a small correction.
+FIELD_BAND_CFS = (330.0, 520.0)
+FIELD_TARGET_CFS = 400.0
+MIN_FIELD_PAIRS = 8
+
+
+def field_stage_at_flow(pairs: pd.DataFrame, band: tuple[float, float] = FIELD_BAND_CFS,
+                        target: float = FIELD_TARGET_CFS) -> pd.DataFrame:
+    """Measured stage normalised to `target` cfs, averaged per water year.
+
+    `pairs` are (measured discharge, measured stage) from field visits — see
+    ingest.field_measurements.measured_pairs. Neither side is rating-derived,
+    so a decline here is channel change, not rating drift: this is the answer
+    to the circularity attack on the IV-based Q5 figure.
+
+    Stage is moved to the target flow along a single log-linear fit through
+    the whole band (stage = a + b·log10 q), so only the b term is borrowed
+    across years; the level is each year's own.
+    """
+    b = pairs[(pairs["q_cfs"] >= band[0]) & (pairs["q_cfs"] <= band[1])].dropna(subset=["q_cfs", "stage_ft"])
+    if len(b) < MIN_FIELD_PAIRS:
+        return pd.DataFrame(columns=["wy", "stage_at_flow_ft", "n_visits"])
+    x = np.log10(b["q_cfs"].to_numpy(dtype="float64"))
+    y = b["stage_ft"].to_numpy(dtype="float64")
+    slope = float(stats.linregress(x, y).slope)
+    adj = y - slope * (x - np.log10(target))
+    out = (pd.DataFrame({"wy": b["wy"].to_numpy(), "stage_at_flow_ft": adj})
+           .groupby("wy").agg(stage_at_flow_ft=("stage_at_flow_ft", "mean"),
+                              n_visits=("stage_at_flow_ft", "size")).reset_index())
+    return out

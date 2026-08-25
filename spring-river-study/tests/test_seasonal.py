@@ -52,3 +52,46 @@ def test_peak_timing_by_period_explicit_start_year():
     out = peak_timing_by_period(dates, period_years=5, start_year=2000)
     assert list(out["period"]) == ["2000–2004", "2005–2009", "2010–2014", "all"]
     assert list(out["n"]) == [2, 5, 2, 9]
+
+
+def _dates(center_doy, n, sd_days, seed):
+    import numpy as np
+    import pandas as pd
+
+    rng = np.random.default_rng(seed)
+    base = pd.Timestamp("2001-01-01") + pd.Timedelta(days=center_doy - 1)
+    return pd.Series(base + pd.to_timedelta(rng.normal(0, sd_days, n), "D"))
+
+
+def test_watson_williams_does_not_reject_a_common_mean():
+    from spring_river.climate.seasonal import watson_williams
+
+    groups = [_dates(32, 12, 30, s) for s in range(4)]
+    r = watson_williams(groups)
+    assert r["k"] == 4 and r["N"] == 48
+    assert r["p"] > 0.05
+
+
+def test_watson_williams_rejects_clearly_separated_means():
+    from spring_river.climate.seasonal import watson_williams
+
+    groups = [_dates(1 + 60 * i, 12, 20, i) for i in range(4)]
+    assert watson_williams(groups)["p"] < 0.01
+
+
+def test_watson_williams_needs_two_usable_groups():
+    import numpy as np
+    import pandas as pd
+
+    from spring_river.climate.seasonal import watson_williams
+
+    r = watson_williams([_dates(32, 12, 30, 0), pd.Series(pd.to_datetime([]))])
+    assert r["k"] == 1 and np.isnan(r["F"])
+
+
+def test_circular_se_shrinks_with_n_and_concentration():
+    from spring_river.climate.seasonal import circular_se_days
+
+    assert circular_se_days(40, 0.5) < circular_se_days(10, 0.5)
+    assert circular_se_days(10, 0.9) < circular_se_days(10, 0.5)
+    assert 10 < circular_se_days(10, 0.5) < 60      # ~a month at decade-scale n

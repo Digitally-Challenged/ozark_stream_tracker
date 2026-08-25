@@ -23,10 +23,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from spring_river.analysis.common import approval_variants, caption, write_report
+from spring_river.analysis.common import approval_variants, caption, fmt_trend, write_report
 from spring_river.climate import westplains as westplains_mod
-from spring_river.climate.coupling import lag_correlation, monthly_series, response_lag
-from spring_river.climate.intensity import INDEX_COLUMNS, annual_indices, index_trends
+from spring_river.climate.coupling import (
+    daily_lag_correlation,
+    lag_correlation,
+    monthly_series,
+    response_lag,
+)
+from spring_river.climate.intensity import (
+    AORC_RADAR_YEAR,
+    INDEX_COLUMNS,
+    KUNO_SPLICE_YEAR,
+    annual_indices,
+    era_means,
+    era_slopes,
+    index_trends,
+    max_t_permutation_count,
+    step_term_test,
+)
 from spring_river.config import (
     BASIN_PRECIP_SOURCE,
     DOCS_DIR,
@@ -45,6 +60,12 @@ ALTON_SID = PRECIP_SIDS[2]
 COOP_REQUESTED_START = "1948-01-01"
 MIN_MONTH_DAYS = 25
 N_BOOT = 1000
+MAXT_PERMUTATIONS = 5000
+# Catch ratios spanning "no adjustment" to "10 % adjustment": the KUNO era is
+# scaled by one measured constant, so the result's dependence on it must show.
+CATCH_RATIO_SENSITIVITY = (1.00, 1.034, 1.068, 1.10)
+DAILY_LAG_MAX_DAYS = 60
+DAILY_DECAY_TOLERANCE = 0.002  # r wiggles below this are noise, not structure
 WP_LABEL = "West Plains 1948–"
 # Filesystem-safe parquet stems for the trend-loop labels.
 SERIES_STEM = {WP_LABEL: "westplains_1948"}
@@ -144,8 +165,127 @@ def _westplains_interpretation(wp_tr: pd.DataFrame, wp_idx: pd.DataFrame, n_wp: 
             + (f", while the intensity indices ({', '.join(quiet)}) have CIs spanning zero. "
                if quiet else ". ")
             + "With the coverage problem removed, the gauge does not reproduce the basin series' "
-              "intensification over its own, longer window — a point-vs-areal and record-length "
-              "difference, not a coverage artifact.")
+              "apparent intensification. Phase 8 (below) tests the two candidate explanations and rejects the "
+              "point-vs-areal / record-length one: the gauge fails to corroborate over AORC's *identical* window "
+              f"too, and the basin indices step at the {AORC_RADAR_YEAR} radar onset rather than trending. The "
+              "parsimonious reading is that the intensification is in the product.")
+
+
+def _q3_step_section(basin_idx: pd.DataFrame, wp_idx: pd.DataFrame, ratio_sens: list[tuple[float, list[str]]],
+                     wp_step: pd.DataFrame, wp_tr: pd.DataFrame) -> list[str]:
+    """Phase 8 (review.md items 1, 3, 9): the 2002 product discontinuity, the
+    within-era slopes, the product-vs-gauge means, the family-wise count and
+    the West Plains catch-ratio sensitivity. Q3's headline rests on these."""
+    step = step_term_test(basin_idx, AORC_RADAR_YEAR)
+    eras = era_slopes(basin_idx, AORC_RADAR_YEAR)
+    means = era_means({"AORC basin": basin_idx, WP_LABEL: wp_idx}, AORC_RADAR_YEAR)
+    n_maxt, maxt = max_t_permutation_count(basin_idx, n_perm=MAXT_PERMUTATIONS, seed=0)
+    n_bh = int(index_trends(basin_idx)["significant_bh"].sum())
+    step.to_parquet(TABLES_DIR / "phase6_step_2002.parquet")
+    eras.to_parquet(TABLES_DIR / "phase6_era_slopes.parquet")
+    means.to_parquet(TABLES_DIR / "phase6_era_means.parquet")
+    maxt.to_parquet(TABLES_DIR / "phase6_maxt.parquet")
+    wp_step.to_parquet(TABLES_DIR / "phase6_step_1998_westplains.parquet")
+
+    s = step.set_index("index")
+    sharp = [c for c in ("sdii_in", "days_ge_1", "max1_in") if c in s.index]
+    stepped = [c for c in sharp if s.loc[c, "step_p"] < 0.05]
+    flat = [c for c in sharp if not (s.loc[c, "slope_lo_per_decade"] > 0 or s.loc[c, "slope_hi_per_decade"] < 0)]
+    era_sharp = eras[eras["index"].isin(sharp)]
+    era_rising = era_sharp[era_sharp["lo"] > 0]
+
+    lines = [
+        f"## Q3 step test: is the AORC intensity signal a trend or a {AORC_RADAR_YEAR} product change?", "",
+        f"AORC v1.1 gains radar (Stage IV/MRMS) input at {AORC_RADAR_YEAR}. A monotone trend test cannot "
+        "distinguish a trend from a step at a known input change, so the basin indices are refitted as "
+        f"OLS index ~ year + I(year ≥ {AORC_RADAR_YEAR}) with HC3 errors. `slope_per_decade` is the trend that "
+        "survives once the step is allowed for.", "",
+        step.round(4).to_markdown(index=False), "",
+        f"- storm-sharpness indices with a significant step at {AORC_RADAR_YEAR}: "
+        f"{', '.join(stepped) if stepped else 'none'}; with a residual trend CI spanning zero: "
+        f"{', '.join(flat) if flat else 'none'} of {len(sharp)} tested.",
+        f"- within-era Sen slopes: {len(era_rising)} of {len(era_sharp)} sharpness-index/era combinations have a "
+        "CI excluding zero on the rising side.", "",
+        "### Within-era Sen slopes (per decade)", "",
+        eras.round(3).to_markdown(index=False), "",
+        f"### Pre/post-{AORC_RADAR_YEAR} means: AORC vs the gauge over identical years", "",
+        f"Both series restricted to the calendar years both cover, so this is not a comparison of different "
+        "periods. If the change were meteorological the two products would move together; if it is a change in "
+        "the product's inputs, only the gridded series moves.", "",
+        means.round(3).to_markdown(index=False), "",
+        "### Family-wise count (max-T permutation)", "",
+        f"Year labels permuted jointly across the {len(INDEX_COLUMNS)} indices ({MAXT_PERMUTATIONS} draws, seed 0), "
+        "so the null preserves the correlation between them that a per-index BH correction ignores.", "",
+        maxt.round(4).to_markdown(index=False), "",
+        f"- indices surviving max-T: {n_maxt}/{len(INDEX_COLUMNS)} vs {n_bh}/{len(INDEX_COLUMNS)} under BH. "
+        "Subordinate to the step test above: under it none of these is a trend.", "",
+        f"### {WP_LABEL} catch-ratio sensitivity and the {KUNO_SPLICE_YEAR} splice", "",
+        f"The whole KUNO era is scaled by one constant measured on the period it is applied to, so any error in it "
+        "maps one-for-one into the trend. Which indices pass BH at each ratio:", "",
+    ]
+    for r, sig in ratio_sens:
+        lines.append(f"- catch ratio {r:.3f}: {', '.join(sig) if sig else 'no index passes BH at q=0.05'}")
+    ws = wp_step.set_index("index")
+    ws_sig = [c for c in ws.index if ws.loc[c, "step_p"] < 0.05]
+    wt = wp_tr.set_index("index")
+    revealed = [c for c in ws.index if ws.loc[c, "slope_p"] < 0.05 and not bool(wt.loc[c, "significant_bh"])]
+    lines += [
+        "",
+        f"A residual step term at the {KUNO_SPLICE_YEAR} instrument change (OLS index ~ year + "
+        f"I(year ≥ {KUNO_SPLICE_YEAR}), HC3) on the ratio-adjusted record:", "",
+        wp_step.round(4).to_markdown(index=False), "",
+        f"- indices with a significant {KUNO_SPLICE_YEAR} step: {', '.join(ws_sig) if ws_sig else 'none'} — the mean "
+        "ratio does not fully homogenise the splice (KUNO's tipping bucket counts more small events than a "
+        "volunteer observer, deflating KUNO-era SDII).",
+        f"- indices whose trend the pooled fit suppresses (slope p<0.05 with the step, not BH-significant without): "
+        f"{', '.join(revealed) if revealed else 'none'}.",
+        f"- the COOP-only era ({int(wp_idx.dropna(subset=['total_in'])['year'].min())}–{KUNO_SPLICE_YEAR - 1}) "
+        "is the homogeneous baseline; "
+        "no ratio is applied to it.", "",
+        "### Q3 reading", "",
+        "Thesis, from the three tables above:", "",
+        "1. **Totals are not rising.** Annual and Sep–Feb recharge-season totals have CIs spanning zero on every "
+        "series and are unaffected by the step term. This is the most robust Q3 result and the only one to state "
+        "without qualification.",
+        f"2. **The AORC sharpness indices step at {AORC_RADAR_YEAR} and trend flat-to-negative within each era.** "
+        "The apparent intensification coincides with the documented change in the product's inputs, not with a "
+        "change in the weather: over identical years the gridded SDII and days ≥ 1 in rise sharply while the "
+        "co-located gauge barely moves, and the two products nevertheless agree on how much rain fell.",
+        f"3. **No intensification is detectable at the gauge**, over its full "
+        f"{int(wp_idx.dropna(subset=['total_in'])['year'].min())}–{int(wp_idx.dropna(subset=['total_in'])['year'].max())} "
+        f"record or over AORC's own identical window; what significance there is rests on a knife-edge catch ratio.",
+        "4. PRISM over the same polygon shares Stage IV/MRMS and gauge inputs with AORC and is not an independent "
+        "witness. The correct statement is that **no intensification is detectable over the recharge area once the "
+        "product discontinuity is allowed for** — not that the basin became more intense.", "",
+    ]
+    return lines
+
+
+def _buffer_polygon_section(end: str) -> list[str]:
+    """Item 8: the first edition's annual-total significance was a threshold
+    crossing, not a property of the buffer geometry. Both PRISM geometries,
+    so the comparison isolates geometry rather than product."""
+    poly = annual_indices(basin_mod.get_basin_pcpn(START_DATE, end, source="prism_polygon"))
+    buf = annual_indices(basin_mod.get_basin_pcpn(START_DATE, end, source="prism_buffer"))
+    j = (poly[["year", "total_in"]].rename(columns={"total_in": "polygon_in"})
+         .merge(buf[["year", "total_in"]].rename(columns={"total_in": "buffer_in"}), on="year")
+         .dropna())
+    j = j.assign(diff_in=j["buffer_in"] - j["polygon_in"])
+    j.to_parquet(TABLES_DIR / "phase6_buffer_vs_polygon.parquet")
+    r = float(np.corrcoef(j["polygon_in"], j["buffer_in"])[0, 1])
+    from spring_river.stats.trends import trend_test
+
+    diff_trend = trend_test(j["diff_in"].to_numpy(dtype="float64"), j["year"].to_numpy(dtype="float64"))
+    n = len(j)
+    return [
+        "## Buffer vs polygon: was the first edition's rise a property of the geometry?", "",
+        f"- annual totals of the two geometries correlate r={r:.3f} (n={n} years).",
+        f"- trend of the buffer−polygon difference: {fmt_trend(diff_trend, 'in')}.", "",
+        "The difference series has no detectable trend, so the geometries do not differ detectably in how their "
+        "totals evolve. The first edition's significant annual-total rise and this edition's null are the same "
+        "estimate either side of a p-value threshold — a threshold crossing, not an attribution to the 30 km "
+        "buffer. Both geometries give a positive annual-total slope that is not separable from zero at this n.", "",
+    ]
 
 
 def _lag_line(label: str, lc: pd.DataFrame) -> tuple[int, float, float, str]:
@@ -232,6 +372,16 @@ def main() -> None:
     pd.concat(trends.values()).to_parquet(TABLES_DIR / "phase6_index_trends.parquet")
     lines += _divergence_note(trends, indices, ratio)
 
+    # ---- Phase 8: the 2002 product discontinuity and the catch-ratio dependence
+    ratio_sens = []
+    for r in CATCH_RATIO_SENSITIVITY:
+        alt = annual_indices(westplains_mod.splice(coop_1948, kuno, r)[["date", "pcpn_in"]])
+        alt_tr = index_trends(alt)
+        ratio_sens.append((r, alt_tr.loc[alt_tr["significant_bh"], "index"].tolist()))
+    wp_step = step_term_test(indices[WP_LABEL], KUNO_SPLICE_YEAR)
+    lines += _q3_step_section(indices["basin"], indices[WP_LABEL], ratio_sens, wp_step, trends[WP_LABEL])
+    lines += _buffer_polygon_section(end)
+
     t0 = time.perf_counter()
     lcs = {k: lag_correlation(monthly_series(basin, v), n_boot=N_BOOT) for k, v in approval_variants(mammoth).items()}
     lag_secs = time.perf_counter() - t0
@@ -243,6 +393,36 @@ def main() -> None:
               lc.round(3).to_markdown(index=False), "",
               _lag_line("max r", lc)[3], ""]
     lines += _lag_sensitivity(lc, lcs["approved"])
+
+    # ---- Phase 8 (item 10): the monthly lag-1 peak is a bin, not a transit time
+    dlc = daily_lag_correlation(basin, mammoth, DAILY_LAG_MAX_DAYS)
+    dlc.to_parquet(TABLES_DIR / "phase6_daily_lag_correlation.parquet")
+    ok = dlc.dropna(subset=["r"])
+    peak_day = int(ok.loc[ok["r"].idxmax(), "lag_days"])
+    peak_r = float(ok["r"].max())
+    # "Monotone" to within a noise tolerance: single-day wiggles of a few 1e-4
+    # in an r of ~0.14 are sampling noise, not structure. What matters for the
+    # physical claim is that nothing resembling a second peak appears near the
+    # 30-day mark the monthly lag-1 result might be read as implying.
+    beyond = ok[ok["lag_days"] > peak_day]
+    max_rise = float(beyond["r"].diff().dropna().max())
+    monotone = max_rise <= DAILY_DECAY_TOLERANCE
+    lines += [
+        "## Coupling at daily resolution (what the 1-month lag actually means)", "",
+        "The monthly analysis above bins to calendar months, so its lag-1 maximum is the coarsest bin that "
+        "contains both a fast onset and a long tail. At daily resolution (day-of-year climatology removed from "
+        "both series):", "",
+        f"- peak cross-correlation at **{peak_day} day(s)** after the rain (r={peak_r:.3f}, "
+        f"n={int(ok.loc[ok['lag_days'] == peak_day, 'n'].iloc[0]):,} days).",
+        f"- beyond the peak the correlation decays "
+        + ("monotonically to within sampling noise (largest single-day rise "
+           f"{max_rise:+.4f} in an r of {peak_r:.2f})" if monotone
+           else f"with a secondary structure (largest single-day rise {max_rise:+.4f}; see the table)")
+        + f", out to {DAILY_LAG_MAX_DAYS} days — **no local maximum near 30 days**.",
+        "- Report both: **onset within days; monthly correlation maximised at lag 1 month.** The monthly figure is "
+        "a statistic about binned anomalies, not an aquifer transit time.", "",
+        dlc.round(4).to_markdown(index=False), "",
+    ]
 
     idx = pd.read_parquet(TABLES_DIR / f"phase6_indices_{COOP_SID}.parquet")
     _indices_figure(idx, COOP_SID, coop_span, FIGURES_DIR / "phase6_indices.png")
@@ -262,7 +442,19 @@ def main() -> None:
               "It does apply to the coupling (Mammoth flow carries flags) and is reported above. "
               f"Mammoth flow used in coupling: {caption(f'USGS DV {SITE_MAMMOTH}', mammoth)}.",
               "- Lag-correlation CI is a 12-month block bootstrap of the lagged pairs; it preserves within-year "
-              "serial correlation but not dependence across block boundaries, so it is mildly optimistic."]
+              "serial correlation but not dependence across block boundaries, so it is mildly optimistic.",
+              f"- **AORC has no radar input before {AORC_RADAR_YEAR}.** Its storm-sharpness indices step at that "
+              "date; the step test above, not the monotone trend test, is the Q3 headline. PRISM over the same "
+              "polygon shares Stage IV/MRMS and gauge inputs and is not an independent witness. Settling this "
+              f"needs NOAA's AORC v1.1 homogeneity documentation, a one-cell AORC re-pull at the gauge "
+              "coordinate (the cache keeps only the polygon mean), or an independent grid with no "
+              f"{AORC_RADAR_YEAR} input change (nClimGrid-Daily, Livneh).",
+              f"- The {WP_LABEL} record's KUNO era rests on one catch ratio measured on the period it is applied "
+              "to; the sensitivity above shows which results survive which ratio. A quantile (wet-day-frequency) "
+              "matching between COOP and KUNO over the overlapping months, with the adjustment uncertainty "
+              "propagated into the trend CI, would replace it.",
+              "- The daily cross-correlation removes a day-of-year climatology estimated from the same record, "
+              "and its r values carry no CI; it is reported to locate the onset, not to size the coupling."]
     write_report(DOCS_DIR / "phase6_precip.md", lines)
     print(f"wrote {DOCS_DIR / 'phase6_precip.md'} (lag bootstrap {lag_secs:.0f} s)")
 
