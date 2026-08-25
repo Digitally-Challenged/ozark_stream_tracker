@@ -25,7 +25,12 @@ from spring_river.analysis.common import (  # noqa: E402
     write_report,
 )
 from spring_river.analysis.phase5 import _peaks_by_wy  # noqa: E402
-from spring_river.climate.seasonal import ALL_PERIOD, peak_timing_by_period  # noqa: E402
+from spring_river.climate.seasonal import (  # noqa: E402
+    ALL_PERIOD,
+    circular_se_days,
+    peak_timing_by_period,
+    watson_williams,
+)
 from spring_river.config import (  # noqa: E402
     DOCS_DIR,
     FIGURES_DIR,
@@ -55,6 +60,9 @@ HARDY_MIN_PEAK_CFS = 10_000.0
 MAMMOTH_PEAK_QUANTILE = 0.90
 DECADE_YEARS = 10
 MRC_MIN_RUNS = 3
+# Below this r2 a single-exponential recession fit describes the event poorly;
+# such fits are flagged, not dropped, and their long k inflates the IQR.
+MIN_RECESSION_R2 = 0.75
 MONTH_LABELS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 REPORT_PATH = DOCS_DIR / "phase7_seasonality.md"
 TimingSeries = tuple[str, pd.Series, str]  # (label, dates, caption)
@@ -131,6 +139,50 @@ def _timing_lines(series: list[TimingSeries], tbl: pd.DataFrame) -> list[str]:
     return lines
 
 
+def _drift_test_lines(series: list[TimingSeries], tbl: pd.DataFrame) -> list[str]:
+    """Phase 8 (review.md item 13): 'no decadal drift' was asserted, not
+    tested. Watson–Williams across decades tests it, and the circular standard
+    error says how much a decade mean can swing on n≈10 alone."""
+    rows = []
+    for label, dates, _ in series:
+        d = pd.Series(pd.to_datetime(dates)).dropna()
+        groups = [g for _, g in d.groupby(d.dt.year.map(_decade_start))]
+        r = watson_williams(groups)
+        part = tbl[(tbl["series"] == label) & (tbl["period"] != ALL_PERIOD)]
+        ses = [circular_se_days(int(x["n"]), float(x["R"])) for _, x in part.iterrows()
+               if x["n"] > 0 and pd.notna(x["R"])]
+        rows.append({"series": label, "decades_tested": r["k"], "n_events": r["N"],
+                     "F": r["F"], "df1": r["df1"], "df2": r["df2"], "p": r["p"],
+                     "r_bar": r["r_bar"],
+                     "median_decade_se_days": float(np.median(ses)) if ses else float("nan")})
+    out = pd.DataFrame(rows)
+    out.to_parquet(TABLES_DIR / "phase7_timing_drift_test.parquet")
+    sig = out.loc[out["p"] < 0.05, "series"].tolist()
+    long_series = out.loc[out["n_events"].idxmax()]
+    return [
+        "### Is the decadal movement a drift? (Watson–Williams)", "",
+        "Decade mean dates swing widely, but with n≈10 events per decade so does the mean of a stationary "
+        "process. Watson–Williams tests a common circular mean across decades; `median_decade_se_days` is the "
+        "typical circular standard error of one decade's mean, i.e. how far it can move on sampling alone.", "",
+        out.round({"F": 3, "p": 4, "r_bar": 3, "median_decade_se_days": 1}).to_markdown(index=False), "",
+        (f"- **{', '.join(sig)} rejects a common decadal mean** (p<0.05), so 'no drift' does not hold "
+         "universally and the earlier blanket assertion was wrong. Note what this does and does not license: "
+         f"on the long {long_series['series']} series — the only one with enough decades to speak to a "
+         f"century-scale drift — the test does NOT reject (p={long_series['p']:.2f}, "
+         f"{int(long_series['decades_tested'])} decades, n={int(long_series['n_events'])}). The short Hardy "
+         "series covers three decades, one of them partial, and a significant difference among three decade "
+         "means is not a direction of travel."
+         if sig else
+         "- **No series rejects a common decadal mean.** The decade-to-decade movement is within what "
+         "sampling noise produces at this n, so 'no drift' is now a tested statement rather than an "
+         "assertion."),
+        "- Either way this is a test of no *difference*, not proof of stability: with a decade mean's standard "
+        f"error around {out['median_decade_se_days'].median():.0f} days, only a large drift would be detected.",
+        "- Watson–Williams assumes a shared concentration and is reliable for R̄ above ~0.45; `r_bar` is "
+        "reported so the reader can judge whether that holds.", "",
+    ]
+
+
 def _rose_axis(ax: plt.Axes, dates: pd.Series, label: str) -> None:
     months = pd.to_datetime(dates).dt.month.to_numpy()
     counts = np.bincount(months, minlength=13)[1:]
@@ -202,7 +254,15 @@ def _recession_site(label: str, slug: str, site: str, dv: pd.DataFrame, min_peak
     mrc.to_parquet(TABLES_DIR / f"phase7_master_recession_{slug}.parquet")
     k_all = tables["all"]["k_days"].dropna()
     trends = {v: _k_trend(t) for v, t in tables.items()}
+    fitted = tables["all"].dropna(subset=["k_days"])
+    # Events cluster within wet years, so the number of events overstates
+    # independence. The count of DISTINCT water years is the effective n for
+    # a trend against water year.
+    n_events, n_blocks = len(fitted), int(fitted["wy"].nunique())
+    poor = fitted[fitted["r2"] < MIN_RECESSION_R2]
     show = tables["all"].assign(peak_date=tables["all"]["peak_date"].dt.date).round({"k_days": 1, "r2": 3})
+    if len(poor):
+        show = show.assign(low_r2=show["r2"] < MIN_RECESSION_R2)
     lines = [
         f"### {label} (min peak {min_peak:,.0f} cfs, skip {DEFAULT_SKIP_DAYS} days, ≥10-day runs, ≤2% daily rise)",
         "",
@@ -212,6 +272,16 @@ def _recession_site(label: str, slug: str, site: str, dv: pd.DataFrame, min_peak
         f"(IQR {k_all.quantile(0.25):.1f}–{k_all.quantile(0.75):.1f}); median r² "
         f"{tables['all']['r2'].median():.3f}",
         f"- k trend vs water year: {_trend_or_short(trends['all'], tables['all'])}",
+        f"- **effective n: {n_blocks} water-year blocks** carry the {n_events} fitted events "
+        f"({n_events / n_blocks:.1f} per block). The trend test treats each event as independent, but events "
+        f"cluster within wet years, so its n={n_events} overstates the information: read the trend against "
+        f"n≈{n_blocks}, not n={n_events}.",
+        (f"- **{len(poor)} fits have r² < {MIN_RECESSION_R2}** (k "
+         f"{poor['k_days'].min():,.0f}–{poor['k_days'].max():,.0f} days), flagged `low_r2` in the table below. "
+         "A single-exponential fit describes these events poorly and their long k inflates the IQR; the "
+         f"median k over the {len(fitted) - len(poor)} well-fitted events alone is "
+         f"{fitted.loc[fitted['r2'] >= MIN_RECESSION_R2, 'k_days'].median():.1f} days."
+         if len(poor) else f"- all fitted events have r² ≥ {MIN_RECESSION_R2}."),
         f"- Pettitt change-point in k: {_pettitt_line(tables['all'])}",
         "",
         "Sensitivity (approved-only DV days; recession runs are re-extracted within approved-only gap-free segments):",
@@ -280,6 +350,7 @@ def main() -> None:
 
     lines = [f"# Phase 7 — seasonality and recession — generated {date.today().isoformat()}", ""]
     lines += _timing_lines(series, timing)
+    lines += _drift_test_lines(series, timing)
     lines += ["![peak timing](../reports/figures/phase7_peak_timing.png)", "", "## Recession constants", ""]
     lines += [
         "k (days) from OLS ln q = a − t/k on each recession run after the quickflow crest; runs are extracted only "
