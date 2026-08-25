@@ -142,7 +142,7 @@
     <div class="row"><span class="verdict holds">channel</span><div class="q">The "dropping" stage readings are mostly the channel, not the water.</div><div class="a">At the same flow, the gauge reads about a quarter of a foot lower than it did twelve years ago. The river bed at the gauge has cut down.</div></div>
     <div class="row"><span class="verdict holds">no</span><div class="q">Floods are not getting more frequent or bigger.</div><div class="a">Ninety years of peaks downstream show no trend. A 16-foot flood at Hardy comes about every 4–5 years; a 23-footer about every 30.</div></div>
     <div class="row"><span class="verdict holds">no</span><div class="q">Big floods do not starve the spring afterward.</div><div class="a">Six months after each major flood the spring ran about a quarter <em>higher</em> than in comparable non-flood years.</div></div>
-    <div class="row"><span class="verdict changed">intensity</span><div class="q">Rain is getting more intense, but not more plentiful.</div><div class="a">Yearly totals over the recharge area show no clear trend since 1981; the heaviest days, and the number of one-inch days, are rising.</div></div>
+    <div class="row"><span class="verdict changed">intensity</span><div class="q">Rain is arriving in more one-inch days; whether it is getting more intense depends on the record.</div><div class="a">Yearly totals over the recharge area show no clear trend since 1981. The gridded data show the heaviest days growing; the 77-year West Plains gauge shows more one-inch days but no change in the wettest day.</div></div>
     <div class="row"><span class="verdict open">this year</span><div class="q">2026 is a dry winter inside an ordinary year.</div><div class="a">On West Plains' 78-year record the Sep–Feb recharge season was the 10th-driest; the last twelve months rank near the middle. The river's low flow is what that rain predicts.</div></div>
   </div>
 </section>
@@ -255,9 +255,10 @@
 <section id="rain">
   <div class="measure">
     <span class="eyebrow">Rain</span>
-    <h2>More intense, not more of it <span class="verdict changed">intensity</span></h2>
+    <h2>Not more rain — but more one-inch days, and perhaps harder ones <span class="verdict changed">intensity</span></h2>
     <p>Yearly rainfall over the recharge area shows no clear trend since 1981: <span class="num">+0.96</span> inches a decade with an interval from −1.3 to +3.1, which includes zero. The same is true on the second gridded dataset.</p>
-    <p>What does hold, on every dataset, is intensity. The wettest single day of the year has grown by about a quarter-inch a decade; the average rain on a rainy day has grown; the number of one-inch-plus days has grown by about 1.4 a decade. The winter recharge season — September to February, when rain actually reaches the aquifer — shows no trend at all. So: the same water, arriving in harder doses, and not in the months that matter most for the spring.</p>
+    <p>What the gridded data show instead is intensity. Since 1981 the wettest single day of the year has grown by about a quarter-inch a decade; the average rain on a rainy day has grown; the number of one-inch-plus days has grown by about 1.4 a decade. The winter recharge season — September to February, when rain actually reaches the aquifer — shows no trend. So over the last 45 years: the same water, arriving in harder doses, and not in the months that matter most for the spring.</p>
+    <p>The West Plains gauge, read over its full 1949–2025 record, agrees only in part. It shows more one-inch days (+0.7 a decade, interval +0.3 to +1.2, 76 years) and a yearly total drifting up (+1.3 in a decade, interval +0.3 to +2.4) that does not survive correction for testing ten things at once. It shows <em>no</em> trend in the wettest day, the wettest three days, or rain per rainy day. Two honest readings of that: the intensification is a feature of the last 45 years that a 77-year record dilutes, or the grid's intensity signal is stronger than what a single gauge can see. The gauge is one point; the grid is an area over a shorter period. Neither settles it.</p>
   </div>
   <figure>
     <div class="ftitle">Ten ways to measure the rain, and how each has trended since 1981</div>
@@ -265,6 +266,13 @@
     <div class="chart" id="c-idx"></div>
     <figcaption>Source: AORC over the recharge polygon, calendar years 1981–2025 (n = 45; recharge season n = 44). Sen slope with Mann-Kendall test, Benjamini-Hochberg across the ten indices. Each index is on its own unit, so bars are shown relative to their own interval width.</figcaption>
     <details class="table"><summary>Show the numbers</summary><div class="tbl" id="t-idx"></div></details>
+  </figure>
+  <figure>
+    <div class="ftitle">The same ten measures at the West Plains gauge, 1949–2025</div>
+    <div class="fsub">Change per decade with its 95 % interval, on the spliced gauge record (76 complete years). Marked ● where the trend survives correction.</div>
+    <div class="chart" id="c-idxwp"></div>
+    <figcaption>Source: West Plains composite (COOP 1948–Mar 1998, KUNO × 1.068 after), calendar years 1949–2025; same tests as above. Only the count of one-inch days is significant after correction.</figcaption>
+    <details class="table"><summary>Show the numbers</summary><div class="tbl" id="t-idxwp"></div></details>
   </figure>
 </section>
 
@@ -450,11 +458,11 @@ table("t-rp", ["Stage (ft)", "Fitted return period (yr)", "Exceedances 2002–20
 table("t-pf", ["Flood", "Mammoth Spring (%)", "Hardy (%)"], D.pf.map(r => [r[0], "+" + r[1].toFixed(1), "+" + r[2].toFixed(1)]));
 
 // Index trends: dot + interval, normalised per row
-(function () {
-  const host = document.getElementById("c-idx"); const W = 860, rowH = 30, m = { l: 290, r: 30, t: 10, b: 30 }; const H = m.t + m.b + rowH * D.idx.length;
+function dotChart(hostId, rows) {
+  const host = document.getElementById(hostId); const W = 860, rowH = 30, m = { l: 290, r: 30, t: 10, b: 30 }; const H = m.t + m.b + rowH * rows.length;
   const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img", "aria-label": "Trend per decade with interval for ten rainfall indices" }, host);
   const span = W - m.l - m.r; const tp = tip(host);
-  D.idx.forEach((r, i) => { const [name, v, lo, hi, n, p, sig] = r; const scale = (span / 2 - 12) / Math.max(Math.abs(lo), Math.abs(hi), 1e-9); const cx = m.l + span / 2; const X = q => cx + q * scale; const y = m.t + i * rowH + rowH / 2;
+  rows.forEach((r, i) => { const [name, v, lo, hi, n, p, sig] = r; const scale = (span / 2 - 12) / Math.max(Math.abs(lo), Math.abs(hi), 1e-9); const cx = m.l + span / 2; const X = q => cx + q * scale; const y = m.t + i * rowH + rowH / 2;
     if (i === 0) { el("line", { x1: cx, x2: cx, y1: m.t, y2: H - m.b, stroke: css("--line"), "stroke-dasharray": "3 3" }, svg); axisText(svg, cx, H - m.b + 18, "no change"); }
     axisText(svg, m.l - 12, y + 4, name, "end", 12.5).setAttribute("fill", css("--ink-2"));
     el("line", { x1: X(lo), x2: X(hi), y1: y, y2: y, stroke: sig ? css("--spring") : css("--ink-3"), "stroke-width": 3, "stroke-linecap": "round", opacity: sig ? 1 : 0.6 }, svg);
@@ -462,8 +470,24 @@ table("t-pf", ["Flood", "Mammoth Spring (%)", "Hardy (%)"], D.pf.map(r => [r[0],
     axisText(svg, W - m.r + 4, y + 4, (v > 0 ? "+" : "") + (Math.abs(v) < 0.1 ? v.toFixed(3) : v.toFixed(2)), "start", 11);
     [d].forEach(e => { e.addEventListener("mousemove", () => { const [px, py] = pos(host, svg, X(v), y, W, H); tp.show(px, py, `<b>${name}</b><br>${v > 0 ? "+" : ""}${v} per decade (${lo} to ${hi}), n=${n}<br>${sig ? "significant after correction" : "not significant"} (p_BH ${p.toFixed(3)})`); }); e.addEventListener("mouseleave", () => tp.hide()); });
   });
-})();
+}
+dotChart("c-idx", D.idx);
 table("t-idx", ["Index", "Change per decade", "95 % interval", "n", "p (BH)", "Significant"], D.idx.map(r => [r[0], (r[1] > 0 ? "+" : "") + r[1], `${r[2]} to ${r[3]}`, r[4], r[5].toFixed(3), r[6] ? "yes" : "no"]));
+
+D.idxwp = [
+ ["Yearly total (in)",1.322,0.308,2.352,76,0.055,false],
+ ["Sep–Feb recharge season (in)",0.569,-0.062,1.083,74,0.167,false],
+ ["Mar–Aug growing season (in)",0.624,-0.034,1.347,76,0.151,false],
+ ["Days with ≥ ½ in",0.833,-0.0,1.562,76,0.069,false],
+ ["Days with ≥ 1 in",0.714,0.267,1.176,76,0.014,true],
+ ["Days with ≥ 2 in",-0.0,-0.0,0.323,76,0.187,false],
+ ["Wettest single day (in)",0.033,-0.085,0.149,76,0.597,false],
+ ["Wettest 3 days (in)",0.065,-0.105,0.235,76,0.537,false],
+ ["Share of rain in the 5 wettest days",-0.003,-0.007,0.001,76,0.187,false],
+ ["Average rain per rainy day (in)",0.003,-0.005,0.010,76,0.563,false]
+];
+dotChart("c-idxwp", D.idxwp);
+table("t-idxwp", ["Index", "Change per decade", "95 % interval", "n", "p (BH)", "Significant"], D.idxwp.map(r => [r[0], (r[1] > 0 ? "+" : "") + r[1], `${r[2]} to ${r[3]}`, r[4], r[5].toFixed(3), r[6] ? "yes" : "no"]));
 
 // Lag correlation with band
 (function () {
