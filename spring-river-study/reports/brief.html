@@ -371,6 +371,12 @@
       transition: none !important;
     }
   }
+.lookup{width:100%;border-collapse:collapse;font-family:"Bricolage Grotesque",sans-serif;font-size:14px}
+.lookup th{font-weight:700;text-align:left;color:var(--ink-3);font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:6px 8px;border-bottom:1px solid var(--rule)}
+.lookup td{padding:7px 8px;border-bottom:1px solid var(--grid);color:var(--ink)}
+.lookup td:nth-child(2),.lookup td:nth-child(3){font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums}
+.lookup td:nth-child(4){color:var(--ink-2)}
+.lookup tr.cat td{background:var(--band1)}
 </style>
 
 <div class="tip" id="tip"></div>
@@ -554,6 +560,32 @@
     </p>
   </div>
 </section>
+
+<section class="finding"><div class="wrap">
+  <p class="q">What does a foot on the gauge mean in water?</p>
+  <h2>The whole paddling range fits inside one foot of stage. Floods take the other twenty.</h2>
+  <span class="chip ok">High confidence · 667,000 paired stage–flow readings, r = 0.97</span>
+  <figure>
+    <div class="legend"><span>Typical flow at each stage — median of all readings within ±0.05 ft</span></div>
+    <table class="lookup">
+      <thead><tr><th>Stage</th><th>Whole record (2008–26)</th><th>Recent (WY 2024–26)</th><th>What it is</th></tr></thead>
+      <tbody>
+        <tr><td>3.0 ft</td><td>396 cfs</td><td>427 cfs</td><td>a low-water day (25th percentile)</td></tr>
+        <tr><td>3.5 ft</td><td>834</td><td>968</td><td>above the median day</td></tr>
+        <tr><td>4.0 ft</td><td>1,370</td><td>1,620</td><td>a high paddling day (~80th pct)</td></tr>
+        <tr><td>5.0 ft</td><td>2,780</td><td>2,980</td><td>95th percentile</td></tr>
+        <tr><td>6.0 ft</td><td>4,550</td><td>4,610</td><td>bank-full feel</td></tr>
+        <tr class="cat"><td>8 ft</td><td>9,480</td><td>9,560</td><td>NWS action stage</td></tr>
+        <tr class="cat"><td>10 ft</td><td>15,700</td><td>—</td><td>minor flood</td></tr>
+        <tr class="cat"><td>14 ft</td><td>31,000</td><td>—</td><td>moderate flood</td></tr>
+        <tr class="cat"><td>16 ft</td><td>≈41,800*</td><td>—</td><td>major flood</td></tr>
+        <tr class="cat"><td>22 ft</td><td>≈80,000*</td><td>—</td><td>2008 and 2025 crests</td></tr>
+      </tbody>
+    </table>
+    <figcaption>Source: USGS 07069305 15-minute stage and discharge, WY 2008–2026 (98 % approved). Recent column blank where fewer than 20 readings exist. *Above 14 ft the values come from the fitted curve (flow ∝ stage<sup>2.2</sup>), not observations.</figcaption>
+  </figure>
+  <p class="measure">Median flow (690 cfs) sits at about 3.2 ft; the middle half of all days spans just 3.0–3.7 ft. Stage is a compressed ruler at low water and a stretched one in flood — and because of the channel drop above, the same gauge reading now carries 8–18 % more water than it did in 2008. Old stage-based rules of thumb for runnability underestimate today's flow.</p>
+</div></section>
 
 <section class="finding">
   <div class="wrap">

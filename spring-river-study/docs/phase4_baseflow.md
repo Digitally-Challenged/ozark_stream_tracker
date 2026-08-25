@@ -123,6 +123,41 @@ Event 2006-09-23 omitted from the shift table: no IV pairs within ±365 days (pr
 
 ![rating](../reports/figures/phase4_rating_drift.png)
 
+### Stage–discharge lookup
+
+Pairs: source: USGS IV 07069305 discharge+stage; period 2007-10-01–2026-08-24; approved 98%, provisional from 2026-04-09. Median (and IQR in the parquet) of discharge over pairs within ±0.05 ft of each stage; `recent` = pairs from 2023-10-01 (WY 2024+); NaN where fewer than 20 pairs.
+
+|   stage_ft |   whole_record_median_cfs |   recent_median_cfs |   n_whole |   n_recent |
+|-----------:|--------------------------:|--------------------:|----------:|-----------:|
+|        2.5 |                       nan |                 nan |         0 |          0 |
+|        3.0 |                       396 |                 427 |    110130 |      23363 |
+|        3.5 |                       834 |                 968 |     35941 |       4783 |
+|        4.0 |                      1370 |                1620 |     23156 |       2933 |
+|        5.0 |                      2780 |                2980 |      4828 |        378 |
+|        6.0 |                      4550 |                4610 |      1184 |         99 |
+|        8.0 |                      9480 |                9560 |       185 |         34 |
+|       10.0 |                     15700 |                 nan |        72 |          2 |
+|       12.0 |                     23300 |                 nan |        34 |          8 |
+|       14.0 |                     31000 |                 nan |        39 |          2 |
+|       16.0 |                       nan |                 nan |        11 |          1 |
+|       18.0 |                       nan |                 nan |         7 |          2 |
+|       20.0 |                       nan |                 nan |        10 |          6 |
+|       22.0 |                       nan |                 nan |         7 |          1 |
+
+Correlation: Pearson r of log10 stage vs log10 discharge = 0.9690; Spearman rho = 0.9634; n=666986 pairs. Annual-peak log-log fit log10 Q = 1.9538 + 2.2152·log10 H (R²=0.991, n=24 peaks).
+
+Flow percentile → stage (Hardy DV discharge percentiles; median stage of recent pairs within ±3% of each flow):
+
+|   percentile |   q_cfs |   stage_ft |   n_pairs |
+|-------------:|--------:|-----------:|----------:|
+|            5 |     328 |       2.87 |      2865 |
+|           25 |     440 |       3    |      4485 |
+|           50 |     690 |       3.23 |      3227 |
+|           75 |    1230 |       3.73 |      1735 |
+|           95 |    2859 |       4.91 |       379 |
+
+![rating_curve](../reports/figures/phase4_rating_curve.png)
+
 ## Q4 post-flood base flow vs matched non-flood years
 
 Post window: 6 months of Eckhardt base flow starting 30 days after the event (past the recession limb). Controls: the 3 non-flood years (no ≥16 ft event within ±1 yr) closest in standardized distance on same-calendar post-window precip AND antecedent base flow (mean over the 90 days before the event date). `pre_bf_cfs` / `matched_pre_bf_cfs` show the antecedent match.

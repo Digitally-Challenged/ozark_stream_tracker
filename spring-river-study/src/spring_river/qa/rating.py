@@ -8,9 +8,12 @@ at the target -- not by the median of the band, which biases toward
 whichever side of the target has more samples."""
 import numpy as np
 import pandas as pd
+from scipy import stats
 
-from spring_river.config import RATING_FLOWS_CFS, RATING_TOLERANCE
+from spring_river.config import RATING_FLOWS_CFS, RATING_TABLE_STAGES_FT, RATING_TOLERANCE
 from spring_river.hydro.wateryear import water_year
+
+FLOW_PERCENTILES = (5, 25, 50, 75, 95)
 
 
 def pair_iv(iv_q: pd.DataFrame, iv_h: pd.DataFrame) -> pd.DataFrame:
@@ -91,3 +94,58 @@ def rating_shift_at_events(
     return pd.DataFrame(
         rows, columns=["event_date", "flow_cfs", "stage_before_ft", "stage_after_ft", "shift_ft", "n_before", "n_after"]
     )
+
+
+def _since(pairs: pd.DataFrame, since: str | None) -> pd.DataFrame:
+    if since is None:
+        return pairs
+    return pairs[pd.to_datetime(pairs["datetime"]) >= pd.Timestamp(since)]
+
+
+def rating_table(
+    pairs: pd.DataFrame,
+    stages: tuple[float, ...] = RATING_TABLE_STAGES_FT,
+    tol_ft: float = 0.05,
+    min_pairs: int = 20,
+    since: str | None = None,
+) -> pd.DataFrame:
+    """Stage -> discharge lookup: median and IQR of q over pairs within ±tol_ft of each stage.
+
+    NaN flow columns when fewer than `min_pairs` fall in the band; `since` keeps
+    only pairs with datetime >= since (a "recent rating" variant)."""
+    p = _since(pairs, since)
+    h, q = p["stage_ft"].to_numpy(dtype="float64"), p["q_cfs"].to_numpy(dtype="float64")
+    rows = []
+    for s in stages:
+        band = q[(h >= s - tol_ft) & (h <= s + tol_ft) & (q > 0)]
+        n = int(len(band))
+        med, lo, hi = (np.percentile(band, [50, 25, 75]) if n >= min_pairs else (np.nan,) * 3)
+        rows.append({"stage_ft": float(s), "median_cfs": med, "q25_cfs": lo, "q75_cfs": hi, "n_pairs": n})
+    return pd.DataFrame(rows, columns=["stage_ft", "median_cfs", "q25_cfs", "q75_cfs", "n_pairs"])
+
+
+def loglog_correlation(pairs: pd.DataFrame) -> dict:
+    """Pearson r of log10(stage) vs log10(q), Spearman rho of the raw pairs, and n."""
+    p = pairs[(pairs["q_cfs"] > 0) & (pairs["stage_ft"] > 0)]
+    r = float(np.corrcoef(np.log10(p["stage_ft"]), np.log10(p["q_cfs"]))[0, 1])
+    rho = float(stats.spearmanr(p["stage_ft"], p["q_cfs"]).statistic)
+    return {"r_loglog": r, "spearman": rho, "n": int(len(p))}
+
+
+def flow_percentile_stages(
+    pairs: pd.DataFrame,
+    dv_q: pd.Series,
+    percentiles: tuple[int, ...] = FLOW_PERCENTILES,
+    tol: float = 0.03,
+    since: str | None = None,
+) -> pd.DataFrame:
+    """Map flow percentiles of a daily series to stage: median stage of pairs within ±tol of each flow."""
+    p = _since(pairs, since)
+    h, q = p["stage_ft"].to_numpy(dtype="float64"), p["q_cfs"].to_numpy(dtype="float64")
+    flows = np.nanpercentile(dv_q.to_numpy(dtype="float64"), percentiles)
+    rows = []
+    for pct, f in zip(percentiles, flows):
+        band = h[(q >= f * (1 - tol)) & (q <= f * (1 + tol))]
+        stage = float(np.median(band)) if len(band) else float("nan")
+        rows.append({"percentile": int(pct), "q_cfs": float(f), "stage_ft": stage, "n_pairs": int(len(band))})
+    return pd.DataFrame(rows, columns=["percentile", "q_cfs", "stage_ft", "n_pairs"])
