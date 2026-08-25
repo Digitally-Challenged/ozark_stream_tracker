@@ -150,17 +150,17 @@ Water years with a missing annual peak count as neither major nor quiet. With n_
 
 | event_date          |   bfi_prior |   precip_prior_in |   baseflow_prior_cfs |
 |:--------------------|------------:|------------------:|---------------------:|
-| 2003-11-18 00:00:00 |        0.81 |              1.98 |               383.07 |
-| 2006-09-23 00:00:00 |        0.8  |              3.39 |               242.65 |
-| 2008-03-19 00:00:00 |        0.51 |              6.52 |               798.16 |
-| 2009-10-30 00:00:00 |        0.55 |              9.96 |              1191.44 |
-| 2011-04-26 00:00:00 |        0.43 |             12.49 |               805.81 |
-| 2015-12-28 00:00:00 |        0.54 |              7.58 |               927.3  |
-| 2017-04-30 00:00:00 |        0.64 |              9.38 |              1086.58 |
-| 2021-04-29 00:00:00 |        0.7  |              3.18 |              1329.99 |
-| 2025-04-05 00:00:00 |        0.8  |              3.43 |              1277.95 |
+| 2003-11-18 00:00:00 |        0.81 |              2.78 |               383.07 |
+| 2006-09-23 00:00:00 |        0.8  |              3.19 |               242.65 |
+| 2008-03-19 00:00:00 |        0.51 |              5.75 |               798.16 |
+| 2009-10-30 00:00:00 |        0.55 |              9.46 |              1191.44 |
+| 2011-04-26 00:00:00 |        0.43 |             12.04 |               805.81 |
+| 2015-12-28 00:00:00 |        0.54 |              8.04 |               927.3  |
+| 2017-04-30 00:00:00 |        0.64 |              7.59 |              1086.58 |
+| 2021-04-29 00:00:00 |        0.7  |              2.78 |              1329.99 |
+| 2025-04-05 00:00:00 |        0.8  |              3.59 |              1277.95 |
 
-BFI from segmented Eckhardt on Hardy DV discharge; precip is the PRISM 30 km-buffer basin mean. Windows exclude the event day.
+BFI from segmented Eckhardt on Hardy DV discharge; precip is the basin mean (NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC). Windows exclude the event day.
 
 ![freq](../reports/figures/phase5_freq_curves.png)
 

@@ -391,6 +391,24 @@
       lower, are the floods getting bigger, and how often should we expect the
       big ones?
     </p>
+    <p class="lede measure">
+      <b>Second edition, 2026-08-25: recharge area and rainfall data replaced —
+      see "What changed."</b>
+    </p>
+    <p class="measure">
+      <b>What changed.</b> The first edition measured rain over a 30-kilometre
+      circle drawn around West Plains, Missouri, because no traced boundary was
+      in hand. This edition uses the Missouri DNR's mapped Mammoth Spring
+      recharge area — about a third the size and sitting south-east of that
+      circle — and a finer rainfall product (NOAA AORC, 1 km, radar-informed
+      from 2002). Two conclusions moved. The yearly rainfall total is no longer
+      rising detectably: the earlier "+2.4 inches per decade" was an artifact of
+      the oversized circle, though rain still arrives in heavier bursts. And at
+      the Hardy gauge, the leftover rise in low flow after accounting for rain
+      is now positive on the primary rainfall dataset while still including zero
+      on the two alternatives — so it depends on which rain data you use, and we
+      say so rather than claiming it. Everything else held.
+    </p>
     <div class="stats">
       <div class="stat">
         <b>No</b
@@ -404,8 +422,10 @@
         ><span>How often the river reaches major flood (16 ft)</span>
       </div>
       <div class="stat sand">
-        <b>+2.4 in/decade</b
-        ><span>Rain over the spring's recharge country is rising</span>
+        <b>Heavier</b
+        ><span
+          >Rain arrives in bigger bursts, though the yearly total is flat</span
+        >
       </div>
     </div>
   </div>
@@ -505,20 +525,24 @@
       ></svg>
       <figcaption>
         Source: USGS 07069190 Mammoth Spring daily discharge (99 % approved;
-        provisional from 2026-04-09), PRISM 4-km rain averaged over a 30-km
-        circle around West Plains, MO. Water years 1982–2025.
+        provisional from 2026-04-09), NOAA AORC 1-km rain averaged over the
+        Missouri DNR Mammoth Spring recharge area. Water years 1982–2025.
       </figcaption>
     </figure>
     <p class="measure">
       Mammoth Spring is the river's base flow, and its lowest week each year
       tracks the rain that fell in the twelve months before it. After removing
-      that rain signal, what's left drifts by about −0.2 % a year — a range that
+      that rain signal, what's left drifts by about −0.1 % a year — a range that
       comfortably includes zero.
     </p>
     <p class="why measure">
-      In numbers: residual trend −0.0022 log-cfs/yr, 95 % CI −0.0050 to +0.0005,
-      n = 42. Hardy's own record (2002+) tells the same story once rain is
-      accounted for.
+      In numbers: residual trend −0.0013 log-cfs/yr, 95 % CI −0.0033 to +0.0012,
+      n = 42, and the CI includes zero on all three rainfall datasets tested.
+      Hardy's own record (2002+) is less settled: after accounting for rain its
+      leftover trend is slightly upward on the primary rainfall dataset
+      (+0.0203 log-cfs/yr, 95 % CI +0.0092 to +0.0291, n = 24) but includes zero
+      on the two alternatives, so it depends on which rain data you use. Mammoth
+      Spring, with a record nearly twice as long, is the series to trust here.
     </p>
   </div>
 </section>
@@ -619,8 +643,8 @@
       <figcaption>
         Source: USGS 07069190 Mammoth Spring, Eckhardt base-flow separation;
         window starts 30 days after each ≥16 ft Hardy crest. Matches chosen on
-        rain and pre-flood base flow (15 distinct control years). Mean +28 %,
-        bootstrap 95 % CI +20 to +42 %.
+        rain and pre-flood base flow (16 distinct control years). Mean +26 %,
+        bootstrap 95 % CI +16 to +41 %.
       </figcaption>
     </figure>
     <p class="measure">
@@ -635,8 +659,8 @@
   <div class="wrap">
     <p class="q">Is it raining harder over the spring's watershed?</p>
     <h2>
-      Yes — about 2.4 inches more per decade, mostly as more wet days, not just
-      bigger storms.
+      Harder, yes — but not more overall. The wet days are getting wetter while
+      the yearly total holds steady.
     </h2>
     <span class="chip mid"
       >Moderate confidence · gridded rain data; the single weather station can't
@@ -656,17 +680,22 @@
         aria-label="Annual basin rainfall 1981 to 2025 with trend line"
       ></svg>
       <figcaption>
-        Source: PRISM 4-km daily precipitation, 30-km buffer around West Plains,
-        calendar years 1981–2025 (no approval flag applies). Sen slope +2.41
-        in/decade, 95 % CI +0.36 to +4.46, n = 45; 9 of 10 intensity indices
-        rise, but recharge-season (Sep–Feb) totals do not.
+        Source: NOAA AORC 1-km rain averaged over the Missouri DNR Mammoth
+        Spring recharge area, calendar years 1981–2025 (no approval flag
+        applies). Sen slope +0.96 in/decade, 95 % CI −1.25 to +3.12, n = 45 —
+        a range that includes zero, so the annual total is not rising
+        detectably. 6 of 10 intensity indices do rise, but recharge-season
+        (Sep–Feb) totals do not.
       </figcaption>
     </figure>
     <p class="measure">
-      Days with an inch or more are up by about 1.4 per decade; the wettest day
-      of the year is up about a quarter inch. The one thing not rising is winter
-      recharge rain, which is why the spring's base flow is steady rather than
-      climbing.
+      Days with an inch or more are up by about 1.4 per decade, and the wettest
+      day of the year is up about a quarter inch — rain arrives in heavier
+      bursts. The yearly total is not rising detectably, and winter recharge
+      rain is flat or slightly down, which is why the spring's base flow is
+      steady rather than climbing. The first edition of this brief reported a
+      rising yearly total; that turned out to be an artifact of measuring rain
+      over a circle three times the size of the real recharge area.
     </p>
   </div>
 </section>
@@ -675,7 +704,7 @@
   <div class="wrap">
     <p class="q">How long after it rains does the spring respond?</p>
     <h2>About a month. The signal is mostly gone by nine.</h2>
-    <span class="chip ok">High confidence · 545 months of paired data</span>
+    <span class="chip ok">High confidence · 539 months of paired data</span>
     <figure>
       <svg
         id="lag"
@@ -686,7 +715,7 @@
       <figcaption>
         Correlation of monthly rain anomalies with Mammoth Spring flow
         anomalies, rain shifted earlier by 0–12 months. Bars show 95 %
-        block-bootstrap intervals. Peak r = 0.46 at lag 1.
+        block-bootstrap intervals. Peak r = 0.45 at lag 1.
       </figcaption>
     </figure>
     <p class="measure">
@@ -742,17 +771,21 @@
         the channel-drop finding comes from the readings alone.
       </li>
       <li>
-        <b>The rain trend is a model product.</b> PRISM blends stations into a
-        grid. The West Plains station itself has too many missing years to
-        confirm or deny the trend on its own.
+        <b>The rain trend is a model product.</b> AORC blends radar (from 2002),
+        rain gauges and a weather reanalysis into a grid; PRISM, a second blend
+        over the same area, gives the same direction (see the technical report's
+        source comparison). The West Plains station itself has too many missing
+        years to confirm or deny the trend on its own.
       </li>
       <li>
         <b>Six floods make a pattern, not a proof.</b> The post-flood finding is
         a comparison, not an experiment.
       </li>
       <li>
-        <b>The recharge area is approximated</b> as a 30-km circle around West
-        Plains; the dye-traced boundary would be better.
+        <b>The recharge area is the state's map, not our own trace.</b> This
+        edition uses the Missouri DNR "Mammoth Spring Recharge Area" boundary
+        (about 349 square miles, south-east of West Plains). It leaves out
+        ground that feeds Bill Mac and Greer springs as well.
       </li>
     </ul>
   </div>
@@ -804,50 +837,50 @@
       [23, '', 29.4, 0],
     ],
     low: [
-      [1982, 182.9, 37.1],
-      [1983, 207.0, 40.4],
-      [1984, 255.7, 48.0],
-      [1985, 267.0, 43.4],
-      [1986, 259.6, 51.2],
-      [1987, 219.0, 35.8],
-      [1988, 206.1, 32.6],
-      [1989, 264.3, 45.1],
-      [1990, 226.7, 35.1],
-      [1991, 232.9, 48.7],
-      [1992, 283.6, 42.7],
-      [1993, 257.0, 41.5],
-      [1994, 271.9, 51.9],
-      [1995, 246.0, 45.3],
-      [1996, 229.4, 38.3],
-      [1997, 274.4, 45.9],
-      [1998, 240.0, 44.2],
-      [1999, 240.7, 46.3],
-      [2000, 209.1, 35.5],
-      [2001, 177.7, 36.4],
-      [2002, 173.7, 31.7],
-      [2003, 214.3, 36.9],
+      [1982, 182.9, 36.6],
+      [1983, 207.0, 44.1],
+      [1984, 255.7, 50.1],
+      [1985, 267.0, 46.3],
+      [1986, 259.6, 51.0],
+      [1987, 219.0, 37.2],
+      [1988, 206.1, 35.1],
+      [1989, 264.3, 51.8],
+      [1990, 226.7, 34.9],
+      [1991, 232.9, 49.3],
+      [1992, 283.6, 44.9],
+      [1993, 257.0, 43.5],
+      [1994, 271.9, 51.8],
+      [1995, 246.0, 44.8],
+      [1996, 229.4, 37.9],
+      [1997, 274.4, 47.0],
+      [1998, 240.0, 45.1],
+      [1999, 240.7, 44.8],
+      [2000, 209.1, 36.3],
+      [2001, 177.7, 36.5],
+      [2002, 173.7, 34.4],
+      [2003, 214.3, 36.7],
       [2004, 196.9, 41.6],
-      [2005, 209.3, 44.3],
-      [2006, 191.6, 43.6],
-      [2007, 239.4, 49.2],
-      [2008, 211.0, 42.5],
-      [2009, 255.0, 60.4],
-      [2010, 292.6, 52.3],
-      [2011, 213.4, 35.7],
-      [2012, 241.7, 41.7],
-      [2013, 211.7, 36.8],
-      [2014, 259.9, 43.3],
-      [2015, 284.7, 45.5],
-      [2016, 260.3, 51.2],
-      [2017, 254.6, 45.7],
-      [2018, 208.6, 48.8],
-      [2019, 215.4, 44.6],
-      [2020, 294.1, 59.7],
-      [2021, 292.4, 60.5],
-      [2022, 251.7, 46.6],
-      [2023, 269.0, 43.7],
-      [2024, 212.1, 42.1],
-      [2025, 218.4, 47.5],
+      [2005, 209.3, 42.4],
+      [2006, 191.6, 42.4],
+      [2007, 239.4, 47.1],
+      [2008, 211.0, 37.2],
+      [2009, 255.0, 60.2],
+      [2010, 292.6, 53.2],
+      [2011, 213.4, 34.4],
+      [2012, 241.7, 42.9],
+      [2013, 211.7, 36.6],
+      [2014, 259.9, 45.0],
+      [2015, 284.7, 48.3],
+      [2016, 260.3, 53.8],
+      [2017, 254.6, 44.9],
+      [2018, 208.6, 45.9],
+      [2019, 215.4, 42.9],
+      [2020, 294.1, 56.4],
+      [2021, 292.4, 56.4],
+      [2022, 251.7, 41.1],
+      [2023, 269.0, 41.6],
+      [2024, 212.1, 41.2],
+      [2025, 218.4, 41.0],
     ],
     rating: [
       [2008, 3.27, 3.94],
@@ -871,76 +904,76 @@
       [2026, 2.95, 3.56],
     ],
     post: [
-      ['Sep 2006', 287, 349],
-      ['Mar 2008', 282, 338],
-      ['Oct 2009', 305, 362],
-      ['Apr 2011', 188, 307],
+      ['Sep 2006', 289, 349],
+      ['Mar 2008', 268, 338],
+      ['Oct 2009', 321, 362],
+      ['Apr 2011', 190, 307],
       ['Apr 2017', 228, 275],
-      ['Apr 2025', 295, 355],
+      ['Apr 2025', 313, 355],
     ],
     rain: [
-      [1981, 37.1],
-      [1982, 54.9],
-      [1983, 41.2],
-      [1984, 50.2],
-      [1985, 50.4],
-      [1986, 32.6],
-      [1987, 42.2],
-      [1988, 43.0],
-      [1989, 35.3],
-      [1990, 56.5],
-      [1991, 48.0],
-      [1992, 44.1],
-      [1993, 52.6],
-      [1994, 48.8],
-      [1995, 40.2],
-      [1996, 48.7],
-      [1997, 36.4],
-      [1998, 46.5],
-      [1999, 35.5],
-      [2000, 36.4],
-      [2001, 36.9],
-      [2002, 58.2],
-      [2003, 47.2],
-      [2004, 47.9],
-      [2005, 43.0],
-      [2006, 55.7],
-      [2007, 42.0],
-      [2008, 60.6],
-      [2009, 57.1],
-      [2010, 38.3],
-      [2011, 63.7],
+      [1981, 36.6],
+      [1982, 60.8],
+      [1983, 43.6],
+      [1984, 53.8],
+      [1985, 46.2],
+      [1986, 34.7],
+      [1987, 45.5],
+      [1988, 49.2],
+      [1989, 35.1],
+      [1990, 56.8],
+      [1991, 49.5],
+      [1992, 46.7],
+      [1993, 51.3],
+      [1994, 50.5],
+      [1995, 39.7],
+      [1996, 52.4],
+      [1997, 37.8],
+      [1998, 44.4],
+      [1999, 34.8],
+      [2000, 36.6],
+      [2001, 40.9],
+      [2002, 57.5],
+      [2003, 47.7],
+      [2004, 46.3],
+      [2005, 39.9],
+      [2006, 56.9],
+      [2007, 39.0],
+      [2008, 60.3],
+      [2009, 58.4],
+      [2010, 39.2],
+      [2011, 64.9],
       [2012, 36.1],
-      [2013, 54.3],
-      [2014, 44.6],
-      [2015, 64.1],
-      [2016, 45.4],
-      [2017, 49.1],
-      [2018, 51.4],
-      [2019, 58.8],
-      [2020, 60.4],
-      [2021, 48.9],
-      [2022, 48.2],
-      [2023, 42.1],
-      [2024, 59.6],
-      [2025, 52.0],
+      [2013, 54.9],
+      [2014, 45.9],
+      [2015, 67.0],
+      [2016, 44.4],
+      [2017, 46.0],
+      [2018, 48.4],
+      [2019, 56.3],
+      [2020, 56.1],
+      [2021, 43.0],
+      [2022, 43.5],
+      [2023, 41.2],
+      [2024, 51.7],
+      [2025, 47.3],
     ],
-    rainSlope: 0.241,
-    rainMid: [2003, 47.4],
+    rainSlope: 0.096,
+    rainMid: [2003, 46.3],
     lag: [
-      [0, 0.3, 0.25, 0.36],
-      [1, 0.46, 0.42, 0.53],
-      [2, 0.36, 0.29, 0.41],
-      [3, 0.28, 0.19, 0.35],
-      [4, 0.22, 0.13, 0.27],
-      [5, 0.16, 0.06, 0.22],
-      [6, 0.13, 0.04, 0.2],
-      [7, 0.1, 0.01, 0.17],
-      [8, 0.06, -0.04, 0.15],
-      [9, 0, -0.11, 0.09],
-      [10, 0, -0.08, 0.09],
-      [11, 0.05, -0.03, 0.14],
-      [12, 0.02, -0.06, 0.13],
+      [0, 0.29, 0.24, 0.34],
+      [1, 0.45, 0.41, 0.52],
+      [2, 0.34, 0.27, 0.40],
+      [3, 0.27, 0.18, 0.33],
+      [4, 0.21, 0.13, 0.26],
+      [5, 0.15, 0.06, 0.20],
+      [6, 0.14, 0.05, 0.20],
+      [7, 0.10, 0.02, 0.17],
+      [8, 0.06, -0.03, 0.15],
+      [9, 0.01, -0.09, 0.09],
+      [10, 0.01, -0.07, 0.09],
+      [11, 0.05, -0.03, 0.13],
+      [12, 0.01, -0.08, 0.11],
     ],
     timing: [
       ['1940s', 61, 0.68, 10],
@@ -1344,7 +1377,7 @@
         'middle'
       );
     });
-    txt(svg, x(1), y(0.46) - 10, 'peak: 1 month later', 'lbl strong', 'middle');
+    txt(svg, x(1), y(0.45) - 10, 'peak: 1 month later', 'lbl strong', 'middle');
     el('line', { x1: L, x2: W - R, y1: y(0), y2: y(0), class: 'axis' }, svg);
   })();
 

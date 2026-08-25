@@ -1,6 +1,6 @@
 # Phase 6 — precipitation regime (Q3) — generated 2026-08-25
 
-Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+ in this build — the ACIS cache is keyed on station id, so the 1948 request returned the cached 1981+ pull; a 1948 backfill needs a `refresh=True` pull), KUNO ASOS (1998-04-01–2026-08-23), PRISM 30 km basin mean (1981-01-01–2026-08-23).
+Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+ in this build — the ACIS cache is keyed on station id, so the 1948 request returned the cached 1981+ pull; a 1948 backfill needs a `refresh=True` pull), KUNO ASOS (1998-04-01–2026-08-23), USC00230127 Alton COOP (1981-01-01–2026-08-03), basin = NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC (1981-01-02–2025-12-31).
 
 ## Station agreement on monthly totals (qa_report follow-up)
 
@@ -44,58 +44,78 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+
 | top5_frac   |  27 |             -0.003 | -0.024 |  0.019 | -0.208 | 0.835 |  0.835 | False            |
 | sdii_in     |  27 |              0.063 |  0.033 |  0.09  |  3.377 | 0.001 |  0.007 | True             |
 
-## basin: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
+## USC00230127: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
 
-- series span (non-missing days): 1981-01-01–2026-08-23
-- index years 1981–2025; years passing 90% coverage: 45
-- BH-significant: total_in (+2.41/decade, 95% CI 0.355 to 4.46, n=45 years), growing_in (+2.32/decade, 95% CI 0.898 to 3.73, n=45 years), days_ge_0p5 (+2.5/decade, 95% CI 1.11 to 4.29, n=45 years), days_ge_1 (+1.45/decade, 95% CI 0.714 to 2.26, n=45 years), days_ge_2 (+0.27/decade, 95% CI -0 to 0.588, n=45 years), max1_in (+0.28/decade, 95% CI 0.0967 to 0.528, n=45 years), max3_in (+0.283/decade, 95% CI 0.0432 to 0.652, n=45 years), top5_frac (+0.00756/decade, 95% CI 0.000256 to 0.0149, n=45 years), sdii_in (+0.0347/decade, 95% CI 0.0222 to 0.0486, n=45 years)
+- series span (non-missing days): 1981-01-01–2026-08-03
+- index years 1982–2025; years passing 90% coverage: 24
+- no index passes BH at q=0.05
 
 | index       |   n |   slope_per_decade |     lo |    hi |      z |     p |   p_bh | significant_bh   |
 |:------------|----:|-------------------:|-------:|------:|-------:|------:|-------:|:-----------------|
-| total_in    |  45 |              2.409 |  0.355 | 4.463 |  2.279 | 0.023 |  0.028 | True             |
-| recharge_in |  44 |             -0.018 | -1.267 | 1.189 | -0.071 | 0.944 |  0.944 | False            |
-| growing_in  |  45 |              2.316 |  0.898 | 3.729 |  3.121 | 0.002 |  0.005 | True             |
-| days_ge_0p5 |  45 |              2.5   |  1.111 | 4.286 |  3.326 | 0.001 |  0.003 | True             |
-| days_ge_1   |  45 |              1.446 |  0.714 | 2.258 |  3.332 | 0.001 |  0.003 | True             |
-| days_ge_2   |  45 |              0.27  | -0     | 0.588 |  2.305 | 0.021 |  0.028 | True             |
-| max1_in     |  45 |              0.28  |  0.097 | 0.528 |  2.886 | 0.004 |  0.008 | True             |
-| max3_in     |  45 |              0.283 |  0.043 | 0.652 |  2.299 | 0.022 |  0.028 | True             |
-| top5_frac   |  45 |              0.008 |  0     | 0.015 |  2.025 | 0.043 |  0.048 | True             |
-| sdii_in     |  45 |              0.035 |  0.022 | 0.049 |  4.471 | 0     |  0     | True             |
+| total_in    |  24 |              2.169 | -2.128 | 6.6   |  1.067 | 0.286 |  0.515 | False            |
+| recharge_in |  21 |              0.678 | -1.324 | 2.725 |  0.876 | 0.381 |  0.545 | False            |
+| growing_in  |  24 |              1.595 | -1.336 | 4.354 |  1.215 | 0.224 |  0.515 | False            |
+| days_ge_0p5 |  24 |              0.801 | -1.538 | 3.478 |  0.774 | 0.439 |  0.549 | False            |
+| days_ge_1   |  24 |              1.25  | -0.769 | 3.333 |  1.076 | 0.282 |  0.515 | False            |
+| days_ge_2   |  24 |             -0     | -0.455 | 0.667 |  0.484 | 0.628 |  0.691 | False            |
+| max1_in     |  24 |              0.066 | -0.485 | 0.489 |  0.397 | 0.691 |  0.691 | False            |
+| max3_in     |  24 |              0.412 | -0.25  | 1.076 |  1.364 | 0.172 |  0.515 | False            |
+| top5_frac   |  24 |             -0.011 | -0.027 | 0.01  | -1.116 | 0.264 |  0.515 | False            |
+| sdii_in     |  24 |              0.022 | -0.027 | 0.07  |  1.017 | 0.309 |  0.515 | False            |
+
+## basin: index trends (Sen slope per decade, 95% CI; BH-adjusted p across 10 indices)
+
+- series span (non-missing days): 1981-01-02–2025-12-31
+- index years 1981–2025; years passing 90% coverage: 45
+- BH-significant: growing_in (+1.46/decade, 95% CI 0.207 to 2.9, n=45 years), days_ge_1 (+1.38/decade, 95% CI 0.488 to 2.22, n=45 years), days_ge_2 (+0.286/decade, 95% CI -0 to 0.625, n=45 years), max1_in (+0.264/decade, 95% CI 0.0517 to 0.495, n=45 years), top5_frac (+0.00988/decade, 95% CI 0.00264 to 0.0177, n=45 years), sdii_in (+0.0324/decade, 95% CI 0.0204 to 0.0461, n=45 years)
+
+| index       |   n |   slope_per_decade |     lo |    hi |      z |     p |   p_bh | significant_bh   |
+|:------------|----:|-------------------:|-------:|------:|-------:|------:|-------:|:-----------------|
+| total_in    |  45 |              0.96  | -1.25  | 3.124 |  0.851 | 0.395 |  0.395 | False            |
+| recharge_in |  44 |             -0.806 | -1.993 | 0.602 | -1.163 | 0.245 |  0.306 | False            |
+| growing_in  |  45 |              1.464 |  0.207 | 2.898 |  2.181 | 0.029 |  0.049 | True             |
+| days_ge_0p5 |  45 |              1.745 | -0     | 3.333 |  2.049 | 0.04  |  0.058 | False            |
+| days_ge_1   |  45 |              1.379 |  0.488 | 2.222 |  2.947 | 0.003 |  0.016 | True             |
+| days_ge_2   |  45 |              0.286 | -0     | 0.625 |  2.181 | 0.029 |  0.049 | True             |
+| max1_in     |  45 |              0.264 |  0.052 | 0.495 |  2.358 | 0.018 |  0.046 | True             |
+| max3_in     |  45 |              0.147 | -0.12  | 0.534 |  1.086 | 0.278 |  0.308 | False            |
+| top5_frac   |  45 |              0.01  |  0.003 | 0.018 |  2.514 | 0.012 |  0.04  | True             |
+| sdii_in     |  45 |              0.032 |  0.02  | 0.046 |  4.373 | 0     |  0     | True             |
 
 ## Station vs basin: reading the divergence
 
-- BH-significant indices per series: USC00238880 0/10, KUNO 1/10, basin 9/10.
+- BH-significant indices per series: USC00238880 0/10, KUNO 1/10, USC00230127 0/10, basin 6/10.
 - USC00238880 years failing 90% coverage (excluded from its trend tests): 1997, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021. The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is low power, not evidence against the basin trend.
 - `recharge_in` uses a stricter gate than the other indices: coverage is judged against the full Sep (year-1)–Feb (year) calendar season, so it is NaN for any year whose season straddles a series start or a gap (e.g. a series beginning 1 Jan has no recharge value for its first year). Its n can therefore be smaller than the other indices' n for the same series, never larger.
-- PRISM basin values are a 4 km grid mean over a ~60 × 60 km box around West Plains; station gaps enter PRISM only indirectly through its interpolation. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
+- Basin values are NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC; station gaps enter a gridded product only through its gauge blending. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
+- USC00230127 (Alton) has no data 1983–1994 and 2012–2016; its trend test covers ~26 years and is a consistency check only.
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
 Monthly anomalies (climatology removed; log flow), lags 0–12 months, 1000 12-month block-bootstrap resamples for the CI (both variants, 1 s). Table: all data.
 
-|   lag |      r |   r_lo |   r_hi |   n |
-|------:|-------:|-------:|-------:|----:|
-|     0 |  0.3   |  0.252 |  0.358 | 545 |
-|     1 |  0.463 |  0.422 |  0.526 | 545 |
-|     2 |  0.357 |  0.29  |  0.409 | 545 |
-|     3 |  0.278 |  0.186 |  0.347 | 544 |
-|     4 |  0.22  |  0.134 |  0.272 | 543 |
-|     5 |  0.161 |  0.064 |  0.217 | 542 |
-|     6 |  0.128 |  0.035 |  0.203 | 541 |
-|     7 |  0.096 |  0.007 |  0.169 | 540 |
-|     8 |  0.06  | -0.036 |  0.151 | 539 |
-|     9 |  0.002 | -0.107 |  0.088 | 538 |
-|    10 | -0.001 | -0.083 |  0.085 | 537 |
-|    11 |  0.049 | -0.029 |  0.14  | 536 |
-|    12 |  0.02  | -0.062 |  0.125 | 535 |
+|   lag |     r |   r_lo |   r_hi |   n |
+|------:|------:|-------:|-------:|----:|
+|     0 | 0.288 |  0.237 |  0.344 | 538 |
+|     1 | 0.454 |  0.412 |  0.519 | 539 |
+|     2 | 0.34  |  0.274 |  0.397 | 540 |
+|     3 | 0.267 |  0.18  |  0.329 | 540 |
+|     4 | 0.209 |  0.133 |  0.256 | 540 |
+|     5 | 0.152 |  0.061 |  0.203 | 540 |
+|     6 | 0.14  |  0.05  |  0.199 | 540 |
+|     7 | 0.101 |  0.021 |  0.166 | 540 |
+|     8 | 0.062 | -0.029 |  0.145 | 539 |
+|     9 | 0.015 | -0.087 |  0.094 | 538 |
+|    10 | 0.007 | -0.068 |  0.087 | 537 |
+|    11 | 0.047 | -0.033 |  0.132 | 536 |
+|    12 | 0.009 | -0.08  |  0.108 | 535 |
 
-- response lag (max r): 1 months, r=0.46 (95% CI 0.42 to 0.53), n=545 months
+- response lag (max r): 1 months, r=0.45 (95% CI 0.41 to 0.52), n=539 months
 
 ### Sensitivity: all vs approved-only Mammoth flow
 
-- response lag (all data): 1 months, r=0.46 (95% CI 0.42 to 0.53), n=545 months
-- response lag (approved-only flow): 1 months, r=0.47 (95% CI 0.42 to 0.53), n=541 months
+- response lag (all data): 1 months, r=0.45 (95% CI 0.41 to 0.52), n=539 months
+- response lag (approved-only flow): 1 months, r=0.45 (95% CI 0.41 to 0.52), n=539 months
 - unchanged: same response lag and overlapping r CIs.
 
 ![indices](../reports/figures/phase6_indices.png)
@@ -104,11 +124,11 @@ Figure: annual total, days ≥ 1 in, and max 1-day precip at USC00238880; source
 
 ![lag](../reports/figures/phase6_lag_correlation.png)
 
-Figure: source: USGS DV 07069190 + PRISM 30 km basin mean; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
+Figure: source: USGS DV 07069190 + NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.
 
 ## Limitations
 
-- Station indices are point measurements; basin indices are a 4 km grid mean (smoother extremes by construction).
+- Station indices are point measurements; basin indices are a gridded areal mean (NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC) — smoother extremes by construction.
 - COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the USC00238880 trend window matches KUNO/basin rather than extending it.
 - USC00238880 has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.
 - Precip series carry no approval flag; the all/approved-only rule does not apply to the index trends. It does apply to the coupling (Mammoth flow carries flags) and is reported above. Mammoth flow used in coupling: source: USGS DV 07069190; period 1981-02-25–2026-08-23; approved 99%, provisional from 2026-04-09.

@@ -1,5 +1,7 @@
 # Handoff — Spring River study: second edition on supplemental precipitation data
 
+Status: implemented 2026-08-25 on `study/precip-edition` — see `docs/superpowers/plans/2026-08-25-spring-river-precip-edition.md`.
+
 Written 2026-08-25. Next session's job: rebuild the precipitation-dependent parts of the report on the MoDNR recharge polygon and NOAA AORC, then republish.
 
 ## Where things stand
