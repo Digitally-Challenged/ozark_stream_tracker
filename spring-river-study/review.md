@@ -154,3 +154,20 @@ Corrections of wording and numbers:
 Data that would resolve the remaining open questions: NOAA AORC v1.1 homogeneity documentation and a one-cell AORC re-pull at the gauge; an independent gridded product without a 2002 input change; quantile-based COOP/KUNO homogenisation; PeakFQ/EMA with the 1982 crest; synoptic seepage runs Mammoth → South Fork → Hardy; the USGS shift tables (the field and channel measurements are now in hand).
 
 Reviewer reports: `docs/review_phase8/` (brief.md, review-baseflow.md, review-floods.md, review-precip.md; review-codex.md added when it lands).
+
+---
+
+## Corrections applied (2026-08-25, same branch)
+
+Punch-list items 1–10, 12 and 13 were implemented in the runners and the report (commits f20ce8e, e0ad1da, b1cffce, 0f746a6, 2754289; item 11 is the lay report, corrected separately in 53ded04). Tests 181 → 214. The corrected headline statements, as now rendered from the runners:
+
+- **Q3.** Annual and recharge-season totals not rising. AORC storm-sharpness indices step at 2002 (SDII slope with a step term −0.002/decade, p = 0.86; step p = 0.001) and trend flat-to-negative within each era (0 of 6 rising); over identical years AORC SDII +36 % vs gauge +1 % while totals agree (+9 % vs +11 %). No intensification detectable.
+- **Q4 Hardy.** +30.7 % against a placebo mean of +9.7 % that 11 % of random sets reach; +8.0 % (CI −8.1 to +22.8) at a 90-day skip; placebo-corrected ≈ +21 %. Mammoth: placebo +0.6 %, 0 of 200 sets reach +26 % — stands.
+- **Q7.** Untestable with the current record (Fisher power 0.08 against a 2.5× effect).
+- **Q8.** 23 ft: 20–29 yr with the 1982 crest as historical information (H = 44 → 20.1 yr; H = 90 → 24.5 yr), quoted in place of the systematic-only 29.4.
+
+Two findings that emerged while implementing, beyond the reviewers' lists:
+- The WY2008 (difference) vs WY2013–14 (ratio) change-point discrepancy noted under "BFI; Pettitt" **resolves**: on complete water years both the Hardy−Mammoth difference and the log-ratio put the change after WY2014; the WY2008 reading was an incomplete-final-year artefact.
+- Watson–Williams across decades: "no drift" in peak timing holds for the 89-year Imboden series (p = 0.32) but **not** for Hardy's three-decade series (p = 0.027) — Hardy's annual-peak dates have moved later across 2000s → 2010s → 2020s. With n ≈ 6–9 per decade this is reported as a result on the short series, not as a change in the river's regime, and the §6.1 verdict is now stated separately for the two gauges.
+
+Verification: see the Phase 8 corrections review and fresh-clone check recorded in the session ledger; the Codex generalist review is appended to `docs/review_phase8/` when it lands.
