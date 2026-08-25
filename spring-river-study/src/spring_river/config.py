@@ -30,3 +30,6 @@ RATING_TOLERANCE = 0.20                 # ±20% flow band for the local log-line
 REGIONAL_SKEW = -0.2
 REGIONAL_SKEW_MSE = 0.302
 MAJOR_FLOOD_FT = 16.0
+NWS_CATEGORY_FT = {"action": 8.0, "minor": 10.0, "moderate": 14.0, "major": 16.0}  # NWS HDYA4
+RATING_TABLE_STAGES_FT = (2.5, 3, 3.5, 4, 5, 6, 8, 10, 12, 14, 16, 18, 20, 22)
+RATING_RECENT_SINCE = "2023-10-01"      # "recent" rating variant = WY 2024+

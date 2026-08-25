@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.ticker import MaxNLocator
+from matplotlib.ticker import MaxNLocator, NullFormatter, ScalarFormatter
 import pandas as pd
 
 from spring_river.analysis.common import (
@@ -25,14 +25,17 @@ from spring_river.config import (
     DOCS_DIR,
     FIGURES_DIR,
     MAJOR_FLOOD_FT,
+    NWS_CATEGORY_FT,
     PARAM_DISCHARGE,
     PARAM_STAGE,
+    RATING_RECENT_SINCE,
     SITE_HARDY,
     SITE_MAMMOTH,
     START_DATE,
     TABLES_DIR,
 )
 from spring_river.hydro.baseflow import bfi_by_wy
+from spring_river.hydro.freq_lp3 import stage_flow_fit
 from spring_river.hydro.lowflow import PREDICTORS, AttributionFit, attribution_table, fit_attribution
 from spring_river.hydro.postflood import (
     PRE_STATE_DAYS,
@@ -42,7 +45,14 @@ from spring_river.hydro.postflood import (
 )
 from spring_river.ingest import oni, prism, usgs
 from spring_river.ingest.pull_all import IV_START
-from spring_river.qa.rating import pair_iv, rating_shift_at_events, stage_at_flow
+from spring_river.qa.rating import (
+    flow_percentile_stages,
+    loglog_correlation,
+    pair_iv,
+    rating_shift_at_events,
+    rating_table,
+    stage_at_flow,
+)
 from spring_river.stats.trends import MIN_N, TrendResult, pettitt, trend_test
 
 BFI_METHODS = ("eckhardt", "lyne_hollick")
@@ -176,7 +186,7 @@ def _min7_figure(fits: dict[str, dict[str, Fit]], series: dict[str, pd.DataFrame
     plt.close(fig)
 
 
-def _rating_section(end: str, majors: pd.Series, lines: list[str]) -> None:
+def _rating_section(end: str, majors: pd.Series, dv_q: pd.DataFrame, peaks: pd.DataFrame, lines: list[str]) -> None:
     iv_q = usgs.get_iv(SITE_HARDY, PARAM_DISCHARGE, IV_START, end)
     iv_h = usgs.get_iv(SITE_HARDY, PARAM_STAGE, IV_START, end)
     pairs = pair_iv(iv_q, iv_h)
@@ -220,6 +230,84 @@ def _rating_section(end: str, majors: pd.Series, lines: list[str]) -> None:
             lines.append(f"  - approved-only: {_fmt_or_short(res['approved'][0], 'ft', res['approved'][1])}")
     _rating_figure(sf, majors, iv_h)
     lines += ["", "![rating](../reports/figures/phase4_rating_drift.png)", ""]
+    pairs_cap = caption(f"USGS IV {SITE_HARDY} discharge+stage", pairs.rename(columns={"datetime": "date"}))
+    rt, fit, fp = _lookup_tables(pairs, dv_q, peaks)
+    _lookup_lines(rt, fit, fp, pairs_cap, lines)
+    _rating_curve_figure(pairs, rt, pairs_cap)
+
+
+def _lookup_tables(pairs: pd.DataFrame, dv_q: pd.DataFrame, peaks: pd.DataFrame) -> tuple[pd.DataFrame, dict, pd.DataFrame]:
+    """Write phase4_rating_table (whole_record + recent variants) and phase4_rating_fit parquets."""
+    rt = pd.concat(
+        [
+            rating_table(pairs).assign(variant="whole_record"),
+            rating_table(pairs, since=RATING_RECENT_SINCE).assign(variant="recent"),
+        ],
+        ignore_index=True,
+    )
+    rt.to_parquet(TABLES_DIR / "phase4_rating_table.parquet")
+    a, b, r2 = stage_flow_fit(peaks)
+    fit = {**loglog_correlation(pairs), "peak_fit_a": a, "peak_fit_b": b, "peak_fit_r2": r2,
+           "peak_n": int(peaks.dropna(subset=["peak_cfs", "gage_ht_ft"]).shape[0]), "recent_since": RATING_RECENT_SINCE}
+    pd.DataFrame([fit]).to_parquet(TABLES_DIR / "phase4_rating_fit.parquet")
+    fp = flow_percentile_stages(pairs, dv_q["value"], since=RATING_RECENT_SINCE)
+    fp.to_parquet(TABLES_DIR / "phase4_rating_percentiles.parquet")
+    return rt, fit, fp
+
+
+def _lookup_lines(rt: pd.DataFrame, fit: dict, fp: pd.DataFrame, pairs_cap: str, lines: list[str]) -> None:
+    wide = rt.pivot(index="stage_ft", columns="variant", values=["median_cfs", "n_pairs"])
+    side = pd.DataFrame(
+        {
+            "stage_ft": wide.index,
+            "whole_record_median_cfs": wide[("median_cfs", "whole_record")].to_numpy(),
+            "recent_median_cfs": wide[("median_cfs", "recent")].to_numpy(),
+            "n_whole": wide[("n_pairs", "whole_record")].to_numpy(),
+            "n_recent": wide[("n_pairs", "recent")].to_numpy(),
+        }
+    )
+    lines += [
+        "### Stage–discharge lookup",
+        "",
+        f"Pairs: {pairs_cap}. Median (and IQR in the parquet) of discharge over pairs within ±0.05 ft of each "
+        f"stage; `recent` = pairs from {RATING_RECENT_SINCE} (WY 2024+); NaN where fewer than 20 pairs.",
+        "",
+        side.to_markdown(index=False, floatfmt=(".1f", ".0f", ".0f", ".0f", ".0f")),
+        "",
+        f"Correlation: Pearson r of log10 stage vs log10 discharge = {fit['r_loglog']:.4f}; Spearman rho = "
+        f"{fit['spearman']:.4f}; n={fit['n']} pairs. Annual-peak log-log fit log10 Q = {fit['peak_fit_a']:.4f} + "
+        f"{fit['peak_fit_b']:.4f}·log10 H (R²={fit['peak_fit_r2']:.3f}, n={fit['peak_n']} peaks).",
+        "",
+        f"Flow percentile → stage (Hardy DV discharge percentiles; median stage of recent pairs within ±3% of each flow):",
+        "",
+        fp.round(2).to_markdown(index=False),
+        "",
+        "![rating_curve](../reports/figures/phase4_rating_curve.png)",
+        "",
+    ]
+
+
+def _rating_curve_figure(pairs: pd.DataFrame, rt: pd.DataFrame, pairs_cap: str) -> None:
+    fig, ax = plt.subplots(figsize=(9, 6))
+    p = pairs[(pairs["q_cfs"] > 0) & (pairs["stage_ft"] > 0)]
+    hb = ax.hexbin(p["q_cfs"], p["stage_ft"], gridsize=70, xscale="log", yscale="log", bins="log", cmap="Greys", mincnt=1)
+    fig.colorbar(hb, ax=ax, label="pairs per cell (log10)")
+    for variant, color in (("whole_record", "C0"), ("recent", "C3")):
+        d = rt[(rt["variant"] == variant)].dropna(subset=["median_cfs"])
+        ax.plot(d["median_cfs"], d["stage_ft"], marker="o", color=color, label=f"{variant} median")
+    for name, h in NWS_CATEGORY_FT.items():
+        ax.axhline(h, color="grey", lw=0.6, ls=":")
+        ax.annotate(f"{name} {h:.0f} ft", (p["q_cfs"].min(), h), fontsize=7, color="grey", va="bottom")
+    ax.set_yticks([3, 4, 5, 6, 8, 10, 14, 16, 20])
+    ax.yaxis.set_major_formatter(ScalarFormatter())
+    ax.yaxis.set_minor_formatter(NullFormatter())
+    ax.set_xlabel("discharge (cfs)")
+    ax.set_ylabel("stage (ft)")
+    ax.legend(loc="lower right")
+    ax.set_title(f"Hardy stage–discharge pairs with median rating curves\n{pairs_cap}", fontsize=8)
+    fig.tight_layout()
+    fig.savefig(FIGURES_DIR / "phase4_rating_curve.png", dpi=150)
+    plt.close(fig)
 
 
 def _rating_figure(sf: pd.DataFrame, majors: pd.Series, iv_h: pd.DataFrame) -> None:
@@ -313,7 +401,8 @@ def main() -> None:
         "Mammoth": usgs.get_dv(SITE_MAMMOTH, PARAM_DISCHARGE, START_DATE, end),
         "Hardy": usgs.get_dv(SITE_HARDY, PARAM_DISCHARGE, START_DATE, end),
     }
-    majors = _major_flood_dates(usgs.get_peaks(SITE_HARDY))
+    peaks = usgs.get_peaks(SITE_HARDY)
+    majors = _major_flood_dates(peaks)
 
     lines = [
         f"# Phase 4 — base flow (Q1, Q4, Q5) — generated {date.today().isoformat()}",
@@ -338,7 +427,7 @@ def main() -> None:
     _bfi_section(series, lines)
     _min7_figure(fits, series)
     lines += ["![min7](../reports/figures/phase4_min7_trend.png)", ""]
-    _rating_section(end, majors, lines)
+    _rating_section(end, majors, series["Hardy"], peaks, lines)
     _postflood_section(series, basin, majors, lines)
     lines += [
         "## Limitations",

@@ -179,6 +179,36 @@ shift_tbl = md_table(q5, "event_date")
 shift_tbl["shift_ft"] = shift_tbl["shift_ft"].astype(float)
 shift_min, shift_max = shift_tbl["shift_ft"].min(), shift_tbl["shift_ft"].max()
 
+rtab = tbl("phase4_rating_table")
+rfit = tbl("phase4_rating_fit").iloc[0]
+rpct = tbl("phase4_rating_percentiles")
+rt_w = rtab.pivot(index="stage_ft", columns="variant", values=["median_cfs", "n_pairs"])
+rt_w = rt_w.loc[rt_w[("median_cfs", "whole_record")].notna()]
+
+
+def cfs_or_dash(v: float) -> str:
+    return "—" if np.isnan(v) else f"{v:,.0f}"
+
+
+rt_show = pd.DataFrame({
+    "stage (ft)": [f"{s:.1f}" for s in rt_w.index],
+    "whole-record median (cfs)": [cfs_or_dash(v) for v in rt_w[("median_cfs", "whole_record")]],
+    "recent median (cfs)": [cfs_or_dash(v) for v in rt_w[("median_cfs", "recent")]],
+    "n whole-record": [f"{int(v):,}" for v in rt_w[("n_pairs", "whole_record")]],
+    "n recent": [f"{int(v):,}" for v in rt_w[("n_pairs", "recent")]],
+})
+rt_ratio = (rt_w[("median_cfs", "recent")] / rt_w[("median_cfs", "whole_record")] - 1).dropna()
+rt_low = rt_ratio.loc[rt_ratio.index <= 4.0]            # low-end (paddling) stages with both variants
+rt_hi_ok = rt_ratio.loc[rt_ratio.index >= 6.0]
+rpct_show = pd.DataFrame({
+    "Hardy DV percentile": rpct["percentile"].astype(int),
+    "flow (cfs)": [f"{v:,.0f}" for v in rpct["q_cfs"]],
+    "recent stage (ft)": [f"{v:.2f}" for v in rpct["stage_ft"]],
+    "n pairs ±3 %": [f"{int(v):,}" for v in rpct["n_pairs"]],
+})
+pct_row = {int(r["percentile"]): r for _, r in rpct.iterrows()}
+paddle_span_ft = pct_row[95]["stage_ft"] - pct_row[5]["stage_ft"]
+
 pf = {s: tbl(f"phase4_postflood_{s}") for s in ("hardy", "mammoth")}
 q4 = section(P4, "## Q4 post-flood")
 q4_sec = {"mammoth": section(q4, "### Mammoth"), "hardy": section(q4, "### Hardy")}
@@ -481,6 +511,27 @@ show(st)
 
 Limitation: USGS rating-shift and datum history was not obtained; the drift is inferred from IV pairs only and is provisional until the official record is compared.
 
+### Stage–discharge relationship
+
+Across the `{python} f"{int(rfit['n']):,}"` matched pairs, log10 stage and log10 discharge correlate at Pearson r = `{python} g(rfit['r_loglog'], 3)` (Spearman ρ = `{python} g(rfit['spearman'], 3)`); the annual-peak log-log fit used in §9 is log10 Q = `{python} g(rfit['peak_fit_a'], 4)` + `{python} g(rfit['peak_fit_b'], 4)`·log10 H (R² = `{python} g(rfit['peak_fit_r2'], 3)`, n = `{python} int(rfit['peak_n'])` peaks).
+
+```{python}
+#| label: tbl-rating-lookup
+#| tbl-cap: "Stage → discharge lookup at Hardy: median discharge of IV pairs within ±0.05 ft of each stage, whole record vs recent (pairs from 2023-10-01, WY 2024+); blank where fewer than 20 pairs (reports/tables/phase4_rating_table.parquet; IQR in the parquet)."
+show(rt_show)
+```
+
+```{python}
+#| label: tbl-rating-pct
+#| tbl-cap: "Flow percentiles of Hardy daily discharge mapped to stage: median stage of recent pairs within ±3 % of each flow (reports/tables/phase4_rating_percentiles.parquet)."
+show(rpct_show)
+```
+
+- The paddling range lives inside about `{python} f"{paddle_span_ft:.1f}"` ft of stage: the 5th to 95th percentile of daily discharge (`{python} f"{pct_row[5]['q_cfs']:,.0f}"`–`{python} f"{pct_row[95]['q_cfs']:,.0f}"` cfs) spans `{python} f"{pct_row[5]['stage_ft']:.2f}"`–`{python} f"{pct_row[95]['stage_ft']:.2f}"` ft on the recent rating, and the median day (`{python} f"{pct_row[50]['q_cfs']:,.0f}"` cfs) reads `{python} f"{pct_row[50]['stage_ft']:.2f}"` ft.
+- The same stage carries more water now than the record-wide median at the low end: at `{python} f"{rt_low.index.min():.1f}"`–`{python} f"{rt_low.index.max():.1f}"` ft the recent median discharge is `{python} f"{100 * rt_low.min():+.0f}"` to `{python} f"{100 * rt_low.max():+.0f}"` % above the whole-record value, the lookup-table expression of the §4.2 drift; above `{python} f"{rt_hi_ok.index.min():.0f}"` ft the two agree within `{python} f"{100 * rt_hi_ok.abs().max():.0f}"` %.
+
+![Hardy stage–discharge pairs (log-log hexbin density) with whole-record and recent median rating curves and NWS category stages. `{python} rating_pairs_cap`.](figures/phase4_rating_curve.png){#fig-rating-curve}
+
 ## Post-flood base flow (Q4)
 
 For each ≥16 ft event, mean Eckhardt base flow over 6 months starting 30 days after the event is compared with the same calendar window in the 3 non-flood years closest in standardized distance on post-window precipitation and antecedent (90-day) base flow.
@@ -714,6 +765,7 @@ Stage→flow: log10 Q = `{python} g(sf_a, 4)` + `{python} g(sf_b, 4)`·log10 H (
 | Action / bank-full | 8–10 ft (`{python} f"{rp8['flow_cfs']:,.0f}"`–`{python} f"{rp10['flow_cfs']:,.0f}"` cfs) | NWS action/minor | `{python} g(rp8['lp3_return_period_yr'], 2)`–`{python} g(rp10['lp3_return_period_yr'], 2)` yr LP3; `{python} g(pot8['mean_per_yr'], 2)` declustered ≥8 ft events per year |
 | Flood exposure, moderate | 14–16 ft (`{python} f"{rp14['flow_cfs']:,.0f}"`–`{python} f"{rp16['flow_cfs']:,.0f}"` cfs) | NWS moderate/major | `{python} g(rp14['lp3_return_period_yr'], 2)`–`{python} g(rp16['lp3_return_period_yr'], 2)` yr LP3 (empirical `{python} g(rp14['empirical_return_period_yr'], 2)`–`{python} g(rp16['empirical_return_period_yr'], 2)`) |
 | Flood exposure, major | 20–23 ft (`{python} f"{rp20['flow_cfs']:,.0f}"`–`{python} f"{rp23['flow_cfs']:,.0f}"` cfs) | 2008/2025 tier | `{python} g(rp20['lp3_return_period_yr'], 3)`–`{python} g(rp23['lp3_return_period_yr'], 2)` yr LP3; `{python} int(rp20['nws_crests_ge_stage_1982_2025'])` NWS crests ≥ 20 ft in 1982–2025 |
+| Stage → flow lookup | `{python} rt_show.iloc[0, 0]`–`{python} rt_show.iloc[-1, 0]` ft in @tbl-rating-lookup; median day `{python} f"{pct_row[50]['stage_ft']:.2f}"` ft = `{python} f"{pct_row[50]['q_cfs']:,.0f}"` cfs | ±0.05 ft bands on `{python} f"{int(rfit['n']):,}"` IV pairs (§4.2.1) | use the recent column below `{python} f"{rt_hi_ok.index.min():.0f}"` ft; whole-record above |
 | Monitoring alert | basin precipitation anomaly this month → Mammoth flow next month (r = `{python} g(best['r'], 2)`); any ≥8 ft rise → recheck stage-at-flow drift | §7, §4.2 | — |
 
 The practical number for 22+ ft is the empirical rate: `{python} int(rp20['empirical_exceedances_2002_2025'])` annual peaks ≥ 20 ft in `{python} int(lp3_meta_df.loc[0, 'n'])` water years plus the 1982 crest outside the systematic record; the LP3 `{python} g(rp23['lp3_return_period_yr'], 2)` yr at 23 ft carries the full width of the n = `{python} int(lp3_meta_df.loc[0, 'n'])` bootstrap band.
