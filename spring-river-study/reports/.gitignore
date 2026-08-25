@@ -1,5 +1,2 @@
 /.quarto/
 **/*.quarto_ipynb
-*.html
-!brief.html
-!plain.html
