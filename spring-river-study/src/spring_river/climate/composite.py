@@ -66,6 +66,9 @@ def west_plains_composite(
     start: str = "1948-01-01", end: str | None = None
 ) -> pd.DataFrame:
     """Fetch both gauges, compute the catch ratio, and return the composite."""
+    # Imported here, not at module scope: `catch_ratio` and `splice` are pure
+    # and must stay importable (and unit-testable) without pulling in the
+    # ingest/config layer. Only this convenience fetcher needs them.
     from datetime import date
 
     from spring_river.config import START_DATE

@@ -163,7 +163,7 @@
   this inventory's ACIS table its `valid_daterange` is `1998-04-01` → `2026-08-23`,
   i.e. essentially present-day. **Secondary = USC00238880** (WEST PLAINS, COOP), sid
   `USC00238880`, `valid_daterange` `1948-07-01` → `2026-08-24` — same West Plains
-  location, much longer record (78 years vs. 28), useful for extending the
+  location, much longer record (a 1948–2026 span vs. 1998–2026), useful for extending the
   precipitation regime analysis back before 1998 and for cross-checking KUNO. (DORA 3SE,
   MO COOP, `1948-08-01`→`2026-08-11`, is a viable third candidate if a second
   cross-check station is needed later.)

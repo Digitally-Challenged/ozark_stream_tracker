@@ -76,7 +76,18 @@ def _trend_section(label: str, idx: pd.DataFrame, tr: pd.DataFrame, span: str) -
             f"- series span (non-missing days): {span}",
             f"- index years {int(valid['year'].min())}–{int(valid['year'].max())}; years passing 90% coverage: {len(valid)}",
             f"- {verdict}", "",
-            tr.drop(columns="series").round(3).to_markdown(index=False), ""]
+            _trend_table(tr), ""]
+
+
+def _trend_table(tr: pd.DataFrame) -> str:
+    """Markdown table with negative zeros normalised, so a slope that rounds to
+    zero prints `0` rather than the meaningless `-0`."""
+    out = tr.drop(columns="series").copy()
+    # Only the slope/CI columns: a genuinely tiny p-value must keep its sign
+    # and magnitude rather than being flattened to 0 here.
+    cols = [c for c in ("slope_per_decade", "lo", "hi", "z") if c in out.columns]
+    out[cols] = out[cols].mask(out[cols].abs() < 5e-4, 0.0)
+    return out.round(3).to_markdown(index=False)
 
 
 def _divergence_note(trends: dict[str, pd.DataFrame], indices: dict[str, pd.DataFrame],
@@ -114,7 +125,25 @@ def _divergence_note(trends: dict[str, pd.DataFrame], indices: dict[str, pd.Data
                if best == COMPOSITE_LABEL
                else f"Note {best} still has more index years ({station_years[best]}).")
             + " Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.",
+            _composite_interpretation(trends[COMPOSITE_LABEL], comp_idx, n_comp),
             ""]
+
+
+def _composite_interpretation(comp_tr: pd.DataFrame, comp_idx: pd.DataFrame, n_comp: int) -> str:
+    """One computed sentence on what the composite shows — no typed year counts."""
+    tr = comp_tr.set_index("index")
+    yrs = comp_idx.loc[comp_idx["total_in"].notna(), "year"]
+    sig = tr.index[tr["significant_bh"]].tolist()
+    intensity = [c for c in ("max1_in", "max3_in", "sdii_in", "top5_frac") if c in tr.index]
+    quiet = [c for c in intensity if not tr.loc[c, "significant_bh"]]
+    return (f"- Reading the {COMPOSITE_LABEL}, from its numbers: over the {n_comp} complete years "
+            f"({int(yrs.min())}–{int(yrs.max())}) the BH-significant indices are "
+            f"{', '.join(sig) if sig else 'none'}"
+            + (f", while the intensity indices ({', '.join(quiet)}) have CIs spanning zero. "
+               if quiet else ". ")
+            + "With the coverage problem removed, the gauge does not reproduce the basin series' "
+              "intensification over its own, longer window — a point-vs-areal and record-length "
+              "difference, not a coverage artifact.")
 
 
 def _lag_line(label: str, lc: pd.DataFrame) -> tuple[int, float, float, str]:

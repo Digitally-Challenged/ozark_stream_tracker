@@ -174,7 +174,8 @@ trends (Sen slope per decade, 95 % CI, BH across 10 indices):
 | top5_frac | −0.003 | −0.007 to 0.001 | 76 | no |
 | sdii_in | +0.003 in/wet-day | −0.005 to 0.010 | 76 | no |
 
-Interpretation, from the numbers: over 78 years the gauge shows **more wet days, not harder rain**.
+Interpretation, from the numbers: over the 76 complete years (1949–2025) the gauge shows **more wet
+days, not harder rain**.
 The one BH-significant index is the count of days ≥ 1 in; max 1-day and SDII — the two indices
 carrying the basin series' intensification signal over 1981–2025 — have CIs spanning zero at the
 gauge. The annual total's Sen CI excludes zero (+1.32, 0.308 to 2.35) but does not survive BH

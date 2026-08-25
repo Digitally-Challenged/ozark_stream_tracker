@@ -18,8 +18,8 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | recharge_in |  30 |              0.233 | -1.58  | 1.869 | 0.357 | 0.721 |  0.801 | False            |
 | growing_in  |  34 |              0.9   | -0.767 | 2.683 | 1.097 | 0.273 |  0.801 | False            |
 | days_ge_0p5 |  34 |              0.75  | -0.789 | 2.083 | 0.954 | 0.34  |  0.801 | False            |
-| days_ge_1   |  34 |             -0     | -0.769 | 1.212 | 0.374 | 0.709 |  0.801 | False            |
-| days_ge_2   |  34 |             -0     | -0.476 | 0.455 | 0     | 1     |  1     | False            |
+| days_ge_1   |  34 |              0     | -0.769 | 1.212 | 0.374 | 0.709 |  0.801 | False            |
+| days_ge_2   |  34 |              0     | -0.476 | 0.455 | 0     | 1     |  1     | False            |
 | max1_in     |  34 |              0.2   | -0.1   | 0.494 | 1.187 | 0.235 |  0.801 | False            |
 | max3_in     |  34 |              0.508 |  0.072 | 0.91  | 2.491 | 0.013 |  0.127 | False            |
 | top5_frac   |  34 |              0.002 | -0.006 | 0.011 | 0.563 | 0.573 |  0.801 | False            |
@@ -36,9 +36,9 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | total_in    |  27 |              4.279 | -0.557 | 10.261 |  1.709 | 0.087 |  0.226 | False            |
 | recharge_in |  27 |              1.518 | -0.596 |  3.347 |  1.626 | 0.104 |  0.226 | False            |
 | growing_in  |  27 |              3.4   | -1.075 |  7.131 |  1.584 | 0.113 |  0.226 | False            |
-| days_ge_0p5 |  27 |              3.333 | -0     |  7.5   |  1.861 | 0.063 |  0.226 | False            |
+| days_ge_0p5 |  27 |              3.333 |  0     |  7.5   |  1.861 | 0.063 |  0.226 | False            |
 | days_ge_1   |  27 |              1.429 | -0.769 |  3.077 |  1.3   | 0.194 |  0.277 | False            |
-| days_ge_2   |  27 |              0.455 | -0     |  1.25  |  1.414 | 0.157 |  0.262 | False            |
+| days_ge_2   |  27 |              0.455 |  0     |  1.25  |  1.414 | 0.157 |  0.262 | False            |
 | max1_in     |  27 |              0.25  | -0.21  |  0.75  |  1.209 | 0.227 |  0.283 | False            |
 | max3_in     |  27 |              0.4   | -0.562 |  1.437 |  0.709 | 0.478 |  0.532 | False            |
 | top5_frac   |  27 |             -0.003 | -0.024 |  0.019 | -0.208 | 0.835 |  0.835 | False            |
@@ -57,7 +57,7 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | growing_in  |  24 |              1.595 | -1.336 | 4.354 |  1.215 | 0.224 |  0.515 | False            |
 | days_ge_0p5 |  24 |              0.801 | -1.538 | 3.478 |  0.774 | 0.439 |  0.549 | False            |
 | days_ge_1   |  24 |              1.25  | -0.769 | 3.333 |  1.076 | 0.282 |  0.515 | False            |
-| days_ge_2   |  24 |             -0     | -0.455 | 0.667 |  0.484 | 0.628 |  0.691 | False            |
+| days_ge_2   |  24 |              0     | -0.455 | 0.667 |  0.484 | 0.628 |  0.691 | False            |
 | max1_in     |  24 |              0.066 | -0.485 | 0.489 |  0.397 | 0.691 |  0.691 | False            |
 | max3_in     |  24 |              0.412 | -0.25  | 1.076 |  1.364 | 0.172 |  0.515 | False            |
 | top5_frac   |  24 |             -0.011 | -0.027 | 0.01  | -1.116 | 0.264 |  0.515 | False            |
@@ -74,9 +74,9 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | total_in    |  76 |              1.322 |  0.308 | 2.352 |  2.543 | 0.011 |  0.055 | False            |
 | recharge_in |  74 |              0.569 | -0.062 | 1.083 |  1.731 | 0.083 |  0.167 | False            |
 | growing_in  |  76 |              0.624 | -0.034 | 1.347 |  1.879 | 0.06  |  0.151 | False            |
-| days_ge_0p5 |  76 |              0.833 | -0     | 1.562 |  2.314 | 0.021 |  0.069 | False            |
+| days_ge_0p5 |  76 |              0.833 |  0     | 1.562 |  2.314 | 0.021 |  0.069 | False            |
 | days_ge_1   |  76 |              0.714 |  0.267 | 1.176 |  3.19  | 0.001 |  0.014 | True             |
-| days_ge_2   |  76 |             -0     | -0     | 0.323 |  1.581 | 0.114 |  0.187 | False            |
+| days_ge_2   |  76 |              0     |  0     | 0.323 |  1.581 | 0.114 |  0.187 | False            |
 | max1_in     |  76 |              0.033 | -0.085 | 0.149 |  0.529 | 0.597 |  0.597 | False            |
 | max3_in     |  76 |              0.065 | -0.105 | 0.235 |  0.789 | 0.43  |  0.537 | False            |
 | top5_frac   |  76 |             -0.003 | -0.007 | 0.001 | -1.511 | 0.131 |  0.187 | False            |
@@ -93,9 +93,9 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 | total_in    |  45 |              0.96  | -1.25  | 3.124 |  0.851 | 0.395 |  0.395 | False            |
 | recharge_in |  44 |             -0.806 | -1.993 | 0.602 | -1.163 | 0.245 |  0.306 | False            |
 | growing_in  |  45 |              1.464 |  0.207 | 2.898 |  2.181 | 0.029 |  0.049 | True             |
-| days_ge_0p5 |  45 |              1.745 | -0     | 3.333 |  2.049 | 0.04  |  0.058 | False            |
+| days_ge_0p5 |  45 |              1.745 |  0     | 3.333 |  2.049 | 0.04  |  0.058 | False            |
 | days_ge_1   |  45 |              1.379 |  0.488 | 2.222 |  2.947 | 0.003 |  0.016 | True             |
-| days_ge_2   |  45 |              0.286 | -0     | 0.625 |  2.181 | 0.029 |  0.049 | True             |
+| days_ge_2   |  45 |              0.286 |  0     | 0.625 |  2.181 | 0.029 |  0.049 | True             |
 | max1_in     |  45 |              0.264 |  0.052 | 0.495 |  2.358 | 0.018 |  0.046 | True             |
 | max3_in     |  45 |              0.147 | -0.12  | 0.534 |  1.086 | 0.278 |  0.308 | False            |
 | top5_frac   |  45 |              0.01  |  0.003 | 0.018 |  2.514 | 0.012 |  0.04  | True             |
@@ -109,6 +109,7 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; the 1981+ pull, u
 - Basin values are NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC; station gaps enter a gridded product only through its gauge blending. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
 - USC00230127 (Alton) has no data 1983–1994 and 2012–2016; 24 years pass the 90 % coverage gate, so its trend test is a consistency check only.
 - **West Plains composite**: the USC00238880 1948→ record with its missing volunteer readings replaced by the co-located KUNO ASOS (~2 mi away) × the COOP/KUNO catch ratio 1.068, plus 36 days after 1998-04-01 where KUNO was missing and COOP was not. This **substitutes a co-located measurement, it does not interpolate** — a day missing at both gauges stays NaN and its year is still judged on coverage. That turns the 2011–2021 hole into a complete record: 76 years pass the 90 % coverage gate, against 34 for USC00238880 alone, 27 for KUNO and 24 for USC00230127. It is the highest-power station test in the study. Its result, not the gap-ridden COOP null, is the station-level check on the basin trends.
+- Reading the West Plains composite, from its numbers: over the 76 complete years (1949–2025) the BH-significant indices are days_ge_1, while the intensity indices (max1_in, max3_in, sdii_in, top5_frac) have CIs spanning zero. With the coverage problem removed, the gauge does not reproduce the basin series' intensification over its own, longer window — a point-vs-areal and record-length difference, not a coverage artifact.
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
