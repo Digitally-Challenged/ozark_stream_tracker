@@ -1,4 +1,9 @@
-"""Phase 1: pull everything into data/raw. Idempotent — cached pulls are skipped."""
+"""Phase 1: pull everything into data/raw. Idempotent — cached pulls are skipped.
+
+Note: Imboden (07069500) DV discharge has at-source gaps (not a pull defect)
+1995-05-10->2001-10-01 and 2015-10-26->2016-12-15; see Task 9's QA report for
+their extent and impact.
+"""
 import time
 from datetime import date
 
