@@ -21,3 +21,11 @@ def test_parse_stndata_values():
     assert out["pcpn_in"].iloc[1] == 0.0  # trace -> 0.0
     assert pd.isna(out["pcpn_in"].iloc[2])  # missing -> NaN
     assert out["date"].dtype.kind == "M"
+
+
+def test_parse_stndata_empty_returns_contract_frame():
+    out = _parse_stndata({"meta": {}, "data": []})
+    assert list(out.columns) == ["date", "pcpn_in"]
+    assert len(out) == 0
+    assert out["date"].dtype.kind == "M"
+    assert out["pcpn_in"].dtype == "float64"

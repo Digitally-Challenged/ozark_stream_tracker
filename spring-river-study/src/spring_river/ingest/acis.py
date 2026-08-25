@@ -54,7 +54,10 @@ def find_stations(bbox: tuple[float, float, float, float]) -> pd.DataFrame:
     }
     resp = requests.post(f"{ACIS_BASE}/StnMeta", json=body, timeout=60)
     resp.raise_for_status()
-    stations = resp.json()["meta"]
+    payload = resp.json()
+    if "error" in payload:
+        raise RuntimeError(f"ACIS StnMeta error: {payload['error']}")
+    stations = payload.get("meta", [])
     return pd.DataFrame(
         {
             "name": [s.get("name") for s in stations],
