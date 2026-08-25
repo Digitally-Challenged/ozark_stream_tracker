@@ -12,6 +12,16 @@ def min7(df: pd.DataFrame) -> pd.Series:
 
     Uses complete 7-day windows only (min_periods=7): windows touching a data
     gap are excluded rather than interpolated (spec: never interpolate).
+
+    Must be called on the WHOLE series (not a per-water-year slice): a
+    rolling window is free to span a water-year boundary (e.g. start in late
+    September and end in early October) and is assigned to the water year of
+    its ENDING day. Reindexing to a single water year's own extent before
+    rolling silently makes those boundary-spanning windows impossible to
+    form. `.groupby(wy).min()` uses pandas' default skipna=True intentionally
+    — a WY with at least one complete 7-day window should return that
+    window's minimum even if other windows in the WY are NaN (touch a gap);
+    a WY with NO complete windows correctly reduces to NaN.
     """
     s = df.set_index("date")["value"].sort_index()
     full = s.reindex(pd.date_range(s.index.min(), s.index.max(), freq="D"))

@@ -16,6 +16,12 @@ def _empty_tidy_frame(datetime_col: str) -> pd.DataFrame:
 
 
 def _tidy_dv(raw: pd.DataFrame, param: str) -> pd.DataFrame:
+    # DV dates are calendar days (tz stripped, not converted) while _tidy_iv
+    # converts to US/Central below — this asymmetry is intentional: NWIS
+    # reports DV against a calendar-day index with no meaningful local time
+    # component, but IV timestamps are instants that must be localized before
+    # being bucketed into calendar days. daily_max_stage() (hydro/wateryear.py)
+    # depends on _tidy_iv's output being tz-naive US/Central, not UTC.
     value_col = f"{param}_Mean"
     cd_col = f"{param}_Mean_cd"
     if raw.empty or value_col not in raw.columns or cd_col not in raw.columns:

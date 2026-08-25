@@ -32,7 +32,15 @@ Fix round 1 (2026-08-24), two behaviours:
 
 Output columns, in order: `wy`, `peak_stage_ft`, `peak_cfs`, `days_ge_8ft`,
 `days_ge_10ft`, `days_ge_14ft`, `days_ge_16ft`, `min7_cfs`, `bfi`,
-`precip_cal_in`, `precip_recharge_in`, `complete`.
+`precip_cal_in`, `precip_cal_days`, `precip_recharge_in`, `complete`.
+
+`precip_cal_in` (I5): a RAW SUM of daily `pcpn_in` values for the calendar
+year — it is not adjusted for missing days. `precip_cal_days` is the
+additive int count of non-NaN `pcpn_in` days that went into that sum (max
+365, or 366 in a leap year). Any consumer of `precip_cal_in` MUST check
+`precip_cal_days` before comparing totals across years or treating a low
+total as meaningful — a year with many missing days will show an
+artificially low sum, not zero rainfall.
 """
 from datetime import date
 
@@ -69,6 +77,17 @@ def build_ledger(
     stage = dv_stage.assign(wy=water_year(dv_stage["date"]))
     pk = peaks.assign(wy=water_year(peaks["date"]))
 
+    # C1 fix (2026-08-24): min7 must be computed ONCE on the whole discharge
+    # series, not per-WY-group. A rolling(7, min_periods=7) window that ends
+    # on day 1-6 of a water year needs the trailing days of the PRIOR water
+    # year to exist in its input; grouping by WY first (and reindexing each
+    # group to its own extent) makes those early-WY windows impossible to
+    # form, silently dropping the first 6 days of every water year from
+    # consideration. Computing min7 on the whole series and then looking up
+    # by WY preserves cross-boundary windows (each window is assigned to the
+    # WY of its ENDING day — see hydro.wateryear.min7).
+    min7_all = min7(dv_q[["date", "value"]])
+
     rows = []
     for wy, grp in q.groupby("wy"):
         st = stage[stage["wy"] == wy]["value"]
@@ -92,15 +111,16 @@ def build_ledger(
                 "days_ge_10ft": int((st >= th["minor"]).sum()) if has_stage else pd.NA,
                 "days_ge_14ft": int((st >= th["moderate"]).sum()) if has_stage else pd.NA,
                 "days_ge_16ft": int((st >= th["major"]).sum()) if has_stage else pd.NA,
-                "min7_cfs": min7(grp[["date", "value"]]).get(wy, pd.NA),
+                "min7_cfs": min7_all.get(wy, pd.NA),
                 "bfi": bfi(qv) if len(qv) > 30 else pd.NA,
                 "precip_cal_in": cal.sum() if len(cal) else pd.NA,
+                "precip_cal_days": int(cal.notna().sum()),
                 "precip_recharge_in": recharge.sum() if len(recharge) else pd.NA,
                 "complete": complete,
             }
         )
     out = pd.DataFrame(rows).sort_values("wy").reset_index(drop=True)
-    for col in ("days_ge_8ft", "days_ge_10ft", "days_ge_14ft", "days_ge_16ft"):
+    for col in ("days_ge_8ft", "days_ge_10ft", "days_ge_14ft", "days_ge_16ft", "precip_cal_days"):
         out[col] = out[col].astype("Int64")
     return out
 
@@ -126,6 +146,16 @@ def main() -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     ledger.to_parquet(PROCESSED_DIR / "annual_ledger.parquet")
 
+    # approved fraction of the Hardy discharge series that feeds min7/peak —
+    # I4: figure captions must state approval status.
+    dv_q_approved_frac = float(dv_q["approved"].mean()) if len(dv_q) else float("nan")
+    dv_q_provisional_from = dv_q.loc[~dv_q["approved"], "date"].min() if len(dv_q) else None
+    approval_note = f"Hardy discharge approved {dv_q_approved_frac:.0%}" + (
+        f", provisional from {dv_q_provisional_from.date()}"
+        if pd.notna(dv_q_provisional_from)
+        else ""
+    )
+
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     fig, axes = plt.subplots(3, 1, figsize=(11, 9), sharex=True)
     axes[0].bar(ledger["wy"], pd.to_numeric(ledger["peak_stage_ft"], errors="coerce"))
@@ -140,10 +170,12 @@ def main() -> None:
     axes[2].set_ylabel("recharge-season precip (in)")
     axes[2].set_xlabel("water year")
     fig.suptitle(
-        "Spring River at Hardy — annual ledger\n"
-        "source: USGS discharge/stage/peaks, PRISM basin recharge precip, "
-        "ACIS USC00238880 calendar precip",
-        fontsize=11,
+        f"Spring River at Hardy (USGS {SITE_HARDY}) — annual ledger\n"
+        f"source: USGS discharge/stage/peaks (site {SITE_HARDY}), PRISM basin "
+        f"recharge precip, ACIS USC00238880 calendar precip; "
+        f"period WY {int(ledger['wy'].min())}–{int(ledger['wy'].max())}; "
+        f"{approval_note}",
+        fontsize=10,
     )
     fig.tight_layout(rect=(0, 0, 1, 0.94))
     fig.savefig(FIGURES_DIR / "annual_ledger.png", dpi=150)

@@ -45,6 +45,10 @@ def _pull_iv(site: str, param: str, start: str, end: str) -> pd.DataFrame:
 
 
 def main() -> None:
+    # USGS NWIS occasionally returns transient 503s under load; if this run
+    # dies partway through, just rerun `make data` — fetch_cached persists
+    # each successful pull to data/raw as it completes, so a rerun resumes
+    # from the first uncached item rather than redoing prior work.
     start_time = time.monotonic()
     end = date.today().isoformat()
 

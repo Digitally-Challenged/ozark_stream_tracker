@@ -30,6 +30,14 @@
 | 2014-07-08 00:00:00 | 2014-07-20 00:00:00 |     13 |
 | 2014-08-10 00:00:00 | 2014-08-18 00:00:00 |      9 |
 
+## Mammoth Spring vent discharge
+
+- rows: 16616; span 1981-02-25 → 2026-08-23
+- approved fraction: 0.992; provisional from 2026-04-09 00:00:00
+- gaps > 7 days: 0
+
+(none)
+
 ## Hardy vs Imboden cross-check
 
 - overlap days: 8666; |z| > 4 flagged days: 63
@@ -163,3 +171,10 @@
 - mean ratio (USC00238880/KUNO): 1.10
 
 Daily correlation between an ASOS calendar-day series and a COOP station whose observation day ends ~7 AM is expected to be depressed by the observation-time offset; Phase 4 should compare on multi-day or monthly aggregates before treating this as a data-quality problem.
+
+## Limitations and deferred QA items
+
+- **USGS datum and rating-shift history** (spec §2.1 / risk #4) has NOT yet been obtained for Hardy. Stage-discharge rating changes over 1981–2026 could alter the stage-to-flow relationship independent of any hydrologic trend; Q5 (any claim relating stage thresholds to flow) currently rests solely on IV-derived stage-at-flow readings, not on the official rating history. Any conclusion sensitive to rating shifts must be flagged provisional until this is obtained.
+- **Hardy daily stage** has no USGS daily-stage product. This report uses the daily MAX of instantaneous (IV) stage readings (`daily_max_stage`), defined only for WY 2008 onward (IV_START = 2007-10-01). A daily max is systematically greater than or equal to a daily mean, so Hardy stage-threshold day-counts in this report are an upper bound relative to a mean-based daily-stage product.
+- **Gap boundary convention**: every gap table in this report (`find_gaps`) reports `gap_start`/`gap_end` as the first and last MISSING day of the run — not the last good day before the gap or the next good day after it. Stated once here; `find_gaps` itself is unchanged.
+- **Precipitation gap detection is series-bounded**: gap tables for each ACIS precip series are computed only within that series' own first-to-last observed date range. A station with a later start date (e.g. KUNO, ASOS from 1998) is not flagged as 'gapped' for the years before its record begins — that absence is a coverage limit, not a gap, and must be read from the station's stated span above, not from its gap table.
