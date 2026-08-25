@@ -2,7 +2,9 @@ import math
 
 import pandas as pd
 
-from spring_river.ingest.prism import _bbox_around, _mean_grid_series
+import pytest
+
+from spring_river.ingest.prism import _bbox_around, _mean_grid_series, _year_chunks
 
 
 def test_bbox_around_west_plains():
@@ -24,6 +26,25 @@ def test_mean_grid_series_ignores_missing_cells():
     assert list(out.columns) == ["date", "pcpn_in"]
     assert math.isclose(out["pcpn_in"].iloc[0], (0.5 + 0.7 + 0.9) / 3)
     assert pd.isna(out["pcpn_in"].iloc[1])
+
+
+def test_year_chunks_mid_year_multi_year():
+    assert _year_chunks("2019-11-01", "2021-02-01") == [
+        ("2019-11-01", "2019-12-31"),
+        ("2020-01-01", "2020-12-31"),
+        ("2021-01-01", "2021-02-01"),
+    ]
+
+
+def test_year_chunks_single_month_same_year():
+    assert _year_chunks("2024-01-01", "2024-01-31") == [
+        ("2024-01-01", "2024-01-31"),
+    ]
+
+
+def test_year_chunks_end_before_start_raises():
+    with pytest.raises(ValueError):
+        _year_chunks("2024-02-01", "2024-01-01")
 
 
 def test_mean_grid_series_empty_payload():

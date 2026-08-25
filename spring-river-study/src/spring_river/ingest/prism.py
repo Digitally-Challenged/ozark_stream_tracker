@@ -32,6 +32,22 @@ def _empty_grid_frame() -> pd.DataFrame:
     )
 
 
+def _year_chunks(start: str, end: str) -> list[tuple[str, str]]:
+    start_ts = pd.Timestamp(start)
+    end_ts = pd.Timestamp(end)
+    if end_ts < start_ts:
+        raise ValueError(f"end ({end}) is before start ({start})")
+
+    chunks = []
+    for year in range(start_ts.year, end_ts.year + 1):
+        year_start = max(start_ts, pd.Timestamp(year, 1, 1))
+        year_end = min(end_ts, pd.Timestamp(year, 12, 31))
+        chunks.append(
+            (year_start.strftime("%Y-%m-%d"), year_end.strftime("%Y-%m-%d"))
+        )
+    return chunks
+
+
 def _mean_grid_series(payload: dict) -> pd.DataFrame:
     rows = payload["data"]
     if not rows:
@@ -57,16 +73,11 @@ def get_basin_pcpn(
 
     def fetch() -> pd.DataFrame:
         frames = []
-        for year_start in pd.date_range(start, end, freq="YS").union(
-            pd.DatetimeIndex([pd.Timestamp(start)])
-        ):
-            year_end = min(
-                pd.Timestamp(year_start.year, 12, 31), pd.Timestamp(end)
-            )
+        for chunk_start, chunk_end in _year_chunks(start, end):
             body = {
                 "bbox": ",".join(f"{v:.4f}" for v in bbox),
-                "sdate": year_start.strftime("%Y-%m-%d"),
-                "edate": year_end.strftime("%Y-%m-%d"),
+                "sdate": chunk_start,
+                "edate": chunk_end,
                 "grid": PRISM_GRID,
                 "elems": [{"name": "pcpn"}],
             }
