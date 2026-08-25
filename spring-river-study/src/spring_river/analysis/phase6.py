@@ -24,12 +24,21 @@ import pandas as pd
 from spring_river.analysis.common import approval_variants, caption, write_report
 from spring_river.climate.coupling import lag_correlation, monthly_series, response_lag
 from spring_river.climate.intensity import INDEX_COLUMNS, annual_indices, index_trends
-from spring_river.config import DOCS_DIR, FIGURES_DIR, PARAM_DISCHARGE, SITE_MAMMOTH, START_DATE, TABLES_DIR
-from spring_river.ingest import acis, prism, usgs
+from spring_river.config import (
+    BASIN_PRECIP_SOURCE,
+    DOCS_DIR,
+    FIGURES_DIR,
+    PARAM_DISCHARGE,
+    SITE_MAMMOTH,
+    START_DATE,
+    TABLES_DIR,
+)
+from spring_river.ingest import acis, basin as basin_mod, usgs
 from spring_river.ingest.pull_all import PRECIP_SIDS
 
 COOP_SID = PRECIP_SIDS[1]
 KUNO_SID = PRECIP_SIDS[0]
+ALTON_SID = PRECIP_SIDS[2]
 COOP_REQUESTED_START = "1948-01-01"
 MIN_MONTH_DAYS = 25
 N_BOOT = 1000
@@ -76,8 +85,10 @@ def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame) ->
             "Sep (year-1)–Feb (year) calendar season, so it is NaN for any year whose season straddles a series start "
             "or a gap (e.g. a series beginning 1 Jan has no recharge value for its first year). Its n can therefore be "
             "smaller than the other indices' n for the same series, never larger.",
-            "- PRISM basin values are a 4 km grid mean over a ~60 × 60 km box around West Plains; station gaps enter "
-            "PRISM only indirectly through its interpolation. Treat the basin trends as the Q3 headline and the station tests as a consistency check.", ""]
+            f"- Basin values are {basin_mod.basin_label()}; station gaps enter a gridded product only through its gauge blending. "
+            "Treat the basin trends as the Q3 headline and the station tests as a consistency check.",
+            f"- {ALTON_SID} (Alton) has no data 1983–1994 and 2012–2016; its trend test covers ~26 years and is a consistency check only.",
+            ""]
 
 
 def _lag_line(label: str, lc: pd.DataFrame) -> tuple[int, float, float, str]:
@@ -117,7 +128,7 @@ def _lag_figure(lc: pd.DataFrame, mammoth: pd.DataFrame, path) -> None:
     ax.axhline(0, color="grey", lw=0.8)
     ax.set_xlabel("lag (months)"); ax.set_ylabel("r (anomalies)")
     ax.set_title(f"basin precip → Mammoth Spring flow (block bootstrap 95% CI)\n"
-                 f"USGS DV {SITE_MAMMOTH} + PRISM 30 km; {mammoth['date'].min().year}–{mammoth['date'].max().year}; "
+                 f"USGS DV {SITE_MAMMOTH} + basin precip [{BASIN_PRECIP_SOURCE}]; {mammoth['date'].min().year}–{mammoth['date'].max().year}; "
                  f"approved {mammoth['approved'].mean():.0%}", fontsize=9)
     fig.tight_layout(); fig.savefig(path, dpi=150); plt.close(fig)
 
@@ -127,14 +138,16 @@ def main() -> None:
     TABLES_DIR.mkdir(parents=True, exist_ok=True); FIGURES_DIR.mkdir(parents=True, exist_ok=True)
     coop = acis.get_station_pcpn(COOP_SID, COOP_REQUESTED_START, end)
     kuno = acis.get_station_pcpn(KUNO_SID, START_DATE, end)
-    basin = prism.get_basin_pcpn(START_DATE, end)
+    alton = acis.get_station_pcpn(ALTON_SID, START_DATE, end)
+    basin = basin_mod.get_basin_pcpn(START_DATE, end)
     mammoth = usgs.get_dv(SITE_MAMMOTH, PARAM_DISCHARGE, START_DATE, end)
 
     coop_span = _series_span(coop)
     lines = [f"# Phase 6 — precipitation regime (Q3) — generated {date.today().isoformat()}", "",
              f"Series: {COOP_SID} West Plains COOP ({coop_span}; COOP series 1981+ in this build — the ACIS cache is "
              f"keyed on station id, so the {COOP_REQUESTED_START[:4]} request returned the cached 1981+ pull; a 1948 backfill "
-             f"needs a `refresh=True` pull), KUNO ASOS ({_series_span(kuno)}), PRISM 30 km basin mean ({_series_span(basin)}).", "",
+             f"needs a `refresh=True` pull), KUNO ASOS ({_series_span(kuno)})"
+             f", {ALTON_SID} Alton COOP ({_series_span(alton)}), basin = {basin_mod.basin_label()} ({_series_span(basin)}).", "",
              "## Station agreement on monthly totals (qa_report follow-up)", ""]
     ag = _monthly_agreement(kuno, coop)
     lines += [f"- KUNO vs {COOP_SID} monthly totals (months with ≥{MIN_MONTH_DAYS} days at both stations): r={ag['r']:.2f}, "
@@ -142,7 +155,7 @@ def main() -> None:
               f"Daily r was 0.42 in qa_report; monthly aggregation removes the ~7 AM observation-day offset.", ""]
 
     trends = {}
-    for label, df in ((COOP_SID, coop), ("KUNO", kuno), ("basin", basin)):
+    for label, df in ((COOP_SID, coop), ("KUNO", kuno), (ALTON_SID, alton), ("basin", basin)):
         idx = annual_indices(df)
         idx.to_parquet(TABLES_DIR / f"phase6_indices_{label}.parquet")
         tr = index_trends(idx).assign(series=label)
@@ -170,9 +183,9 @@ def main() -> None:
               f"Figure: annual total, days ≥ 1 in, and max 1-day precip at {COOP_SID}; source RCC-ACIS StnData; period {coop_span}; "
               "years with <90% daily coverage omitted; approval N/A — station precip carries no approval flag.", "",
               "![lag](../reports/figures/phase6_lag_correlation.png)", "",
-              f"Figure: {caption(f'USGS DV {SITE_MAMMOTH} + PRISM 30 km basin mean', mammoth)}.", "",
+              f"Figure: {caption(f'USGS DV {SITE_MAMMOTH} + {basin_mod.basin_label()}', mammoth)}.", "",
               "## Limitations", "",
-              "- Station indices are point measurements; basin indices are a 4 km grid mean (smoother extremes by construction).",
+              f"- Station indices are point measurements; basin indices are a gridded areal mean ({basin_mod.basin_label()}) — smoother extremes by construction.",
               f"- COOP series 1981+ in this build (cache keyed on station id); the 1948–1980 record is not yet pulled, so the "
               f"{COOP_SID} trend window matches KUNO/basin rather than extending it.",
               f"- {COOP_SID} has 32 gaps > 7 days (qa_report); years failing 90% coverage are NaN, not low. KUNO years before 1998 are NaN by coverage.",

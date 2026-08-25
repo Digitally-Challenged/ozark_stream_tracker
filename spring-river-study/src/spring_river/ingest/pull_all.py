@@ -11,6 +11,7 @@ import pandas as pd
 
 from spring_river.config import (
     ALTON_SID,
+    BASIN_SOURCES,
     PARAM_DISCHARGE,
     PARAM_STAGE,
     SITE_HARDY,
@@ -18,7 +19,7 @@ from spring_river.config import (
     SITE_MAMMOTH,
     START_DATE,
 )
-from spring_river.ingest import acis, aorc, basin, nwps, prism, usgs
+from spring_river.ingest import acis, basin, nwps, usgs
 
 # Decisions from docs/data_inventory.md (Task 7) + docs/precip_sources.md (2026-08-25):
 # - Primary precip = KUNO (West Plains ASOS); secondary = USC00238880 (West Plains COOP);
@@ -73,13 +74,9 @@ def main() -> None:
         df = acis.get_station_pcpn(sid, START_DATE, end)
         print(f"acis {sid}: {len(df)} rows")
 
-    poly = basin.load_recharge_polygon()
-    for label, df in (
-        ("aorc", aorc.get_basin_pcpn(START_DATE, end)),
-        ("prism_polygon", prism.get_basin_pcpn(START_DATE, end, polygon=poly)),
-        ("prism_buffer", prism.get_basin_pcpn(START_DATE, end)),
-    ):
-        print(f"basin precip [{label}]: {len(df)} rows, {int(df['pcpn_in'].isna().sum())} NaN days")
+    for source in BASIN_SOURCES:
+        df = basin.get_basin_pcpn(START_DATE, end, source=source)
+        print(f"basin precip [{source}]: {len(df)} rows, {int(df['pcpn_in'].isna().sum())} NaN days")
 
     cats = nwps.flood_categories(nwps.get_gauge_info())
     print(f"nwps flood categories: {cats}")

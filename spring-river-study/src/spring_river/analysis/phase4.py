@@ -22,6 +22,7 @@ from spring_river.analysis.common import (
     write_report,
 )
 from spring_river.config import (
+    BASIN_PRECIP_SOURCE,
     DOCS_DIR,
     FIGURES_DIR,
     MAJOR_FLOOD_FT,
@@ -43,7 +44,7 @@ from spring_river.hydro.postflood import (
     matched_comparison,
     paired_summary,
 )
-from spring_river.ingest import oni, prism, usgs
+from spring_river.ingest import basin as basin_mod, oni, usgs
 from spring_river.ingest.pull_all import IV_START
 from spring_river.qa.rating import (
     flow_percentile_stages,
@@ -395,7 +396,7 @@ def main() -> None:
     end = date.today().isoformat()
     TABLES_DIR.mkdir(parents=True, exist_ok=True)
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    basin = prism.get_basin_pcpn(START_DATE, end)
+    basin = basin_mod.get_basin_pcpn(START_DATE, end)
     oni_df = oni.get_oni()
     series = {
         "Mammoth": usgs.get_dv(SITE_MAMMOTH, PARAM_DISCHARGE, START_DATE, end),
@@ -412,7 +413,7 @@ def main() -> None:
         "",
         "## Q1 attribution",
         "",
-        f"Basin precip: PRISM 30 km buffer around West Plains, {basin['date'].min().date()}–{basin['date'].max().date()}; "
+        f"Basin precip: {basin_mod.basin_label()} [{BASIN_PRECIP_SOURCE}], {basin['date'].min().date()}–{basin['date'].max().date()}; "
         f"ONI: CPC, {oni_df['date'].min().date()}–{oni_df['date'].max().date()}.",
         "",
         "Model: OLS log(min7) ~ p_trailing_in + p_trailing_prev_in + oni_trailing (HC3). Predictors are strictly "
@@ -437,7 +438,7 @@ def main() -> None:
         f"- Q4 n equals the number of ≥{MAJOR_FLOOD_FT:.0f} ft events in the Hardy peak file; CI is a bootstrap on a handful "
         "of events and excludes matching uncertainty and control-year reuse (descriptive, not causal).",
         f"- Q5 shifts use ±365-day windows around each event; events before IV_START ({IV_START}) have no pairs and are omitted.",
-        "- Basin precip is the 30 km West Plains PRISM buffer, not a dye-traced recharge polygon.",
+        f"- Basin precip: {basin_mod.basin_label()}. The polygon excludes recharge shared with Bill Mac and Greer springs (separate MoDNR layers). AORC before 2002 has no radar input and shares gauge/Stage IV inputs with PRISM, so the two grids are not independent.",
     ]
     write_report(DOCS_DIR / "phase4_baseflow.md", lines)
     print(f"wrote {DOCS_DIR / 'phase4_baseflow.md'}")

@@ -37,3 +37,31 @@ def test_cell_mask_area_roughly_349_sq_mi():
     # 0.01° cell ≈ 1.113 km × 0.893 km at 36.66° N ≈ 0.994 km²; 349–361 mi² = 904–935 km²
     km2 = m.sum() * 1.113 * 0.893
     assert 850 < km2 < 990
+
+
+import pandas as pd
+
+from spring_river.ingest import basin
+
+
+def test_get_basin_pcpn_dispatches_by_source(monkeypatch):
+    seen = []
+    df = pd.DataFrame({"date": pd.to_datetime(["2020-01-01"]), "pcpn_in": [0.1]})
+    monkeypatch.setattr(basin.aorc, "get_basin_pcpn", lambda s, e, refresh=False: (seen.append("aorc"), df)[1])
+    monkeypatch.setattr(basin.prism, "get_basin_pcpn",
+                        lambda s, e, polygon=None, refresh=False, **kw: (seen.append("polygon" if polygon is not None else "buffer"), df)[1])
+    for src in ("aorc", "prism_polygon", "prism_buffer"):
+        out = basin.get_basin_pcpn("2020-01-01", "2020-12-31", source=src)
+        assert list(out.columns) == ["date", "pcpn_in"]
+    assert seen == ["aorc", "polygon", "buffer"]
+
+
+def test_get_basin_pcpn_rejects_unknown_source():
+    with pytest.raises(ValueError):
+        basin.get_basin_pcpn("2020-01-01", "2020-12-31", source="daymet")
+
+
+def test_basin_label_names_geometry_and_product():
+    assert "AORC" in basin.basin_label("aorc") and "MoDNR" in basin.basin_label("aorc")
+    assert "PRISM" in basin.basin_label("prism_polygon") and "MoDNR" in basin.basin_label("prism_polygon")
+    assert "30 km" in basin.basin_label("prism_buffer")
