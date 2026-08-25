@@ -73,7 +73,9 @@ def _trend_section(label: str, idx: pd.DataFrame, tr: pd.DataFrame, span: str) -
             tr.drop(columns="series").round(3).to_markdown(index=False), ""]
 
 
-def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame) -> list[str]:
+def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame,
+                     alton_idx: pd.DataFrame) -> list[str]:
+    n_alton = int(alton_idx["total_in"].notna().sum())
     n_sig = {k: int(v["significant_bh"].sum()) for k, v in trends.items()}
     failed = coop_idx.loc[coop_idx["total_in"].isna() & (coop_idx["year"] < date.today().year), "year"].astype(int).tolist()
     return ["## Station vs basin: reading the divergence", "",
@@ -87,7 +89,8 @@ def _divergence_note(trends: dict[str, pd.DataFrame], coop_idx: pd.DataFrame) ->
             "smaller than the other indices' n for the same series, never larger.",
             f"- Basin values are {basin_mod.basin_label()}; station gaps enter a gridded product only through its gauge blending. "
             "Treat the basin trends as the Q3 headline and the station tests as a consistency check.",
-            f"- {ALTON_SID} (Alton) has no data 1983–1994 and 2012–2016; its trend test covers ~26 years and is a consistency check only.",
+            f"- {ALTON_SID} (Alton) has no data 1983–1994 and 2012–2016; {n_alton} years pass the 90 % coverage gate, "
+            "so its trend test is a consistency check only.",
             ""]
 
 
@@ -154,15 +157,16 @@ def main() -> None:
               f"ratio COOP/KUNO={ag['ratio']:.2f}, n={ag['months']} months ({ag['first']} to {ag['last']}). "
               f"Daily r was 0.42 in qa_report; monthly aggregation removes the ~7 AM observation-day offset.", ""]
 
-    trends = {}
+    trends, indices = {}, {}
     for label, df in ((COOP_SID, coop), ("KUNO", kuno), (ALTON_SID, alton), ("basin", basin)):
         idx = annual_indices(df)
         idx.to_parquet(TABLES_DIR / f"phase6_indices_{label}.parquet")
+        indices[label] = idx
         tr = index_trends(idx).assign(series=label)
         trends[label] = tr
         lines += _trend_section(label, idx, tr, _series_span(df))
     pd.concat(trends.values()).to_parquet(TABLES_DIR / "phase6_index_trends.parquet")
-    lines += _divergence_note(trends, pd.read_parquet(TABLES_DIR / f"phase6_indices_{COOP_SID}.parquet"))
+    lines += _divergence_note(trends, indices[COOP_SID], indices[ALTON_SID])
 
     t0 = time.perf_counter()
     lcs = {k: lag_correlation(monthly_series(basin, v), n_boot=N_BOOT) for k, v in approval_variants(mammoth).items()}

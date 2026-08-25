@@ -88,7 +88,7 @@ Series: USC00238880 West Plains COOP (1981-01-01–2026-08-24; COOP series 1981+
 - USC00238880 years failing 90% coverage (excluded from its trend tests): 1997, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021. The 2011–2021 hole removes most of the recent wet decade from the station test, so its null result is low power, not evidence against the basin trend.
 - `recharge_in` uses a stricter gate than the other indices: coverage is judged against the full Sep (year-1)–Feb (year) calendar season, so it is NaN for any year whose season straddles a series start or a gap (e.g. a series beginning 1 Jan has no recharge value for its first year). Its n can therefore be smaller than the other indices' n for the same series, never larger.
 - Basin values are NOAA AORC v1.1 1 km hourly basin mean over the MoDNR Mammoth Spring recharge polygon (~349 mi²), daily totals 24 h ending 12 UTC; station gaps enter a gridded product only through its gauge blending. Treat the basin trends as the Q3 headline and the station tests as a consistency check.
-- USC00230127 (Alton) has no data 1983–1994 and 2012–2016; its trend test covers ~26 years and is a consistency check only.
+- USC00230127 (Alton) has no data 1983–1994 and 2012–2016; 24 years pass the 90 % coverage gate, so its trend test is a consistency check only.
 
 ## Coupling: monthly basin precip → Mammoth Spring flow (anomaly correlation by lag)
 
