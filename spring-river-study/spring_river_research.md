@@ -50,3 +50,27 @@ systematic series. Imboden's 1915+ peaks are the defensible long series.
 - Mammoth Spring / Warm Fork gauge search — Task 7.
 - Recharge-basin polygon: 30 km West Plains buffer approximation until a dye-trace
   delineation is obtained.
+
+## Phase 4–6 decisions — 2026-08-25
+
+- Q1 primary series: Mammoth Spring vent DV (07069190, 1981→, no gaps). Hardy min7 secondary (WY 2002+, n=24).
+- Trend stack: in-repo Mann-Kendall / Sen (Gilbert CI) / Pettitt (`stats/trends.py`); OLS via statsmodels HC3.
+- BFI trends use gap-segmented Eckhardt with 30-day spin-up; Lyne-Hollick as check.
+- Flood frequency: LP3/MOM + B17B weighted skew (`REGIONAL_SKEW=-0.2`, approximate) + Grubbs-Beck + bootstrap CI. NOT EMA. 1982 crest reported as historical exceedance only. PeakFQ follow-up open.
+- Imboden NWIS peak file actually starts WY 1937 (n=89), not 1915 as the site catalog implied.
+- Stage↔flow at Hardy from annual-peak pairs (log-log, R²=0.99). USGS rating shifts still unobtained → Q5/Q8 provisional.
+- Precip station agreement re-tested monthly (r=0.86), resolving the qa_report daily-r=0.42 item as an observation-time artifact.
+- Lag-correlation bootstrap resamples 12-month blocks of already-lagged pairs (fixed 2026-08-25 after review).
+
+### Headline results vs. working hypotheses
+
+| Q | Hypothesis | Result |
+|---|---|---|
+| Q1 | Drought-driven, not structural | Supported. Mammoth residual trend +0.0017 log-cfs/yr (CI −0.0019 to 0.0047, n=43). Hardy min7 *rising* (+0.021/yr, CI 0.009–0.034, n=24). |
+| Q2 | Magnitude up, frequency flat | Not detectable. Imboden peaks +0.0011 log10-cfs/yr (CI −0.0012 to 0.0041, n=89); pre/post-2008 10-yr quantile CIs overlap. |
+| Q3 | Weak/inconclusive | Basin (PRISM): 9/10 indices up (total +2.4 in/decade, CI 0.4–4.5). Station tests low-power (COOP coverage gaps). |
+| Q4 | Floods reduce recharge | **Refuted.** Post-flood base flow +21% (Mammoth, CI 9–34) and +29% (Hardy, CI 13–45), n=6. |
+| Q5 | Partly a rating artifact | Supported. Stage at 1000 cfs −0.019 ft/yr (CI −0.021 to −0.015, n=19); gradual, not step-wise at floods. |
+| Q6 | Modal, not periodic | Consistent with memoryless: CV 1.01, bootstrap p=0.47, n=7. |
+| Q7 | Pattern, n=2 | No support; P(quiet\|major)=0 vs base 0.08, n_major=5. |
+| Q8 | 10 ft≈annual; 16≈4 yr; 22+≈15–25 | 10 ft 1.4 yr; 16 ft 4.5 (empirical 4.0); 20 ft 12.5; 23 ft ~29 yr (n=24 → wide). |
