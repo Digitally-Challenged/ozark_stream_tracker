@@ -49,3 +49,17 @@ USGS rating-shift/datum records for Hardy (Q5/Q8 provisional); real regional ske
 - `dataviz` + `artifact-design` — only if the brief gets new charts.
 - `superpowers:verification-before-completion` — fresh-clone `make report` before claiming done.
 - `handoff` at the end.
+
+## Closing status — 2026-08-25 (end of the second-edition session)
+
+Branch `study/precip-edition`, head 08152bf (18 commits on d3f58af). 180 tests; fresh-clone `make report` reproduces all phase documents byte-for-byte from the `data/raw` cache (verified three times, last at 08152bf). **Not yet merged** — merge with `--no-ff` and push only on Nick's explicit go-ahead.
+
+Delivered beyond the original sequence:
+- `climate/composite.py` — West Plains composite (COOP 1948–1998-03-31; KUNO × 1.068 from 1998-04-01, COOP fallback; cache `acis_pcpn_USC00238880_1948`, build cache untouched); Phase 6 series "West Plains composite" (n = 76): total +1.32 in/decade (CI 0.31–2.35, p_BH 0.055, ns); days ≥ 1 in significant; max1/SDII flat — the "station tests are low-power" line was replaced by what the 76-year gauge shows.
+- `analysis/compare_sources.py` (`make compare`) and `docs/precip_comparison.md`; `hydro/postflood.py` 90 % coverage gate; offline-safe AORC year clamp; Q1 prose matched to code (Codex blocking item).
+- Reviews: per-task gates, whole-branch review, Codex adversarial pass, all findings fixed — record in `docs/review_phase4-6.md` § "Second edition review".
+- Artifacts (republish to the same URLs): technical report https://claude.ai/code/artifact/a1dc172c-1984-4789-9ca4-cb3ba474b90c ; lay final report https://claude.ai/code/artifact/461090a5-7702-4c8f-8fa2-0a498fde7390 (source `reports/plain.html`; Nick's instruction: standalone final report, no references to prior editions; includes "Is 2026 unusual?" on the West Plains record).
+
+Gotchas learned this session: AORC bucket carries whole calendar years and lags by months (2025.zarr latest on 2026-08-25); `cp -R data/raw dest/data/raw` nests into `raw/raw` — use `cp -R data/raw/. dest/data/raw/`; a subagent added `*.html` to `reports/.gitignore` unasked (reverted) — check gitignore diffs from doc tasks; ACIS caches are keyed by station id (+ optional suffix), never by date range.
+
+Next: Phase 8 (`review.md`). Attack first: the Hardy residual (AORC positive vs PRISM zero is one product vs another, not "two of three"); the grid-vs-gauge intensity disagreement (1981+ areal vs 1949+ point); the COOP/KUNO 3.5-in disagreement over the last twelve months.
