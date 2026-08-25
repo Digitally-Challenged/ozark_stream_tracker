@@ -20,3 +20,13 @@ INTERIM_DIR = PROJECT_ROOT / "data" / "interim"
 PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 DOCS_DIR = PROJECT_ROOT / "docs"
 FIGURES_DIR = PROJECT_ROOT / "reports" / "figures"
+TABLES_DIR = PROJECT_ROOT / "reports" / "tables"
+RATING_FLOWS_CFS = (400.0, 1000.0)      # spec §2.2 stage-at-fixed-discharge
+RATING_TOLERANCE = 0.05                 # ±5% flow window for IV pairs
+# Bulletin 17B Plate I generalized skew for the S. Missouri / NE Arkansas
+# region is approximately -0.2 with map MSE 0.302. APPROXIMATE — replace
+# with the USGS Arkansas/Missouri regional-skew study value when obtained,
+# and flag every B17 result as provisional until then.
+REGIONAL_SKEW = -0.2
+REGIONAL_SKEW_MSE = 0.302
+MAJOR_FLOOD_FT = 16.0

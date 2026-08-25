@@ -12,6 +12,7 @@ dependencies = [
     "pyarrow>=16,<21",
     "matplotlib>=3.9,<4",
     "tabulate>=0.10.0",
+    "statsmodels>=0.14,<0.15",
 ]
 
 [dependency-groups]
