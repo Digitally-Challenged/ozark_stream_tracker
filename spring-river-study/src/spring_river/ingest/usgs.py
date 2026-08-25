@@ -5,9 +5,21 @@ from dataretrieval import nwis
 from spring_river.ingest.cache import fetch_cached
 
 
+def _empty_tidy_frame(datetime_col: str) -> pd.DataFrame:
+    return pd.DataFrame(
+        {
+            datetime_col: pd.Series([], dtype="datetime64[ns]"),
+            "value": pd.Series([], dtype="float64"),
+            "approved": pd.Series([], dtype="bool"),
+        }
+    )
+
+
 def _tidy_dv(raw: pd.DataFrame, param: str) -> pd.DataFrame:
     value_col = f"{param}_Mean"
     cd_col = f"{param}_Mean_cd"
+    if raw.empty or value_col not in raw.columns or cd_col not in raw.columns:
+        return _empty_tidy_frame("date")
     out = pd.DataFrame(
         {
             "date": raw.index.tz_localize(None)
@@ -15,6 +27,28 @@ def _tidy_dv(raw: pd.DataFrame, param: str) -> pd.DataFrame:
             else raw.index,
             "value": pd.to_numeric(raw[value_col], errors="coerce"),
             "approved": raw[cd_col].astype(str).str.startswith("A"),
+        }
+    ).reset_index(drop=True)
+    out.loc[out["value"] <= -999990, "value"] = pd.NA
+    out["value"] = out["value"].astype("float64")
+    return out
+
+
+def _tidy_iv(raw: pd.DataFrame, param: str) -> pd.DataFrame:
+    cd_cols = [c for c in raw.columns if c.endswith("_cd")]
+    value_cols = [
+        c for c in raw.columns if c.startswith(param) and not c.endswith("_cd")
+    ]
+    if raw.empty or not value_cols or not cd_cols:
+        return _empty_tidy_frame("datetime")
+    idx = raw.index
+    out = pd.DataFrame(
+        {
+            "datetime": idx.tz_convert("US/Central").tz_localize(None)
+            if idx.tz is not None
+            else idx,
+            "value": pd.to_numeric(raw[value_cols[0]], errors="coerce"),
+            "approved": raw[cd_cols[0]].astype(str).str.startswith("A"),
         }
     ).reset_index(drop=True)
     out.loc[out["value"] <= -999990, "value"] = pd.NA
@@ -48,19 +82,7 @@ def get_iv(
 
     def fetch() -> pd.DataFrame:
         raw, _ = nwis.get_iv(sites=site, parameterCd=param, start=start, end=end)
-        cd_cols = [c for c in raw.columns if c.endswith("_cd")]
-        value_cols = [
-            c for c in raw.columns if c.startswith(param) and not c.endswith("_cd")
-        ]
-        out = pd.DataFrame(
-            {
-                "datetime": raw.index.tz_convert("US/Central").tz_localize(None),
-                "value": pd.to_numeric(raw[value_cols[0]], errors="coerce"),
-                "approved": raw[cd_cols[0]].astype(str).str.startswith("A"),
-            }
-        ).reset_index(drop=True)
-        out.loc[out["value"] <= -999990, "value"] = pd.NA
-        return out
+        return _tidy_iv(raw, param)
 
     meta = {
         "source": "USGS NWIS instantaneous values via dataretrieval",
