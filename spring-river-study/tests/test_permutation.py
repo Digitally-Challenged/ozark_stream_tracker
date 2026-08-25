@@ -12,6 +12,18 @@ def test_strong_pattern_is_significant():
     assert r.diff > 0
     assert r.p < 0.05
     assert r.n_major == 10
+    assert r.diff_lo <= r.diff <= r.diff_hi
+    assert r.diff_hi == 1.0 - r.base_rate  # k == n -> upper bound exactly 1
+
+
+def test_zero_successes_gives_lower_bound_of_minus_base_rate():
+    # major years are never followed by a quiet year
+    major = np.array([True, False] * 8)
+    quiet = np.array([True, False] * 8)  # quiet only on major years themselves
+    r = conditional_rate_test(major, quiet, n_perm=200, seed=3)
+    assert r.rate_after_major == 0.0
+    assert r.diff_lo == -r.base_rate
+    assert r.diff_lo <= r.diff <= r.diff_hi
 
 
 def test_no_pattern_is_not_significant():

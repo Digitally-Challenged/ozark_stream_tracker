@@ -2,10 +2,19 @@
 from dataclasses import dataclass
 
 import numpy as np
+from scipy import stats
 
 
 @dataclass(frozen=True)
 class ConditionalRateResult:
+    """Conditional quiet-year rate after a major-flood year vs the base rate.
+
+    diff = rate_after_major - base_rate. diff_lo/diff_hi are the Clopper-Pearson
+    exact 95% interval on rate_after_major (k quiet-after-major of n_major
+    prior-major years), shifted by base_rate; they bracket diff. p is a
+    permutation p-value with n_major held fixed.
+    """
+
     n_years: int
     n_major: int
     rate_after_major: float
@@ -23,6 +32,13 @@ def _rate_after(major: np.ndarray, quiet: np.ndarray) -> float:
     return float(quiet[idx + 1].mean())
 
 
+def _clopper_pearson(k: int, n: int, level: float = 0.95) -> tuple[float, float]:
+    a = (1 - level) / 2
+    lo = 0.0 if k == 0 else float(stats.beta.ppf(a, k, n - k + 1))
+    hi = 1.0 if k == n else float(stats.beta.ppf(1 - a, k + 1, n - k))
+    return lo, hi
+
+
 def conditional_rate_test(
     major: np.ndarray, quiet: np.ndarray, n_perm: int = 10000, seed: int = 0
 ) -> ConditionalRateResult:
@@ -32,20 +48,22 @@ def conditional_rate_test(
     base = float(quiet.mean())
     observed = _rate_after(major, quiet)
     diff = observed - base
-    rng = np.random.default_rng(seed)
     n_major = int(major[:-1].sum())
     if n_major == 0:
         return ConditionalRateResult(
             n, 0, observed, base, float("nan"), float("nan"), float("nan"), float("nan")
         )
-    perm = np.array([_rate_after(rng.permutation(major), quiet) - base for _ in range(n_perm)])
-    p = float((perm >= diff).mean())
-    boot = np.array(
+    rng = np.random.default_rng(seed)
+    prior, last = major[:-1], major[-1:]
+    perm = np.array(
         [
-            _rate_after(major[idx := np.sort(rng.integers(0, n, n))], quiet[idx]) - quiet[idx].mean()
+            _rate_after(np.concatenate([rng.permutation(prior), last]), quiet) - base
             for _ in range(n_perm)
         ]
     )
-    boot = boot[~np.isnan(boot)]
-    lo, hi = np.percentile(boot, [2.5, 97.5]) if len(boot) else (float("nan"), float("nan"))
-    return ConditionalRateResult(n, n_major, observed, base, float(diff), float(lo), float(hi), p)
+    p = float((perm >= diff).mean())
+    k = int(quiet[np.flatnonzero(prior) + 1].sum())
+    lo, hi = _clopper_pearson(k, n_major)
+    return ConditionalRateResult(
+        n, n_major, observed, base, float(diff), lo - base, hi - base, p
+    )

@@ -1,5 +1,6 @@
 import numpy as np
 import pytest
+from scipy import stats
 
 from spring_river.stats.trends import mann_kendall, pettitt, sen_slope, trend_test
 
@@ -45,6 +46,17 @@ def test_sen_slope_ci_contains_true_slope_with_noise():
     slope, lo, hi, _ = sen_slope(x, t)
     assert lo < 0.8 < hi
     assert lo < slope < hi
+
+
+def test_sen_slope_matches_scipy_theilslopes():
+    rng = np.random.default_rng(7)
+    t = np.arange(35, dtype=float)
+    x = 0.4 * t + rng.normal(0, 2, 35)
+    slope, lo, hi, _ = sen_slope(x, t, alpha=0.05)
+    ref = stats.theilslopes(x, t, alpha=0.95)
+    assert slope == ref.slope
+    assert lo == ref.low_slope
+    assert hi == ref.high_slope
 
 
 def test_trend_test_drops_nan_and_reports_n():

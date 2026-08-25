@@ -1,10 +1,19 @@
 """Log-Pearson III flood frequency (spec §2.3).
 
 This is LP3 by method of moments with Bulletin 17B/17C-style weighted skew,
-a single Grubbs-Beck low-outlier screen, and parametric-bootstrap CIs. It is
-NOT the full Expected Moments Algorithm (no censored/historical-period
+a Grubbs-Beck low-outlier screen used for FLAGGING only by default, and
+nonparametric-bootstrap CIs (resampling observed peaks with replacement). It
+is NOT the full Expected Moments Algorithm (no censored/historical-period
 likelihood); PeakFQ/EMA is the documented follow-up. Regional skew comes from
 config.REGIONAL_SKEW (approximate; see config comment).
+
+Low outliers: B17B drops peaks below the Grubbs-Beck threshold AND then
+applies a conditional-probability adjustment to the fitted curve. Dropping
+without that adjustment biases the quantiles, so the default fit keeps every
+peak and only reports how many fall below the threshold
+(`n_low_outliers_flagged`). `drop_low_outliers=True` reproduces the old
+truncated fit, still WITHOUT the conditional-probability adjustment — use it
+for sensitivity checks, not as the headline estimate.
 """
 from dataclasses import dataclass
 
@@ -23,7 +32,7 @@ class LP3Fit:
     station_skew: float
     weighted_skew: float
     low_outlier_threshold_cfs: float
-    n_dropped: int
+    n_low_outliers_flagged: int
 
 
 def station_skew(x: np.ndarray) -> float:
@@ -57,15 +66,25 @@ def fit_lp3(
     peaks_cfs: np.ndarray,
     regional_skew: float | None = REGIONAL_SKEW,
     mse_r: float = REGIONAL_SKEW_MSE,
+    drop_low_outliers: bool = False,
 ) -> LP3Fit:
+    """Fit LP3 moments in log10 space.
+
+    `n_low_outliers_flagged` is always the count of peaks below the
+    Grubbs-Beck threshold. With `drop_low_outliers=False` (default) those
+    peaks remain in the fit. With True they are removed before computing
+    moments — NO B17B conditional-probability adjustment is applied, so the
+    resulting quantiles are biased and should be treated as a sensitivity
+    check only.
+    """
     x = np.log10(np.asarray(peaks_cfs, dtype="float64"))
     x = x[np.isfinite(x)]
     thr = grubbs_beck_threshold(x)
-    kept = x[x >= thr]
-    n_dropped = int(len(x) - len(kept))
+    n_flagged = int((x < thr).sum())
+    kept = x[x >= thr] if drop_low_outliers else x
     gs = station_skew(kept)
     gw = gs if regional_skew is None else weighted_skew(gs, len(kept), regional_skew, mse_r)
-    return LP3Fit(len(kept), float(kept.mean()), float(kept.std(ddof=1)), gs, gw, float(10 ** thr), n_dropped)
+    return LP3Fit(len(kept), float(kept.mean()), float(kept.std(ddof=1)), gs, gw, float(10 ** thr), n_flagged)
 
 
 def quantile(fit: LP3Fit, return_period: float) -> float:
@@ -86,6 +105,8 @@ def bootstrap_quantiles(
     seed: int = 0,
     **fit_kw,
 ) -> pd.DataFrame:
+    """Nonparametric bootstrap (resampling observed peaks with replacement)
+    5-95% band on LP3 quantiles; `fit_kw` is forwarded to `fit_lp3`."""
     x = np.asarray(peaks_cfs, dtype="float64")
     fit = fit_lp3(x, **fit_kw)
     rng = np.random.default_rng(seed)

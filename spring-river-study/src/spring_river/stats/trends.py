@@ -1,7 +1,8 @@
 """Non-parametric trend tests (spec §2.2, §2.6).
 
 Mann-Kendall S with tie-corrected variance; Sen's slope with the Gilbert
-(1987) rank-based confidence interval; Pettitt (1979) single change-point.
+(1987) rank-based confidence interval (delegated to scipy.stats.theilslopes);
+Pettitt (1979) single change-point.
 Every public function returns effect size + CI + n so callers can satisfy
 the "no bare p-values" rule.
 """
@@ -59,22 +60,15 @@ def mann_kendall(x: np.ndarray) -> tuple[float, float, float]:
 def sen_slope(
     x: np.ndarray, t: np.ndarray | None = None, alpha: float = 0.05
 ) -> tuple[float, float, float, float]:
+    """Sen's slope with the Gilbert (1987) CI, via scipy.stats.theilslopes.
+
+    `alpha` is the significance level; scipy takes the confidence level, so
+    it receives 1 - alpha. Intercept uses method="joint": median(x - slope*t).
+    """
     x = np.asarray(x, dtype="float64")
-    n = len(x)
-    t = np.arange(n, dtype="float64") if t is None else np.asarray(t, dtype="float64")
-    i, j = np.triu_indices(n, k=1)
-    dt = t[j] - t[i]
-    keep = dt != 0
-    slopes = np.sort((x[j] - x[i])[keep] / dt[keep])
-    slope = float(np.median(slopes))
-    n_pairs = len(slopes)
-    c = stats.norm.ppf(1 - alpha / 2) * np.sqrt(_mk_variance(x))
-    m1 = int(np.floor((n_pairs - c) / 2))
-    m2 = int(np.ceil((n_pairs + c) / 2))
-    lo = float(slopes[max(m1, 0)])
-    hi = float(slopes[min(m2, n_pairs - 1)])
-    intercept = float(np.median(x - slope * t))
-    return slope, lo, hi, intercept
+    t = np.arange(len(x), dtype="float64") if t is None else np.asarray(t, dtype="float64")
+    res = stats.theilslopes(x, t, alpha=1 - alpha, method="joint")
+    return float(res.slope), float(res.low_slope), float(res.high_slope), float(res.intercept)
 
 
 def trend_test(

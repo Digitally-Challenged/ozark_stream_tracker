@@ -44,6 +44,19 @@ def test_grubbs_beck_flags_low_outlier():
     assert logq[0] < thr < np.median(logq)
 
 
+def test_fit_flags_but_keeps_low_outliers_by_default():
+    x = _lp3_sample()
+    x[0] = 100.0  # absurdly low peak
+    fit = fit_lp3(x, regional_skew=None)
+    assert fit.n_low_outliers_flagged == 1
+    assert fit.n == len(x)
+    assert 100.0 < fit.low_outlier_threshold_cfs
+    dropped = fit_lp3(x, regional_skew=None, drop_low_outliers=True)
+    assert dropped.n_low_outliers_flagged == 1
+    assert dropped.n == len(x) - 1
+    assert dropped.mean_log > fit.mean_log
+
+
 def test_fit_and_quantile_roundtrip():
     x = _lp3_sample(n=200)
     fit = fit_lp3(x, regional_skew=None)

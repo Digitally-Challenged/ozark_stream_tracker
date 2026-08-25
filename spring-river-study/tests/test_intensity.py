@@ -29,6 +29,22 @@ def test_coverage_gate_nulls_indices():
     assert row["coverage"] < 0.9 and np.isnan(row["total_in"])
 
 
+def test_recharge_requires_full_calendar_season():
+    idx = annual_indices(_precip(years=range(1981, 1984)))
+    assert np.isnan(idx[idx["year"] == 1981].iloc[0]["recharge_in"])
+    assert not np.isnan(idx[idx["year"] == 1982].iloc[0]["recharge_in"])
+
+
+def test_max3_does_not_bleed_across_new_year():
+    d = pd.date_range("2000-01-01", "2001-12-31", freq="D")
+    p = pd.DataFrame({"date": d, "pcpn_in": 0.0})
+    p.loc[p["date"].isin(pd.to_datetime(["2000-12-30", "2000-12-31", "2001-01-01"])), "pcpn_in"] = 2.0
+    p.loc[p["date"] == "2001-06-01", "pcpn_in"] = 3.0
+    idx = annual_indices(p).set_index("year")
+    assert idx.loc[2000, "max3_in"] == 4.0
+    assert idx.loc[2001, "max3_in"] == 3.0
+
+
 def test_index_trends_has_bh_column():
     tr = index_trends(annual_indices(_precip()))
     assert set(tr["index"]) == set(INDEX_COLUMNS)
