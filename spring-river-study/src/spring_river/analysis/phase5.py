@@ -39,7 +39,8 @@ from spring_river.hydro.freq_lp3 import (  # noqa: E402
 from spring_river.hydro.interarrival import antecedent_conditions, interarrival_test  # noqa: E402
 from spring_river.hydro.pot import annual_counts, dispersion_test, pot_events  # noqa: E402
 from spring_river.hydro.wateryear import daily_max_stage, water_year  # noqa: E402
-from spring_river.ingest import nwps, prism, usgs  # noqa: E402
+from spring_river.ingest import basin as basin_mod  # noqa: E402
+from spring_river.ingest import nwps, usgs  # noqa: E402
 from spring_river.ingest.pull_all import IV_START  # noqa: E402
 from spring_river.stats.permutation import conditional_rate_test  # noqa: E402
 from spring_river.stats.trends import TrendResult, pettitt, trend_test  # noqa: E402
@@ -263,7 +264,7 @@ def main() -> None:
     imb_pk = _peaks_by_wy(usgs.get_peaks(SITE_IMBODEN))
     hardy_dv = usgs.get_dv(SITE_HARDY, PARAM_DISCHARGE, START_DATE, end)
     stage = daily_max_stage(usgs.get_iv(SITE_HARDY, PARAM_STAGE, IV_START, end))
-    basin = prism.get_basin_pcpn(START_DATE, end)
+    basin = basin_mod.get_basin_pcpn(START_DATE, end)
     crests = nwps.historic_crests(nwps.get_gauge_info())
 
     lines = [
@@ -391,7 +392,7 @@ def main() -> None:
         "",
         ante.round(2).to_markdown(index=False),
         "",
-        "BFI from segmented Eckhardt on Hardy DV discharge; precip is the PRISM 30 km-buffer basin mean. "
+        f"BFI from segmented Eckhardt on Hardy DV discharge; precip is the basin mean ({basin_mod.basin_label()}). "
         "Windows exclude the event day.",
         "",
     ]

@@ -63,6 +63,7 @@ def test_get_basin_pcpn_concatenates_years_and_uses_cache(raw_dir, monkeypatch):
         calls.append(year)
         return _hourly(f"{year}-12-31 13:00", 24, value=25.4)  # one day labelled Jan 1 of year+1
 
+    monkeypatch.setattr(aorc, "available_years", lambda: list(range(1979, 2026)))
     monkeypatch.setattr(aorc, "get_basin_hourly", fake_year)
     out = aorc.get_basin_pcpn("2019-01-01", "2020-12-31")
     assert calls == [2019, 2020]
@@ -74,9 +75,23 @@ def test_get_basin_pcpn_rejects_out_of_range_request(raw_dir, monkeypatch):
     def fail_if_called(year: int, refresh: bool = False) -> pd.DataFrame:
         raise AssertionError("get_basin_hourly should not be called for an out-of-range request")
 
+    monkeypatch.setattr(aorc, "available_years", lambda: list(range(1979, 2026)))
     monkeypatch.setattr(aorc, "get_basin_hourly", fail_if_called)
     with pytest.raises(ValueError):
         aorc.get_basin_pcpn("1970-01-01", "1975-12-31")
+
+
+def test_get_basin_pcpn_clamps_to_latest_available_year(raw_dir, monkeypatch):
+    calls = []
+
+    def fake_year(year: int, refresh: bool = False) -> pd.DataFrame:
+        calls.append(year)
+        return _hourly(f"{year}-12-31 13:00", 24, value=25.4)
+
+    monkeypatch.setattr(aorc, "available_years", lambda: [2019, 2020])
+    monkeypatch.setattr(aorc, "get_basin_hourly", fake_year)
+    aorc.get_basin_pcpn("2019-01-01", "2026-08-25")
+    assert calls == [2019, 2020]
 
 
 def test_fetch_year_raises_when_no_hours_in_bbox(monkeypatch):

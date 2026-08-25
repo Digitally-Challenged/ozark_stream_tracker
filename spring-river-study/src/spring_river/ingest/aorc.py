@@ -10,9 +10,11 @@ with the date of the window end; a day with fewer than 24 hours present is NaN.
 AORC before 2002 has no radar input (gauge + reanalysis blend); its sub-daily
 advantage is 2002→. It shares Stage IV/MRMS and gauge inputs with PRISM, so the
 two are not methodologically independent.
-"""
-from datetime import date
 
+The bucket carries whole calendar years and lags the present by months (2025
+was the latest store on 2026-08-25); the daily series therefore ends on 31 Dec
+of the latest store.
+"""
 import numpy as np
 import pandas as pd
 
@@ -92,13 +94,27 @@ def daily_from_hourly(hourly: pd.DataFrame, day_end_hour_utc: int = AORC_DAY_END
     return pd.DataFrame({"date": g.index, "pcpn_in": pcpn_in.to_numpy(dtype="float64")}).reset_index(drop=True)
 
 
+def available_years() -> list[int]:
+    """Calendar years with a `{year}.zarr` store in the AORC bucket (one S3 listing)."""
+    import s3fs
+
+    fs = s3fs.S3FileSystem(anon=True)
+    years = []
+    for path in fs.ls(AORC_BUCKET):
+        name = path.rsplit("/", 1)[-1]
+        if name.endswith(".zarr") and name[:-5].isdigit():
+            years.append(int(name[:-5]))
+    if not years:
+        raise RuntimeError(f"no {{year}}.zarr stores listed in s3://{AORC_BUCKET}")
+    return sorted(years)
+
+
 def get_basin_pcpn(start: str, end: str, refresh: bool = False) -> pd.DataFrame:
+    latest = available_years()[-1]
     y0 = max(pd.Timestamp(start).year, AORC_FIRST_YEAR)
-    y1 = min(pd.Timestamp(end).year, date.today().year)
+    y1 = min(pd.Timestamp(end).year, latest)
     if y0 > y1:
-        raise ValueError(
-            f"requested {start}..{end} lies outside AORC availability {AORC_FIRST_YEAR}..{date.today().year}"
-        )
+        raise ValueError(f"requested {start}..{end} lies outside AORC availability {AORC_FIRST_YEAR}..{latest}")
     hourly = pd.concat([get_basin_hourly(y, refresh=refresh) for y in range(y0, y1 + 1)], ignore_index=True)
     daily = daily_from_hourly(hourly)
     keep = (daily["date"] >= pd.Timestamp(start)) & (daily["date"] <= pd.Timestamp(end))
